@@ -3,6 +3,13 @@ package board;
 import enums.FloodStatusEnum;
 import enums.TileEnum;
 
+/**
+ * Abstract class for tiles on the board in the Forbidden Island Game.
+ * @author Demi Oke
+ * @version 1.0
+ *
+ */
+
 public abstract class Tile {
 	
 	//===========================================================
