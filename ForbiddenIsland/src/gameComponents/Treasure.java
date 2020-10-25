@@ -1,4 +1,4 @@
-package GameComponents;
+package gameComponents;
 
 public class Treasure {
 
