@@ -48,8 +48,28 @@ public abstract class Tile {
     * getter to return the flood status Tile
     * @return the flood status of the Tile.
     */
+	
+	
 	public FloodStatusEnum getFloodStatus() {
 		return this.floodStatus;
 	}
+	
+	/*
+	public String toString() {
+		
+		StringBuilder temp = new StringBuilder("");
+		temp.append("Tile Name: " + tileName);
+		temp.append("\nFlooded: " + floodStatus.toString());
+		return temp.toString();
+		
+	}
+	public Boolean compareTo(Tile otherTile) {
+		
+		if(this.toString() == otherTile.toString())
+			return true;
+		else return false;
+		
+	}
+	*/
 
 }

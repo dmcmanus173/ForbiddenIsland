@@ -1,6 +1,13 @@
 package gameComponents;
 
 public class WaterMeter {
+
+	/**
+	 * Class which will manage the water meter for Forbidden Island
+	 * @author Daniel McManus
+	 * @version 0.1
+	 *
+	 */
 	
 	private int level;
 	
@@ -67,7 +74,7 @@ public class WaterMeter {
 		
 		WaterMeter wm4 = new WaterMeter(6);   // "Level requested is greater than maxLevel(=5). Level set to maxLevel."
 		System.out.println( wm4.toString() ); // "Water Meter: 5"	
-		
+	
 	}
 	*/
 }
