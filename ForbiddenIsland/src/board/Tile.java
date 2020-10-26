@@ -54,6 +54,20 @@ public abstract class Tile {
 		return this.floodStatus;
 	}
 	
+	public Boolean shoreUp() {
+		
+		if(floodStatus == FloodStatusEnum.FLOODED) {
+			floodStatus = FloodStatusEnum.NOT_FLOODED;
+			return true;
+		}
+		else if(floodStatus == FloodStatusEnum.SUNKEN)
+			System.out.println("This tile can't be sandbagged, it is already sunk.");
+		else
+			System.out.println("This tile doesn't need to be sandbagged, it isn't flooded.");
+		return false;
+		
+	}
+	
 	/*
 	public String toString() {
 		

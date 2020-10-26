@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import board.Tile;
 import enums.AdventurerEnum;
-import enums.TreasureCardEnum;
 
 public class Player {
 	
@@ -18,11 +17,11 @@ public class Player {
 	private String name;
 	private AdventurerEnum role;
 	private Tile location;
-	private ArrayList<TreasureCard> treasureCards = new ArrayList<>();
+	private ArrayList<AbstractTreasureCard> treasureCards = new ArrayList<>();
 	
 	private int maxTreasureCards = 5;
 	
-	public Player(String name, AdventurerEnum role, Tile location, ArrayList<TreasureCard> treasureCards) {
+	public Player(String name, AdventurerEnum role, Tile location, ArrayList<AbstractTreasureCard> treasureCards) {
 		
 		this.name = name;
 		this.role = role;
@@ -47,7 +46,7 @@ public class Player {
 	public String treasureCardsToString() {
 		
 		StringBuilder temp = new StringBuilder("");
-		for(TreasureCard card : treasureCards)
+		for(AbstractTreasureCard card : treasureCards)
 			temp.append("Index: " + card.toString() + "\n"); //TODO add index number in ArrayList
 		return temp.toString();
 		
@@ -59,7 +58,7 @@ public class Player {
 		if( treasureCards.size() == maxTreasureCards+1) {
 			removeTreasureCard();
 		}
-		
+		// Possibly return null, if no card to remove...
 	}
 	
 	public TreasureCard giveTreasureCard(Player otherPlayer, TreasureCard card) {
@@ -69,12 +68,11 @@ public class Player {
 				treasureCards.remove(card);
 				return card;
 			}
-			else System.out.println(name + " doesn't have the card " + card.getType().toString() );
+			else System.out.println(name + " doesn't have the card " + card.getCardType().toString() );
 				return null;
 		}
 		System.out.println("These players can't trade cards, they are not near each other.");
 		return null; // No card to give, return NULL
-		
 		
 	}
 	
@@ -88,10 +86,9 @@ public class Player {
 	public void shoreUp(Tile islandTile) {
 		
 		//TODO Must resolve to shore any tile adjacent to player
-		TreasureCard sandbag = new TreasureCard(TreasureCardEnum.SANDBAG);
+		SandbagCard sandbag = new SandbagCard(); //TODO see if this works, might change to iterative search
 		if( treasureCards.contains(sandbag) ) {
-			Boolean shoredUp = islandTile.shoreUp(); //TODO Resolve this error. Talk to @DEMI
-			if( shoredUp ) treasureCards.remove(sandbag);
+			if( islandTile.shoreUp() ) treasureCards.remove(sandbag);
 		}
 		else
 			System.out.println(name + " does not have a Sandbag card.");
