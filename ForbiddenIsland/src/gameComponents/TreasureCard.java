@@ -7,9 +7,9 @@ public class TreasureCard extends AbstractTreasureCard {
 
 	private TreasureEnum treasureType;
 	
-	public TreasureCard(TreasureCardEnum cardType, TreasureEnum treasureType) {
+	public TreasureCard(TreasureEnum treasureType) {
 		
-		super(cardType);
+		super(TreasureCardEnum.TREASURE);
 		this.treasureType = treasureType;
 		
 	}
@@ -25,7 +25,7 @@ public class TreasureCard extends AbstractTreasureCard {
 		
 		StringBuilder temp = new StringBuilder("");
 		temp.append(super.toString());
-		temp.append("\nTreasure: " + treasureType.toString());
+		temp.append("; Treasure: " + treasureType.toString());
 		return temp.toString();
 	
 	}
