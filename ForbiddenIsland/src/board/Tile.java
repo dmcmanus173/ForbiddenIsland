@@ -68,6 +68,18 @@ public abstract class Tile {
 		
 	}
 	
+	public void flood() {
+		if(floodStatus == FloodStatusEnum.NOT_FLOODED) {
+			floodStatus = FloodStatusEnum.FLOODED;
+			System.out.println("Island Tile is now flooded!");
+		}
+		else if(floodStatus == FloodStatusEnum.FLOODED) {
+			floodStatus = FloodStatusEnum.SUNKEN;
+			System.out.println("Island Tile is now sunk!");
+		}
+		
+	}
+	
 	/*
 	public String toString() {
 		
