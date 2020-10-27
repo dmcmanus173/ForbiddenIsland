@@ -5,64 +5,97 @@ import java.util.ArrayList;
 import board.Tile;
 import enums.AdventurerEnum;
 
+/**
+ * Class for the Player in Forbidden Island.
+ * 
+ * @author  Demi Oke and Daniel McManus
+ * @date    27/10/2020
+ * @version 0.1
+ */
 public class Player {
-	
-	/**
-	 * Class which will manage players actions in the Forbidden Island game
-	 * @author Daniel McManus
-	 * @version 0.1
-	 *
-	 */
 
+	//===========================================================
+	// Variable Setup
+	//===========================================================
 	private String name;
 	private AdventurerEnum role;
 	private Tile location;
 	private ArrayList<AbstractTreasureCard> treasureCards = new ArrayList<>();
 	
+	//===========================================================
+	// Variable for Game Settings
+	//===========================================================
 	private int maxTreasureCards = 5;
 	
+	//===========================================================
+	// Constructor
+	//===========================================================
+	/**
+	 * Constructor for Player object.
+	 * @param String name, the name of the player.
+	 * @param AdventurerEnum role, role of the player.
+	 * @param Tile location, tile the Player will begin the game.
+	 * @param ArrayList<AbstractTreasureCard> treasureCards, the treasureCards that the player will begin with.
+	 */
 	public Player(String name, AdventurerEnum role, Tile location, ArrayList<AbstractTreasureCard> treasureCards) {
-		
 		this.name = name;
 		this.role = role;
 		this.location = location;
 		this.treasureCards.addAll(treasureCards);
-		
 	}
 	
+	//===========================================================
+	// Other Functions
+	//===========================================================
+	/**
+	 * getLocation method will return the tile that the player is currently located.
+	 * @return Tile location, the location the player is at.
+	 */
 	public Tile getLocation() {
-		
 		return location;
-		
 	}
 	
-	//TODO Change type to TreasureCard, ensure removing of card is done. 
+	/**
+	 * removeTreasureCard method will remove a TreasureCard from player inventory.
+	 */
 	public void removeTreasureCard() {
-		
+		//TODO Change type to TreasureCard, ensure removing of card is done. 
 		System.out.println(treasureCardsToString());
-		
 	}
 	
+	/**
+	 * treasureCardsToString method returns the treasureCards that the player has
+	 * in string format.
+	 * @return String containing the cards that the player has in possession.
+	 */
 	public String treasureCardsToString() {
-		
 		StringBuilder temp = new StringBuilder("");
 		for(AbstractTreasureCard card : treasureCards)
-			temp.append("Index: " + card.toString() + "\n"); //TODO add index number in ArrayList
+			temp.append("Index: " + treasureCards.indexOf(card) + " - " + card.toString() + "\n"); //TODO add index number in ArrayList
 		return temp.toString();
-		
 	}
 	
-	public void assignTreasureCard(TreasureCard card) {
-		
+	/**
+	 * assignTreasureCard method will add card to player inventory.
+	 * If player has too many cards, will require removal of one.
+	 * @param AbstractTreasureCard card, the card to add to inventory. 
+	 */
+	public void assignTreasureCard(AbstractTreasureCard card) {
 		treasureCards.add(card);
 		if( treasureCards.size() == maxTreasureCards+1) {
 			removeTreasureCard();
 		}
-		// Possibly return null, if no card to remove...
+		//TODO Possibly return null, if no card to remove...
 	}
 	
-	public TreasureCard giveTreasureCard(Player otherPlayer, TreasureCard card) {
-		
+	/**
+	 * giveTreasureCard will facilitate giving a treasureCard from the inventory
+	 * of AbstractTreasureCards to a different player.
+	 * @param Player otherPlayer, the player to give a card to.
+	 * @param AbstractTreasureCard, the card to give away.
+	 * @return if can give the card, return AbstractTreasureCard, else return null.
+	 */
+	public AbstractTreasureCard giveTreasureCard(Player otherPlayer, AbstractTreasureCard card) {
 		if( (location == otherPlayer.getLocation() )||( role == AdventurerEnum.MESSENGER) ) {
 			if(treasureCards.contains(card)) {
 				treasureCards.remove(card);
@@ -73,18 +106,21 @@ public class Player {
 		}
 		System.out.println("These players can't trade cards, they are not near each other.");
 		return null; // No card to give, return NULL
-		
 	}
 	
+	/**
+	 * move method will move a player to a different tile.
+	 */
 	public void move () {
-		
 		//TODO Add content
 		// location = new location
-		
 	}
 	
+	/**
+	 * shoreUp will allow a player to shore-up a flooded island if it is flooded, and the player contains a sandbag card.
+	 * @param Tile islandTile to shore-up.
+	 */
 	public void shoreUp(Tile islandTile) {
-		
 		//TODO Must resolve to shore any tile adjacent to player
 		SandbagCard sandbag = new SandbagCard(); //TODO see if this works, might change to iterative search
 		if( treasureCards.contains(sandbag) ) {
@@ -92,14 +128,6 @@ public class Player {
 		}
 		else
 			System.out.println(name + " does not have a Sandbag card.");
-
-		
 	}
-	
-	
-	
-	
-	
-	
 	
 }

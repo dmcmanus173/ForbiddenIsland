@@ -1,36 +1,35 @@
 package enums;
 
+/**
+ * Class holding the enumerated types of cards in the treasure deck in the game Forbidden Island.
+ * 
+ * @author  Demi Oke and Daniel McManus
+ * @date    27/10/2020
+ * @version 0.1
+ */
 public enum TreasureCardEnum {
-	/**
-	 * Enumerator class containing the types of Treasure Cards that the treasure deck contains
-	 * @author Daniel McManus
-	 * @version 0.1
-	 *
-	 */
-	
 	TREASURE        ("Treasure Card"       ),
 	SANDBAG         ("Sandbag Card"        ),
 	HELICOPTER_LIFT ("Helicopter Lift Card"),
 	WATER_RISE      ("Water Rise Card"     );
 		
-	private final String name;
-				
+	private final String cardType;	
+	
 	/**
-     * constructor for Treasures taking in the name associated 
-     * with the treasure that will be printed on the board.
-     * @param str String which will be set to the name of the treasure
+     * constructor for TreasureCardEnum
+     * @param str String which will be set to the name of the type of treasure card
      */
 	private TreasureCardEnum(String str) {
-		name = str; 
+		cardType = str; 
     }
 		
 	/**
-     * gets name relating to treasure
-     * @return the name.
+     * returns the string cardType of the TreasureCardEnum
+     * @return the cardType.
      */
 	@Override
 	public String toString() {
-		return this.name;
+		return this.cardType;
 	}
 		
 	

@@ -2,12 +2,50 @@ package mess;
 
 import java.util.ArrayList;
 
+import enums.TreasureEnum;
 import gameComponents.AbstractTreasureCard;
+import gameComponents.Treasure;
 import gameComponents.TreasureDeck;
 import gameComponents.WaterMeter;
 
 public class Mess {
 
+	/*
+	// WaterMeter Class-level debug test
+	public static void main(String[] args) {
+		
+		WaterMeter wm1 = new WaterMeter();
+		System.out.println( wm1.toString() ); // "Water Meter: 1"
+		wm1.IncreaseWaterMeter();
+		System.out.println( wm1.toString() ); // "Water Meter: 2"
+		
+		WaterMeter wm2 = new WaterMeter(4);
+		System.out.println( wm2.toString() ); // "Water Meter: 4"
+		wm2.IncreaseWaterMeter();
+		System.out.println( wm2.toString() ); // "Water Meter: 5"
+		wm2.IncreaseWaterMeter();			  // "WaterMeter can't increase past maxLevel(=5). WaterMeter remaining at maxLevel."
+		System.out.println( wm2.toString() ); // "Water Meter: 5"		
+		
+		WaterMeter wm3 = new WaterMeter(5);
+		System.out.println( wm3.toString() ); // "Water Meter: 5"
+		
+		WaterMeter wm4 = new WaterMeter(6);   // "Level requested is greater than maxLevel(=5). Level set to maxLevel."
+		System.out.println( wm4.toString() ); // "Water Meter: 5"	
+	
+	}
+	*/
+	/*
+	// Treasure Class-level debug test
+	public static void main(String[] args) {
+		
+		Treasure treasure = new Treasure(TreasureEnum.THE_CRYSTAL_OF_FIRE);
+		System.out.println(treasure.toString()); // "Name: The Crystal of Fire\nClaimed: false"
+		treasure.claimTreasure(); 
+		System.out.print(treasure.isClaimed());  // "true"
+		
+	}
+	*/
+	
 	/*
 	// WaterMeter Class-level debug test
 	public static void main(String[] args) {
@@ -53,8 +91,8 @@ public class Mess {
 		treasureDeck.returnUsedCard( cardList.remove(0) );
 		System.out.println(treasureDeck.toString());
 		
-		// Put used cards back into the deck
-		treasureDeck.addUsedCardsBack();
+		// Put used cards back into the deck 
+		//treasureDeck.addUsedCardsBack(); //TODO Change method to public to run this line.
 		System.out.println(treasureDeck.toString());
 		
 	}
