@@ -1,5 +1,6 @@
 package enums;
 
+import java.util.Optional;
 /**
  * Class holding the tile names in the Forbidden Island Game.
  * @author Demi Oke
@@ -47,6 +48,7 @@ public enum TileEnum {
 	private TileEnum(String str) {
 		name = str; 
     }
+	
 	
 	/**
     * gets name relating to tile

@@ -10,7 +10,7 @@ import enums.TileEnum;
  *
  */
 
-public abstract class Tile {
+public class Tile {
 	
 	//===========================================================
     // Variable Setup
@@ -27,9 +27,9 @@ public abstract class Tile {
      * @param tileName     Name of Tile
      * @param floodStatus  The status of Tile i.e. flooded, not flooded or sunken
      */
-	public Tile(TileEnum tileName, FloodStatusEnum floodStatus) {
+	public Tile(TileEnum tileName) {
 		this.tileName = tileName;
-		this.floodStatus = floodStatus;
+		this.floodStatus = FloodStatusEnum.NOT_FLOODED;
 	}
 	
 	
