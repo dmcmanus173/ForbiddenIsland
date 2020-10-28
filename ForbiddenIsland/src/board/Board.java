@@ -156,12 +156,13 @@ public class Board {
 		
 	} 
 	
-	
+	/*
 	// Class-level test
-		public static void main(String[] args) {
-			Board.getInstance().printBoard();
-			
-		}
+	public static void main(String[] args) {
+		Board.getInstance().printBoard();
+		
+	}
+	*/
 
 }
 
