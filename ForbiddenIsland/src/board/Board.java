@@ -2,9 +2,7 @@ package board;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.Optional;
-import java.util.Queue;
 
 import enums.TileEnum;
 import enums.TreasureEnum;
@@ -91,7 +89,7 @@ public class Board {
      * void function to print the game board.
      * TODO: spice it up a bit ;)
      */
-    private void printBoard() {
+    public void printBoard() {
     	System.out.println("printing board.");
     	for (int y=0; y<NUM_ROWS; y++) {         // For each row in Board
     		StringBuilder tileString = new StringBuilder("");

@@ -1,6 +1,5 @@
 package board;
 
-import enums.FloodStatusEnum;
 import enums.TileEnum;
 import enums.TreasureEnum;
 
