@@ -48,6 +48,7 @@ public enum TileEnum {
 		name = str; 
     }
 	
+	
 	/**
     * gets name relating to tile
     * @return the name.

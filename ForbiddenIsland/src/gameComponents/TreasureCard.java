@@ -31,7 +31,7 @@ public class TreasureCard extends AbstractTreasureCard {
 	}
 	
 	//===========================================================
-	// Other Functions
+	// Public Getters
 	//===========================================================
 	/**
 	 * getTreasureType function, to return the treasureType
