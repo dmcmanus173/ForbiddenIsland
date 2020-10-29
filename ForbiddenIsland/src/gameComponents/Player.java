@@ -25,7 +25,7 @@ public class Player {
 	//===========================================================
 	// Variable for Game Settings
 	//===========================================================
-	private int maxTreasureCards = 5;
+	private final int MAX_TREASURE_CARDS = 5;
 	
 	//===========================================================
 	// Constructor
@@ -82,7 +82,7 @@ public class Player {
 	 */
 	public void assignTreasureCard(AbstractTreasureCard card) {
 		treasureCards.add(card);
-		if( treasureCards.size() == maxTreasureCards+1) {
+		if( treasureCards.size() == MAX_TREASURE_CARDS+1) {
 			removeTreasureCard();
 		}
 		//TODO Possibly return null, if no card to remove...

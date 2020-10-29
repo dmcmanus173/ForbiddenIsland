@@ -6,7 +6,7 @@
 
 Complete - Daniel - Make a ToDo list to track items.
 
-         - Daniel - Change constants to be Private final int
+Complete - Daniel - Change constants to be Private final int
  
          - Daniel - Change single-use classes to singleton
 

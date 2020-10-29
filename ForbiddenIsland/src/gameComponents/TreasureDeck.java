@@ -26,10 +26,10 @@ public class TreasureDeck {
 	//===========================================================
 	// Variable for Game Settings
 	//===========================================================
-	private int numTreasureCards   = 5;
-	private int numSandbagCards    = 2;
-	private int numWaterRiseCards  = 3;
-	private int numHelicopterCards = 3;
+	private final int NUM_TREASURE_CARDS   = 5;
+	private final int NUM_SANDBAG_CARDS    = 2;
+	private final int NUM_WATERRISE_CARDS  = 3;
+	private final int NUM_HELICOPTER_CARDS = 3;
 	
 	//===========================================================
 	// Constructor
@@ -50,20 +50,20 @@ public class TreasureDeck {
 		
 		HelicopterLiftCard helicopterCard = new HelicopterLiftCard();
 		
-		for (int i = 0; i<numTreasureCards; i++) {
+		for (int i = 0; i<NUM_TREASURE_CARDS; i++) {
 			treasureDeck.add(crystalFireCard);
 			treasureDeck.add(earthStoneCard);
 			treasureDeck.add(oceansChaliceCard);
 			treasureDeck.add(statueWindCard);
 		}
 		
-		for (int i = 0; i<numSandbagCards; i++)
+		for (int i = 0; i<NUM_SANDBAG_CARDS; i++)
 			treasureDeck.add(sandbagCard);
 			
-		for (int i = 0; i<numWaterRiseCards; i++)
+		for (int i = 0; i<NUM_WATERRISE_CARDS; i++)
 			treasureDeck.add(waterRiseCard);	
 		
-		for (int i = 0; i<numHelicopterCards; i++)
+		for (int i = 0; i<NUM_HELICOPTER_CARDS; i++)
 			treasureDeck.add(helicopterCard);
 		
 		shuffleDeck();	
