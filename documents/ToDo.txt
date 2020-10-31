@@ -10,7 +10,7 @@ Complete - Daniel - Change constants to be Private final int
  
          - Daniel - Change single-use classes to singleton
 
-         - Daniel - Create abstract deck class
+Complete - Daniel - Create abstract deck class
 
          - Daniel - Begin set-up file
 

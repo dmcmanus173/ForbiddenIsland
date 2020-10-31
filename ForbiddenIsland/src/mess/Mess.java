@@ -74,7 +74,7 @@ public class Mess {
 	// TreasureDeck Class-level debug test
 	public static void main(String[] args) {
 		
-		TreasureDeck treasureDeck = new TreasureDeck();
+		TreasureDeck treasureDeck = TreasureDeck.getInstance();
 		ArrayList <AbstractTreasureCard> cardList = new ArrayList<AbstractTreasureCard>();
 		
 		// Remove 4 cards from deck
