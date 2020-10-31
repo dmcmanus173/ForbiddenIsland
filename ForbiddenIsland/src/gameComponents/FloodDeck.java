@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import board.Board;
 import board.Tile;
 
 /**
@@ -19,9 +20,24 @@ public class FloodDeck {
 	//===========================================================
 	// Variable Setup
 	//===========================================================
+	private static FloodDeck floodDeck;
 	private Queue<Tile> islands = new LinkedList<>();
 	private ArrayList<Tile> usedCards = new ArrayList<Tile>();
 
+	//===========================================================
+    // Get Instance of Singleton
+    //===========================================================
+    /**
+     * getInstance method returns single instance of floodDeck
+     * @return floodDeck. singleton FloodDeck object.
+     */
+    public static FloodDeck getInstance(){
+        if(floodDeck == null){
+            floodDeck = new FloodDeck( Board.getInstance().getIslandTiles() );
+        }
+        return floodDeck;
+    }
+    
 	//===========================================================
 	// Constructor
 	//===========================================================

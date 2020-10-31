@@ -17,7 +17,7 @@ public class WaterMeter {
 	//===========================================================
 	// Variable for Game Settings
 	//===========================================================
-	private int maxLevel = 5;
+	private final int MAX_LEVEL = 5;
 	
 	//===========================================================
 	// Constructor
@@ -36,11 +36,11 @@ public class WaterMeter {
 	 */
 	public WaterMeter(int level) {
 		
-		if(level <= maxLevel)
+		if(level <= MAX_LEVEL)
 			this.level = level;
 		else {
-			this.level = maxLevel;
-			System.out.println("Level requested is greater than maxLevel(=" + maxLevel + "). Level set to maxLevel.");
+			this.level = MAX_LEVEL;
+			System.out.println("Level requested is greater than MAX_LEVEL(=" + MAX_LEVEL + "). Level set to MAX_LEVEL.");
 		}
 	}
 	
@@ -49,13 +49,13 @@ public class WaterMeter {
 	//===========================================================
 	/**
 	 * increaseWaterMeter method increase the WaterMeter level value,
-	 * unless the level is already at maxLevel.
+	 * unless the level is already at MAX_LEVEL.
 	 */
 	public void increaseWaterMeter() {
-		if(level < maxLevel)
+		if(level < MAX_LEVEL)
 			level += 1;
 		else
-			System.out.print("WaterMeter can't increase past maxLevel(=" + maxLevel + "). WaterMeter remaining at maxLevel.\n");
+			System.out.print("WaterMeter can't increase past MAX_LEVEL(=" + MAX_LEVEL + "). WaterMeter remaining at MAX_LEVEL.\n");
 	}
 	
 

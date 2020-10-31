@@ -245,6 +245,15 @@ public class Board {
 		
 	} 
 	
+	// TODO Change this so that instanciateIslandTiles() doesn't need to be called more than once.
+	/**
+     * getIslandTiles gets a list of all the Tiles on the board.
+     * @return ArrayList<Tile> containing all Tiles on board.
+     */
+	public ArrayList<Tile> getIslandTiles() {
+		return instanciateIslandTiles();
+	}
+	
 	/*
 	// Class-level test
 	public static void main(String[] args) {

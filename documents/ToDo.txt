@@ -1,0 +1,21 @@
+/*************************************************************\
+/*                                                           *\
+/*              To Do List for Demi and Daniel               *\
+/*                                                           *\
+/*************************************************************\
+
+Complete - Daniel - Make a ToDo list to track items.
+
+Complete - Daniel - Change constants to be Private final int
+ 
+         - Daniel - Change single-use classes to singleton
+
+Complete - Daniel - Create abstract deck class
+
+         - Daniel - Begin set-up file
+
+         - Demi   - Recondition class comments
+
+         - Demi   - Tile track player position
+
+         - Demi   - Board class

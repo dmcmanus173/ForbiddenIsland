@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import board.Board;
 import enums.TreasureEnum;
 
 /**
@@ -19,18 +20,33 @@ public class TreasureDeck {
 	//===========================================================
 	// Variable Setup
 	//===========================================================
-	private Queue<AbstractTreasureCard> treasureDeck = new LinkedList<AbstractTreasureCard>();
-	private Queue<AbstractTreasureCard> usedTreasureCards = new LinkedList<AbstractTreasureCard>();
+	private static TreasureDeck treasureDeck;
+	private Queue<AbstractTreasureCard> cardDeck = new LinkedList<AbstractTreasureCard>();
+	private Queue<AbstractTreasureCard> usedCards = new LinkedList<AbstractTreasureCard>();
 	private int cardsIssued; // Tracker for number of cards handed to players //TODO @Demi should we make this a list, Retains more info?
 	
 	//===========================================================
 	// Variable for Game Settings
 	//===========================================================
-	private int numTreasureCards   = 5;
-	private int numSandbagCards    = 2;
-	private int numWaterRiseCards  = 3;
-	private int numHelicopterCards = 3;
+	private final int NUM_TREASURE_CARDS   = 5;
+	private final int NUM_SANDBAG_CARDS    = 2;
+	private final int NUM_WATERRISE_CARDS  = 3;
+	private final int NUM_HELICOPTER_CARDS = 3;
 	
+	//===========================================================
+    // Get Instance of Singleton
+    //===========================================================
+    /**
+     * getInstance method returns single instance of TreasureDeck
+     * @return treasureDeck. singleton TreasureDeck object.
+     */
+    public static TreasureDeck getInstance(){
+        if(treasureDeck == null){
+            treasureDeck = new TreasureDeck();
+        }
+        return treasureDeck;
+    }
+    
 	//===========================================================
 	// Constructor
 	//===========================================================
@@ -50,21 +66,21 @@ public class TreasureDeck {
 		
 		HelicopterLiftCard helicopterCard = new HelicopterLiftCard();
 		
-		for (int i = 0; i<numTreasureCards; i++) {
-			treasureDeck.add(crystalFireCard);
-			treasureDeck.add(earthStoneCard);
-			treasureDeck.add(oceansChaliceCard);
-			treasureDeck.add(statueWindCard);
+		for (int i = 0; i<NUM_TREASURE_CARDS; i++) {
+			cardDeck.add(crystalFireCard);
+			cardDeck.add(earthStoneCard);
+			cardDeck.add(oceansChaliceCard);
+			cardDeck.add(statueWindCard);
 		}
 		
-		for (int i = 0; i<numSandbagCards; i++)
-			treasureDeck.add(sandbagCard);
+		for (int i = 0; i<NUM_SANDBAG_CARDS; i++)
+			cardDeck.add(sandbagCard);
 			
-		for (int i = 0; i<numWaterRiseCards; i++)
-			treasureDeck.add(waterRiseCard);	
+		for (int i = 0; i<NUM_WATERRISE_CARDS; i++)
+			cardDeck.add(waterRiseCard);	
 		
-		for (int i = 0; i<numHelicopterCards; i++)
-			treasureDeck.add(helicopterCard);
+		for (int i = 0; i<NUM_HELICOPTER_CARDS; i++)
+			cardDeck.add(helicopterCard);
 		
 		shuffleDeck();	
 	}
@@ -73,14 +89,14 @@ public class TreasureDeck {
 	// Other Functions
 	//===========================================================
 	/**
-	 * shuffleDeck method will shuffle the contents of treasureDeck
+	 * shuffleDeck method will shuffle the contents of cardDeck
 	 */
 	public void shuffleDeck() {
 		ArrayList<AbstractTreasureCard> tempList = new ArrayList<>();
-		while( !treasureDeck.isEmpty() )
-			tempList.add(treasureDeck.remove());
+		while( !cardDeck.isEmpty() )
+			tempList.add(cardDeck.remove());
 		Collections.shuffle(tempList);
-		treasureDeck.addAll(tempList);
+		cardDeck.addAll(tempList);
 		
 		//TODO Remove Debug code
 		for(AbstractTreasureCard card : tempList)
@@ -88,25 +104,25 @@ public class TreasureDeck {
 	}
 	
 	/**
-	 * addUsedCardsToDeck method will add cards in usedTreasureCards
+	 * addUsedCardsToDeck method will add cards in usedCards
 	 * queue back to treasureCards. 
-	 * treasureDeck called shuffleDeck every time this method is called.
+	 * cardDeck called shuffleDeck every time this method is called.
 	 */
 	private void addUsedCardsBack() {
-		while( !usedTreasureCards.isEmpty() )
-			treasureDeck.add( usedTreasureCards.remove() );
+		while( !usedCards.isEmpty() )
+			cardDeck.add( usedCards.remove() );
 		shuffleDeck();
 	}
 	
 	/**
-	 * getNextCard method will return the next card from treasureDeck
-	 * @return AbstractTreasureCard from Queue treasureDeck
+	 * getNextCard method will return the next card from cardDeck
+	 * @return AbstractTreasureCard from Queue cardDeck
 	 */
 	public AbstractTreasureCard getNextCard() {
-		if( treasureDeck.isEmpty() )
+		if( cardDeck.isEmpty() )
 			addUsedCardsBack();
 		cardsIssued += 1;
-		return treasureDeck.remove();
+		return cardDeck.remove();
 	}
 
 	/**
@@ -115,19 +131,19 @@ public class TreasureDeck {
 	 * These AbstractTreasureCards can be added back to the deck later as required.
 	 */
 	public void returnUsedCard(AbstractTreasureCard usedCard) {
-		usedTreasureCards.add(usedCard);
+		usedCards.add(usedCard);
 		cardsIssued -= 1;
 	}
 	
 	/**
-	 * toString returns number of cards in treasureDeck, number of cards in usedTreasureCards
+	 * toString returns number of cards in cardDeck, number of cards in usedCards
 	 * and number of cards currently issued out in the game.
 	 * @return String containing variable information for the class.
 	 */
 	public String toString() {
 		StringBuilder temp = new StringBuilder("");
-		temp.append("There is " + treasureDeck.size() + " cards in the Treasure Deck.");
-		temp.append("\nThere is " + usedTreasureCards.size() + " cards in the used Treasure Card pile.");
+		temp.append("There is " + cardDeck.size() + " cards in the Treasure Deck.");
+		temp.append("\nThere is " + usedCards.size() + " cards in the used Treasure Card pile.");
 		temp.append("\nThere is " + cardsIssued + " cards in posession of the players.");
 		temp.append("\n");
 		return temp.toString();
