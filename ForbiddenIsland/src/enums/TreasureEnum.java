@@ -2,8 +2,9 @@ package enums;
 
 /**
  * Class holding the Treasure names in the Forbidden Island Game.
- * @author Demi Oke
- * @version 1.0
+ * @author Demi Oke & Daniel McManus
+ * @date    31/10/2020
+ * @version 0.1
  *
  */
 
