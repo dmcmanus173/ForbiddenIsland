@@ -26,6 +26,7 @@ public class Player {
 	// Variable for Game Settings
 	//===========================================================
 	private final int MAX_TREASURE_CARDS = 5;
+	private final int NUM_INITIAL_CARDS = 2;
 	
 	//===========================================================
 	// Constructor
@@ -37,11 +38,12 @@ public class Player {
 	 * @param Tile location, tile the Player will begin the game.
 	 * @param ArrayList<AbstractTreasureCard> treasureCards, the treasureCards that the player will begin with.
 	 */
-	public Player(String name, AdventurerEnum role, Tile location, ArrayList<AbstractTreasureCard> treasureCards) {
+	public Player(String name, AdventurerEnum role, Tile location) {
 		this.name = name;
 		this.role = role;
 		this.location = location;
-		this.treasureCards.addAll(treasureCards);
+		for(int i=0; i<NUM_INITIAL_CARDS; i++)
+			this.treasureCards.add(TreasureDeck.getInstance().getNextCard());
 	}
 	
 	//===========================================================
