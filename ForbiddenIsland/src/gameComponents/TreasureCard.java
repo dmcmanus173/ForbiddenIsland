@@ -50,7 +50,7 @@ public class TreasureCard extends AbstractTreasureCard {
 	public String toString() {
 		StringBuilder temp = new StringBuilder("");
 		temp.append(super.toString());
-		temp.append("; Treasure: " + treasureType.toString());
+		temp.append(" - " + treasureType.toString());
 		return temp.toString();
 	}
 	

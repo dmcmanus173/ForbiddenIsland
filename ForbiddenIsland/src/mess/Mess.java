@@ -1,12 +1,14 @@
 package mess;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import enums.TreasureEnum;
 import gameComponents.AbstractTreasureCard;
 import gameComponents.Treasure;
 import gameComponents.TreasureDeck;
 import gameComponents.WaterMeter;
+import setup.MainSetup;
 
 public class Mess {
 
@@ -70,7 +72,7 @@ public class Mess {
 	
 	}
 	*/
-	
+	/*
 	// TreasureDeck Class-level debug test
 	public static void main(String[] args) {
 		
@@ -95,6 +97,14 @@ public class Mess {
 		//treasureDeck.addUsedCardsBack(); //TODO Change method to public to run this line.
 		System.out.println(treasureDeck.toString());
 		
+	}
+	*/
+	
+	// MainSetup Class-level debug test
+	public static void main(String[] args) {
+		Scanner inputScanner = new Scanner(System.in);
+		
+		MainSetup setup = new MainSetup(inputScanner);
 	}
 	
 }

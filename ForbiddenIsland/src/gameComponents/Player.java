@@ -38,12 +38,12 @@ public class Player {
 	 * @param Tile location, tile the Player will begin the game.
 	 * @param ArrayList<AbstractTreasureCard> treasureCards, the treasureCards that the player will begin with.
 	 */
-	public Player(String name, AdventurerEnum role, Tile location) {
+	public Player(String name, AdventurerEnum role) {
 		this.name = name;
 		this.role = role;
-		this.location = location;
+		this.location = null; //TODO start location in player
 		for(int i=0; i<NUM_INITIAL_CARDS; i++)
-			this.treasureCards.add(TreasureDeck.getInstance().getNextCard());
+			treasureCards.add(TreasureDeck.getInstance().getNextCard());
 	}
 	
 	//===========================================================
@@ -132,4 +132,28 @@ public class Player {
 			System.out.println(name + " does not have a Sandbag card.");
 	}
 	
+	/**
+	 * cardsToString method will return cards a player has.
+	 * @return String info related to player.
+	 */
+	public String cardsToString() {
+		StringBuilder temp = new StringBuilder("");
+		temp.append(name + " has the following cards:");
+		for(AbstractTreasureCard card : treasureCards)
+			temp.append("\n" + card.toString());
+		return temp.toString();
+	}
+	
+	/**
+	 * toString method will return player info as a String.
+	 * @return String info related to player.
+	 */
+	public String toString() {
+		StringBuilder temp = new StringBuilder("");
+		temp.append("Player Name: "+name);
+		temp.append("\nRole: "+role.toString());
+//		temp.append("\nLocation: "+location.getTileName().toString());
+		temp.append("\n"+cardsToString());
+		return temp.toString();
+	}
 }

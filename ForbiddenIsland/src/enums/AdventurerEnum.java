@@ -11,7 +11,7 @@ package enums;
 public enum AdventurerEnum {
 	
 	NAVIGATOR  ("Navigator"),
-	DRIVER     ("Driver"),
+	DIVER      ("Diver"),
 	MESSENGER  ("Messenger"),
 	EXPLORER   ("Explorer"),
 	PILOT      ("Pilot"),

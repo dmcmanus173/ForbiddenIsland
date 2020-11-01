@@ -12,7 +12,7 @@ Complete - Daniel - Change constants to be Private final int
 
 Complete - Daniel - Create abstract deck class
 
-         - Daniel - Begin set-up file
+Started  - Daniel - Begin setup classes
 
          - Demi   - Recondition class comments
 

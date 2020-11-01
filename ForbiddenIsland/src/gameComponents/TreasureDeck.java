@@ -97,10 +97,6 @@ public class TreasureDeck {
 			tempList.add(cardDeck.remove());
 		Collections.shuffle(tempList);
 		cardDeck.addAll(tempList);
-		
-		//TODO Remove Debug code
-		for(AbstractTreasureCard card : tempList)
-			System.out.println("Debug: " + card.toString());
 	}
 	
 	/**
@@ -140,6 +136,7 @@ public class TreasureDeck {
 	 * and number of cards currently issued out in the game.
 	 * @return String containing variable information for the class.
 	 */
+	@Override
 	public String toString() {
 		StringBuilder temp = new StringBuilder("");
 		temp.append("There is " + cardDeck.size() + " cards in the Treasure Deck.");
