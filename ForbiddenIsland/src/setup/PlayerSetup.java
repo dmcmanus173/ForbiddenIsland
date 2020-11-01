@@ -7,26 +7,43 @@ import java.util.Scanner;
 import enums.AdventurerEnum;
 import gameComponents.Player;
 
+/**
+ * Class for PlayerSetup in Forbidden Island game.
+ * 
+ * @author  Demi Oke and Daniel McManus
+ * @date    01/11/2020
+ * @version 0.1
+ */
 public class PlayerSetup {
-	
-	private final int minPlayers = 2;
-    private final int maxPlayers = 4;
-	
+
+	//===========================================================
+	// Variable Setup
+	//===========================================================
 	private ArrayList<Player> players = new ArrayList<Player>();
 	private int numPlayers;
 	private Boolean validNumPlayers;
 	
+	//===========================================================
+	// Variable for Game Settings
+	//===========================================================
+	private final int minPlayers = 2;
+    private final int maxPlayers = 4;
+	
+	//===========================================================
+	// Constructor
+	//===========================================================
+	/**
+	 * Constructor to PlayerSetup. Handles creation of all players.
+	 */
 	public PlayerSetup(Scanner user) {
 		validNumPlayers = false;
 		getNumPlayers(user);
 		createPlayers(user);
 	}
 
-	
 	/**
-	 * Gets the number of Players who will play the game
-	 * @param user The scanner the user which we read the users input from
-	 * @return The number of Players to create
+	 * getNumPlayers instance will get the number of players wanting to play.
+	 * @param Scanner user will read user input from Console
 	 */
 	private void getNumPlayers(Scanner user) {
 		String userString;
@@ -37,6 +54,10 @@ public class PlayerSetup {
 		}
 	}
 	
+	/**
+	 * setNumPlayers will read String provided for an integer.
+	 * @param String userString will return the number read from userString
+	 */
 	private int setNumPlayers(String userString) {
 		int numOfPlayers = 0;
 		try {
@@ -52,6 +73,11 @@ public class PlayerSetup {
 		return numOfPlayers;
 	}
 	
+	/**
+	 * getRandomisedRoles instance will pick a random player for each role.
+	 * There is always a pilot chosen.
+	 * @return ArrayList<AdventurerEnum> roles for the players.
+	 */
 	private ArrayList<AdventurerEnum> getRandomisedRoles() {
 		ArrayList<AdventurerEnum> allRoles = new ArrayList<AdventurerEnum>();
 		ArrayList<AdventurerEnum> randomRoles = new ArrayList<AdventurerEnum>();
@@ -71,6 +97,10 @@ public class PlayerSetup {
 		return randomRoles;
 	}
 	
+	/**
+	 * Create player for each person wanting to play.
+	 * @param Scanner user will read user input from Console
+	 */
 	private void createPlayers(Scanner user) {
 		//Randomize roles
 		ArrayList<AdventurerEnum> randomisedRoles = getRandomisedRoles();
@@ -78,19 +108,31 @@ public class PlayerSetup {
 			createOnePlayer(user, randomisedRoles.get(i), i+1);
 	}
 	
+	/**
+	 * createOnePlayer will create a single player, and add it to the list of players.
+	 * @param Scanner user will read user input from Console
+	 * @param AdventurerEnum role, the role of the player to be created.
+	 * @param int i, player number.
+	 */
 	private void createOnePlayer(Scanner user, AdventurerEnum role, int i) {
 		String playerName;
 		playerName = getPlayerName(user, i);
 		
 		Player aPlayer = new Player(playerName, role);
 		players.add(aPlayer);
-		System.out.println("Created Player " + i + "\n");
+		System.out.println("Created Player " + i + ".\n");
 		System.out.println( aPlayer.toString() );
 	}
 	
+	/**
+	 * getPlayerName gets the players name from the console.
+	 * @param Scanner user will read user input from Console
+	 * @param int i, player number.
+	 */
+	//TODO don't accept nothing.
 	private String getPlayerName(Scanner user, int i) {
 		String name;
-		System.out.println("\nPlayer "+i+" Name:");
+		System.out.println("\nEnter Player "+i+"'s Name:");
 		name = user.nextLine();
 		return name;
 	}

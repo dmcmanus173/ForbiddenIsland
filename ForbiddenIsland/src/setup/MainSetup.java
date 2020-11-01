@@ -2,15 +2,30 @@ package setup;
 
 import java.util.Scanner;
 
+/**
+ * Class to setup instance of game Forbidden Island.
+ * 
+ * @author  Demi Oke and Daniel McManus
+ * @date    01/11/2020
+ * @version 0.1
+ */
 public class MainSetup {
 	
+	//===========================================================
+	// Constructor
+	//===========================================================
+	/**
+	 * Constructor for MainSetup. Calls all setup classes.
+	 */
 	public MainSetup(Scanner user) {
 		Welcome();
 		PlayerSetup players = new PlayerSetup(user);
 	}
 	
-	
-	public void Welcome() {
+	/**
+	 * Welcome function prints welcome to game screen.
+	 */
+	private void Welcome() {
 		StringBuilder temp = new StringBuilder("");
 		temp.append("     ▄████████  ▄██████▄     ▄████████ ▀█████████▄   ▄█  ████████▄  ████████▄     ▄████████ ███▄▄▄▄   "
 				  + "\n    ███    ███ ███    ███   ███    ███   ███    ███ ███  ███   ▀███ ███   ▀███   ███    ███ ███▀▀▀██▄ "
