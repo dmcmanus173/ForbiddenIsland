@@ -1,9 +1,14 @@
-package gameComponents;
+package player;
 
 import java.util.ArrayList;
 
 import board.Tile;
 import enums.AdventurerEnum;
+import enums.TreasureCardEnum;
+import gameComponents.AbstractTreasureCard;
+import gameComponents.SandbagCard;
+import gameComponents.TreasureCard;
+import gameComponents.TreasureDeck;
 
 /**
  * Class for the Player in Forbidden Island.
@@ -42,8 +47,20 @@ public class Player {
 		this.name = name;
 		this.role = role;
 		this.location = null; //TODO start location in player
-		for(int i=0; i<NUM_INITIAL_CARDS; i++)
-			treasureCards.add(TreasureDeck.getInstance().getNextCard());
+		
+		// Adding NUM_INITIAL_CARDS to TreasueCard collection. If get WaterRiseCard, put back and try again.
+		AbstractTreasureCard temp;
+		for(int i=0; i<NUM_INITIAL_CARDS; i++) {
+			temp = TreasureDeck.getInstance().getNextCard();
+			System.out.println(temp.toString());
+			while(temp.getCardType() == TreasureCardEnum.WATER_RISE ) {
+				System.out.println("Debug");
+				TreasureDeck.getInstance().returnUsedCard(temp);
+				temp = TreasureDeck.getInstance().getNextCard();
+				System.out.println(temp.toString());
+			}
+			treasureCards.add(temp);
+		}
 	}
 	
 	//===========================================================
@@ -148,6 +165,7 @@ public class Player {
 	 * toString method will return player info as a String.
 	 * @return String info related to player.
 	 */
+	@Override
 	public String toString() {
 		StringBuilder temp = new StringBuilder("");
 		temp.append("Player Name: "+name);

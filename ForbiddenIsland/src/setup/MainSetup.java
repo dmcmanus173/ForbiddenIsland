@@ -19,7 +19,7 @@ public class MainSetup {
 	 */
 	public MainSetup(Scanner user) {
 		Welcome();
-		PlayerSetup players = new PlayerSetup(user);
+		new PlayerSetup(user);
 	}
 	
 	/**
