@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Scanner;
 
 import enums.AdventurerEnum;
-import gameComponents.Player;
+import player.Players;
 
 /**
  * Class for PlayerSetup in Forbidden Island game.
@@ -19,7 +19,6 @@ public class PlayerSetup {
 	//===========================================================
 	// Variable Setup
 	//===========================================================
-	private ArrayList<Player> players = new ArrayList<Player>();
 	private int numPlayers;
 	private Boolean validNumPlayers;
 	
@@ -118,10 +117,9 @@ public class PlayerSetup {
 		String playerName;
 		playerName = getPlayerName(user, i);
 		
-		Player aPlayer = new Player(playerName, role);
-		players.add(aPlayer);
+		Players.getInstance().addPlayer(playerName, role);
 		System.out.println("Created Player " + i + ".\n");
-		System.out.println( aPlayer.toString() );
+		System.out.println( Players.getInstance().getPlayer(i).toString() );
 	}
 	
 	/**
