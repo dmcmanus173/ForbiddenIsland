@@ -10,9 +10,9 @@ package enums;
 
 public enum FloodStatusEnum {
 	
-	NOT_FLOODED("Not flodded"),
-	FLOODED("Flooded"),
-	SUNKEN("Sunken");
+	NOT_FLOODED ("Not flodded"),
+	FLOODED     ("Flooded"),
+	SUNKEN      ("Sunken");
 	
 	private String str;
 	

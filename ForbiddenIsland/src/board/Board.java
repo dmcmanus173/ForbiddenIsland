@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import enums.PlayerMovesEnum;
 import enums.TileEnum;
 import enums.TreasureEnum;
 
@@ -27,6 +28,7 @@ public class Board {
     //===========================================================
 	private static Board board;
 	private ArrayList<ArrayList<Optional<Tile>>> islandTiles;
+	private ArrayList<Tile> orderedTiles;
 	private Map<TileEnum, int[]> islandTilesNamePositionMap;
 	private final int NUM_ROWS = 6;
 	private final int NUM_COLS = 6;
@@ -54,11 +56,12 @@ public class Board {
 	 * Set up all the tiles, shuffle them and place them on the board.
 	 */
     private Board() {
-    	ArrayList<Tile> instanciatedTiles = instanciateIslandTiles(); // Instantiate all tiles
+    	orderedTiles = instanciateIslandTiles(); // Instantiate all tiles
     	Optional<Tile> islandTile; // dependency
     	// Island tiles are optional as some array positions are empty due to the odd shape of the board
     	this.islandTiles = new ArrayList<ArrayList<Optional<Tile>>>(); 
     	this.islandTilesNamePositionMap = new HashMap<TileEnum, int[]>();
+    	int tileCounter = 0;
     	
     	
     	System.out.println("making board.");
@@ -68,10 +71,11 @@ public class Board {
             
             for (int x=0; x<NUM_COLS; x++) {     // For each column in row
             	if (tilePositionIsWithinIslandShape(x, y)) {
-            		islandTile = Optional.of(instanciatedTiles.remove(0));
+            		islandTile = Optional.of(orderedTiles.get(tileCounter));
             		islandTiles.get(y).add(islandTile);
             		int[] pos = {x, y};
             		islandTilesNamePositionMap.put(islandTile.get().tileName, pos);
+            		tileCounter += 1;
             	} else {
             		islandTiles.get(y).add(Optional.empty());
             	}
@@ -110,6 +114,47 @@ public class Board {
         	// the position of every island tile must exist within the island shape.
         	throw new Exception("The position of the tile with the name: " + tileName + " is not in the feasibile region.");
         }
+    }
+    
+    private Optional<Tile> getTileWithDirectionFrom(TileEnum tileName, PlayerMovesEnum playerDirection) {
+    	int[] currentPos = islandTilesNamePositionMap.get(tileName);
+    	int yPos = currentPos[1];
+    	int xPos = currentPos[0];
+    	int[] detstination = {xPos, yPos};
+    	switch(playerDirection) {
+    	case NORTH:
+    		detstination[1] = yPos + 1;
+    		return getTileAtPosition(detstination);
+    	case EAST:
+    		detstination[0] = xPos + 1;
+    		return getTileAtPosition(detstination);
+    	case SOUTH:
+    		detstination[1] = yPos - 1;
+    		return getTileAtPosition(detstination);
+    	case WEST:
+    		detstination[0] = xPos - 1;
+    		return getTileAtPosition(detstination);
+    	case NORTH_EAST:
+    		detstination[0] = xPos + 1;
+    		detstination[1] = yPos + 1;
+    		return getTileAtPosition(detstination);
+    	case SOUTH_EAST:
+    		detstination[0] = xPos + 1;
+    		detstination[1] = yPos - 1;
+    		return getTileAtPosition(detstination);
+    	case SOUTH_WEST:
+    		detstination[0] = xPos - 1;
+    		detstination[1] = yPos - 1;
+    		return getTileAtPosition(detstination);
+    	case NORTH_WEST:
+    		detstination[0] = xPos - 1;
+    		detstination[1] = yPos + 1;
+    		return getTileAtPosition(detstination);
+    	default:
+    		System.out.println("Option not plausable.");
+    		return Optional.empty();
+    	
+    	}
     }
     
     
@@ -245,6 +290,12 @@ public class Board {
 		
 	} 
 	
+	private void printOrderedTiles() {
+		for (int y=0; y<24; y++) {
+			System.out.println(orderedTiles.get(y).getTileName().toString());
+		}
+	}
+	
 	// TODO Change this so that instanciateIslandTiles() doesn't need to be called more than once.
 	/**
      * getIslandTiles gets a list of all the Tiles on the board.
@@ -258,6 +309,7 @@ public class Board {
 	// Class-level test
 	public static void main(String[] args) {
 		Board.getInstance().printBoard();
+		Board.getInstance().printOrderedTiles();
 		
 	}
 	*/
