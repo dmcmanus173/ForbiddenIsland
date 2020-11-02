@@ -47,15 +47,19 @@ public class Player {
 		this.name = name;
 		this.role = role;
 		this.location = null; //TODO start location in player
+		
+		// Adding NUM_INITIAL_CARDS to TreasueCard collection. If get WaterRiseCard, put back and try again.
 		AbstractTreasureCard temp;
 		for(int i=0; i<NUM_INITIAL_CARDS; i++) {
 			temp = TreasureDeck.getInstance().getNextCard();
+			System.out.println(temp.toString());
 			while(temp.getCardType() == TreasureCardEnum.WATER_RISE ) {
-//				System.out.println("Debug");
+				System.out.println("Debug");
 				TreasureDeck.getInstance().returnUsedCard(temp);
 				temp = TreasureDeck.getInstance().getNextCard();
+				System.out.println(temp.toString());
 			}
-			treasureCards.add(TreasureDeck.getInstance().getNextCard());
+			treasureCards.add(temp);
 		}
 	}
 	

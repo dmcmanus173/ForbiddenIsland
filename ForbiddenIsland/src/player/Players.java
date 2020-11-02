@@ -86,7 +86,7 @@ public class Players {
     	StringBuilder temp = new StringBuilder("");
     	
     	for(int i=0; i<numPlayers; i++)
-    		temp.append("Player "+(i+1)+":\n"+getPlayer(i+1).toString());
+    		temp.append("Player "+(i+1)+":\n"+getPlayer(i+1).toString()+"\n\n");
     	
     	return temp.toString();    	
     }

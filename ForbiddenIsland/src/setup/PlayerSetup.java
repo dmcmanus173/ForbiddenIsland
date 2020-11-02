@@ -38,6 +38,9 @@ public class PlayerSetup {
 		validNumPlayers = false;
 		getNumPlayers(user);
 		createPlayers(user);
+		
+		//TODO
+		System.out.println( Players.getInstance().toString() );
 	}
 
 	/**
