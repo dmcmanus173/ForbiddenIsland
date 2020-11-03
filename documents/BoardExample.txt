@@ -12,3 +12,29 @@
           | PR | DD |
           -----------
 
+FL - Fools' Landing
+TM - Temple of the Moon
+TS - Temple of the Sun
+WG - Whispering Garden
+HG - Howling Garden
+CE - Cave of Embers
+CS - Cave of Shadows
+CP - Coral Palace
+TP - Tidal Palace
+BG - Bronze Gate
+SG - Silver Gate
+CG - Copper Gate
+GG - Golden Gate
+IG - Iron Gate
+TH - Twilight Hollow
+LL - Lost Lagoon
+CF - Crimson Forest
+WT - Watchtower
+MM - Misty Marsh
+CA - Cliffs of Abandon
+BB - Breakers Bridge
+OB - Observatory
+PR - Phantom Rock
+DD - Dunes of Deception
+
+

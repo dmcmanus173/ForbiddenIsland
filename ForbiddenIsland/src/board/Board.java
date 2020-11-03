@@ -64,9 +64,9 @@ public class Board {
     	int tileCounter = 0;
     	
     	
-    	System.out.println("making board.");
+//    	System.out.println("making board.");
     	for (int y=0; y<NUM_ROWS; y++) {         // For each row in Board
-    		System.out.println("making row:" + y);
+ //   		System.out.println("making row:" + y);
     		islandTiles.add(new ArrayList<Optional<Tile>>());
             
             for (int x=0; x<NUM_COLS; x++) {     // For each column in row
@@ -197,27 +197,29 @@ public class Board {
      * TODO: spice it up a bit ;)
      */
     public void printBoard() {
-    	System.out.println("printing board.");
-    	for (int y=0; y<NUM_ROWS; y++) {         // For each row in Board
-    		StringBuilder tileString = new StringBuilder("");
-            for (int x=0; x<NUM_COLS; x++) {     // For each column in row
-            	Optional<Tile> islandTile = islandTiles.get(y).get(x);
-            	if(islandTile.isPresent()) {
-            		Tile presentIstlandTile = islandTile.get();
-            		tileString.append(presentIstlandTile.getTileName());
-            		if (presentIstlandTile instanceof TreasureTile) {
-            			TreasureTile treasureIslandTile = (TreasureTile) presentIstlandTile;
-            			tileString.append("[T=" + treasureIslandTile.getTreasureType() + "], ");
-            		} else {
-            			tileString.append(", ");
-            		}
-            	} else {
-            		tileString.append("empty, ");
-            	}
-            }
-            System.out.println(tileString.toString());
-            
-        }
+    	StringBuilder boardString = new StringBuilder("");
+    	
+        boardString.append("          -----------           \n          | ");
+        for(int i=0; i<2; i++)
+        	boardString.append(orderedTiles.get(i).getTileName().getAbbr()+" | ");
+        boardString.append("\n     ---------------------      \n     | ");
+        for(int i=2; i<6; i++)
+        	boardString.append(orderedTiles.get(i).getTileName().getAbbr()+" | ");
+        boardString.append("\n------------------------------- \n| ");
+        for(int i=6; i<12; i++)
+        	boardString.append(orderedTiles.get(i).getTileName().getAbbr()+" | ");
+        boardString.append("\n------------------------------- \n| ");
+        for(int i=12; i<18; i++)
+        	boardString.append(orderedTiles.get(i).getTileName().getAbbr()+" | ");
+        boardString.append("\n------------------------------- \n     | ");
+        for(int i=18; i<22; i++)
+        	boardString.append(orderedTiles.get(i).getTileName().getAbbr()+" | ");
+        boardString.append("\n     ---------------------      \n          | ");
+        for(int i=22; i<24; i++)
+        	boardString.append(orderedTiles.get(i).getTileName().getAbbr()+" | ");
+        boardString.append("\n          -----------           \n");
+
+    	System.out.println(boardString.toString());
     }
     
     
@@ -290,7 +292,7 @@ public class Board {
 		
 	} 
 	
-	private void printOrderedTiles() {
+	public void printOrderedTiles() {
 		for (int y=0; y<24; y++) {
 			System.out.println(orderedTiles.get(y).getTileName().toString());
 		}
@@ -302,7 +304,7 @@ public class Board {
      * @return ArrayList<Tile> containing all Tiles on board.
      */
 	public ArrayList<Tile> getIslandTiles() {
-		return instanciateIslandTiles();
+		return orderedTiles;
 	}
 	
 	/*

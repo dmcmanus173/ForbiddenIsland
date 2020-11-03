@@ -9,7 +9,7 @@ package enums;
  */
 
 public enum TileEnum {
-	FOOLS_LANDING        ("Fools Landing",      "FL"),
+	FOOLS_LANDING        ("Fools' Landing",      "FL"),
 	
 	TEMPLE_OF_THE_MOON   ("Temple of the Moon", "TM"),
 	TEMPLE_OF_THE_SUN    ("Temple of the Sun",  "TS"),
@@ -31,7 +31,7 @@ public enum TileEnum {
 	WATCHTOWER           ("Watchtower",         "WT"),
 	MISTY_MARSH          ("Misty Marsh",        "MM"),
 	CLIFFS_OF_ABANDON    ("Cliffs of Abandon",  "CA"),
-	BREAKERS_BRIDGE      ("Breakers Brisge",    "BB"),
+	BREAKERS_BRIDGE      ("Breakers Bridge",    "BB"),
 	OBSERVATORY          ("Observatory",        "OB"),
 	PHANTOM_ROCK         ("Phantom Rock",       "PR"),
 	DUNES_OF_DECEPTION   ("Dunes of Deception", "DD");

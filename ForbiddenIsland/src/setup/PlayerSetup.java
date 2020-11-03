@@ -40,6 +40,7 @@ public class PlayerSetup {
 		createPlayers(user);
 		
 		//TODO
+		System.out.println();
 		System.out.println( Players.getInstance().toString() );
 	}
 
@@ -121,8 +122,8 @@ public class PlayerSetup {
 		playerName = getPlayerName(user, i);
 		
 		Players.getInstance().addPlayer(playerName, role);
-		System.out.println("Created Player " + i + ".\n");
-		System.out.println( Players.getInstance().getPlayer(i).toString() );
+		//System.out.println("Created Player " + i + ".\n");
+		//System.out.println( Players.getInstance().getPlayer(i).toString() );
 	}
 	
 	/**

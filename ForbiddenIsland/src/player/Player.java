@@ -52,12 +52,12 @@ public class Player {
 		AbstractTreasureCard temp;
 		for(int i=0; i<NUM_INITIAL_CARDS; i++) {
 			temp = TreasureDeck.getInstance().getNextCard();
-			System.out.println(temp.toString());
+			//System.out.println(temp.toString());
 			while(temp.getCardType() == TreasureCardEnum.WATER_RISE ) {
-				System.out.println("Debug");
+				//System.out.println("Debug");
 				TreasureDeck.getInstance().returnUsedCard(temp);
 				temp = TreasureDeck.getInstance().getNextCard();
-				System.out.println(temp.toString());
+				//System.out.println(temp.toString());
 			}
 			treasureCards.add(temp);
 		}
