@@ -1,10 +1,12 @@
 package gameComponents;
 
+import player.Players;
+
 /**
  * Class for the WaterMeter in Forbidden Island.
  * 
  * @author  Demi Oke and Daniel McManus
- * @date    27/10/2020
+ * @date    04/11/2020
  * @version 0.1
  */
 public class WaterMeter {
@@ -12,6 +14,7 @@ public class WaterMeter {
 	//===========================================================
 	// Variable Setup
 	//===========================================================
+	private static WaterMeter waterMeter;
 	private int level;
 	
 	//===========================================================
@@ -20,22 +23,35 @@ public class WaterMeter {
 	private final int MAX_LEVEL = 5;
 	
 	//===========================================================
+    // Get Instance of Singleton
+    //===========================================================
+    /**
+     * getInstance method returns single instance of Players
+     * @return Players. singleton Players object.
+     */
+    public static WaterMeter getInstance(){
+        if(waterMeter == null)
+            waterMeter = new WaterMeter();
+        return waterMeter;
+    }
+    
+	//===========================================================
 	// Constructor
 	//===========================================================
 	/**
 	 * Constructor for TreasureDeck object.
 	 * Sets the Water level to 1.
 	 */
-	public WaterMeter(){
+	private WaterMeter(){
 		level = 1;
 	}
 	
+	//TODO unused constructor
 	/**
 	 * Constructor for TreasureDeck object.
 	 * @param int level, the level to set waterlevel to.
 	 */
-	public WaterMeter(int level) {
-		
+	private WaterMeter(int level) {
 		if(level <= MAX_LEVEL)
 			this.level = level;
 		else {

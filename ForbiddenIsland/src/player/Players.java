@@ -8,7 +8,7 @@ import enums.AdventurerEnum;
  * Class containing all Players in a game of Forbidden Island.
  * 
  * @author  Demi Oke and Daniel McManus
- * @date    02/11/2020
+ * @date    04/11/2020
  * @version 0.1
  */
 public class Players {
@@ -76,6 +76,14 @@ public class Players {
 	 */  
     public Player getPlayer(int i) {
     	return listPlayers.get(i-1);
+    }
+    
+	/**
+	 * getPlayers will retrieve Player i.
+	 * @param int i, i is the player number. Not the position of the player in listPlayer. i = pos+1.
+	 */  
+    public ArrayList<Player> getPlayers() {
+    	return listPlayers;
     }
     
 	/**
