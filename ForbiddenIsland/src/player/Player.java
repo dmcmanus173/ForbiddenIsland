@@ -14,7 +14,7 @@ import gameComponents.TreasureDeck;
  * Class for the Player in Forbidden Island.
  * 
  * @author  Demi Oke and Daniel McManus
- * @date    27/10/2020
+ * @date    04/11/2020
  * @version 0.1
  */
 public class Player {
@@ -72,6 +72,14 @@ public class Player {
 	 */
 	public Tile getLocation() {
 		return location;
+	}
+	
+	/**
+	 * getRole method will return the role of the player.
+	 * @return AdventurerEnum role, the role of the player.
+	 */
+	public AdventurerEnum getRole() {
+		return role;
 	}
 	
 	/**

@@ -1,12 +1,17 @@
 package board;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import enums.FloodStatusEnum;
 import enums.TileEnum;
+import player.Player;
 
 /**
  * Abstract class for tiles on the board in the Forbidden Island Game.
- * @author Demi Oke
- * @version 1.0
+ * @author Demi Oke and Daniel McManus
+ * @date 04/11/2020
+ * @version 0.1
  *
  */
 
@@ -17,6 +22,7 @@ public class Tile {
     //===========================================================
 	protected TileEnum tileName;
 	protected FloodStatusEnum floodStatus;
+	protected Set<Player> playersOnTile;
 	
 	
 	//===========================================================
@@ -30,6 +36,7 @@ public class Tile {
 	public Tile(TileEnum tileName) {
 		this.tileName = tileName;
 		this.floodStatus = FloodStatusEnum.NOT_FLOODED;
+		this.playersOnTile = new HashSet<Player>();
 	}
 	
 	
@@ -48,14 +55,50 @@ public class Tile {
     * getter to return the flood status Tile
     * @return the flood status of the Tile.
     */
-	
-	
 	public FloodStatusEnum getFloodStatus() {
 		return this.floodStatus;
 	}
 	
+	/**
+    * getter to return the players on a tile
+    * @return the flood status of the Tile.
+    */
+	public Set<Player> getPlayersOnTile() {
+		return playersOnTile;
+	}
+	
+	/**
+    * addPlayerToTile method adds a player to the set of players on tile.
+    * @param Player player that is to be added to tile.
+    */
+	public void addPlayerToTile(Player player) {
+		if(!playersOnTile.contains(player)) playersOnTile.add(player);
+	}
+	
+	
+	/**
+    * addPlayerToTile method removes a player to the set of players on tile.
+    * @param Player player that is to be removed to tile.
+    */
+	public void removePlayerFromTile(Player player) {
+		if(playersOnTile.contains(player)) playersOnTile.remove(player);
+	}
+	
+	
+	/**
+    * checks to see if tile is sunken
+    * @return true if tile is sunken or false if not.
+    */
+	public boolean isSunken() {
+		if(floodStatus == FloodStatusEnum.SUNKEN) return true;
+		return false;
+	}
+	
+	/**
+    * shoreUp method shores up a tile only if it has been flooded.
+    * @return true if tile is has been shored up.
+    */
 	public Boolean shoreUp() {
-		
 		if(floodStatus == FloodStatusEnum.FLOODED) {
 			floodStatus = FloodStatusEnum.NOT_FLOODED;
 			return true;
@@ -68,26 +111,52 @@ public class Tile {
 		
 	}
 	
+	/**
+    * flood method floods a tile if it is shored up and sinks a tile if it is flooded.
+    */
 	public void flood() {
 		if(floodStatus == FloodStatusEnum.NOT_FLOODED) {
 			floodStatus = FloodStatusEnum.FLOODED;
-			System.out.println("Island Tile is now flooded!");
+			System.out.println(tileName + " is now flooded!");
 		}
 		else if(floodStatus == FloodStatusEnum.FLOODED) {
 			floodStatus = FloodStatusEnum.SUNKEN;
-			System.out.println("Island Tile is now sunk!");
+			System.out.println(tileName + " is now sunk!");
 		}
 		
 	}
 	
-	/*
+	/**
+    * toString method returns relevant information about tile
+    * that will be displayed to players during the game.
+    * @return Strings tile info.
+    */
+	@Override
 	public String toString() {
+		StringBuilder tileString = new StringBuilder("");
+		tileString.append(tileName);
+		if(floodStatus == FloodStatusEnum.FLOODED) {
+			tileString.append("(" + floodStatus + "). ");
+		} else {
+			tileString.append(". ");
+		}
+		if(playersOnTile.isEmpty()) return tileString.toString();
 		
+		tileString.append("\n\t");
+		tileString.append("Other players here: ");
+		for (Player player : playersOnTile) { 
+			tileString.append("The "+ player.getRole() + ", ");
+		}
+		return tileString.toString();
+	}
+	
+	/*
+	public String toString() {	
 		StringBuilder temp = new StringBuilder("");
 		temp.append("Tile Name: " + tileName);
 		temp.append("\nFlooded: " + floodStatus.toString());
 		return temp.toString();
-		
+			
 	}
 	public Boolean compareTo(Tile otherTile) {
 		

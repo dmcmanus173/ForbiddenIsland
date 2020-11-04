@@ -14,7 +14,7 @@ import enums.TreasureEnum;
 /**
  * Class representing the board object.
  * @author Demi Oke & Daniel McManus
- * @date    31/10/2020
+ * @date    04/11/2020
  * @version 0.1
  *
  */
@@ -116,6 +116,14 @@ public class Board {
         }
     }
     
+    /**
+     * getTileWithDirectionFrom returns the tile at the direction from the given tile. .
+     * Unlike getTileAtPosition, this function should ALWAYS return a tile, 
+     * as every island tile should be within the shape of the island.
+     * @param tileName the name of the tile.
+     * @param playerDirection the direction at which to get the tile, i.e. up, down, left, right etc.
+     * @return Optional tile at the direction from the given tile. 
+     */
     private Optional<Tile> getTileWithDirectionFrom(TileEnum tileName, PlayerMovesEnum playerDirection) {
     	int[] currentPos = islandTilesNamePositionMap.get(tileName);
     	int yPos = currentPos[1];
@@ -157,14 +165,25 @@ public class Board {
     	}
     }
     
-    
     /**
-     * returns a particular board tile.
-     * @param pos the tiles position
-     * @return the tile for a particular position.
+     * getTilesPlayerCanMoveTo The tiles on the board that the player can move to.
+     * @param tileName the name of the tile.
+     * @param playerDirection the direction at which to get the tile, i.e. up, down, left, right etc.
+     * @return HashMap<PlayerMovesEnum, Tile> containing the player movement direction and the corresponding tile in that direction.
      */
-    private Optional<Tile> get(int[] pos) {
-        return islandTiles.get(pos[1]).get(pos[0]);
+    private HashMap<PlayerMovesEnum, Tile> getTilesPlayerCanMoveTo(TileEnum tileName) {
+    	HashMap<PlayerMovesEnum, Tile> tilesPlayerCanMoveTo = new HashMap<PlayerMovesEnum, Tile>();
+    	Optional<Tile> tileAtDirection;
+    	for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
+		    if(playerMove.isAdjacentMove()) {
+		    	tileAtDirection = getTileWithDirectionFrom(tileName, playerMove);
+		    	if(tileAtDirection.isPresent()) {
+		    		tilesPlayerCanMoveTo.put(playerMove, tileAtDirection.get());
+		    	}
+		    }
+		}
+    	
+    	return tilesPlayerCanMoveTo;
     }
     
     
@@ -307,14 +326,14 @@ public class Board {
 		return orderedTiles;
 	}
 	
-	/*
+	
 	// Class-level test
 	public static void main(String[] args) {
 		Board.getInstance().printBoard();
 		Board.getInstance().printOrderedTiles();
 		
 	}
-	*/
+	
 
 }
 

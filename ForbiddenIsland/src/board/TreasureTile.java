@@ -1,7 +1,9 @@
 package board;
 
+import enums.AdventurerEnum;
 import enums.TileEnum;
 import enums.TreasureEnum;
+import player.Player;
 
 
 /**
@@ -9,7 +11,7 @@ import enums.TreasureEnum;
  * This class is extended from Tile.
  * 
  * @author  Demi Oke and Daniel McManus
- * @date    27/10/2020
+ * @date    04/11/2020
  * @version 0.1
  */
 
@@ -46,5 +48,47 @@ public class TreasureTile extends Tile {
 	public TreasureEnum getTreasureType() {
 		return treasureType;
 	}
+	
+	
+	
+	
+	/**
+    * toString method returns relevant information about treasure tiletile
+    * that will be displayed to players during the game.
+    * @return String treasure tile info.
+    */
+	@Override
+	public String toString() {
+		StringBuilder treasureTileString = new StringBuilder("");
+		treasureTileString.append(super.toString());
+		treasureTileString.append("\n\t");
+		treasureTileString.append(treasureType + " can be collected here.");
+		return treasureTileString.toString();
+		
+	}
+	
+	/*
+	// Class-level test
+	public static void main(String[] args) {
+		TreasureTile tile = new TreasureTile(TileEnum.BREAKERS_BRIDGE, TreasureEnum.THE_CRYSTAL_OF_FIRE);
+		Player player1 = new Player("Tom", AdventurerEnum.DIVER);
+		Player player2 = new Player("Wendy", AdventurerEnum.EXPLORER);
+		
+		tile.addPlayerToTile(player1);
+		tile.addPlayerToTile(player2);
+		tile.flood();
+		System.out.println(tile.toString());
+		
+		tile.removePlayerFromTile(player1);
+		tile.shoreUp();
+		System.out.println(tile.toString());
+		
+		tile.removePlayerFromTile(player2);
+		tile.flood();
+		tile.flood();
+		System.out.println(tile.toString());
+		
+	}
+	*/
 
 }
