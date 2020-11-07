@@ -1,11 +1,14 @@
 package player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import board.Board;
 import board.Tile;
 import enums.AdventurerEnum;
+import enums.FloodStatusEnum;
+import enums.PlayerMovesEnum;
 import enums.TileEnum;
 import enums.TreasureCardEnum;
 import gameComponents.AbstractTreasureCard;
@@ -188,7 +191,6 @@ public class Player {
 			if( option == 1)
 				removeTreasureCard();
 			else {
-//				System.out.println("Debug: giveTreasureCard if possible");
 				if (giveTreasureCard() ) {
 					numTreasureCards += 1; // giveTreasureCard decrements numTreasureCards, must balance.
 				}					
@@ -257,27 +259,94 @@ public class Player {
 		numTreasureCards += 1;
 	}
 	
-	/**TODO
-	 * move method will move a player to a different tile.
+	/**
+	 * TilesForIfOnSunkTile method is used to getTiles that player can move to if on a sunken tile.
+	 * Diver can move to the nearest tile
+	 * Pilot can move to any tile
+	 * Explorer can also move to diagonal tile
+	 * Rest of players can move to opposite tile
+	 * @return ArrayList<Tile>, a tile containing tiles that player can move to
 	 */
-	public void move () {
-		//Board.getInstance().
-		//TODO Add content
-		// location = new location
+	private ArrayList<Tile> TilesForIfOnSunkTile() {
+		ArrayList<Tile> potentialTiles;
+		if( role == AdventurerEnum.DIVER )
+			potentialTiles = Board.getInstance().getNearestTilesToTile(location);
+		else if( role == AdventurerEnum.PILOT ) {
+			potentialTiles = Board.getInstance().getIslandTiles();
+			for(Tile aTile : potentialTiles) {
+				if( aTile.isSunken() )
+					potentialTiles.remove(aTile);
+			}
+		}
+		else
+			potentialTiles = Board.getInstance().getTilesAroundTile(location, role == AdventurerEnum.EXPLORER);
+		
+		return potentialTiles;		
 	}
 	
-	/**TODO
+	private void changeLocation(Tile newLocation) {
+		location.removePlayerFromTile(this);
+		location = newLocation;
+		location.addPlayerToTile(this);
+	}
+	
+	/**
+	 * move method to be called if player must move.
+	 * If called when player on sunk tile, it will get a list of tiles to move to with respect to said rule.
+	 * If called when player is not on sunk tile, i.e. during a typical go, player can move to opposite tile.
+	 * @return Boolean, return false if no tile to move to, else true if player has successfully moved.
+	 */
+	public Boolean move () {
+		ArrayList<Tile> potentialTiles;
+		if(location.isSunken())
+			potentialTiles = TilesForIfOnSunkTile();
+		else
+			potentialTiles = Board.getInstance().getTilesAroundTile(location, false);
+		if(potentialTiles.isEmpty())
+			return false;
+		Tile chosenTile = selectOptionTiles(potentialTiles);
+		changeLocation(chosenTile);
+		return true;
+	}
+	
+	/**
+	 * selectOptionTiles method prints tiles from an ArrayList<Tile>, which is passed as parameter.
+	 * It then requires user to interact via console in choosing a tile.
+	 * It returns the chosen tile.
+	 * @param optionTiles, ArrayList of tiles to be offered as options.
+	 * @return Tile, the tile chosen.
+	 */
+	private Tile selectOptionTiles(ArrayList <Tile> optionTiles) {
+		System.out.println("Choose one of the following tiles to move to:");
+		for (int i=0; i<optionTiles.size(); i++) {
+			System.out.println("Tile "+(i+1)+": "+optionTiles.get(i).getTileName());
+		}
+		Tile chosenTile = optionTiles.get(  getOptionNumber(1, optionTiles.size())-1 );
+		return chosenTile;
+	}
+	
+	/**
 	 * shoreUp will allow a player to shore-up a flooded island if it is flooded, and the player contains a sandbag card.
 	 * @param Tile islandTile to shore-up.
 	 */
-	public void shoreUp(Tile islandTile) {
-		//TODO Must resolve to shore any tile adjacent to player
-		SandbagCard sandbag = new SandbagCard(); //TODO see if this works, might change to iterative search
+	public Boolean shoreUp() {
+		SandbagCard sandbag = new SandbagCard();
 		if( treasureCards.contains(sandbag) ) {
-			if( islandTile.shoreUp() ) treasureCards.remove(sandbag);
+			ArrayList<Tile> potentialTiles = Board.getInstance().getTilesAroundTile(location, false);
+			for(Tile tile : potentialTiles) {
+				if( tile.getFloodStatus() != FloodStatusEnum.FLOODED )
+					potentialTiles.remove(tile);
+			}
+			if ( !potentialTiles.isEmpty() ) {
+				Tile chosenTile = selectOptionTiles(potentialTiles);
+				chosenTile.shoreUp();
+				treasureCards.remove(sandbag);
+			}
 		}
+		
 		else
 			System.out.println(name + " does not have a Sandbag card.");
+		return false;
 	}
 	
 	/**
