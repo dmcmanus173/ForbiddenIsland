@@ -5,10 +5,12 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import enums.PlayerMovesEnum;
 import enums.TileEnum;
 import enums.TreasureEnum;
+import player.Player;
 
 
 /**
@@ -105,16 +107,45 @@ public class Board {
      * @return the tile for a of a given name.
      * @throws Exception 
      */
-    private Tile getTileWithName(TileEnum tileName) throws Exception {
+    private Tile getTileWithName(TileEnum tileName) {
     	int[] pos = islandTilesNamePositionMap.get(tileName);
         Optional<Tile> islandTile = getTileAtPosition(pos);
-        if (islandTile.isPresent()) {
-        	return islandTile.get();
-        } else {
-        	// the position of every island tile must exist within the island shape.
-        	throw new Exception("The position of the tile with the name: " + tileName + " is not in the feasibile region.");
-        }
+        
+        if (islandTile.isPresent()) return islandTile.get();
+        else throw new RuntimeException("The position of the tile with the name: " + tileName + " is not in the feasibile region.");
+        // the position of every island tile must exist within the island shape.
     }
+    
+//    private void setUpPlayerOnBoard(ArrayList<Player> players) {
+//    	players.forEach((player) -> {
+//    		//TODO: Find out why i have to declare the tile inside loop.
+//    		Tile playerStartingTile = getTileWithName(player.getLocation().getTileName());
+//    		playerStartingTile.addPlayerToTile(player);
+//    	});
+//    }
+    
+//    public void movePlayer(Player player, TileEnum destination) {
+//    	Tile currentTile = getTileWithName(player.getLocation().getTileName());
+//    	Tile destinationTile = getTileWithName(destination);
+//    	// TODO: change playersOnTile to arrayAist instead of set?? so we can do this..
+//    	// destinationTile.addPlayerToTile(currentTile.removePlayerFromTile(player));
+//    	currentTile.removePlayerFromTile(player);
+//    	destinationTile.addPlayerToTile(player);
+//    	//TODO: change tilePosition of player from current Tile to destination tile.
+//    }
+    
+    
+//    public boolean shoreUpTile(TileEnum tileName) {
+//    	Tile tileToShoreUp = getTileWithName(tileName);
+//    	return tileToShoreUp.shoreUp();
+//    }
+//    
+//    public Optional<Tile> floodTile(TileEnum tileName) {
+//    	Tile tileToFlood = getTileWithName(tileName);
+//    	tileToFlood.flood();
+//    	if (tileToFlood.isSunken()) return Optional.of(tileToFlood);
+//    	else return Optional.empty();
+//    }
     
     /**
      * getTileWithDirectionFrom returns the tile at the direction from the given tile. .
@@ -122,41 +153,42 @@ public class Board {
      * as every island tile should be within the shape of the island.
      * @param tileName the name of the tile.
      * @param playerDirection the direction at which to get the tile, i.e. up, down, left, right etc.
-     * @return Optional tile at the direction from the given tile. 
+     * @param dist the search distance from the tile.
+     * @return Optional<Tile> at the direction from the given tile. 
      */
-    private Optional<Tile> getTileWithDirectionFrom(TileEnum tileName, PlayerMovesEnum playerDirection) {
-    	int[] currentPos = islandTilesNamePositionMap.get(tileName);
+    private Optional<Tile> getTileWithDirectionFrom(Tile tile, PlayerMovesEnum playerDirection, int dist) {
+    	int[] currentPos = islandTilesNamePositionMap.get(tile.getTileName());
     	int yPos = currentPos[1];
     	int xPos = currentPos[0];
     	int[] detstination = {xPos, yPos};
     	switch(playerDirection) {
     	case NORTH:
-    		detstination[1] = yPos + 1;
+    		detstination[1] = yPos + dist;
     		return getTileAtPosition(detstination);
     	case EAST:
-    		detstination[0] = xPos + 1;
+    		detstination[0] = xPos + dist;
     		return getTileAtPosition(detstination);
     	case SOUTH:
-    		detstination[1] = yPos - 1;
+    		detstination[1] = yPos - dist;
     		return getTileAtPosition(detstination);
     	case WEST:
-    		detstination[0] = xPos - 1;
+    		detstination[0] = xPos - dist;
     		return getTileAtPosition(detstination);
     	case NORTH_EAST:
-    		detstination[0] = xPos + 1;
-    		detstination[1] = yPos + 1;
+    		detstination[0] = xPos + dist;
+    		detstination[1] = yPos + dist;
     		return getTileAtPosition(detstination);
     	case SOUTH_EAST:
-    		detstination[0] = xPos + 1;
-    		detstination[1] = yPos - 1;
+    		detstination[0] = xPos + dist;
+    		detstination[1] = yPos - dist;
     		return getTileAtPosition(detstination);
     	case SOUTH_WEST:
-    		detstination[0] = xPos - 1;
-    		detstination[1] = yPos - 1;
+    		detstination[0] = xPos - dist;
+    		detstination[1] = yPos - dist;
     		return getTileAtPosition(detstination);
     	case NORTH_WEST:
-    		detstination[0] = xPos - 1;
-    		detstination[1] = yPos + 1;
+    		detstination[0] = xPos - dist;
+    		detstination[1] = yPos + dist;
     		return getTileAtPosition(detstination);
     	default:
     		System.out.println("Option not plausable.");
@@ -165,26 +197,61 @@ public class Board {
     	}
     }
     
+    
     /**
-     * getTilesPlayerCanMoveTo The tiles on the board that the player can move to.
+     * getTilesAroundTile method gets tiles immediately around a specified tile.
      * @param tileName the name of the tile.
-     * @param playerDirection the direction at which to get the tile, i.e. up, down, left, right etc.
+     * @param returnAdjacent boolean determining if chosen tiles should only be adjacent. true returns adjacent tiles, false returns diagonal tiles.
      * @return HashMap<PlayerMovesEnum, Tile> containing the player movement direction and the corresponding tile in that direction.
      */
-    private HashMap<PlayerMovesEnum, Tile> getTilesPlayerCanMoveTo(TileEnum tileName) {
+    public HashMap<PlayerMovesEnum, Tile> getTilesAroundTile(Tile tile, boolean returnAdjacent) {
     	HashMap<PlayerMovesEnum, Tile> tilesPlayerCanMoveTo = new HashMap<PlayerMovesEnum, Tile>();
     	Optional<Tile> tileAtDirection;
-    	for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
-		    if(playerMove.isAdjacentMove()) {
-		    	tileAtDirection = getTileWithDirectionFrom(tileName, playerMove);
-		    	if(tileAtDirection.isPresent()) {
+    	if (returnAdjacent) {
+    		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
+    		    if(playerMove.isAdjacentMove()) {
+    		    	tileAtDirection = getTileWithDirectionFrom(tile, playerMove, 1);
+    		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
+    		    		tilesPlayerCanMoveTo.put(playerMove, tileAtDirection.get());
+    		    	}
+    		    }
+    		}
+    	} else {
+    		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
+    			tileAtDirection = getTileWithDirectionFrom(tile, playerMove, 1);
+		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
 		    		tilesPlayerCanMoveTo.put(playerMove, tileAtDirection.get());
 		    	}
-		    }
-		}
-    	
+    		}
+    	}
     	return tilesPlayerCanMoveTo;
     }
+    
+    /**
+     * getNearestTilesToTile sequential searches for the nearest unsunk tile on to
+     * a particular tile on the board.
+     * @param Tile the specified tile.
+     * @return HashMap<PlayerMovesEnum, Tile> containing the player movement direction and the corresponding tile in that direction.
+     */
+    public HashMap<PlayerMovesEnum, Tile> getNearestTilesToTile(Tile tile) {
+    	HashMap<PlayerMovesEnum, Tile> tilesPlayerCanMoveTo = new HashMap<PlayerMovesEnum, Tile>();
+    	Optional<Tile> tileAtDirection;
+    	for(int i = 0; i< NUM_COLS; i++) {
+    		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
+    			tileAtDirection = getTileWithDirectionFrom(tile, playerMove, i + 1);
+		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
+		    		tilesPlayerCanMoveTo.put(playerMove, tileAtDirection.get());
+		    	}
+    		}
+    		if(!tilesPlayerCanMoveTo.isEmpty()) return tilesPlayerCanMoveTo;
+    	}
+    	
+    	// return empty map.
+    	return tilesPlayerCanMoveTo;
+    	
+    }
+    
+    
     
     
     

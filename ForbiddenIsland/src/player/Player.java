@@ -188,7 +188,7 @@ public class Player {
 			if( option == 1)
 				removeTreasureCard();
 			else {
-				System.out.println("Debug: giveTreasureCard if possible");
+//				System.out.println("Debug: giveTreasureCard if possible");
 				if (giveTreasureCard() ) {
 					numTreasureCards += 1; // giveTreasureCard decrements numTreasureCards, must balance.
 				}					
@@ -226,15 +226,17 @@ public class Player {
 					potentialPlayers.add(aPlayer);
 			}
 		}
-		if(potentialPlayers.isEmpty())
+		if(potentialPlayers.isEmpty()) {
+			System.out.println("There are no players to give cards to.");
 			return false;
+		}
 		else {
 			// Choose Player
 			System.out.println("Choose a player to give a card to.");
 		    for(int i=0; i<potentialPlayers.size(); i++)
 		    	System.out.println((i+1 )+ ": " + potentialPlayers.get(i).getName() );
 			Player chosenPlayer = potentialPlayers.get( getOptionNumber(1,potentialPlayers.size())-1 );
-			// Choose Card
+			// Choose Card TODO: Print the cards.
 			System.out.println("Choose the card to give.");
 		    for(int i=0; i<numTreasureCards; i++)
 		    	System.out.println((i+1) + ": " + treasureCards.get(i) );

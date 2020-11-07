@@ -3,8 +3,10 @@ package board;
 import java.util.HashSet;
 import java.util.Set;
 
+import enums.AdventurerEnum;
 import enums.FloodStatusEnum;
 import enums.TileEnum;
+import enums.TreasureEnum;
 import player.Player;
 
 /**
@@ -73,6 +75,8 @@ public class Tile {
     */
 	public void addPlayerToTile(Player player) {
 		if(!playersOnTile.contains(player)) playersOnTile.add(player);
+	    else throw new RuntimeException("Cannot add player to a tile they already exist on.");
+		
 	}
 	
 	
@@ -82,6 +86,8 @@ public class Tile {
     */
 	public void removePlayerFromTile(Player player) {
 		if(playersOnTile.contains(player)) playersOnTile.remove(player);
+		else throw new RuntimeException("Cannot remove player from tile. Player does not exist on tile");
+		
 	}
 	
 	
@@ -166,5 +172,31 @@ public class Tile {
 		
 	}
 	*/
+	
+	
+	/*
+	// Class-level test
+	public static void main(String[] args) {
+		TreasureTile tile = new TreasureTile(TileEnum.BREAKERS_BRIDGE, TreasureEnum.THE_CRYSTAL_OF_FIRE);
+		Player player1 = new Player("Tom", AdventurerEnum.DIVER);
+		Player player2 = new Player("Wendy", AdventurerEnum.EXPLORER);
+		
+		tile.addPlayerToTile(player1);
+		tile.addPlayerToTile(player2);
+		tile.flood();
+		System.out.println(tile.toString());
+		
+		tile.removePlayerFromTile(player1);
+		tile.shoreUp();
+		System.out.println(tile.toString());
+		
+		tile.removePlayerFromTile(player2);
+		tile.flood();
+		tile.flood();
+		System.out.println(tile.toString());
+		
+	}
+	*/
+
 
 }
