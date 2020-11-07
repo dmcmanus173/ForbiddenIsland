@@ -120,6 +120,22 @@ public class Player {
 	public AdventurerEnum getRole() {
 		return role;
 	}
+	
+	/**
+	 * getNumTreasureCards gets the number of treasure cards the player has in possession.
+	 * @return int numTreasureCards, the number of treasure cards a player has.
+	 */
+	public int getNumTreasureCards() {
+		return numTreasureCards;
+	}
+	
+	/**
+	 * getName method returns the players chosen name as a String.
+	 * @return String name, the players chosen name at the start of game.
+	 */
+	private String getName() {
+		return name;
+	}
 
 	/**
 	 * removeTreasureCard method will remove a TreasureCard from player inventory.
@@ -129,33 +145,6 @@ public class Player {
 		printCardsHeld();
 		AbstractTreasureCard removedCard = treasureCards.remove(getOptionNumber(1, numTreasureCards)-1);
 		TreasureDeck.getInstance().returnUsedCard(removedCard);
-	}
-	
-	/**
-	 * getOptionNumber
-	 * @param userString
-	 * @return integer value of option picked
-	 */
-	private int getOptionNumber(int minOption, int maxOption) {
-		Scanner user = new Scanner(System.in);
-		Boolean validInput = false;
-		int option = 0;
-		while( !validInput ) {
-			String userString = user.nextLine();
-			try {
-				option = Integer.parseInt(userString);
-			} catch (NumberFormatException e) {
-				return option;
-			}
-			
-			if ((option >= minOption) && (option <= maxOption)) {
-				validInput = true;
-				user.close();
-			}
-			else
-				System.out.println("Incorrect input");
-		}
-		return option;
 	}
 	
 	/**
@@ -213,14 +202,6 @@ public class Player {
 	}
 	
 	/**
-	 * getNumTreasureCards gets the number of treasure cards the player has in possession.
-	 * @return int numTreasureCards, the number of treasure cards a player has.
-	 */
-	public int getNumTreasureCards() {
-		return numTreasureCards;
-	}
-	
-	/**
 	 * giveTreasureCard will facilitate giving a treasureCard from the inventory
 	 * of AbstractTreasureCards to a different player.
 	 * @param Player otherPlayer, the player to give a card to.
@@ -266,14 +247,6 @@ public class Player {
 	}
 	
 	/**
-	 * getName method returns the players chosen name as a String.
-	 * @return String name, the players chosen name at the start of game.
-	 */
-	private String getName() {
-		return name;
-	}
-	
-	/**
 	 * receiveCard method is used to let a player receive a TreasureCard.
 	 * @param card, an AbstractTreasureCard to receive.
 	 */
@@ -282,7 +255,7 @@ public class Player {
 		numTreasureCards += 1;
 	}
 	
-	/**
+	/**TODO
 	 * move method will move a player to a different tile.
 	 */
 	public void move () {
@@ -291,7 +264,7 @@ public class Player {
 		// location = new location
 	}
 	
-	/**
+	/**TODO
 	 * shoreUp will allow a player to shore-up a flooded island if it is flooded, and the player contains a sandbag card.
 	 * @param Tile islandTile to shore-up.
 	 */
@@ -330,4 +303,36 @@ public class Player {
 		temp.append("\n"+cardsToString());
 		return temp.toString();
 	}
+	
+	
+	
+	
+	//TODO Make its own class.
+	/**
+	 * getOptionNumber
+	 * @param userString
+	 * @return integer value of option picked
+	 */
+	private int getOptionNumber(int minOption, int maxOption) {
+		Scanner user = new Scanner(System.in);
+		Boolean validInput = false;
+		int option = 0;
+		while( !validInput ) {
+			String userString = user.nextLine();
+			try {
+				option = Integer.parseInt(userString);
+			} catch (NumberFormatException e) {
+				return option;
+			}
+			
+			if ((option >= minOption) && (option <= maxOption)) {
+				validInput = true;
+				user.close();
+			}
+			else
+				System.out.println("Incorrect input");
+		}
+		return option;
+	}
 }
+
