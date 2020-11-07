@@ -202,17 +202,17 @@ public class Board {
      * getTilesAroundTile method gets tiles immediately around a specified tile.
      * @param tileName the name of the tile.
      * @param returnAdjacent boolean determining if chosen tiles should only be adjacent. true returns adjacent tiles, false returns diagonal tiles.
-     * @return HashMap<PlayerMovesEnum, Tile> containing the player movement direction and the corresponding tile in that direction.
+     * @return ArrayList<Tile> containing the player movement direction and the corresponding tile in that direction.
      */
-    public HashMap<PlayerMovesEnum, Tile> getTilesAroundTile(Tile tile, boolean returnAdjacent) {
-    	HashMap<PlayerMovesEnum, Tile> tilesPlayerCanMoveTo = new HashMap<PlayerMovesEnum, Tile>();
+    public ArrayList<Tile>  getTilesAroundTile(Tile tile, boolean returnAdjacent) {
+    	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
     	Optional<Tile> tileAtDirection;
     	if (returnAdjacent) {
     		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
     		    if(playerMove.isAdjacentMove()) {
     		    	tileAtDirection = getTileWithDirectionFrom(tile, playerMove, 1);
     		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
-    		    		tilesPlayerCanMoveTo.put(playerMove, tileAtDirection.get());
+    		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
     		    	}
     		    }
     		}
@@ -220,7 +220,7 @@ public class Board {
     		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
     			tileAtDirection = getTileWithDirectionFrom(tile, playerMove, 1);
 		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
-		    		tilesPlayerCanMoveTo.put(playerMove, tileAtDirection.get());
+		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
 		    	}
     		}
     	}
@@ -231,16 +231,16 @@ public class Board {
      * getNearestTilesToTile sequential searches for the nearest unsunk tile on to
      * a particular tile on the board.
      * @param Tile the specified tile.
-     * @return HashMap<PlayerMovesEnum, Tile> containing the player movement direction and the corresponding tile in that direction.
+     * @return ArrayList<Tile> containing the player movement direction and the corresponding tile in that direction.
      */
-    public HashMap<PlayerMovesEnum, Tile> getNearestTilesToTile(Tile tile) {
-    	HashMap<PlayerMovesEnum, Tile> tilesPlayerCanMoveTo = new HashMap<PlayerMovesEnum, Tile>();
+    public ArrayList<Tile> getNearestTilesToTile(Tile tile) {
+    	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
     	Optional<Tile> tileAtDirection;
     	for(int i = 0; i< NUM_COLS; i++) {
     		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
     			tileAtDirection = getTileWithDirectionFrom(tile, playerMove, i + 1);
 		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
-		    		tilesPlayerCanMoveTo.put(playerMove, tileAtDirection.get());
+		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
 		    	}
     		}
     		if(!tilesPlayerCanMoveTo.isEmpty()) return tilesPlayerCanMoveTo;
