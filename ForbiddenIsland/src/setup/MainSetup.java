@@ -1,7 +1,5 @@
 package setup;
 
-import java.util.Scanner;
-
 import board.Board;
 import gameComponents.FloodDeck;
 import gameComponents.TreasureDeck;
@@ -21,9 +19,9 @@ public class MainSetup {
 	/**
 	 * Constructor for MainSetup. Calls all setup classes.
 	 */
-	public MainSetup(Scanner user) {
+	public MainSetup() {
 		Welcome();
-		new PlayerSetup(user);
+		new PlayerSetup();
 		
 		// Create singletons
 		Board.getInstance().printBoard();

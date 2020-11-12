@@ -2,9 +2,9 @@ package setup;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Scanner;
 
 import enums.AdventurerEnum;
+import getInput.GetInput;
 import player.Players;
 
 /**
@@ -34,46 +34,23 @@ public class PlayerSetup {
 	/**
 	 * Constructor to PlayerSetup. Handles creation of all players.
 	 */
-	public PlayerSetup(Scanner user) {
+	public PlayerSetup() {
 		validNumPlayers = false;
-		getNumPlayers(user);
-		createPlayers(user);
+		getNumPlayers();
+		createPlayers();
 		
-		//TODO
-		System.out.println();
-		System.out.println( Players.getInstance().toString() );
+		System.out.println("\n" + Players.getInstance().toString() );
 	}
 
 	/**
 	 * getNumPlayers instance will get the number of players wanting to play.
 	 * @param Scanner user will read user input from Console
 	 */
-	private void getNumPlayers(Scanner user) {
-		String userString;
+	private void getNumPlayers() {
 		while (!validNumPlayers) {
 			System.out.println("How many people are playing? (must be between "+minPlayers+" and "+maxPlayers+")");
-			userString = user.nextLine();
-			numPlayers = setNumPlayers(userString);
+			numPlayers = GetInput.getInstance().anInteger(minPlayers, maxPlayers);
 		}
-	}
-	
-	/**
-	 * setNumPlayers will read String provided for an integer.
-	 * @param String userString will return the number read from userString
-	 */
-	private int setNumPlayers(String userString) {
-		int numOfPlayers = 0;
-		try {
-			numOfPlayers = Integer.parseInt(userString);
-		} catch (NumberFormatException e) {
-			return numOfPlayers;
-		}
-
-		if ((numOfPlayers >= minPlayers) && (numOfPlayers <= maxPlayers))
-			validNumPlayers = true;
-		else
-			System.out.println("Incorrect input");
-		return numOfPlayers;
 	}
 	
 	/**
@@ -104,11 +81,11 @@ public class PlayerSetup {
 	 * Create player for each person wanting to play.
 	 * @param Scanner user will read user input from Console
 	 */
-	private void createPlayers(Scanner user) {
+	private void createPlayers() {
 		//Randomize roles
 		ArrayList<AdventurerEnum> randomisedRoles = getRandomisedRoles();
 		for(int i=0; i<numPlayers; i++) 
-			createOnePlayer(user, randomisedRoles.get(i), i+1);
+			createOnePlayer(randomisedRoles.get(i), i+1);
 	}
 	
 	/**
@@ -117,9 +94,9 @@ public class PlayerSetup {
 	 * @param AdventurerEnum role, the role of the player to be created.
 	 * @param int i, player number.
 	 */
-	private void createOnePlayer(Scanner user, AdventurerEnum role, int i) {
+	private void createOnePlayer(AdventurerEnum role, int i) {
 		String playerName;
-		playerName = getPlayerName(user, i);
+		playerName = getPlayerName(i);
 		
 		Players.getInstance().addPlayer(playerName, role);
 		//System.out.println("Created Player " + i + ".\n");
@@ -132,11 +109,9 @@ public class PlayerSetup {
 	 * @param int i, player number.
 	 */
 	//TODO don't accept nothing.
-	private String getPlayerName(Scanner user, int i) {
-		String name;
+	private String getPlayerName(int i) {
 		System.out.println("\nEnter Player "+i+"'s Name:");
-		name = user.nextLine();
-		return name;
+		return GetInput.getInstance().aString();
 	}
 	
 	

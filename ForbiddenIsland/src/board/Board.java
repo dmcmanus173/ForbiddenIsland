@@ -5,12 +5,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Set;
 
 import enums.PlayerMovesEnum;
 import enums.TileEnum;
 import enums.TreasureEnum;
-import player.Player;
+//import player.Player;
 
 
 /**
@@ -20,8 +19,6 @@ import player.Player;
  * @version 0.1
  *
  */
-
-
 public class Board {
 	
 	
@@ -107,7 +104,8 @@ public class Board {
      * @return the tile for a of a given name.
      * @throws Exception 
      */
-    private Tile getTileWithName(TileEnum tileName) {
+    @SuppressWarnings("unused")
+	private Tile getTileWithName(TileEnum tileName) {
     	int[] pos = islandTilesNamePositionMap.get(tileName);
         Optional<Tile> islandTile = getTileAtPosition(pos);
         

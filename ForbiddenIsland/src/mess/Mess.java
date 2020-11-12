@@ -10,6 +10,7 @@ import gameComponents.TreasureDeck;
 import gameComponents.WaterMeter;
 import setup.MainSetup;
 
+@SuppressWarnings("unused")
 public class Mess {
 
 	/*
@@ -102,9 +103,7 @@ public class Mess {
 	
 	// MainSetup Class-level debug test
 	public static void main(String[] args) {
-		Scanner inputScanner = new Scanner(System.in);
-		
-		MainSetup setup = new MainSetup(inputScanner);
+		MainSetup setup = new MainSetup();
 	}
 	
 }

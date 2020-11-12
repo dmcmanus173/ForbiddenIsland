@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import board.Board;
 import enums.TreasureEnum;
 
 /**
@@ -22,8 +21,8 @@ public class TreasureDeck {
 	//===========================================================
 	private static TreasureDeck treasureDeck;
 	private Queue<AbstractTreasureCard> cardDeck = new LinkedList<AbstractTreasureCard>();
-	private Queue<AbstractTreasureCard> usedCards = new LinkedList<AbstractTreasureCard>();
-	private int cardsIssued; // Tracker for number of cards handed to players //TODO @Demi should we make this a list, Retains more info?
+	private ArrayList<AbstractTreasureCard> usedCards = new ArrayList<AbstractTreasureCard>();
+	private ArrayList<AbstractTreasureCard> cardsIssued = new ArrayList<AbstractTreasureCard>();
 	
 	//===========================================================
 	// Variable for Game Settings
@@ -54,7 +53,6 @@ public class TreasureDeck {
 	 * Constructor for TreasureDeck object.
 	 */
 	public TreasureDeck() {		
-		cardsIssued = 0;
 		TreasureCard crystalFireCard   = new TreasureCard(TreasureEnum.THE_CRYSTAL_OF_FIRE);
 		TreasureCard earthStoneCard    = new TreasureCard(TreasureEnum.THE_EARTH_STONE    );
 		TreasureCard oceansChaliceCard = new TreasureCard(TreasureEnum.THE_OCEANS_CHALICE );
@@ -89,14 +87,18 @@ public class TreasureDeck {
 	// Other Functions
 	//===========================================================
 	/**
-	 * shuffleDeck method will shuffle the contents of cardDeck
+	 * shuffleDeck method will shuffle the contents of cardDeck.
+	 * Will add used cards back into main pile.
 	 */
 	public void shuffleDeck() {
-		ArrayList<AbstractTreasureCard> tempList = new ArrayList<>();
 		while( !cardDeck.isEmpty() )
-			tempList.add(cardDeck.remove());
-		Collections.shuffle(tempList);
-		cardDeck.addAll(tempList);
+			usedCards.add(cardDeck.remove());
+		
+		Collections.shuffle(usedCards);
+		
+		cardDeck.addAll(usedCards);
+		while( !usedCards.isEmpty() )
+			usedCards.remove(0);
 	}
 	
 	/**
@@ -105,8 +107,6 @@ public class TreasureDeck {
 	 * cardDeck called shuffleDeck every time this method is called.
 	 */
 	private void addUsedCardsBack() {
-		while( !usedCards.isEmpty() )
-			cardDeck.add( usedCards.remove() );
 		shuffleDeck();
 	}
 	
@@ -117,8 +117,9 @@ public class TreasureDeck {
 	public AbstractTreasureCard getNextCard() {
 		if( cardDeck.isEmpty() )
 			addUsedCardsBack();
-		cardsIssued += 1;
-		return cardDeck.remove();
+		AbstractTreasureCard aCard = cardDeck.remove();
+		cardsIssued.add(aCard);
+		return aCard;
 	}
 
 	/**
@@ -128,7 +129,7 @@ public class TreasureDeck {
 	 */
 	public void returnUsedCard(AbstractTreasureCard usedCard) {
 		usedCards.add(usedCard);
-		cardsIssued -= 1;
+		cardsIssued.remove(usedCard);
 	}
 	
 	/**
@@ -141,7 +142,7 @@ public class TreasureDeck {
 		StringBuilder temp = new StringBuilder("");
 		temp.append("There is " + cardDeck.size() + " cards in the Treasure Deck.");
 		temp.append("\nThere is " + usedCards.size() + " cards in the used Treasure Card pile.");
-		temp.append("\nThere is " + cardsIssued + " cards in posession of the players.");
+		temp.append("\nThere is " + cardsIssued.size() + " cards in posession of the players.");
 		temp.append("\n");
 		return temp.toString();
 	}

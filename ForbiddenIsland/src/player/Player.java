@@ -1,7 +1,6 @@
 package player;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import board.Board;
 import board.Tile;
@@ -14,6 +13,7 @@ import gameComponents.HelicopterLiftCard;
 import gameComponents.SandbagCard;
 import gameComponents.TreasureDeck;
 import gameComponents.WaterMeter;
+import getInput.GetInput;
 
 /**
  * Class for the Player in Forbidden Island.
@@ -145,7 +145,7 @@ public class Player {
 	public void removeTreasureCard() {
 		System.out.println("Choose the card number to remove card: ");
 		printCardsHeld();
-		AbstractTreasureCard removedCard = treasureCards.remove(getOptionNumber(1, numTreasureCards)-1);
+		AbstractTreasureCard removedCard = treasureCards.remove(GetInput.getInstance().anInteger(1, numTreasureCards)-1);
 		TreasureDeck.getInstance().returnUsedCard(removedCard);
 		numTreasureCards -= 1;
 	}
@@ -199,7 +199,7 @@ public class Player {
 			System.out.println("You have exceeded the max number of cards you can carry.");
 			System.out.println("You can either Remove a card (Option 1), or Give a card (Option 2).");
 			System.out.println("Pick an option: (1 or 2)");
-			int option = getOptionNumber(1,2);
+			int option = GetInput.getInstance().anInteger(1,2);
 			if( option == 1)
 				removeTreasureCard();
 			else {
@@ -243,10 +243,10 @@ public class Player {
 			System.out.println("Choose a player to give a card to.");
 		    for(int i=0; i<potentialPlayers.size(); i++)
 		    	System.out.println((i+1 )+ ": " + potentialPlayers.get(i).getName() );
-			Player chosenPlayer = potentialPlayers.get( getOptionNumber(1,potentialPlayers.size())-1 );
+			Player chosenPlayer = potentialPlayers.get( GetInput.getInstance().anInteger(1,potentialPlayers.size())-1 );
 			System.out.println("Choose the card to give.");
 		    printCardsHeld();
-			AbstractTreasureCard chosenCard = treasureCards.get( getOptionNumber(1,numTreasureCards)-1 );
+			AbstractTreasureCard chosenCard = treasureCards.get( GetInput.getInstance().anInteger(1,numTreasureCards)-1 );
 			chosenPlayer.receiveCard(chosenCard);
 			removeTreasureCard(chosenCard);
 			return true;
@@ -343,7 +343,7 @@ public class Player {
 		for (int i=0; i<optionTiles.size(); i++) {
 			System.out.println("Tile "+(i+1)+": "+optionTiles.get(i).getTileName());
 		}
-		Tile chosenTile = optionTiles.get(  getOptionNumber(1, optionTiles.size())-1 );
+		Tile chosenTile = optionTiles.get(  GetInput.getInstance().anInteger(1, optionTiles.size())-1 );
 		return chosenTile;
 	}
 	
@@ -371,21 +371,6 @@ public class Player {
 		return false;
 	}
 	
-	
-	/**
-	 * cardsToString method will return cards a player has.
-	 * @return String info related to player.
-	 */
-	/*
-	public String cardsToString() {
-		StringBuilder temp = new StringBuilder("");
-		temp.append(name + " has the following cards:");
-		for(AbstractTreasureCard card : treasureCards)
-			temp.append("\n" + card.toString());
-		return temp.toString();
-	}
-	*/
-	
 	/**
 	 * toString method will return player info as a String.
 	 * @return String info related to player.
@@ -400,35 +385,6 @@ public class Player {
 		return temp.toString();
 	}
 	
-	
-	
-	
-	//TODO Make its own class.
-	/**
-	 * getOptionNumber
-	 * @param userString
-	 * @return integer value of option picked
-	 */
-	private int getOptionNumber(int minOption, int maxOption) {
-		Scanner user = new Scanner(System.in);
-		Boolean validInput = false;
-		int option = 0;
-		while( !validInput ) {
-			String userString = user.nextLine();
-			try {
-				option = Integer.parseInt(userString);
-			} catch (NumberFormatException e) {
-				return option;
-			}
-			
-			if ((option >= minOption) && (option <= maxOption)) {
-				validInput = true;
-				user.close();
-			}
-			else
-				System.out.println("Incorrect input");
-		}
-		return option;
-	}
+
 }
 

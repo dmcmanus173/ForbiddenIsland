@@ -1,9 +1,9 @@
 package board;
 
-import enums.AdventurerEnum;
+//import enums.AdventurerEnum;
 import enums.TileEnum;
 import enums.TreasureEnum;
-import player.Player;
+//import player.Player;
 
 
 /**
@@ -14,7 +14,6 @@ import player.Player;
  * @date    04/11/2020
  * @version 0.1
  */
-
 public class TreasureTile extends Tile {
 	
 	//===========================================================

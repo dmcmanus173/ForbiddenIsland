@@ -3,10 +3,10 @@ package board;
 import java.util.HashSet;
 import java.util.Set;
 
-import enums.AdventurerEnum;
+//import enums.AdventurerEnum;
 import enums.FloodStatusEnum;
 import enums.TileEnum;
-import enums.TreasureEnum;
+//import enums.TreasureEnum;
 import player.Player;
 
 /**

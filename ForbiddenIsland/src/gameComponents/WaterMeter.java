@@ -1,7 +1,5 @@
 package gameComponents;
 
-import player.Players;
-
 /**
  * Class for the WaterMeter in Forbidden Island.
  * 
@@ -46,20 +44,6 @@ public class WaterMeter {
 		level = 1;
 	}
 	
-	//TODO unused constructor
-	/**
-	 * Constructor for TreasureDeck object.
-	 * @param int level, the level to set waterlevel to.
-	 */
-	private WaterMeter(int level) {
-		if(level <= MAX_LEVEL)
-			this.level = level;
-		else {
-			this.level = MAX_LEVEL;
-			System.out.println("Level requested is greater than MAX_LEVEL(=" + MAX_LEVEL + "). Level set to MAX_LEVEL.");
-		}
-	}
-	
 	//===========================================================
 	// Other Functions
 	//===========================================================
@@ -89,7 +73,7 @@ public class WaterMeter {
 	
 	/**
 	 * getLevel method which returns the level at which the WaterMeter is at.
-	 * @return int value of level in class WaterMeter
+	 * @return integer value of level in class WaterMeter
 	 */
 	public int getLevel() {
 		return level;
