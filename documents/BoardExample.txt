@@ -1,16 +1,16 @@
-          -----------
-          | FL | TM |
-     ---------------------
-     | TS | WG | HF | CE |
--------------------------------
-| CS | CP | TP | BG | SG | CG |
--------------------------------
-| GG | IG | TH | LL | CG | WT |
--------------------------------
-     | MM | CA | BB | OB |
-     ---------------------
-          | PR | DD |
-          -----------
+              ---------------
+              | FL 2 | TM 2 |
+       -----------------------------
+       | TS 2 | WG 1 | HF 1 | CE 2 |
+-------------------------------------------
+| CS 2 | CP 1 | TP 0 | BG 2 | SG 2 | CG 2 |
+-------------------------------------------
+| GG 2 | IG 1 | TH 2 | LL 2 | CG 1 | WT 2 |
+-------------------------------------------
+       | MM 1 | CA 2 | BB 0 | OB 1 |
+       -----------------------------
+              | PR 0 | DD 1 |
+              ---------------
 
 FL - Fools' Landing
 TM - Temple of the Moon
@@ -37,4 +37,9 @@ OB - Observatory
 PR - Phantom Rock
 DD - Dunes of Deception
 
+Island Health Levels: 2(Not Flooded), 1(Flooded), 0(Sunken)
 
+Examples:
+"TM 2" - Temple of the Moon, Not Flooded.
+"IG 1" - Iron Gate, Flooded.
+"PR 0" - Phantom Rock, Sunken.

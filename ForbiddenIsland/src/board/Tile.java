@@ -128,6 +128,12 @@ public class Tile {
 		else if(floodStatus == FloodStatusEnum.FLOODED) {
 			floodStatus = FloodStatusEnum.SUNKEN;
 			System.out.println(tileName + " is now sunk!");
+			//TODO call gameOver if aPlayer.move() returns false
+			for(Player aPlayer : playersOnTile) {
+				if( !aPlayer.move() )
+					System.out.println("Game Over!");
+			}
+			
 		}
 		
 	}

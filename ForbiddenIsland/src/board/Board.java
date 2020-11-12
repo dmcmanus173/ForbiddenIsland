@@ -280,61 +280,44 @@ public class Board {
     
     /**
      * void function to print the game board.
-     * TODO: spice it up a bit ;)
      */
     public void printBoard() {
     	StringBuilder boardString = new StringBuilder("");
-    	
-        boardString.append("          -----------           \n          | ");
-        for(int i=0; i<2; i++)
-        	boardString.append(orderedTiles.get(i).getTileName().getAbbr()+" | ");
-        boardString.append("\n     ---------------------      \n     | ");
-        for(int i=2; i<6; i++)
-        	boardString.append(orderedTiles.get(i).getTileName().getAbbr()+" | ");
-        boardString.append("\n------------------------------- \n| ");
-        for(int i=6; i<12; i++)
-        	boardString.append(orderedTiles.get(i).getTileName().getAbbr()+" | ");
-        boardString.append("\n------------------------------- \n| ");
-        for(int i=12; i<18; i++)
-        	boardString.append(orderedTiles.get(i).getTileName().getAbbr()+" | ");
-        boardString.append("\n------------------------------- \n     | ");
-        for(int i=18; i<22; i++)
-        	boardString.append(orderedTiles.get(i).getTileName().getAbbr()+" | ");
-        boardString.append("\n     ---------------------      \n          | ");
-        for(int i=22; i<24; i++)
-        	boardString.append(orderedTiles.get(i).getTileName().getAbbr()+" | ");
-        boardString.append("\n          -----------           \n");
+    	Tile aTile;
+        boardString.append("              ---------------          \n              | ");
+        for(int i=0; i<2; i++) {
+        	aTile = orderedTiles.get(i);
+        	boardString.append(aTile.getTileName().getAbbr()+" "+aTile.getFloodStatus().toInt()+" | ");
+        }
+        boardString.append("\n       -----------------------------      \n       | ");
+        for(int i=2; i<6; i++) {
+        	aTile = orderedTiles.get(i);
+        	boardString.append(aTile.getTileName().getAbbr()+" "+aTile.getFloodStatus().toInt()+" | ");
+        }
+        boardString.append("\n------------------------------------------- \n| ");
+        for(int i=6; i<12; i++) {
+        	aTile = orderedTiles.get(i);
+        	boardString.append(aTile.getTileName().getAbbr()+" "+aTile.getFloodStatus().toInt()+" | ");
+        }
+        boardString.append("\n------------------------------------------- \n| ");
+        for(int i=12; i<18; i++) {
+        	aTile = orderedTiles.get(i);
+        	boardString.append(aTile.getTileName().getAbbr()+" "+aTile.getFloodStatus().toInt()+" | ");
+        }
+        boardString.append("\n------------------------------------------- \n       | ");
+        for(int i=18; i<22; i++) {
+        	aTile = orderedTiles.get(i);
+        	boardString.append(aTile.getTileName().getAbbr()+" "+aTile.getFloodStatus().toInt()+" | ");
+        }
+        boardString.append("\n       -----------------------------      \n              | ");
+        for(int i=22; i<24; i++) {
+        	aTile = orderedTiles.get(i);
+        	boardString.append(aTile.getTileName().getAbbr()+" "+aTile.getFloodStatus().toInt()+" | ");
+        }
+        boardString.append("\n              ---------------           \n");
 
     	System.out.println(boardString.toString());
     }
-    
-    
-//    public String getTileString(String tileAbbr) {
-//    	StringBuilder tileString = new StringBuilder("");
-//    	String horizLine = "______";
-//    	String vertLine = "|";
-//    	String sixSpaces = "      ";
-//    	String twoSpaces = "  ";
-//    	String oneSpace = " ";
-//    	String zeroStr = " ______";
-//    	System.out.println(tileString.toString());
-//    	tileString.append(" ______ ______");
-//    	tileString.append("|      |      |");
-//    	tileString.append("|  FL  |");
-//    	tileString.append("|______|");
-//    	
-//    	for (int y=0; y<=18; y++) {         // For each row in Board
-//    		
-//            for (int x=0; x<=4; x++) {     // For each column in row
-//            	
-//            }
-//            System.out.println(tileString.toString());
-//            
-//        }
-//
-//    }
-    
-    
     
     
     /**
@@ -391,6 +374,19 @@ public class Board {
 	public ArrayList<Tile> getIslandTiles() {
 		return orderedTiles;
 	}
+	
+	/**
+     * getUnsunkenTiles gets a list of all the Tiles on the board that have not sunk.
+     * @return ArrayList<Tile> containing all tiles that are not sunk Tiles on board.
+     */
+	public ArrayList<Tile> getUnsunkenTiles() {
+		ArrayList<Tile> potentialTiles = getIslandTiles();
+		for(Tile aTile : potentialTiles) {
+			if( aTile.isSunken() )
+				potentialTiles.remove(aTile);
+		}
+		return potentialTiles;
+	}	
 	
 	
 	// Class-level test

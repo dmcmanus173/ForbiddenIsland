@@ -1,17 +1,16 @@
 package player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 import board.Board;
 import board.Tile;
 import enums.AdventurerEnum;
 import enums.FloodStatusEnum;
-import enums.PlayerMovesEnum;
 import enums.TileEnum;
 import enums.TreasureCardEnum;
 import gameComponents.AbstractTreasureCard;
+import gameComponents.HelicopterLiftCard;
 import gameComponents.SandbagCard;
 import gameComponents.TreasureDeck;
 import gameComponents.WaterMeter;
@@ -62,7 +61,7 @@ public class Player {
 				TreasureDeck.getInstance().returnUsedCard(temp);
 				temp = TreasureDeck.getInstance().getNextCard();
 			}
-			treasureCards.add(temp);
+			receiveCard(temp);
 		}
 	}
 	
@@ -136,7 +135,7 @@ public class Player {
 	 * getName method returns the players chosen name as a String.
 	 * @return String name, the players chosen name at the start of game.
 	 */
-	private String getName() {
+	public String getName() {
 		return name;
 	}
 
@@ -148,6 +147,17 @@ public class Player {
 		printCardsHeld();
 		AbstractTreasureCard removedCard = treasureCards.remove(getOptionNumber(1, numTreasureCards)-1);
 		TreasureDeck.getInstance().returnUsedCard(removedCard);
+		numTreasureCards -= 1;
+	}
+	
+	/**
+	 * removeTreasureCard method will remove a TreasureCard from player inventory.
+	 * @param AbstractTreasureCard aCard to be removed.
+	 */
+	public void removeTreasureCard(AbstractTreasureCard aCard) {
+		treasureCards.remove(aCard);
+		TreasureDeck.getInstance().returnUsedCard(aCard);
+		numTreasureCards -= 1;
 	}
 	
 	/**
@@ -158,7 +168,7 @@ public class Player {
 	public String treasureCardsToString() {
 		StringBuilder temp = new StringBuilder("");
 		for(int i=0; i<numTreasureCards; i++)
-			temp.append( (i+1) + ". " + treasureCards.get(i).toString() );
+			temp.append( (i+1) + ". " + treasureCards.get(i).toString() + "\n");
 		return temp.toString();
 	}
 	
@@ -182,8 +192,10 @@ public class Player {
 			WaterMeter.getInstance().increaseWaterMeter();
 			TreasureDeck.getInstance().returnUsedCard(aCard);
 		}
-		else if( numTreasureCards == MAX_TREASURE_CARDS) {
-			treasureCards.add(aCard);
+		else
+			receiveCard(aCard);
+		
+		if( numTreasureCards == MAX_TREASURE_CARDS+1) {
 			System.out.println("You have exceeded the max number of cards you can carry.");
 			System.out.println("You can either Remove a card (Option 1), or Give a card (Option 2).");
 			System.out.println("Pick an option: (1 or 2)");
@@ -191,15 +203,9 @@ public class Player {
 			if( option == 1)
 				removeTreasureCard();
 			else {
-				if (giveTreasureCard() ) {
-					numTreasureCards += 1; // giveTreasureCard decrements numTreasureCards, must balance.
-				}					
-				else
-					removeTreasureCard();
+				if ( !giveTreasureCard() ) // If can't giveTreasureCard
+					removeTreasureCard();  // Then remove a treasure card
 			}
-		}
-		else {
-			receiveCard(aCard);
 		}
 	}
 	
@@ -238,14 +244,11 @@ public class Player {
 		    for(int i=0; i<potentialPlayers.size(); i++)
 		    	System.out.println((i+1 )+ ": " + potentialPlayers.get(i).getName() );
 			Player chosenPlayer = potentialPlayers.get( getOptionNumber(1,potentialPlayers.size())-1 );
-			// Choose Card TODO: Print the cards.
 			System.out.println("Choose the card to give.");
-		    for(int i=0; i<numTreasureCards; i++)
-		    	System.out.println((i+1) + ": " + treasureCards.get(i) );
+		    printCardsHeld();
 			AbstractTreasureCard chosenCard = treasureCards.get( getOptionNumber(1,numTreasureCards)-1 );
 			chosenPlayer.receiveCard(chosenCard);
-			treasureCards.remove(chosenCard);
-			numTreasureCards -= 1;
+			removeTreasureCard(chosenCard);
 			return true;
 		}
 	}
@@ -272,11 +275,7 @@ public class Player {
 		if( role == AdventurerEnum.DIVER )
 			potentialTiles = Board.getInstance().getNearestTilesToTile(location);
 		else if( role == AdventurerEnum.PILOT ) {
-			potentialTiles = Board.getInstance().getIslandTiles();
-			for(Tile aTile : potentialTiles) {
-				if( aTile.isSunken() )
-					potentialTiles.remove(aTile);
-			}
+			potentialTiles = Board.getInstance().getUnsunkenTiles();
 		}
 		else
 			potentialTiles = Board.getInstance().getTilesAroundTile(location, role == AdventurerEnum.EXPLORER);
@@ -284,10 +283,33 @@ public class Player {
 		return potentialTiles;		
 	}
 	
+	/**
+	 * Removes a player from a tile, then places them on a new tile.
+	 * @param newLocation, the location to move the player to.
+	 */
 	private void changeLocation(Tile newLocation) {
 		location.removePlayerFromTile(this);
 		location = newLocation;
 		location.addPlayerToTile(this);
+	}
+	
+	/*
+	 * UseHelicopterLift method will use a HelicopterLift card if there is one in the inventory,
+	 * Otherwise won't be able to move.
+	 * @return Boolean true if was able to move using card, else returns false if do not have card.
+	 */
+	public Boolean UseHelicopterLift() {
+		HelicopterLiftCard heliCard = new HelicopterLiftCard();
+		if( treasureCards.contains(heliCard) ) {
+			removeTreasureCard(heliCard);
+			
+			ArrayList<Tile> potentialTiles = Board.getInstance().getUnsunkenTiles();
+			Tile chosenTile = selectOptionTiles(potentialTiles);
+			changeLocation(chosenTile);
+			return true;
+		}
+		// If don't have a HelicopterLift card
+		return false;	
 	}
 	
 	/**
@@ -340,7 +362,7 @@ public class Player {
 			if ( !potentialTiles.isEmpty() ) {
 				Tile chosenTile = selectOptionTiles(potentialTiles);
 				chosenTile.shoreUp();
-				treasureCards.remove(sandbag);
+				removeTreasureCard(sandbag);
 			}
 		}
 		
@@ -349,10 +371,12 @@ public class Player {
 		return false;
 	}
 	
+	
 	/**
 	 * cardsToString method will return cards a player has.
 	 * @return String info related to player.
 	 */
+	/*
 	public String cardsToString() {
 		StringBuilder temp = new StringBuilder("");
 		temp.append(name + " has the following cards:");
@@ -360,6 +384,7 @@ public class Player {
 			temp.append("\n" + card.toString());
 		return temp.toString();
 	}
+	*/
 	
 	/**
 	 * toString method will return player info as a String.
@@ -371,7 +396,7 @@ public class Player {
 		temp.append("Player Name: "+name);
 		temp.append("\nRole: "+role.toString());
 		temp.append("\nLocation: "+location.getTileName().toString());
-		temp.append("\n"+cardsToString());
+		temp.append("\n"+treasureCardsToString());
 		return temp.toString();
 	}
 	
