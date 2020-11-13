@@ -75,16 +75,15 @@ public class TreasureTile extends Tile {
 				treasureCard = (TreasureCard)card;
 				if (treasureCard.getTreasureType() == treasureType) {
 					numOfMatchingTreasureCards += 1;
+					if(numOfMatchingTreasureCards >= maxNumOfMatchingTreasureCards) {
+						// TODO: Trigger treasure in rucksack Notify WinLose class that a treasure has been collected.
+						return Optional.of(treasureType);
+					}
 				}
 			}
 		}
 		
-		if(numOfMatchingTreasureCards >= maxNumOfMatchingTreasureCards) {
-			// TODO: Trigger treasure in rucksack Notify WinLose class that a treasure has been collected.
-			return Optional.of(treasureType);
-		} else {
-			return Optional.empty();
-		}
+		return Optional.empty();
 		
 		
 	}
