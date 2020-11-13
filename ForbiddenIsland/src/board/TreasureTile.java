@@ -1,8 +1,13 @@
 package board;
 
+import java.util.ArrayList;
+import java.util.Optional;
+
 //import enums.AdventurerEnum;
 import enums.TileEnum;
 import enums.TreasureEnum;
+import gameComponents.AbstractTreasureCard;
+import gameComponents.TreasureCard;
 //import player.Player;
 
 
@@ -46,6 +51,42 @@ public class TreasureTile extends Tile {
 	 */
 	public TreasureEnum getTreasureType() {
 		return treasureType;
+	}
+	
+	
+	
+	
+	/**
+     * collectTreasure method checks the players hand to see if they have at least 
+     * 4 treasure cards corresponding to the treasure of the island tile.
+     * @param ArrayList<AbstractTreasureCard> treasureCards in players hand.
+     * @param floodStatus   The status of Tile i.e. flooded, not flooded or sunken
+     * @return Optional<TreasureEnum>  determining if the player has collected the treasure or not.
+     */
+	public Optional<TreasureEnum> collectTreasure(ArrayList<AbstractTreasureCard> treasureCards) {
+		int numOfMatchingTreasureCards = 0;
+		AbstractTreasureCard card;
+		TreasureCard treasureCard;
+		int maxNumOfMatchingTreasureCards = 4;
+		
+		for(int i=0; i<treasureCards.size(); i++) {
+			card = treasureCards.get(i);
+			if(card instanceof TreasureCard) {
+				treasureCard = (TreasureCard)card;
+				if (treasureCard.getTreasureType() == treasureType) {
+					numOfMatchingTreasureCards += 1;
+				}
+			}
+		}
+		
+		if(numOfMatchingTreasureCards >= maxNumOfMatchingTreasureCards) {
+			// TODO: Trigger treasure in rucksack Notify WinLose class that a treasure has been collected.
+			return Optional.of(treasureType);
+		} else {
+			return Optional.empty();
+		}
+		
+		
 	}
 	
 	
