@@ -45,6 +45,14 @@ public class Players {
     	numPlayers = 0;
     }
     
+    /**
+     * getNumPlayers method will return the number of players involved in the game.
+     * @return Integer, the number of players.
+     */
+    public Integer getNumPlayers() {
+    	return numPlayers;
+    }
+    
 	/**
 	 * addPlayers will create and add a new player to the listPlayers.
 	 * @param String name, the name of the player.

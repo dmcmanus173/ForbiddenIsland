@@ -42,11 +42,20 @@ public class Treasure {
 	}
 	
 	/**
+	 * getType method returns the type of treasure it is.
+	 * @return TreasureEnum treasureType
+	 */
+	public TreasureEnum getType() {
+		return treasure;
+	}	
+	
+	/**
 	 * isClaimed function
 	 * @return Boolean variable claimed, indicating whether a 
 	 * treasure has been claimed.
 	 */
 	public boolean isClaimed() {
+		System.out.println(treasure.name() + " has been claimed!");
 		return claimed;
 	}
 	
