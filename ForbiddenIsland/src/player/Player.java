@@ -6,7 +6,6 @@ import board.Board;
 import board.Tile;
 import enums.AdventurerEnum;
 import enums.FloodStatusEnum;
-import enums.TileEnum;
 import enums.TreasureCardEnum;
 import gameComponents.AbstractTreasureCard;
 import gameComponents.HelicopterLiftCard;
@@ -14,12 +13,19 @@ import gameComponents.SandbagCard;
 import gameComponents.TreasureDeck;
 import gameComponents.WaterMeter;
 import getInput.GetInput;
+import roles.Diver;
+import roles.Engineer;
+import roles.Explorer;
+import roles.Messenger;
+import roles.Navigator;
+import roles.Pilot;
+import roles.Role;
 
 /**
  * Class for the Player in Forbidden Island.
  * 
  * @author  Demi Oke and Daniel McManus
- * @date    04/11/2020
+ * @date    13/11/2020
  * @version 0.1
  */
 public class Player {
@@ -28,7 +34,7 @@ public class Player {
 	// Variable Setup
 	//===========================================================
 	private String name;
-	private AdventurerEnum role;
+	private Role role;
 	private Tile location;
 	private ArrayList<AbstractTreasureCard> treasureCards = new ArrayList<>();
 	private int numTreasureCards;
@@ -50,8 +56,23 @@ public class Player {
 	 */
 	public Player(String name, AdventurerEnum role) {
 		this.name = name;
-		this.role = role;
-		startPosition(); 
+		
+		if(role == AdventurerEnum.PILOT)
+			this.role = new Pilot();
+		else if(role == AdventurerEnum.DIVER)
+			this.role = new Diver();
+		else if(role == AdventurerEnum.NAVIGATOR)
+			this.role = new Navigator();
+		else if(role == AdventurerEnum.MESSENGER)
+			this.role = new Messenger();
+		else if(role == AdventurerEnum.ENGINEER)
+			this.role = new Engineer();
+		else if(role == AdventurerEnum.EXPLORER)
+			this.role = new Explorer();
+		else 
+			System.out.println("Error: Couldn't find role");
+
+		location = this.role.startPosition(); 
 		
 		// Adding NUM_INITIAL_CARDS to TreasueCard collection. If get WaterRiseCard, put back and try again.
 		AbstractTreasureCard temp;
@@ -69,45 +90,6 @@ public class Player {
 	// Other Functions
 	//===========================================================
 	/**
-	 * startPosition method will return the tile that a player is to start on.
-	 * @return Tile startPosition, where the player for a given role should start the game.
-	 */
-	private void startPosition() {
-		// Engineer - Bronze Gate
-		// Explorer - Copper Gate
-		// Diver - Iron Gate
-		// Pilot - Fools' Landing
-		// Messenger - Silver Gate
-		// Navigator - Gold Gate
-		TileEnum tileName;
-		if (role == AdventurerEnum.ENGINEER)
-			tileName = TileEnum.BRONZE_GATE;
-		else if (role == AdventurerEnum.DIVER)
-			tileName = TileEnum.IRON_GATE;
-		else if (role == AdventurerEnum.EXPLORER)
-			tileName = TileEnum.COPPER_GATE;
-		else if (role == AdventurerEnum.PILOT)
-			tileName = TileEnum.FOOLS_LANDING;
-		else if (role == AdventurerEnum.MESSENGER)
-			tileName = TileEnum.SILVER_GATE;
-		else if (role == AdventurerEnum.NAVIGATOR)
-			tileName = TileEnum.GOLDEN_GATE;
-		else {
-			System.out.println("Error. Can't find start position.");
-			tileName = null;
-			location = null;
-		}
-		
-		if ( !tileName.equals(null) ) {
-			ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
-			for(Tile tile : tiles) {
-				if( tile.getTileName().equals(tileName) )
-					location = tile;
-			}
-		}
-	}
-	
-	/**
 	 * getLocation method will return the tile that the player is currently located.
 	 * @return Tile location, the location the player is at.
 	 */
@@ -120,12 +102,12 @@ public class Player {
 	 * @return AdventurerEnum role, the role of the player.
 	 */
 	public AdventurerEnum getRole() {
-		return role;
+		return role.getRole();
 	}
 	
 	/**
 	 * getNumTreasureCards gets the number of treasure cards the player has in possession.
-	 * @return int numTreasureCards, the number of treasure cards a player has.
+	 * @return integer numTreasureCards, the number of treasure cards a player has.
 	 */
 	public int getNumTreasureCards() {
 		return numTreasureCards;
@@ -212,28 +194,10 @@ public class Player {
 	/**
 	 * giveTreasureCard will facilitate giving a treasureCard from the inventory
 	 * of AbstractTreasureCards to a different player.
-	 * @param Player otherPlayer, the player to give a card to.
-	 * @param AbstractTreasureCard, the card to give away.
-	 * @return if can give the card, return AbstractTreasureCard, else return null.
+	 * @return Boolean variable for if can give a card away.
 	 */
 	public Boolean giveTreasureCard() {
-		ArrayList<Player> potentialPlayers = new ArrayList<Player>();
-		if( role == AdventurerEnum.MESSENGER ) {
-			System.out.println("This player is the Messenger. They can give a card to anyone.");
-			ArrayList<Player> allPlayers = Players.getInstance().getPlayers();
-			for(Player aPlayer : allPlayers) {
-				if( (aPlayer.getNumTreasureCards() < MAX_TREASURE_CARDS) && (this != aPlayer))
-					potentialPlayers.add(aPlayer);
-			}
-		}
-		else {
-			System.out.println("This player can only give cards to who is on their tile.");
-			ArrayList<Player> tilePlayers = new ArrayList<>(location.getPlayersOnTile());
-			for(Player aPlayer : tilePlayers) {
-				if( (aPlayer.getNumTreasureCards() < MAX_TREASURE_CARDS) && (this != aPlayer))
-					potentialPlayers.add(aPlayer);
-			}
-		}
+		ArrayList<Player> potentialPlayers = role.getPlayersForGiveTreasureCard(this, location, MAX_TREASURE_CARDS);
 		if(potentialPlayers.isEmpty()) {
 			System.out.println("There are no players to give cards to.");
 			return false;
@@ -272,13 +236,7 @@ public class Player {
 	 */
 	private ArrayList<Tile> TilesForIfOnSunkTile() {
 		ArrayList<Tile> potentialTiles;
-		if( role == AdventurerEnum.DIVER )
-			potentialTiles = Board.getInstance().getNearestTilesToTile(location);
-		else if( role == AdventurerEnum.PILOT ) {
-			potentialTiles = Board.getInstance().getUnsunkenTiles();
-		}
-		else
-			potentialTiles = Board.getInstance().getTilesAroundTile(location, role == AdventurerEnum.EXPLORER);
+		potentialTiles = role.getTilesForIfOnSunk(location);
 		
 		return potentialTiles;		
 	}
