@@ -329,6 +329,8 @@ public class Board {
 			treasure = getAssociatedTreasureForTile(tileName);
 			if ( treasure.isPresent() ) {
 				tiles.add(new TreasureTile(tileName, treasure.get()));
+			} else if (tileName == TileEnum.FOOLS_LANDING) {
+				tiles.add(new FoolsLandingTile(tileName));
 			} else {
 				tiles.add(new Tile(tileName));
 			}

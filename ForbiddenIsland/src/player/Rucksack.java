@@ -34,7 +34,7 @@ public class Rucksack {
      * getInstance method returns single instance of Rucksack
      * @return rucksack. singleton Rucksack object.
      */
-	public Rucksack getInstance() {
+	public static Rucksack getInstance() {
 		if(rucksack == null)
 			rucksack = new Rucksack();
 		return rucksack;
