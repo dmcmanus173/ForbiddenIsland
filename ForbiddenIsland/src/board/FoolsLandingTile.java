@@ -13,7 +13,11 @@ public class FoolsLandingTile extends Tile {
 	}
 	
 	
-	
+	/**
+    * addPlayerToTile method adds a player to the set of players on tile.
+    * Also checks to see if a winning condition is met.
+    * @param Player player that is to be added to tile.
+    */
 	@Override
 	public void addPlayerToTile(Player player) {
 		int totalNumOfPlayers = Players.getInstance().getNumPlayers();
