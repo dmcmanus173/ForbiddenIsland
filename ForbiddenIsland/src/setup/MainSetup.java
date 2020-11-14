@@ -1,5 +1,7 @@
 package setup;
 
+import java.util.Scanner;
+
 import board.Board;
 import gameComponents.FloodDeck;
 import gameComponents.TreasureDeck;
@@ -21,6 +23,8 @@ public class MainSetup {
 	 */
 	public MainSetup() {
 		Welcome();
+		//Scanner inputScanner = new Scanner(System.in);
+		
 		new PlayerSetup();
 		
 		// Create singletons

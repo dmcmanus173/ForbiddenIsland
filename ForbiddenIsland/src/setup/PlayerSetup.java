@@ -47,10 +47,8 @@ public class PlayerSetup {
 	 * @param Scanner user will read user input from Console
 	 */
 	private void getNumPlayers() {
-		while (!validNumPlayers) {
-			System.out.println("How many people are playing? (must be between "+minPlayers+" and "+maxPlayers+")");
-			numPlayers = GetInput.getInstance().anInteger(minPlayers, maxPlayers);
-		}
+		System.out.println("How many people are playing? (must be between "+minPlayers+" and "+maxPlayers+")");
+		numPlayers = GetInput.getInstance().anInteger(minPlayers, maxPlayers);
 	}
 	
 	/**

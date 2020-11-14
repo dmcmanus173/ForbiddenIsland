@@ -38,6 +38,7 @@ public class Treasure {
 	 * Changes treasure claimed variable to Boolean value true.
 	 */
 	public void claimTreasure() {
+		System.out.println(treasure.name() + " has been claimed!");
 		claimed = true;
 	}
 	
@@ -55,7 +56,6 @@ public class Treasure {
 	 * treasure has been claimed.
 	 */
 	public boolean isClaimed() {
-		System.out.println(treasure.name() + " has been claimed!");
 		return claimed;
 	}
 	
@@ -65,7 +65,7 @@ public class Treasure {
 	 */
 	public String toString() {
 		StringBuilder temp = new StringBuilder("");
-		temp.append("Treasure: " + treasure.toString());
+		temp.append("Treasure: " + treasure.toString() );
 		temp.append("\nClaimed: " + claimed);
 		return temp.toString();
 	}

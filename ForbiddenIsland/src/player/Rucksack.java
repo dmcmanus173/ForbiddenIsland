@@ -105,6 +105,7 @@ public class Rucksack {
 	 */
 	private void claimTreasure(Treasure aTreasure) {
 		aTreasure.claimTreasure();
+		numTreasures += 1;
 		gotAllTreasures();
 	}
 	
@@ -118,5 +119,17 @@ public class Rucksack {
 			System.out.println("All treasures have been claimed!");
 		}
 	}
+	
+	/**
+	 * printContents method prints what treasures have been claimed!
+	 */
+	public void printContents() {
+	 	System.out.println("The treasures in the rucksack are: ");
+	 	for(Treasure treasure : treasures) {
+	 		if(treasure.isClaimed()) System.out.println( treasure.toString() );
+	 	}
+	 	System.out.println("There are "+(NUM_TREASURES-numTreasures)+" treasures left on the island.");
+	}
+	 
 
 }

@@ -1,5 +1,6 @@
 package getInput;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class GetInput {
@@ -22,6 +23,7 @@ public class GetInput {
     }
     
     private GetInput() {
+    	user = new Scanner(System.in);
     }
     
 	/**
@@ -31,26 +33,27 @@ public class GetInput {
 	 * @return integer value of option picked
 	 */
     public Integer anInteger(int minOption, int maxOption) {
-    	startInput();
+    	//Scanner aUser = new Scanner(System.in);
     	
     	Boolean validInput = false;
 		int option = 0;
+		String userString;
 		while( !validInput ) {
-			String userString = user.nextLine();
+			userString = user.nextLine();
 			try {
 				option = Integer.parseInt(userString);
 			} catch (NumberFormatException e) {
-				return option;
+			} catch (NoSuchElementException e) {
+				System.out.println();
+			} finally {
+				if ((option >= minOption) && (option <= maxOption))
+					validInput = true;
+				else
+					System.out.println("Incorrect input.");
 			}
-			
-			if ((option >= minOption) && (option <= maxOption)) {
-				validInput = true;
-				user.close();
-			}
-			else
-				System.out.println("Incorrect input");
 		}
-    	endInput();
+		//aUser.close();
+    	//endInput();
     	return option;
     }
     
@@ -60,18 +63,12 @@ public class GetInput {
 	 */
 	//TODO don't accept nothing.
     public String aString() {
-    	startInput();
-    	
     	String aString = user.nextLine();
-    	endInput();
     	return aString;
     }
     
-    private void startInput() {
-    	user = new Scanner(System.in);
-    }
-    
-    private void endInput() {
+    public void endInput() {
     	user.close();
     }
+    
 }

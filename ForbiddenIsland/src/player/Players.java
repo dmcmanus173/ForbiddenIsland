@@ -19,7 +19,6 @@ public class Players {
 	private static Players players;
 	private ArrayList<Player> listPlayers = new ArrayList<Player>();
 	private int numPlayers;
-	private int playersGo; //TODO store player whos go it is, could make this type player. Could have function that gets nextPlayerToGo
 	
 	//===========================================================
     // Get Instance of Singleton
@@ -93,16 +92,6 @@ public class Players {
 	 */  
     public ArrayList<Player> getPlayers() {
     	return listPlayers;
-    }
-    
-    //TODO Function to call all players so that they take their turns
-    public void PlayerTurns() {
-    	
-    }
-    
-    //TODO A particular players turn
-    public void aPlayersTurn (Player aPlayer) {
-    	
     }
     
 	/**

@@ -100,10 +100,10 @@ public class Mess {
 		
 	}
 	*/
-	
+	/*
 	// MainSetup Class-level debug test
 	public static void main(String[] args) {
 		MainSetup setup = new MainSetup();
 	}
-	
+	*/
 }
