@@ -19,8 +19,9 @@ public class Rucksack {
 	//===========================================================
 	private static Rucksack rucksack;
 	private ArrayList<Treasure> treasures = new ArrayList<Treasure>();
-	private int numTreasures;
+	private int numClaimedTreasures;
 	private Boolean gottenAllTreasures;
+	private ArrayList<Treasure> claimedTreasures = new ArrayList<Treasure>();
 	
 	//===========================================================
 	// Variable for Game Settings
@@ -51,7 +52,7 @@ public class Rucksack {
 		treasures.add(new Treasure(TreasureEnum.THE_EARTH_STONE    ));
 		treasures.add(new Treasure(TreasureEnum.THE_OCEANS_CHALICE ));
 		treasures.add(new Treasure(TreasureEnum.THE_STATUE_OF_WIND ));
-		numTreasures = 0;
+		numClaimedTreasures = 0;
 		gottenAllTreasures = false;
 	}
 	
@@ -105,7 +106,8 @@ public class Rucksack {
 	 */
 	private void claimTreasure(Treasure aTreasure) {
 		aTreasure.claimTreasure();
-		numTreasures += 1;
+		numClaimedTreasures += 1;
+		claimedTreasures.add(aTreasure);
 		gotAllTreasures();
 	}
 	
@@ -114,7 +116,7 @@ public class Rucksack {
 	 * Changes value of gottenAllTreasures to true if all treasures got.
 	 */
 	private void gotAllTreasures() {
-		if( numTreasures == NUM_TREASURES ) {
+		if( numClaimedTreasures == NUM_TREASURES ) {
 			gottenAllTreasures = true;
 			System.out.println("All treasures have been claimed!");
 		}
@@ -124,11 +126,15 @@ public class Rucksack {
 	 * printContents method prints what treasures have been claimed!
 	 */
 	public void printContents() {
-	 	System.out.println("The treasures in the rucksack are: ");
-	 	for(Treasure treasure : treasures) {
-	 		if(treasure.isClaimed()) System.out.println( treasure.toString() );
-	 	}
-	 	System.out.println("There are "+(NUM_TREASURES-numTreasures)+" treasures left on the island.");
+		if(numClaimedTreasures == 0)
+			System.out.println("There's no treasures in the rucksack.");
+		else {
+			System.out.println("There following treasures are in the rucksack:");
+			for(Treasure treasure : claimedTreasures) {
+				if(treasure.isClaimed()) System.out.println( treasure.getType().toString() );
+			}
+		}
+		System.out.println("There are "+(NUM_TREASURES-numClaimedTreasures)+" treasures left on the island.\n");
 	}
 	 
 

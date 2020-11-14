@@ -33,7 +33,8 @@ public class FloodDeck {
      */
     public static FloodDeck getInstance(){
         if(floodDeck == null){
-            floodDeck = new FloodDeck( Board.getInstance().getIslandTiles() );
+        	ArrayList<Tile> islands = Board.getInstance().getIslandTiles();
+            floodDeck = new FloodDeck( islands );
         }
         return floodDeck;
     }
@@ -44,8 +45,9 @@ public class FloodDeck {
 	/**
 	 * Constructor for FloodDeck object.
 	 */
-	public FloodDeck(ArrayList<Tile> islands) {
-		this.usedCards = islands;
+	private FloodDeck(ArrayList<Tile> islands) {
+		this.usedCards.addAll(islands);
+		this.usedCards.addAll(islands);
 		shuffleDeck();
 	}
 	
