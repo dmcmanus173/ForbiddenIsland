@@ -1,10 +1,9 @@
 package setup;
 
-import java.util.Scanner;
-
 import board.Board;
 import gameComponents.FloodDeck;
 import gameComponents.TreasureDeck;
+import gameComponents.WaterMeter;
 
 /**
  * Class to setup instance of game Forbidden Island.
@@ -29,6 +28,7 @@ public class MainSetup {
 		
 		// Create singletons
 		Board.getInstance().printBoard();
+		WaterMeter.getInstance();
 		FloodDeck.getInstance();
 		TreasureDeck.getInstance();
 	}

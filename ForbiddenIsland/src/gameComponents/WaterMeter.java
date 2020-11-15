@@ -42,6 +42,7 @@ public class WaterMeter {
 	 */
 	private WaterMeter(){
 		level = 1;
+		System.out.println("WaterMeter has been set. Level set to "+level+".\n");
 	}
 	
 	//===========================================================

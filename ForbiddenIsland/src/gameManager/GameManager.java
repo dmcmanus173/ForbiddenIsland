@@ -68,20 +68,41 @@ public class GameManager {
     	while( !gameOver && (remainingActions > 0) ) {
     		System.out.println("You have "+remainingActions+" actions remaining. Would you like to: ");
     		
-    		System.out.println("1. See what Treasure Cards you have.");
-    		System.out.println("2. See what treasure is inside the Rucksack.");
-    		System.out.println("3. Print the map.");
-    		System.out.println("4. End Go.");
+    		System.out.println("1. Move.                 (Costs 1 Action)");
+    		System.out.println("2. Shore Up.             (Costs 1 Action)");
+    		System.out.println("3. Give a Treasure Card. (Costs 1 Action)");
+    		System.out.println("4. Capture A Treasure.   (Costs 1 Action)");
+    		System.out.println("5. See what Treasure Cards you have.");
+    		System.out.println("6. See what treasure is inside the Rucksack.");
+    		System.out.println("7. Print the map.");
+    		System.out.println("8. End Go.");
     		System.out.println("Choose a number for what you would like to do.");
     		
-    		option = GetInput.getInstance().anInteger(1, 4);
-    		if(option == 1) 
-    			player.printCardsHeld();
+    		option = GetInput.getInstance().anInteger(1, 8);
+    		
+    		if(option == 1)
+    			if( player.move() ) remainingActions -= 1;
+    			
     		else if(option == 2)
-    			Rucksack.getInstance().printContents();
+    			if( player.shoreUp() ) remainingActions -= 1;
+    		
     		else if(option == 3)
+    			if( player.giveTreasureCard() ) remainingActions -= 1;
+    		
+    		else if(option == 4) 
+    			System.out.println("Capture a treasure card..."); //TODO
+    		
+    		else if(option == 5) 
+    			player.printCardsHeld();
+    		
+    		else if(option == 6)
+    			Rucksack.getInstance().printContents();
+    		
+    		else if(option == 7) {
     			Board.getInstance().printBoard();
-    		else if(option == 4) {
+    			System.out.println("Board...");
+    		}
+    		else if(option == 8) {
     			remainingActions = 0;
     		}
     	}
@@ -94,7 +115,6 @@ public class GameManager {
     	FloodDeck.getInstance().drawFloodCards();
     	
     	System.out.println("\n"+player.getName()+"'s go is over.\n");
-    	
     }
     
     @Override

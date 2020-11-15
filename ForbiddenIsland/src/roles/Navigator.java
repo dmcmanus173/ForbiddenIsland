@@ -57,8 +57,8 @@ public class Navigator extends Role {
 	 */
 	@Override
 	public ArrayList<Tile> getTilesForIfOnSunk(Tile location) {
-		ArrayList<Tile> potentialTiles;
-		potentialTiles = Board.getInstance().getTilesAroundTile(location, true);
+		ArrayList<Tile> potentialTiles = new ArrayList<>();
+		potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, true) );
 		return potentialTiles;
 	}
 }

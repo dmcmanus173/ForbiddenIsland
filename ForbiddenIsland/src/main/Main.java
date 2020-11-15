@@ -7,7 +7,7 @@ import setup.MainSetup;
 public class Main {
 
 	public static void main(String[] args) {
-		MainSetup setup = new MainSetup();
+		new MainSetup();
 		GameManager.getInstance().playersGo();
 		
 		GetInput.getInstance().endInput();

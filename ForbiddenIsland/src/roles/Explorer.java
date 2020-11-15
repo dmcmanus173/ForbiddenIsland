@@ -47,5 +47,16 @@ public class Explorer extends Role {
 		}
 		return location;
 	}
+	
+	/**
+	 * getTilesForIfOnSunk method gets the tiles that a player can move to if they're on a sunken tile.
+	 * @param location, the Tile location the player is  on.
+	 */
+	@Override
+	public ArrayList<Tile> getTilesForIfOnSunk(Tile location) {
+		ArrayList<Tile> potentialTiles = new ArrayList<>();
+		potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, false) );
+		return potentialTiles;
+	}
 
 }

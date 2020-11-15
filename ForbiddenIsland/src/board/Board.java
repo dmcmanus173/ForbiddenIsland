@@ -202,10 +202,10 @@ public class Board {
      * @param returnAdjacent boolean determining if chosen tiles should only be adjacent. true returns adjacent tiles, false returns diagonal tiles.
      * @return ArrayList<Tile> containing the player movement direction and the corresponding tile in that direction.
      */
-    public ArrayList<Tile>  getTilesAroundTile(Tile tile, boolean returnAdjacent) {
+    public ArrayList<Tile>  getTilesAroundTile(Tile tile, boolean returnAdjacentOnly) {
     	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
     	Optional<Tile> tileAtDirection;
-    	if (returnAdjacent) {
+    	if (returnAdjacentOnly) {
     		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
     		    if(playerMove.isAdjacentMove()) {
     		    	tileAtDirection = getTileWithDirectionFrom(tile, playerMove, 1);
@@ -380,7 +380,8 @@ public class Board {
      * @return ArrayList<Tile> containing all tiles that are not sunk Tiles on board.
      */
 	public ArrayList<Tile> getUnsunkenTiles() {
-		ArrayList<Tile> potentialTiles = getIslandTiles();
+		ArrayList<Tile> potentialTiles = new ArrayList<Tile>();
+		potentialTiles.addAll(getIslandTiles());
 		for(Tile aTile : potentialTiles) {
 			if( aTile.isSunken() )
 				potentialTiles.remove(aTile);

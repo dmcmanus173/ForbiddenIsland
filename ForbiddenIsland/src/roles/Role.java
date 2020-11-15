@@ -70,8 +70,8 @@ abstract public class Role {
 	 * @param location, the Tile location the player is  on.
 	 */
 	public ArrayList<Tile> getTilesForIfOnSunk(Tile location) {
-		ArrayList<Tile> potentialTiles;
-		potentialTiles = Board.getInstance().getTilesAroundTile(location, false);
+		ArrayList<Tile> potentialTiles = new ArrayList<>();
+		potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, true) );
 		return potentialTiles;
 	}
 	

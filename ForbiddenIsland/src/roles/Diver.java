@@ -54,8 +54,8 @@ public class Diver extends Role{
 	 */
 	@Override
 	public ArrayList<Tile> getTilesForIfOnSunk(Tile location) {
-		ArrayList<Tile> potentialTiles;
-		potentialTiles = Board.getInstance().getNearestTilesToTile(location);
+		ArrayList<Tile> potentialTiles = new ArrayList<>();
+		potentialTiles.addAll( Board.getInstance().getNearestTilesToTile(location) );
 		return potentialTiles;
 	}
 	

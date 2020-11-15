@@ -52,8 +52,8 @@ public class Pilot extends Role{
 	 */
 	@Override
 	public ArrayList<Tile> getTilesForIfOnSunk(Tile location) {
-		ArrayList<Tile> potentialTiles;
-		potentialTiles = Board.getInstance().getUnsunkenTiles();
+		ArrayList<Tile> potentialTiles = new ArrayList<>();
+		potentialTiles.addAll( Board.getInstance().getUnsunkenTiles() );
 		return potentialTiles;
 	}
 

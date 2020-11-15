@@ -73,6 +73,7 @@ public class Player {
 			System.out.println("Error: Couldn't find role");
 
 		location = this.role.startPosition(); 
+		location.addPlayerToTile(this);
 		
 		// Adding NUM_INITIAL_CARDS to TreasueCard collection. If get WaterRiseCard, put back and try again.
 		AbstractTreasureCard temp;
@@ -125,11 +126,10 @@ public class Player {
 	 * removeTreasureCard method will remove a TreasureCard from player inventory.
 	 */
 	public void removeTreasureCard() {
-		System.out.println("Choose the card number to remove card: ");
+		System.out.println("Choose the card number for the card to remove: ");
 		printCardsHeld();
-		AbstractTreasureCard removedCard = treasureCards.remove(GetInput.getInstance().anInteger(1, numTreasureCards)-1);
-		TreasureDeck.getInstance().returnUsedCard(removedCard);
-		numTreasureCards -= 1;
+		AbstractTreasureCard removedCard = treasureCards.get(GetInput.getInstance().anInteger(1, numTreasureCards)-1);
+		removeTreasureCard( removedCard );
 	}
 	
 	/**
@@ -199,8 +199,13 @@ public class Player {
 	 * @return Boolean variable for if can give a card away.
 	 */
 	public Boolean giveTreasureCard() {
-		ArrayList<Player> potentialPlayers = role.getPlayersForGiveTreasureCard(this, location, MAX_TREASURE_CARDS);
-		if(potentialPlayers.isEmpty()) {
+		ArrayList<Player> potentialPlayers = new ArrayList<>();
+		potentialPlayers.addAll( role.getPlayersForGiveTreasureCard(this, location, MAX_TREASURE_CARDS) );
+		if(numTreasureCards == 0) {
+			System.out.println("There are no Treasure Cards to give.");
+			return false;
+		}
+		else if(potentialPlayers.isEmpty()) {
 			System.out.println("There are no players to give cards to.");
 			return false;
 		}
@@ -237,8 +242,8 @@ public class Player {
 	 * @return ArrayList<Tile>, a tile containing tiles that player can move to
 	 */
 	private ArrayList<Tile> TilesForIfOnSunkTile() {
-		ArrayList<Tile> potentialTiles;
-		potentialTiles = role.getTilesForIfOnSunk(location);
+		ArrayList<Tile> potentialTiles = new ArrayList<>();
+		potentialTiles.addAll( role.getTilesForIfOnSunk(location) );
 		
 		return potentialTiles;		
 	}
@@ -263,7 +268,8 @@ public class Player {
 		if( treasureCards.contains(heliCard) ) {
 			removeTreasureCard(heliCard);
 			
-			ArrayList<Tile> potentialTiles = Board.getInstance().getUnsunkenTiles();
+			ArrayList<Tile> potentialTiles = new ArrayList<>();
+			potentialTiles.addAll( Board.getInstance().getUnsunkenTiles() );
 			Tile chosenTile = selectOptionTiles(potentialTiles);
 			changeLocation(chosenTile);
 			return true;
@@ -279,13 +285,15 @@ public class Player {
 	 * @return Boolean, return false if no tile to move to, else true if player has successfully moved.
 	 */
 	public Boolean move () {
-		ArrayList<Tile> potentialTiles;
+		ArrayList<Tile> potentialTiles = new ArrayList<Tile>();
 		if(location.isSunken())
-			potentialTiles = TilesForIfOnSunkTile();
-		else
-			potentialTiles = Board.getInstance().getTilesAroundTile(location, false);
-		if(potentialTiles.isEmpty())
+			potentialTiles.addAll( TilesForIfOnSunkTile() );
+		else // Regular move
+			potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, true) );
+		if(potentialTiles.isEmpty()) {
+			System.out.println(getName()+" is unable to move.");
 			return false;
+		}
 		Tile chosenTile = selectOptionTiles(potentialTiles);
 		changeLocation(chosenTile);
 		return true;
@@ -314,7 +322,8 @@ public class Player {
 	public Boolean shoreUp() {
 		SandbagCard sandbag = new SandbagCard();
 		if( treasureCards.contains(sandbag) ) {
-			ArrayList<Tile> potentialTiles = Board.getInstance().getTilesAroundTile(location, false);
+			ArrayList<Tile> potentialTiles = new ArrayList<>();
+			potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, true) );
 			for(Tile tile : potentialTiles) {
 				if( tile.getFloodStatus() != FloodStatusEnum.FLOODED )
 					potentialTiles.remove(tile);
@@ -324,8 +333,8 @@ public class Player {
 				chosenTile.shoreUp();
 				removeTreasureCard(sandbag);
 			}
+			else System.out.println("There are no local Tiles to shoreUp.");
 		}
-		
 		else
 			System.out.println(name + " does not have a Sandbag card.");
 		return false;
