@@ -181,15 +181,7 @@ public class Player {
 		
 		if( numTreasureCards == MAX_TREASURE_CARDS+1) {
 			System.out.println("You have exceeded the max number of cards you can carry.");
-			System.out.println("You can either Remove a card (Option 1), or Give a card (Option 2).");
-			System.out.println("Pick an option: (1 or 2)");
-			int option = GetInput.getInstance().anInteger(1,2);
-			if( option == 1)
-				removeTreasureCard();
-			else {
-				if ( !giveTreasureCard() ) // If can't giveTreasureCard
-					removeTreasureCard();  // Then remove a treasure card
-			}
+			removeTreasureCard();
 		}
 	}
 	
@@ -263,19 +255,13 @@ public class Player {
 	 * Otherwise won't be able to move.
 	 * @return Boolean true if was able to move using card, else returns false if do not have card.
 	 */
-	public Boolean UseHelicopterLift() {
-		HelicopterLiftCard heliCard = new HelicopterLiftCard();
-		if( treasureCards.contains(heliCard) ) {
-			removeTreasureCard(heliCard);
+	private void UseHelicopterLift() {
+		removeTreasureCard(HelicopterLiftCard.getInstance());
 			
-			ArrayList<Tile> potentialTiles = new ArrayList<>();
-			potentialTiles.addAll( Board.getInstance().getUnsunkenTiles() );
-			Tile chosenTile = selectOptionTiles(potentialTiles);
-			changeLocation(chosenTile);
-			return true;
-		}
-		// If don't have a HelicopterLift card
-		return false;	
+		ArrayList<Tile> potentialTiles = new ArrayList<>();
+		potentialTiles.addAll( Board.getInstance().getUnsunkenTiles() );
+		Tile chosenTile = selectOptionTiles(potentialTiles);
+		changeLocation(chosenTile);
 	}
 	
 	/**
@@ -288,8 +274,20 @@ public class Player {
 		ArrayList<Tile> potentialTiles = new ArrayList<Tile>();
 		if(location.isSunken())
 			potentialTiles.addAll( TilesForIfOnSunkTile() );
-		else // Regular move
+		// If typical user move...
+		else {
+			if(treasureCards.contains(HelicopterLiftCard.getInstance())) {
+				System.out.println("Would you like to use your Helicopter Lift card?" );
+				System.out.println("1. Yes.");
+				System.out.println("2. No.");
+				if( GetInput.getInstance().anInteger(1, 2) == 1 ) {
+					UseHelicopterLift();
+					return true;
+				}
+			}
+			// Otherwise a regular move...
 			potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, true) );
+		}
 		if(potentialTiles.isEmpty()) {
 			System.out.println(getName()+" is unable to move.");
 			return false;
@@ -307,7 +305,7 @@ public class Player {
 	 * @return Tile, the tile chosen.
 	 */
 	private Tile selectOptionTiles(ArrayList <Tile> optionTiles) {
-		System.out.println("Choose one of the following tiles to move to:");
+		System.out.println("Choose one of the following tiles:");
 		for (int i=0; i<optionTiles.size(); i++) {
 			System.out.println("Tile "+(i+1)+": "+optionTiles.get(i).getTileName());
 		}
@@ -320,18 +318,19 @@ public class Player {
 	 * @param Tile islandTile to shore-up.
 	 */
 	public Boolean shoreUp() {
-		SandbagCard sandbag = new SandbagCard();
-		if( treasureCards.contains(sandbag) ) {
+		if( treasureCards.contains( SandbagCard.getInstance() ) ) {
 			ArrayList<Tile> potentialTiles = new ArrayList<>();
-			potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, true) );
-			for(Tile tile : potentialTiles) {
-				if( tile.getFloodStatus() != FloodStatusEnum.FLOODED )
-					potentialTiles.remove(tile);
+			System.out.println("DEBUG: added tiles");//TODO remove line
+			for(Tile tile : Board.getInstance().getTilesAroundTile(location, true)) {
+				if( tile.getFloodStatus() == FloodStatusEnum.FLOODED ) 
+					potentialTiles.add(tile);
 			}
+			System.out.println("Finished loop");//TODO remove line
 			if ( !potentialTiles.isEmpty() ) {
 				Tile chosenTile = selectOptionTiles(potentialTiles);
 				chosenTile.shoreUp();
-				removeTreasureCard(sandbag);
+				removeTreasureCard(SandbagCard.getInstance());
+				return true;
 			}
 			else System.out.println("There are no local Tiles to shoreUp.");
 		}

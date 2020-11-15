@@ -58,11 +58,11 @@ public class TreasureDeck {
 		TreasureCard oceansChaliceCard = new TreasureCard(TreasureEnum.THE_OCEANS_CHALICE );
 		TreasureCard statueWindCard    = new TreasureCard(TreasureEnum.THE_STATUE_OF_WIND );
 		
-		SandbagCard sandbagCard = new SandbagCard();
+		SandbagCard sandbagCard = SandbagCard.getInstance();
 		
 		WaterRiseCard waterRiseCard = new WaterRiseCard();
 		
-		HelicopterLiftCard helicopterCard = new HelicopterLiftCard();
+		HelicopterLiftCard helicopterCard = HelicopterLiftCard.getInstance();
 		
 		for (int i = 0; i<NUM_TREASURE_CARDS; i++) {
 			cardDeck.add(crystalFireCard);

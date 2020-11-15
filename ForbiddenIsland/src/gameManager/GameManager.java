@@ -100,7 +100,6 @@ public class GameManager {
     		}
     		else if(option == 7) {
     			Board.getInstance().printBoard();
-    			System.out.println("Board...");
     		}
     		else if(option == 8) {
     			remainingActions = 0;
