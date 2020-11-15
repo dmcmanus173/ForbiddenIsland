@@ -55,14 +55,12 @@ public class FloodDeck {
 	// Other Functions
 	//===========================================================
 	/**
-	 * shuffleDeck method will shuffle the contents of FloodDeck
+	 * drawFloodCards method draws a number of FloodCards equal to the WaterMeter
 	 */
-	public void shuffleDeck() {
-		while( !islands.isEmpty() )
-			usedCards.add(islands.remove());
-		Collections.shuffle(usedCards);
-		while( !usedCards.isEmpty() )
-			islands.add(usedCards.remove(0));
+	public void drawFloodCards() {
+		int numCards = WaterMeter.getInstance().getLevel();
+		for(int i=0; i<numCards; i++)
+			pickCard();
 	}
 	
 	/**
@@ -71,7 +69,7 @@ public class FloodDeck {
 	 * from Not Flooded -> Flooded
 	 * or Flooded -> Sunk
 	 */
-	public void pickCard() {
+	private void pickCard() {
 		Tile chosenCard;
 		if( islands.isEmpty() )
 			shuffleDeck();
@@ -80,4 +78,14 @@ public class FloodDeck {
 		usedCards.add(chosenCard);
 	}
 	
+	/**
+	 * shuffleDeck method will shuffle the contents of FloodDeck
+	 */
+	private void shuffleDeck() {
+		while( !islands.isEmpty() )
+			usedCards.add(islands.remove());
+		Collections.shuffle(usedCards);
+		while( !usedCards.isEmpty() )
+			islands.add(usedCards.remove(0));
+	}
 }

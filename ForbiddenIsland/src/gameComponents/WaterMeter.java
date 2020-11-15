@@ -52,8 +52,10 @@ public class WaterMeter {
 	 * unless the level is already at MAX_LEVEL.
 	 */
 	public void increaseWaterMeter() {
-		if(level < MAX_LEVEL)
+		if(level < MAX_LEVEL) {
 			level += 1;
+			System.out.println("WaterMeter has been increased. Level set to "+level+".");
+		}
 		else
 			System.out.print("WaterMeter can't increase past MAX_LEVEL(=" + MAX_LEVEL + "). WaterMeter remaining at MAX_LEVEL.\n");
 	}

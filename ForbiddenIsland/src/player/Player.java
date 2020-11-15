@@ -174,8 +174,10 @@ public class Player {
 			WaterMeter.getInstance().increaseWaterMeter();
 			TreasureDeck.getInstance().returnUsedCard(aCard);
 		}
-		else
+		else {
 			receiveCard(aCard);
+			System.out.println(aCard.toString());
+		}
 		
 		if( numTreasureCards == MAX_TREASURE_CARDS+1) {
 			System.out.println("You have exceeded the max number of cards you can carry.");
