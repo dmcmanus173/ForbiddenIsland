@@ -80,24 +80,24 @@ public class GameManager {
     		
     		option = GetInput.getInstance().anInteger(1, 8);
     		
-    		if(option == 1)
+    		if(option == 1) {
     			if( player.move() ) remainingActions -= 1;
-    			
-    		else if(option == 2)
+    		}
+    		else if(option == 2) {
     			if( player.shoreUp() ) remainingActions -= 1;
-    		
-    		else if(option == 3)
+    		}
+    		else if(option == 3) {
     			if( player.giveTreasureCard() ) remainingActions -= 1;
-    		
-    		else if(option == 4) 
+    		}
+    		else if(option == 4) { 
     			System.out.println("Capture a treasure card..."); //TODO
-    		
-    		else if(option == 5) 
+    		}
+    		else if(option == 5) { 
     			player.printCardsHeld();
-    		
-    		else if(option == 6)
+    		}
+    		else if(option == 6) {
     			Rucksack.getInstance().printContents();
-    		
+    		}
     		else if(option == 7) {
     			Board.getInstance().printBoard();
     			System.out.println("Board...");
