@@ -23,6 +23,10 @@ public class TreasureDeck {
 	private Queue<AbstractTreasureCard> cardDeck = new LinkedList<AbstractTreasureCard>();
 	private ArrayList<AbstractTreasureCard> usedCards = new ArrayList<AbstractTreasureCard>();
 	private ArrayList<AbstractTreasureCard> cardsIssued = new ArrayList<AbstractTreasureCard>();
+	private SandbagCard sandbag;
+	private HelicopterLiftCard heliCard;
+	private WaterRiseCard waterRiseCard;
+	private ArrayList<AbstractTreasureCard> allTreasureCards = new ArrayList<AbstractTreasureCard>();
 	
 	//===========================================================
 	// Variable for Game Settings
@@ -53,32 +57,28 @@ public class TreasureDeck {
 	 * Constructor for TreasureDeck object.
 	 */
 	public TreasureDeck() {		
-		TreasureCard crystalFireCard   = new TreasureCard(TreasureEnum.THE_CRYSTAL_OF_FIRE);
-		TreasureCard earthStoneCard    = new TreasureCard(TreasureEnum.THE_EARTH_STONE    );
-		TreasureCard oceansChaliceCard = new TreasureCard(TreasureEnum.THE_OCEANS_CHALICE );
-		TreasureCard statueWindCard    = new TreasureCard(TreasureEnum.THE_STATUE_OF_WIND );
+		allTreasureCards.add( new TreasureCard(TreasureEnum.THE_CRYSTAL_OF_FIRE) );
+		allTreasureCards.add( new TreasureCard(TreasureEnum.THE_EARTH_STONE    ) );
+		allTreasureCards.add( new TreasureCard(TreasureEnum.THE_OCEANS_CHALICE ) );
+		allTreasureCards.add( new TreasureCard(TreasureEnum.THE_STATUE_OF_WIND ) );
 		
-		SandbagCard sandbagCard = SandbagCard.getInstance();
 		
-		WaterRiseCard waterRiseCard = new WaterRiseCard();
-		
-		HelicopterLiftCard helicopterCard = HelicopterLiftCard.getInstance();
+		sandbag = new SandbagCard();
+		waterRiseCard = new WaterRiseCard();
+		heliCard = new HelicopterLiftCard();
 		
 		for (int i = 0; i<NUM_TREASURE_CARDS; i++) {
-			cardDeck.add(crystalFireCard);
-			cardDeck.add(earthStoneCard);
-			cardDeck.add(oceansChaliceCard);
-			cardDeck.add(statueWindCard);
+			cardDeck.addAll( allTreasureCards );
 		}
 		
 		for (int i = 0; i<NUM_SANDBAG_CARDS; i++)
-			cardDeck.add(sandbagCard);
+			cardDeck.add(sandbag);
 			
 		for (int i = 0; i<NUM_WATERRISE_CARDS; i++)
 			cardDeck.add(waterRiseCard);	
 		
 		for (int i = 0; i<NUM_HELICOPTER_CARDS; i++)
-			cardDeck.add(helicopterCard);
+			cardDeck.add(heliCard);
 		
 		shuffleDeck();	
 	}
@@ -86,6 +86,38 @@ public class TreasureDeck {
 	//===========================================================
 	// Other Functions
 	//===========================================================
+	/**
+	 * aSandbag gets an instance of SandbagCard to compare with other cards conveniently.
+	 * @return sandbagCard
+	 */
+	public AbstractTreasureCard aSandbag() {
+		return sandbag;
+	}
+	
+	/**
+	 * aHelicopterLift gets an instance of HelicopterLiftCard to compare with other cards conveniently.
+	 * @return HelicopterLiftCard
+	 */
+	public AbstractTreasureCard aHelicopterLift() {
+		return heliCard;
+	}
+	
+	/**
+	 * aWaterRiseCard gets an instance of WaterRiseCard to compare with other cards conveniently.
+	 * @return WaterRiseCard
+	 */
+	public AbstractTreasureCard aWaterRiseCard() {
+		return waterRiseCard;
+	}
+	
+	/**
+	 * getTreasureCards gets a reference of the TreasureCard's used in TreasureDeck
+	 * @return ArrayList<AbstractTreasureCard> treasureCards
+	 */
+	public ArrayList<AbstractTreasureCard> getTreasureCards() {
+		return allTreasureCards;
+	}
+	
 	/**
 	 * shuffleDeck method will shuffle the contents of cardDeck.
 	 * Will add used cards back into main pile.

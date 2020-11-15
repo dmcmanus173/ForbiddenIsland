@@ -4,12 +4,15 @@ import java.util.ArrayList;
 
 import board.Board;
 import board.Tile;
+import board.TreasureTile;
 import enums.AdventurerEnum;
 import enums.FloodStatusEnum;
 import enums.TreasureCardEnum;
+import enums.TreasureEnum;
 import gameComponents.AbstractTreasureCard;
 import gameComponents.HelicopterLiftCard;
 import gameComponents.SandbagCard;
+import gameComponents.TreasureCard;
 import gameComponents.TreasureDeck;
 import gameComponents.WaterMeter;
 import getInput.GetInput;
@@ -186,6 +189,42 @@ public class Player {
 	}
 	
 	/**
+	 * claimTreasure method will allow a player to claim a treasure if they:
+	 * 1. Have the correct number of cards.
+	 * 2. Are on a treasureTile.
+	 * 3. The treasure has not been claimed already.
+	 * @return Boolean variable for if a treasure has been claimed.
+	 */
+	public Boolean claimTreasure() {
+		if( location.getClass() == TreasureTile.class ) {
+			TreasureTile treasureTile = (TreasureTile) location;
+			TreasureEnum treasureType = treasureTile.getTreasureType();
+			AbstractTreasureCard treasureCard = null;
+			for( AbstractTreasureCard aTreasureCard : TreasureDeck.getInstance().getTreasureCards() )
+				if( ((TreasureCard) aTreasureCard).getTreasureType() == treasureType) treasureCard = aTreasureCard;
+			int countTreasureCards = 0;
+			for(AbstractTreasureCard aTreasureCard : treasureCards) {
+				if(treasureCard == aTreasureCard) 
+						countTreasureCards += 1;
+			}
+			if(countTreasureCards > 4) {
+				for(int i=0; i<4; i++)
+					removeTreasureCard(treasureCard);
+				Rucksack.getInstance().isTreasureClaimed(treasureType);
+				return true;
+			}
+			else {
+				System.out.println("Not enough treasure cards to claim the "+treasureType.toString());
+				return false;
+			}
+		}
+		else {
+			System.out.println("Not on a treasure tile. Can't claim a treasure.");
+			return false;
+		}
+	}
+	
+	/**
 	 * giveTreasureCard will facilitate giving a treasureCard from the inventory
 	 * of AbstractTreasureCards to a different player.
 	 * @return Boolean variable for if can give a card away.
@@ -256,7 +295,7 @@ public class Player {
 	 * @return Boolean true if was able to move using card, else returns false if do not have card.
 	 */
 	private void UseHelicopterLift() {
-		removeTreasureCard(HelicopterLiftCard.getInstance());
+		removeTreasureCard(TreasureDeck.getInstance().aHelicopterLift());
 			
 		ArrayList<Tile> potentialTiles = new ArrayList<>();
 		potentialTiles.addAll( Board.getInstance().getUnsunkenTiles() );
@@ -276,7 +315,7 @@ public class Player {
 			potentialTiles.addAll( TilesForIfOnSunkTile() );
 		// If typical user move...
 		else {
-			if(treasureCards.contains(HelicopterLiftCard.getInstance())) {
+			if(treasureCards.contains(TreasureDeck.getInstance().aHelicopterLift())) {
 				System.out.println("Would you like to use your Helicopter Lift card?" );
 				System.out.println("1. Yes.");
 				System.out.println("2. No.");
@@ -318,7 +357,7 @@ public class Player {
 	 * @param Tile islandTile to shore-up.
 	 */
 	public Boolean shoreUp() {
-		if( treasureCards.contains( SandbagCard.getInstance() ) ) {
+		if( treasureCards.contains( TreasureDeck.getInstance().aSandbag() ) ) {
 			ArrayList<Tile> potentialTiles = new ArrayList<>();
 			System.out.println("DEBUG: added tiles");//TODO remove line
 			for(Tile tile : Board.getInstance().getTilesAroundTile(location, true)) {
@@ -329,7 +368,7 @@ public class Player {
 			if ( !potentialTiles.isEmpty() ) {
 				Tile chosenTile = selectOptionTiles(potentialTiles);
 				chosenTile.shoreUp();
-				removeTreasureCard(SandbagCard.getInstance());
+				removeTreasureCard( TreasureDeck.getInstance().aSandbag() );
 				return true;
 			}
 			else System.out.println("There are no local Tiles to shoreUp.");

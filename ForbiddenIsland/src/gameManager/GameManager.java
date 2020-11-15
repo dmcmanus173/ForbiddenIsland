@@ -90,7 +90,7 @@ public class GameManager {
     			if( player.giveTreasureCard() ) remainingActions -= 1;
     		}
     		else if(option == 4) { 
-    			System.out.println("Capture a treasure card..."); //TODO
+    			if( player.claimTreasure() ) remainingActions -= 1;
     		}
     		else if(option == 5) { 
     			player.printCardsHeld();

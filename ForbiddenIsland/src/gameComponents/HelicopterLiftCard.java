@@ -11,31 +11,13 @@ import enums.TreasureCardEnum;
  * @version 0.1
  */
 public class HelicopterLiftCard extends AbstractTreasureCard {
-
-	//===========================================================
-	// Variable Setup
-	//===========================================================
-	private static HelicopterLiftCard heliCard; 
-	
-	//===========================================================
-    // Get Instance of Singleton
-    //===========================================================
-    /**
-     * getInstance method returns single instance of HelicopterLiftCard
-     * @return HelicopterCard. singleton HelicopterLiftCard object.
-     */
-	public static HelicopterLiftCard getInstance() {
-		if(heliCard == null)
-			heliCard = new HelicopterLiftCard();
-		return heliCard;
-	}
 	//===========================================================
 	// Constructor
 	//===========================================================
 	/**
 	 * Constructor for HelicopterLiftCard object.
 	 */
-	private HelicopterLiftCard() {
+	public HelicopterLiftCard() {
 		super(TreasureCardEnum.HELICOPTER_LIFT);
 	}
 	
