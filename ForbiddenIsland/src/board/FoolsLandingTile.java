@@ -22,14 +22,15 @@ public class FoolsLandingTile extends Tile {
     */
 	@Override
 	public void addPlayerToTile(Player player) {
-		int totalNumOfPlayers = Players.getInstance().getNumPlayers();
 		super.addPlayerToTile(player);
+		
+		int totalNumOfPlayers = Players.getInstance().getNumPlayers();
 		if(playersOnTile.size() ==  totalNumOfPlayers && Rucksack.getInstance().gottenAllTreasures()) {
-//			for(Player playerOnTile: playersOnTile) {
-//				if(playerOnTile.move()) {
-//					GameManager.getInstance().gameWon();
-//				}
-//			}
+			for(Player playerOnTile: playersOnTile) {
+				if(playerOnTile.hasHelicopterLiftCard()) {
+					GameManager.getInstance().gameWon();
+				}
+			}
 		}
 		
 	}

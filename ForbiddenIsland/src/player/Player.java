@@ -378,6 +378,16 @@ public class Player {
 		return false;
 	}
 	
+	
+	/**
+    * hasHelicopterLiftCard method checks if a player has a helicopterLift card.
+    * Also checks to see if a winning condition is met.
+    * @return boolean determining if player has helicopterLift card..
+    */
+	public boolean hasHelicopterLiftCard() {
+		return treasureCards.contains(TreasureDeck.getInstance().aHelicopterLift());
+	}
+	
 	/**
 	 * toString method will return player info as a String.
 	 * @return String info related to player.
