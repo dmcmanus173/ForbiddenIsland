@@ -164,32 +164,32 @@ public class Board {
     	int[] detstination = {xPos, yPos};
     	switch(playerDirection) {
     	case NORTH:
-    		detstination[1] = yPos + dist;
+    		detstination[1] = yPos - dist;
     		return getTileAtPosition(detstination);
     	case EAST:
     		detstination[0] = xPos + dist;
     		return getTileAtPosition(detstination);
     	case SOUTH:
-    		detstination[1] = yPos - dist;
+    		detstination[1] = yPos + dist;
     		return getTileAtPosition(detstination);
     	case WEST:
     		detstination[0] = xPos - dist;
     		return getTileAtPosition(detstination);
     	case NORTH_EAST:
     		detstination[0] = xPos + dist;
-    		detstination[1] = yPos + dist;
+    		detstination[1] = yPos - dist;
     		return getTileAtPosition(detstination);
     	case SOUTH_EAST:
     		detstination[0] = xPos + dist;
-    		detstination[1] = yPos - dist;
+    		detstination[1] = yPos + dist;
     		return getTileAtPosition(detstination);
     	case SOUTH_WEST:
     		detstination[0] = xPos - dist;
-    		detstination[1] = yPos - dist;
+    		detstination[1] = yPos + dist;
     		return getTileAtPosition(detstination);
     	case NORTH_WEST:
     		detstination[0] = xPos - dist;
-    		detstination[1] = yPos + dist;
+    		detstination[1] = yPos - dist;
     		return getTileAtPosition(detstination);
     	default:
     		System.out.println("Option not plausable.");
@@ -237,14 +237,46 @@ public class Board {
     public ArrayList<Tile> getNearestTilesToTile(Tile tile) {
     	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
     	Optional<Tile> tileAtDirection;
-    	for(int i = 0; i< NUM_COLS; i++) {
-    		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
-    			tileAtDirection = getTileWithDirectionFrom(tile, playerMove, i + 1);
-		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
-		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
-		    	}
-    		}
-    		if(!tilesPlayerCanMoveTo.isEmpty()) return tilesPlayerCanMoveTo;
+//    	for(int i = 0; i< NUM_COLS; i++) {
+//    		int radius = i+1;
+//    		System.out.println("radius is now " + radius);
+//    		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
+//    			System.out.println("\tplayer move: " + playerMove);
+//    			tileAtDirection = getTileWithDirectionFrom(tile, playerMove, i + 1);
+//		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
+//		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
+//		    	}
+//    		}
+//    		if(!tilesPlayerCanMoveTo.isEmpty()) return tilesPlayerCanMoveTo;
+//    	}
+    	int xPos, yPos, xMin, yMin, xMax, yMax;
+    	for(int radius = 1; radius< NUM_COLS; radius++) {
+    		System.out.println("radius is now " + radius);
+    		int[] currentPos = islandTilesNamePositionMap.get(tile.getTileName());
+    		xPos = currentPos[0];
+        	yPos = currentPos[1];
+        	
+        	xMin = xPos - radius;
+        	yMin = yPos - radius;
+        	
+        	xMax = xPos + radius;
+        	yMax = yPos + radius;
+        	int[] posWithinRadius = {0, 0};
+        	
+        	for(int j = yMin; j<= yMax; j++) {
+        		for(int i = xMin; i<= xMax; i++) {
+        			if(j == yMin | i == xMin | j == yMax | i == xMax) {
+        				posWithinRadius[0] = i;
+            			posWithinRadius[1] = j;
+        				tileAtDirection = getTileAtPosition(posWithinRadius);
+            			if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
+        		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
+        		    	}
+        			}
+            	}
+        	}
+        	
+        	if(!tilesPlayerCanMoveTo.isEmpty()) return tilesPlayerCanMoveTo;
     	}
     	
     	// return empty map.
@@ -272,7 +304,7 @@ public class Board {
     		if(x>0 && x <5) return true;
     	}
     	if (y== 2 || y== 3) {
-    		return true;
+    		if(x>=0 && x <=5) return true;
     	}
     	return false;
     }
@@ -450,18 +482,46 @@ public class Board {
 	
 	// Class-level test
 	public static void main(String[] args) {
-//		Board.getInstance().printBoard();
+		Board.getInstance().printBoard();
 //		Board.getInstance().printOrderedTiles();
 		
 		// testing sisterTile
 		ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
-		Tile tile;
-		for(int i=0; i<tiles.size(); i++) {
-			tile = tiles.get(i);
-			if(tile instanceof TreasureTile) {
-				System.out.println(tile.tileName + " : " + ((TreasureTile) tile).getSisterTile());
+//		Tile tile;
+//		for(int i=0; i<tiles.size(); i++) {
+//			tile = tiles.get(i);
+//			if(tile instanceof TreasureTile) {
+//				System.out.println(tile.tileName + " : " + ((TreasureTile) tile).getSisterTile());
+//			}
+//		}
+		
+		Tile firstTile = tiles.get(0);
+		Tile nearestTile = tiles.get(6);
+		Tile nearestTile2 = tiles.get(7);
+		Tile lastTile = tiles.get(23);
+		
+		System.out.println("First tile is " + firstTile.tileName);
+		System.out.println("Last tile is " + lastTile.tileName);
+		
+		tiles.forEach((tile) -> {
+			if(tile != firstTile & tile != lastTile & tile != nearestTile & tile != nearestTile2) {
+				tile.flood();
+				tile.flood();
 			}
-		}
+		});
+		
+		ArrayList<Tile> nearestTiles = Board.getInstance().getNearestTilesToTile(firstTile);
+		
+		
+		System.out.println("Nearest Tiles to " + firstTile.tileName + "are ===========================");
+		nearestTiles.forEach((tile) -> {
+			System.out.println(tile.tileName);
+		});
+		
+		
+	
+		
+		
 		
 	}
 	
