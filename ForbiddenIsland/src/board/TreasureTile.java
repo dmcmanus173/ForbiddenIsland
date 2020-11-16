@@ -3,12 +3,16 @@ package board;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import enums.FloodStatusEnum;
 //import enums.AdventurerEnum;
 import enums.TileEnum;
 import enums.TreasureEnum;
 import gameComponents.AbstractTreasureCard;
 import gameComponents.TreasureCard;
+import gameManager.GameManager;
+import player.Player;
 //import player.Player;
+import player.Rucksack;
 
 
 /**
@@ -25,6 +29,7 @@ public class TreasureTile extends Tile {
 	// Variable Setup
 	//===========================================================
 	private TreasureEnum treasureType;
+	private TileEnum sisterTileName;
 	
 	
 	//===========================================================
@@ -36,8 +41,9 @@ public class TreasureTile extends Tile {
      * @param floodStatus   The status of Tile i.e. flooded, not flooded or sunken
      * @param treasureType  TreasureEnum treasureType for TreasureTile
      */
-	public TreasureTile(TileEnum tileName, TreasureEnum treasureType) {
+	public TreasureTile(TileEnum tileName, TileEnum sisterTileName, TreasureEnum treasureType) {
 		super(tileName);
+		this.sisterTileName = sisterTileName;
 		this.treasureType = treasureType;
 	}
 	
@@ -77,6 +83,7 @@ public class TreasureTile extends Tile {
 					numOfMatchingTreasureCards += 1;
 					if(numOfMatchingTreasureCards >= maxNumOfMatchingTreasureCards) {
 						// TODO: Trigger treasure in rucksack Notify WinLose class that a treasure has been collected.
+						Rucksack.getInstance().isTreasureClaimed(treasureType);
 						return Optional.of(treasureType);
 					}
 				}
@@ -86,6 +93,24 @@ public class TreasureTile extends Tile {
 		return Optional.empty();
 		
 		
+	}
+	
+	
+	/**
+    * flood method floods a tile if it is shored up and sinks a tile if it is flooded.
+    */
+	public void flood() {
+		super.flood();
+		Tile sisterTile = Board.getInstance().getTileWithName(sisterTileName);
+		if(isSunken()) {
+			if(!Rucksack.getInstance().isTreasureClaimed(treasureType) && sisterTile.isSunken()) {
+				GameManager.getInstance().gameOver();
+			}
+		}
+	}
+	
+	public TileEnum getSisterTile() {
+		return sisterTileName;
 	}
 	
 	

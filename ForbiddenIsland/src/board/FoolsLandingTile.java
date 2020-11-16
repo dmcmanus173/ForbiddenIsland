@@ -1,6 +1,8 @@
 package board;
 
+import enums.FloodStatusEnum;
 import enums.TileEnum;
+import gameManager.GameManager;
 import player.Player;
 import player.Players;
 import player.Rucksack;
@@ -23,9 +25,26 @@ public class FoolsLandingTile extends Tile {
 		int totalNumOfPlayers = Players.getInstance().getNumPlayers();
 		super.addPlayerToTile(player);
 		if(playersOnTile.size() ==  totalNumOfPlayers && Rucksack.getInstance().gottenAllTreasures()) {
-			//TODO: loop through players to find if players has card.
+//			for(Player playerOnTile: playersOnTile) {
+//				if(playerOnTile.move()) {
+//					GameManager.getInstance().gameWon();
+//				}
+//			}
 		}
 		
+	}
+	
+	
+	/**
+    * flood method floods a tile if it is shored up and sinks a tile if it is flooded.
+    */
+	@Override
+	public void flood() {
+		if(floodStatus == FloodStatusEnum.FLOODED) {
+			GameManager.getInstance().gameOver();
+		} else {
+			super.flood();
+		}
 	}
 
 }

@@ -1,10 +1,13 @@
 package board;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 import enums.PlayerMovesEnum;
 import enums.TileEnum;
@@ -105,7 +108,7 @@ public class Board {
      * @throws Exception 
      */
     @SuppressWarnings("unused")
-	private Tile getTileWithName(TileEnum tileName) {
+	public Tile getTileWithName(TileEnum tileName) {
     	int[] pos = islandTilesNamePositionMap.get(tileName);
         Optional<Tile> islandTile = getTileAtPosition(pos);
         
@@ -325,10 +328,12 @@ public class Board {
 	private ArrayList<Tile> instanciateIslandTiles() {
 		ArrayList<Tile> tiles = new ArrayList<Tile>();
 		Optional<TreasureEnum> treasure;
+		Optional<TileEnum> sisterTreasureTile;
 		for (TileEnum tileName : TileEnum.values()) { 
 			treasure = getAssociatedTreasureForTile(tileName);
-			if ( treasure.isPresent() ) {
-				tiles.add(new TreasureTile(tileName, treasure.get()));
+			sisterTreasureTile = getSisterTreasureTile(tileName);
+			if ( treasure.isPresent() && sisterTreasureTile.isPresent()) {
+				tiles.add(new TreasureTile(tileName, sisterTreasureTile.get(), treasure.get()));
 			} else if (tileName == TileEnum.FOOLS_LANDING) {
 				tiles.add(new FoolsLandingTile(tileName));
 			} else {
@@ -343,23 +348,76 @@ public class Board {
 	
 	/**
      * getAssociatedTreasureForTile gets the treasureType associated with a given island tile.
-     *  @param tileName the name of the tile.
+     * @param tileName the name of the tile.
      * @return Optional TreasureEnum as not all island tiles have an associated treasure.
      */
 	private Optional<TreasureEnum> getAssociatedTreasureForTile(TileEnum tileName) {
-		if (tileName == TileEnum.TEMPLE_OF_THE_MOON || tileName == TileEnum.TEMPLE_OF_THE_SUN) 
+		if (getTreasureTilesForTreasure(TreasureEnum.THE_EARTH_STONE).contains(tileName)) 
 			return Optional.of(TreasureEnum.THE_EARTH_STONE);
-		else if (tileName == TileEnum.WHISPERING_GARDEN || tileName == TileEnum.HOWLING_GARDEN)
+		else if (getTreasureTilesForTreasure(TreasureEnum.THE_STATUE_OF_WIND).contains(tileName))
 			return Optional.of(TreasureEnum.THE_STATUE_OF_WIND);
-		else if (tileName == TileEnum.CAVE_OF_EMBERS || tileName == TileEnum.CAVE_OF_SHADOWS) 
+		else if (getTreasureTilesForTreasure(TreasureEnum.THE_CRYSTAL_OF_FIRE).contains(tileName)) 
 			return Optional.of(TreasureEnum.THE_CRYSTAL_OF_FIRE);
-		else if (tileName == TileEnum.CORAL_PALACE || tileName == TileEnum.TIDAL_PALACE) 
+		else if (getTreasureTilesForTreasure(TreasureEnum.THE_OCEANS_CHALICE).contains(tileName)) 
 			return Optional.of(TreasureEnum.THE_OCEANS_CHALICE);
 		else 
 			return Optional.empty();
 		
 		
 	} 
+	
+	/**
+     * getTreasureTilesForTreasure returns the set of tiles corresponding to a given treasure.
+     * @param TreasureEnum the type of treasure.
+     * @return Set<TileEnum> set of corresponding treasure tiles.
+     */
+	private Set<TileEnum> getTreasureTilesForTreasure(TreasureEnum treasureType) {
+		switch(treasureType) {
+		case THE_EARTH_STONE:
+			return setOf(TileEnum.TEMPLE_OF_THE_MOON, TileEnum.TEMPLE_OF_THE_SUN);
+		case THE_STATUE_OF_WIND:
+			return setOf(TileEnum.WHISPERING_GARDEN, TileEnum.HOWLING_GARDEN);
+		case THE_CRYSTAL_OF_FIRE:
+			return setOf(TileEnum.CAVE_OF_EMBERS, TileEnum.CAVE_OF_SHADOWS);
+		case THE_OCEANS_CHALICE:
+			return setOf(TileEnum.CORAL_PALACE, TileEnum.TIDAL_PALACE);
+		}
+		return null;
+	}
+	
+	
+	/**
+     * getSisterTreasureTile gets the sister tile name for a given treasure tile name.
+     * @param tileName the name of the tile.
+     * @return Optional<TileEnum> the tileEnum corresponding to the sister tile.
+     */
+	private Optional<TileEnum> getSisterTreasureTile(TileEnum tileName) {
+		Set<TileEnum> treasureTilesForTreasure;
+		TileEnum sisterTile;
+		for (TreasureEnum treasure : TreasureEnum.values()) { 
+			treasureTilesForTreasure =  getTreasureTilesForTreasure(treasure);
+			if (treasureTilesForTreasure.contains(tileName)) {
+				treasureTilesForTreasure.removeAll(setOf(tileName));
+				sisterTile = treasureTilesForTreasure.iterator().next();
+				return Optional.of(sisterTile);
+			}
+		}
+		
+		return Optional.empty();
+		
+		
+	}
+	
+	
+	/**
+     * setOf is a helper function used to neatly create sets of TileEnum.
+     * @param TileEnum... tiles comma separated tileEnums
+     * @return Set<TileEnum> created set.
+     */
+	private static Set<TileEnum> setOf(TileEnum... tiles) {
+	    return new HashSet<TileEnum>(Arrays.asList(tiles));
+	}
+
 	
 	public void printOrderedTiles() {
 		for (int y=0; y<24; y++) {
@@ -392,8 +450,18 @@ public class Board {
 	
 	// Class-level test
 	public static void main(String[] args) {
-		Board.getInstance().printBoard();
-		Board.getInstance().printOrderedTiles();
+//		Board.getInstance().printBoard();
+//		Board.getInstance().printOrderedTiles();
+		
+		// testing sisterTile
+		ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
+		Tile tile;
+		for(int i=0; i<tiles.size(); i++) {
+			tile = tiles.get(i);
+			if(tile instanceof TreasureTile) {
+				System.out.println(tile.tileName + " : " + ((TreasureTile) tile).getSisterTile());
+			}
+		}
 		
 	}
 	
