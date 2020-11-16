@@ -196,10 +196,11 @@ public class Player {
 	 * @return Boolean variable for if a treasure has been claimed.
 	 */
 	public Boolean claimTreasure() {
+		int numCardsForTreasure = 4;
 		if( location.getClass() == TreasureTile.class ) {
 			if( ((TreasureTile) location).collectTreasure(treasureCards) ) {
 				AbstractTreasureCard cardToRemove = TreasureDeck.getInstance().getTreasureCardReference( ((TreasureTile) location).getTreasureType() );
-				for(int i=0; i<4; i++)
+				for(int i=0; i<numCardsForTreasure; i++)
 					removeTreasureCard(cardToRemove);
 				return true;
 			}

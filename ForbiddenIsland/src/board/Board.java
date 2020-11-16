@@ -439,10 +439,9 @@ public class Board {
      */
 	public ArrayList<Tile> getUnsunkenTiles() {
 		ArrayList<Tile> potentialTiles = new ArrayList<Tile>();
-		potentialTiles.addAll(getIslandTiles());
-		for(Tile aTile : potentialTiles) {
-			if( aTile.isSunken() )
-				potentialTiles.remove(aTile);
+		for(Tile aTile : getIslandTiles()) {
+			if( !aTile.isSunken() )
+				potentialTiles.add(aTile);
 		}
 		return potentialTiles;
 	}	

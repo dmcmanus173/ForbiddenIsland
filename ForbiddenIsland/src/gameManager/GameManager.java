@@ -49,6 +49,10 @@ public class GameManager {
         	aPlayersTurn();
         	nextPlayersGo();
     	}
+    	if( gameWon )
+    		System.out.println("Congratulations! You have survived Forbidden Island!");
+    	else
+    		System.out.println("Game over! You lose!");
     }
     
     public void gameWon() {
@@ -73,12 +77,14 @@ public class GameManager {
     		System.out.println("3. Give a Treasure Card. (Costs 1 Action)");
     		System.out.println("4. Capture A Treasure.   (Costs 1 Action)");
     		System.out.println("5. See what Treasure Cards you have.");
-    		System.out.println("6. See what treasure is inside the Rucksack.");
-    		System.out.println("7. Print the map.");
-    		System.out.println("8. End Go.");
+    		System.out.println("6. Remove a Treasure Card.");
+    		System.out.println("7. See what treasure is inside the Rucksack.");
+    		System.out.println("8. Print the map.");
+    		System.out.println("9. Print player location.");
+    		System.out.println("0. End Go.");
     		System.out.println("Choose a number for what you would like to do.");
     		
-    		option = GetInput.getInstance().anInteger(1, 8);
+    		option = GetInput.getInstance().anInteger(0, 9);
     		
     		if(option == 1) {
     			if( player.move() ) remainingActions -= 1;
@@ -96,12 +102,18 @@ public class GameManager {
     			player.printCardsHeld();
     		}
     		else if(option == 6) {
-    			Rucksack.getInstance().printContents();
+    			player.removeTreasureCard();
     		}
     		else if(option == 7) {
-    			Board.getInstance().printBoard();
+    			Rucksack.getInstance().printContents();
     		}
     		else if(option == 8) {
+    			Board.getInstance().printBoard();
+    		}
+    		else if(option == 9) {
+    			System.out.println( player.getName()+" is on "+player.getLocation().getTileName()+"." );
+    		}
+    		else if(option == 0) {
     			remainingActions = 0;
     		}
     	}
