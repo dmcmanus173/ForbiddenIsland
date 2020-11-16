@@ -111,18 +111,21 @@ public class TreasureDeck {
 	}
 	
 	/**
-	 * getTreasureCards gets a reference of the TreasureCard's used in TreasureDeck
+	 * getDifferentTreasureCards gets a reference of the TreasureCard's used in TreasureDeck
 	 * @return ArrayList<AbstractTreasureCard> treasureCards
 	 */
-	public ArrayList<AbstractTreasureCard> getTreasureCards() {
-		return allTreasureCards;
+	public AbstractTreasureCard getTreasureCardReference(TreasureEnum type) {
+		for(AbstractTreasureCard treasureCard : allTreasureCards)
+			if( ((TreasureCard) treasureCard).getTreasureType() == type  )
+				return treasureCard;
+		return null;
 	}
 	
 	/**
 	 * shuffleDeck method will shuffle the contents of cardDeck.
 	 * Will add used cards back into main pile.
 	 */
-	public void shuffleDeck() {
+	private void shuffleDeck() {
 		while( !cardDeck.isEmpty() )
 			usedCards.add(cardDeck.remove());
 		
@@ -162,6 +165,16 @@ public class TreasureDeck {
 	public void returnUsedCard(AbstractTreasureCard usedCard) {
 		usedCards.add(usedCard);
 		cardsIssued.remove(usedCard);
+	}
+	
+	/**
+	 * checkIfPlayersHaveHelicopterLift method will check if one of the players has a helicopter lift card.
+	 * This function is best used in the case where checking if a player has a HelicopterLift card when
+	 * completing the game on Fools' Landing.
+	 * @return Boolean, true if a player has a HelicopterLift.
+	 */
+	public Boolean checkIfPlayersHaveHelicopterLift() {
+		return cardsIssued.contains(heliCard);
 	}
 	
 	/**

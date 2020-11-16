@@ -8,11 +8,7 @@ import board.TreasureTile;
 import enums.AdventurerEnum;
 import enums.FloodStatusEnum;
 import enums.TreasureCardEnum;
-import enums.TreasureEnum;
 import gameComponents.AbstractTreasureCard;
-import gameComponents.HelicopterLiftCard;
-import gameComponents.SandbagCard;
-import gameComponents.TreasureCard;
 import gameComponents.TreasureDeck;
 import gameComponents.WaterMeter;
 import getInput.GetInput;
@@ -196,27 +192,18 @@ public class Player {
 	 * @return Boolean variable for if a treasure has been claimed.
 	 */
 	public Boolean claimTreasure() {
+		int numCardsForTreasure = 4;
 		if( location.getClass() == TreasureTile.class ) {
-			TreasureTile treasureTile = (TreasureTile) location;
-			TreasureEnum treasureType = treasureTile.getTreasureType();
-			AbstractTreasureCard treasureCard = null;
-			for( AbstractTreasureCard aTreasureCard : TreasureDeck.getInstance().getTreasureCards() )
-				if( ((TreasureCard) aTreasureCard).getTreasureType() == treasureType) treasureCard = aTreasureCard;
-			int countTreasureCards = 0;
-			for(AbstractTreasureCard aTreasureCard : treasureCards) {
-				if(treasureCard == aTreasureCard) 
-						countTreasureCards += 1;
-			}
-			if(countTreasureCards > 4) {
-				for(int i=0; i<4; i++)
-					removeTreasureCard(treasureCard);
-				Rucksack.getInstance().isTreasureClaimed(treasureType);
+			if( ((TreasureTile) location).collectTreasure(treasureCards) ) {
+				AbstractTreasureCard cardToRemove = TreasureDeck.getInstance().getTreasureCardReference( ((TreasureTile) location).getTreasureType() );
+				for(int i=0; i<numCardsForTreasure; i++)
+					removeTreasureCard(cardToRemove);
 				return true;
 			}
 			else {
-				System.out.println("Not enough treasure cards to claim the "+treasureType.toString());
 				return false;
 			}
+		
 		}
 		else {
 			System.out.println("Not on a treasure tile. Can't claim a treasure.");
@@ -305,32 +292,46 @@ public class Player {
 	
 	/**
 	 * move method to be called if player must move.
-	 * If called when player on sunk tile, it will get a list of tiles to move to with respect to said rule.
 	 * If called when player is not on sunk tile, i.e. during a typical go, player can move to opposite tile.
+	 * If player possesses a Helicopter Lift card, can use that to move also.
 	 * @return Boolean, return false if no tile to move to, else true if player has successfully moved.
 	 */
-	public Boolean move () {
+	public Boolean moveDuringGo () {
 		ArrayList<Tile> potentialTiles = new ArrayList<Tile>();
-		if(location.isSunken())
-			potentialTiles.addAll( TilesForIfOnSunkTile() );
-		// If typical user move...
-		else {
-			if(treasureCards.contains(TreasureDeck.getInstance().aHelicopterLift())) {
-				System.out.println("Would you like to use your Helicopter Lift card?" );
-				System.out.println("1. Yes.");
-				System.out.println("2. No.");
-				if( GetInput.getInstance().anInteger(1, 2) == 1 ) {
-					UseHelicopterLift();
-					return true;
-				}
+		// Helicopter Lift Card to move if holds one.
+		if( hasHelicopterLiftCard() ) {
+			System.out.println("Would you like to use your Helicopter Lift card?" );
+			System.out.println("1. Yes.");
+			System.out.println("2. No.");
+			if( GetInput.getInstance().anInteger(1, 2) == 1 ) {
+				UseHelicopterLift();
+				return true;
 			}
-			// Otherwise a regular move...
-			potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, true) );
 		}
+		// Otherwise a regular move...
+		potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, true) );
 		if(potentialTiles.isEmpty()) {
 			System.out.println(getName()+" is unable to move.");
 			return false;
 		}
+		Tile chosenTile = selectOptionTiles(potentialTiles);
+		changeLocation(chosenTile);
+		return true;
+	}
+	
+	/**
+	 * moveFromSunk method to be called if player must move.
+	 * If called when player is not on sunk tile, i.e. during a typical go, player can move to opposite tile.
+	 * @return Boolean, return false if no tile to move to, else true if player has successfully moved.
+	 */
+	public Boolean moveFromSunk () {
+		ArrayList<Tile> potentialTiles = new ArrayList<Tile>();
+		potentialTiles.addAll( TilesForIfOnSunkTile() );
+		if(potentialTiles.isEmpty()) {
+			System.out.println(getName()+" is unable to move.");
+			return false;
+		}
+		System.out.println(getName()+" is drowning! "+getName()+" must move to a new tile!");
 		Tile chosenTile = selectOptionTiles(potentialTiles);
 		changeLocation(chosenTile);
 		return true;
@@ -359,7 +360,7 @@ public class Player {
 	public Boolean shoreUp() {
 		if( treasureCards.contains( TreasureDeck.getInstance().aSandbag() ) ) {
 			ArrayList<Tile> potentialTiles = new ArrayList<>();
-			System.out.println("DEBUG: added tiles");//TODO remove line
+			System.out.println("DEBUG: adding tiles");//TODO remove line
 			for(Tile tile : Board.getInstance().getTilesAroundTile(location, true)) {
 				if( tile.getFloodStatus() == FloodStatusEnum.FLOODED ) 
 					potentialTiles.add(tile);
@@ -388,7 +389,7 @@ public class Player {
 		return treasureCards.contains(TreasureDeck.getInstance().aHelicopterLift());
 	}
 	
-	/**
+	/**\\
 	 * toString method will return player info as a String.
 	 * @return String info related to player.
 	 */

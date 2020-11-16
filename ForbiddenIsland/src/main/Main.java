@@ -11,6 +11,7 @@ public class Main {
 		GameManager.getInstance().playersGo();
 		
 		GetInput.getInstance().endInput();
+		
 	}
 
 }
