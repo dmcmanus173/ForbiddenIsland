@@ -62,8 +62,6 @@ public class Rucksack {
 	/**
 	 * isTreasureClaimed method returns whether a treasure of the given type has been claimed.
 	 * @return Boolean isClaimed, whether treasure has been claimed before.
-	 * TODO might not be necessary to have this as Boolean. Can't pose this again as the cards will 
-	 * have disappeared at a given point. Maybe tiles should tell each other whether treasure has been claimed on first claim.
 	 */
 	public Boolean isTreasureClaimed(TreasureEnum type) {
 		Treasure foundTreasure = findTreasure(type);
@@ -71,15 +69,23 @@ public class Rucksack {
 			System.out.println("Error found in isTreasureClaimed in Rucksack class. foundTreasure == null");
 			return false;
 		}
-		if( foundTreasure.isClaimed() )
-			return true;
-		claimTreasure(foundTreasure);
-		return false; // Return false for first time treasureClaimed
+		return foundTreasure.isClaimed();
+	}
+	
+	/**
+	 * claimTreasure method will claim treasure and check if all treasures claimed
+	 * @param a treasure type, TreasureEnum
+	 */
+	public void claimTreasure(TreasureEnum type) {
+		Treasure aTreasure = findTreasure(type);
+		aTreasure.claimTreasure();
+		numClaimedTreasures += 1;
+		claimedTreasures.add(aTreasure);
+		gotAllTreasures();
 	}
 	
 	/**
 	 * gottenAllTreasures method returns true if all treasures have been claimed.
-	 * TODO @Demi should this call observer to know this has been updated?
 	 * @return gottenAllTreasures, Boolean value.
 	 */
 	public Boolean gottenAllTreasures() {
@@ -98,17 +104,6 @@ public class Rucksack {
 		}
 		System.out.println("ERROR: findTreasure in Rucksack returning a null.");
 		return null;
-	}
-	
-	/**
-	 * claimTreasure method will claim treasure and check if all treasures claimed
-	 * @param aTreasure
-	 */
-	private void claimTreasure(Treasure aTreasure) {
-		aTreasure.claimTreasure();
-		numClaimedTreasures += 1;
-		claimedTreasures.add(aTreasure);
-		gotAllTreasures();
 	}
 	
 	/**

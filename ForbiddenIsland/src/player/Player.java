@@ -315,7 +315,7 @@ public class Player {
 			potentialTiles.addAll( TilesForIfOnSunkTile() );
 		// If typical user move...
 		else {
-			if(treasureCards.contains(TreasureDeck.getInstance().aHelicopterLift())) {
+			if( hasHelicopterLiftCard() ) {
 				System.out.println("Would you like to use your Helicopter Lift card?" );
 				System.out.println("1. Yes.");
 				System.out.println("2. No.");
@@ -388,7 +388,7 @@ public class Player {
 		return treasureCards.contains(TreasureDeck.getInstance().aHelicopterLift());
 	}
 	
-	/**
+	/**\\
 	 * toString method will return player info as a String.
 	 * @return String info related to player.
 	 */

@@ -90,9 +90,7 @@ public class TreasureTile extends Tile {
 			}
 		}
 		
-		return Optional.empty();
-		
-		
+		return Optional.empty();	
 	}
 	
 	

@@ -166,6 +166,9 @@ public class TreasureDeck {
 	
 	/**
 	 * checkIfPlayersHaveHelicopterLift method will check if one of the players has a helicopter lift card.
+	 * This function is best used in the case where checking if a player has a HelicopterLift card when
+	 * completing the game on Fools' Landing.
+	 * @return Boolean, true if a player has a HelicopterLift.
 	 */
 	public Boolean checkIfPlayersHaveHelicopterLift() {
 		return cardsIssued.contains(heliCard);
