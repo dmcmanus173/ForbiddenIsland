@@ -114,8 +114,11 @@ public class TreasureDeck {
 	 * getDifferentTreasureCards gets a reference of the TreasureCard's used in TreasureDeck
 	 * @return ArrayList<AbstractTreasureCard> treasureCards
 	 */
-	public ArrayList<AbstractTreasureCard> getDifferentTreasureCards() {
-		return allTreasureCards;
+	public AbstractTreasureCard getTreasureCardReference(TreasureEnum type) {
+		for(AbstractTreasureCard treasureCard : allTreasureCards)
+			if( ((TreasureCard) treasureCard).getTreasureType() == type  )
+				return treasureCard;
+		return null;
 	}
 	
 	/**

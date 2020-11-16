@@ -197,26 +197,16 @@ public class Player {
 	 */
 	public Boolean claimTreasure() {
 		if( location.getClass() == TreasureTile.class ) {
-			TreasureTile treasureTile = (TreasureTile) location;
-			TreasureEnum treasureType = treasureTile.getTreasureType();
-			AbstractTreasureCard treasureCard = null;
-			for( AbstractTreasureCard aTreasureCard : TreasureDeck.getInstance().getDifferentTreasureCards() )
-				if( ((TreasureCard) aTreasureCard).getTreasureType() == treasureType) treasureCard = aTreasureCard;
-			int countTreasureCards = 0;
-			for(AbstractTreasureCard aTreasureCard : treasureCards) {
-				if(treasureCard == aTreasureCard) 
-						countTreasureCards += 1;
-			}
-			if(countTreasureCards > 4) {
+			if( ((TreasureTile) location).collectTreasure(treasureCards) ) {
+				AbstractTreasureCard cardToRemove = TreasureDeck.getInstance().getTreasureCardReference( ((TreasureTile) location).getTreasureType() );
 				for(int i=0; i<4; i++)
-					removeTreasureCard(treasureCard);
-				Rucksack.getInstance().isTreasureClaimed(treasureType);
+					removeTreasureCard(cardToRemove);
 				return true;
 			}
 			else {
-				System.out.println("Not enough treasure cards to claim the "+treasureType.toString());
 				return false;
 			}
+		
 		}
 		else {
 			System.out.println("Not on a treasure tile. Can't claim a treasure.");
