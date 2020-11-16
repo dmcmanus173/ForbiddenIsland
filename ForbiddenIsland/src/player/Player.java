@@ -200,7 +200,7 @@ public class Player {
 			TreasureTile treasureTile = (TreasureTile) location;
 			TreasureEnum treasureType = treasureTile.getTreasureType();
 			AbstractTreasureCard treasureCard = null;
-			for( AbstractTreasureCard aTreasureCard : TreasureDeck.getInstance().getTreasureCards() )
+			for( AbstractTreasureCard aTreasureCard : TreasureDeck.getInstance().getDifferentTreasureCards() )
 				if( ((TreasureCard) aTreasureCard).getTreasureType() == treasureType) treasureCard = aTreasureCard;
 			int countTreasureCards = 0;
 			for(AbstractTreasureCard aTreasureCard : treasureCards) {

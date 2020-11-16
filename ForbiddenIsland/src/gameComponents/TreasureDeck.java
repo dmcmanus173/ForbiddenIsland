@@ -111,10 +111,10 @@ public class TreasureDeck {
 	}
 	
 	/**
-	 * getTreasureCards gets a reference of the TreasureCard's used in TreasureDeck
+	 * getDifferentTreasureCards gets a reference of the TreasureCard's used in TreasureDeck
 	 * @return ArrayList<AbstractTreasureCard> treasureCards
 	 */
-	public ArrayList<AbstractTreasureCard> getTreasureCards() {
+	public ArrayList<AbstractTreasureCard> getDifferentTreasureCards() {
 		return allTreasureCards;
 	}
 	
@@ -122,7 +122,7 @@ public class TreasureDeck {
 	 * shuffleDeck method will shuffle the contents of cardDeck.
 	 * Will add used cards back into main pile.
 	 */
-	public void shuffleDeck() {
+	private void shuffleDeck() {
 		while( !cardDeck.isEmpty() )
 			usedCards.add(cardDeck.remove());
 		
@@ -162,6 +162,13 @@ public class TreasureDeck {
 	public void returnUsedCard(AbstractTreasureCard usedCard) {
 		usedCards.add(usedCard);
 		cardsIssued.remove(usedCard);
+	}
+	
+	/**
+	 * checkIfPlayersHaveHelicopterLift method will check if one of the players has a helicopter lift card.
+	 */
+	public Boolean checkIfPlayersHaveHelicopterLift() {
+		return cardsIssued.contains(heliCard);
 	}
 	
 	/**
