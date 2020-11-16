@@ -6,6 +6,7 @@ import java.util.Set;
 //import enums.AdventurerEnum;
 import enums.FloodStatusEnum;
 import enums.TileEnum;
+import gameManager.GameManager;
 //import enums.TreasureEnum;
 import player.Player;
 
@@ -128,12 +129,11 @@ public class Tile {
 		else if(floodStatus == FloodStatusEnum.FLOODED) {
 			floodStatus = FloodStatusEnum.SUNKEN;
 			System.out.println(tileName + " is now sunk!");
-			//TODO call gameOver if aPlayer.move() returns false
 			for(Player aPlayer : playersOnTile) {
-				if( !aPlayer.move() )
-					System.out.println("Game Over!");
+				if( !aPlayer.moveFromSunk() ) {
+					GameManager.getInstance().gameOver();
+				}
 			}
-			
 		}
 		
 	}

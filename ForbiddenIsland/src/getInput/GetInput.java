@@ -63,7 +63,9 @@ public class GetInput {
 	 */
 	//TODO don't accept nothing.
     public String aString() {
-    	String aString = user.nextLine();
+    	String aString;
+    	aString = user.nextLine();
+    	System.out.println(aString);
     	return aString;
     }
     

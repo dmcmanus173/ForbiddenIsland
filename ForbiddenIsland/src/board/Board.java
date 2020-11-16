@@ -107,7 +107,6 @@ public class Board {
      * @return the tile for a of a given name.
      * @throws Exception 
      */
-    @SuppressWarnings("unused")
 	public Tile getTileWithName(TileEnum tileName) {
     	int[] pos = islandTilesNamePositionMap.get(tileName);
         Optional<Tile> islandTile = getTileAtPosition(pos);

@@ -11,7 +11,6 @@ public class FoolsLandingTile extends Tile {
 
 	public FoolsLandingTile(TileEnum tileName) {
 		super(tileName);
-		// TODO Auto-generated constructor stub
 	}
 	
 	

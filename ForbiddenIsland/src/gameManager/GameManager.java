@@ -7,6 +7,13 @@ import player.Player;
 import player.Players;
 import player.Rucksack;
 
+/**
+ * Class for GameManager of Forbidden Island.
+ * 
+ * @author  Demi Oke and Daniel McManus
+ * @date    16/11/2020
+ * @version 0.1
+ */
 public class GameManager {
 	
 	//===========================================================
@@ -21,6 +28,10 @@ public class GameManager {
 	//===========================================================
     // Get Instance of Singleton
     //===========================================================
+    /**
+     * getInstance method returns single instance of GameManager.
+     * @return GameManager. singleton GameManager object.
+     */
     public static GameManager getInstance(){
         if(gameManager == null)
             gameManager = new GameManager();
@@ -30,6 +41,9 @@ public class GameManager {
 	//===========================================================
 	// Constructor
 	//===========================================================
+	/**
+	 * Constructor for GameManager object.
+	 */
     private GameManager() {
     	gameOver = false;
     	gameWon  = false;
@@ -37,6 +51,9 @@ public class GameManager {
     	numPlayers = Players.getInstance().getNumPlayers();
     }
     
+    /**
+     * nextPlayersGo method gets the Player number for the next Player to take a turn.
+     */
     private void nextPlayersGo() {
     	if(playersGo == numPlayers)
     		playersGo = 1;
@@ -44,6 +61,10 @@ public class GameManager {
     		playersGo += 1;
     }
     
+    /**
+     * playersGo will make players keep taking their turns.
+     * A loop which will run until there are no more goes for the group of players to take!
+     */
     public void playersGo() {
     	while( !gameOver && !gameWon ) {
         	aPlayersTurn();
@@ -55,14 +76,23 @@ public class GameManager {
     		System.out.println("Game over! You lose!");
     }
     
+    /**
+     * gameWon method will set the Boolean variable gameWon to true.
+     */
     public void gameWon() {
     	gameWon = true;
     }
     
+    /**
+     * gameOver method will set the Boolean variable gameOver to true.
+     */
     public void gameOver() {
     	gameOver = true;
     }
     
+    /**
+     * aPlayersTurn method is the construction of what a players turn should entail.
+     */
     private void aPlayersTurn () {
     	Player player = Players.getInstance().getPlayer(playersGo);
     	int remainingActions = 3;
@@ -87,7 +117,7 @@ public class GameManager {
     		option = GetInput.getInstance().anInteger(0, 9);
     		
     		if(option == 1) {
-    			if( player.move() ) remainingActions -= 1;
+    			if( player.moveDuringGo() ) remainingActions -= 1;
     		}
     		else if(option == 2) {
     			if( player.shoreUp() ) remainingActions -= 1;
@@ -128,6 +158,10 @@ public class GameManager {
     	System.out.println("\n"+player.getName()+"'s go is over.\n");
     }
     
+    /**
+     * toString method to return a String containing who's Players go it is.
+     * @return String
+     */
     @Override
     public String toString() {
     	StringBuilder temp = new StringBuilder("");

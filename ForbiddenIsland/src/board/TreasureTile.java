@@ -1,17 +1,12 @@
 package board;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
-import enums.FloodStatusEnum;
-//import enums.AdventurerEnum;
 import enums.TileEnum;
 import enums.TreasureEnum;
 import gameComponents.AbstractTreasureCard;
 import gameComponents.TreasureCard;
 import gameManager.GameManager;
-import player.Player;
-//import player.Player;
 import player.Rucksack;
 
 
