@@ -90,11 +90,11 @@ public class Player {
 	// Other Functions
 	//===========================================================
 	/**
-	 * getLocation method will return the tile that the player is currently located.
-	 * @return Tile location, the location the player is at.
+	 * getName method returns the players chosen name as a String.
+	 * @return String name, the players chosen name at the start of game.
 	 */
-	public Tile getLocation() {
-		return location;
+	public String getName() {
+		return name;
 	}
 	
 	/**
@@ -106,6 +106,14 @@ public class Player {
 	}
 	
 	/**
+	 * getLocation method will return the tile that the player is currently located.
+	 * @return Tile location, the location the player is at.
+	 */
+	public Tile getLocation() {
+		return location;
+	}
+	
+	/**
 	 * getNumTreasureCards gets the number of treasure cards the player has in possession.
 	 * @return integer numTreasureCards, the number of treasure cards a player has.
 	 */
@@ -114,11 +122,12 @@ public class Player {
 	}
 	
 	/**
-	 * getName method returns the players chosen name as a String.
-	 * @return String name, the players chosen name at the start of game.
+	 * receiveCard method is used to let a player receive a TreasureCard.
+	 * @param card, an AbstractTreasureCard to receive.
 	 */
-	public String getName() {
-		return name;
+	private void receiveCard(AbstractTreasureCard card) {
+		treasureCards.add(card);
+		numTreasureCards += 1;
 	}
 
 	/**
@@ -139,28 +148,6 @@ public class Player {
 		treasureCards.remove(aCard);
 		TreasureDeck.getInstance().returnUsedCard(aCard);
 		numTreasureCards -= 1;
-	}
-	
-	/**
-	 * treasureCardsToString method returns the treasureCards that the player has
-	 * in string format.
-	 * @return String containing the cards that the player has in possession.
-	 */
-	public String treasureCardsToString() {
-		StringBuilder temp = new StringBuilder("");
-		for(int i=0; i<numTreasureCards; i++)
-			temp.append( (i+1) + ". " + treasureCards.get(i).toString() + "\n");
-		return temp.toString();
-	}
-	
-	/**
-	 * printCardsHeld method will print to the console the cards that a player has in their possession.
-	 */
-	public void printCardsHeld() {
-		if( numTreasureCards == 0 )
-			System.out.println(name + " has no cards.");
-		else
-			System.out.println(treasureCardsToString());
 	}
 	
 	/**
@@ -185,30 +172,25 @@ public class Player {
 	}
 	
 	/**
-	 * claimTreasure method will allow a player to claim a treasure if they:
-	 * 1. Have the correct number of cards.
-	 * 2. Are on a treasureTile.
-	 * 3. The treasure has not been claimed already.
-	 * @return Boolean variable for if a treasure has been claimed.
+	 * treasureCardsToString method returns the treasureCards that the player has
+	 * in string format.
+	 * @return String containing the cards that the player has in possession.
 	 */
-	public Boolean claimTreasure() {
-		int numCardsForTreasure = 4;
-		if( location.getClass() == TreasureTile.class ) {
-			if( ((TreasureTile) location).collectTreasure(treasureCards) ) {
-				AbstractTreasureCard cardToRemove = TreasureDeck.getInstance().getTreasureCardReference( ((TreasureTile) location).getTreasureType() );
-				for(int i=0; i<numCardsForTreasure; i++)
-					removeTreasureCard(cardToRemove);
-				return true;
-			}
-			else {
-				return false;
-			}
-		
-		}
-		else {
-			System.out.println("Not on a treasure tile. Can't claim a treasure.");
-			return false;
-		}
+	public String treasureCardsToString() {
+		StringBuilder temp = new StringBuilder("");
+		for(int i=0; i<numTreasureCards; i++)
+			temp.append( (i+1) + ". " + treasureCards.get(i).toString() + "\n");
+		return temp.toString();
+	}
+	
+	/**
+	 * printCardsHeld method will print to the console the cards that a player has in their possession.
+	 */
+	public void printCardsHeld() {
+		if( numTreasureCards == 0 )
+			System.out.println(name + " has no cards.");
+		else
+			System.out.println(treasureCardsToString());
 	}
 	
 	/**
@@ -243,27 +225,30 @@ public class Player {
 	}
 	
 	/**
-	 * receiveCard method is used to let a player receive a TreasureCard.
-	 * @param card, an AbstractTreasureCard to receive.
+	 * claimTreasure method will allow a player to claim a treasure if they:
+	 * 1. Have the correct number of cards.
+	 * 2. Are on a treasureTile.
+	 * 3. The treasure has not been claimed already.
+	 * @return Boolean variable for if a treasure has been claimed.
 	 */
-	private void receiveCard(AbstractTreasureCard card) {
-		treasureCards.add(card);
-		numTreasureCards += 1;
-	}
-	
-	/**
-	 * TilesForIfOnSunkTile method is used to getTiles that player can move to if on a sunken tile.
-	 * Diver can move to the nearest tile
-	 * Pilot can move to any tile
-	 * Explorer can also move to diagonal tile
-	 * Rest of players can move to opposite tile
-	 * @return ArrayList<Tile>, a tile containing tiles that player can move to
-	 */
-	private ArrayList<Tile> TilesForIfOnSunkTile() {
-		ArrayList<Tile> potentialTiles = new ArrayList<>();
-		potentialTiles.addAll( role.getTilesForIfOnSunk(location) );
+	public Boolean claimTreasure() {
+		int numCardsForTreasure = 4;
+		if( location.getClass() == TreasureTile.class ) {
+			if( ((TreasureTile) location).collectTreasure(treasureCards) ) {
+				AbstractTreasureCard cardToRemove = TreasureDeck.getInstance().getTreasureCardReference( ((TreasureTile) location).getTreasureType() );
+				for(int i=0; i<numCardsForTreasure; i++)
+					removeTreasureCard(cardToRemove);
+				return true;
+			}
+			else {
+				return false;
+			}
 		
-		return potentialTiles;		
+		}
+		else {
+			System.out.println("Not on a treasure tile. Can't claim a treasure.");
+			return false;
+		}
 	}
 	
 	/**
@@ -276,6 +261,15 @@ public class Player {
 		location.addPlayerToTile(this);
 	}
 	
+	/**
+	    * hasHelicopterLiftCard method checks if a player has a helicopterLift card.
+	    * Also checks to see if a winning condition is met.
+	    * @return boolean determining if player has helicopterLift card..
+	*/
+	protected boolean hasHelicopterLiftCard() {
+		return treasureCards.contains(TreasureDeck.getInstance().aHelicopterLift());
+	}
+		
 	/*
 	 * useHelicopterLift method will use a HelicopterLift card if there is one in the inventory.
 	 */
@@ -314,6 +308,21 @@ public class Player {
 		Tile chosenTile = selectOptionTiles(potentialTiles);
 		changeLocation(chosenTile);
 		return true;
+	}
+	
+	/**
+	 * TilesForIfOnSunkTile method is used to getTiles that player can move to if on a sunken tile.
+	 * Diver can move to the nearest tile
+	 * Pilot can move to any tile
+	 * Explorer can also move to diagonal tile
+	 * Rest of players can move to opposite tile
+	 * @return ArrayList<Tile>, a tile containing tiles that player can move to
+	 */
+	private ArrayList<Tile> TilesForIfOnSunkTile() {
+		ArrayList<Tile> potentialTiles = new ArrayList<>();
+		potentialTiles.addAll( role.getTilesForIfOnSunk(location) );
+		
+		return potentialTiles;		
 	}
 	
 	/**
@@ -382,16 +391,6 @@ public class Player {
 		else
 			System.out.println(name + " does not have a Sandbag card.");
 		return false;
-	}
-	
-	
-	/**
-    * hasHelicopterLiftCard method checks if a player has a helicopterLift card.
-    * Also checks to see if a winning condition is met.
-    * @return boolean determining if player has helicopterLift card..
-    */
-	protected boolean hasHelicopterLiftCard() {
-		return treasureCards.contains(TreasureDeck.getInstance().aHelicopterLift());
 	}
 	
 	/**

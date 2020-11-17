@@ -13,8 +13,8 @@ import player.Player;
  * Class for a Player Role Engineer in Forbidden Island
  * 
  * @author  Demi Oke and Daniel McManus
- * @date    13/11/2020
- * @version 0.1
+ * @date    17/11/2020
+ * @version 0.2
  */
 public class Engineer extends Role {
 

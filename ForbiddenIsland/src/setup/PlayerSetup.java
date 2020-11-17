@@ -11,8 +11,8 @@ import player.Players;
  * Class for PlayerSetup in Forbidden Island game.
  * 
  * @author  Demi Oke and Daniel McManus
- * @date    01/11/2020
- * @version 0.1
+ * @date    17/11/2020
+ * @version 0.2
  */
 public class PlayerSetup {
 
@@ -62,12 +62,12 @@ public class PlayerSetup {
 		allRoles.add(AdventurerEnum.EXPLORER);
 		allRoles.add(AdventurerEnum.MESSENGER);
 		allRoles.add(AdventurerEnum.NAVIGATOR);
-		Collections.shuffle(allRoles);
+		Collections.shuffle(allRoles);		   // Shuffle roles so not always picking same roles to be added
 		
 		randomRoles.add(AdventurerEnum.PILOT); // Always need a pilot
 		for(int i=1; i<numPlayers; i++)
 			randomRoles.add( allRoles.remove(0) );
-		Collections.shuffle(randomRoles);
+		Collections.shuffle(randomRoles);	   // Shuffle again so that Pilot isn't always the first player 
 		
 		return randomRoles;
 	}
@@ -98,7 +98,6 @@ public class PlayerSetup {
 	 * getPlayerName gets the players name from the console.
 	 * @param int i, player number.
 	 */
-	//TODO don't accept nothing.
 	private String getPlayerName(int i) {
 		System.out.println("\nEnter Player "+i+"'s Name:");
 		return GetInput.getInstance().aString();

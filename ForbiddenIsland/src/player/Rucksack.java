@@ -7,6 +7,7 @@ import gameComponents.Treasure;
 
 /**
  * Class for a Rucksack to contain Treasures.
+ * This class is also used for managing Treasures throughout game.
  * 
  * @author  Demi Oke and Daniel McManus
  * @date    13/11/2020

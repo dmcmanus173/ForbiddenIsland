@@ -11,7 +11,7 @@ import enums.TreasureEnum;
  * Class for a TreasureDeck in Forbidden Island.
  * 
  * @author  Demi Oke and Daniel McManus
- * @date    27/10/2020
+ * @date    16/11/2020
  * @version 0.1
  */
 public class TreasureDeck {

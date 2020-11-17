@@ -57,14 +57,18 @@ public class GetInput {
 	 * aString gets a String from the console.
 	 * @param Scanner user will read user input from Console
 	 */
-	//TODO don't accept nothing.
     public String aString() {
-    	String aString;
-    	aString = user.nextLine();
-    	//System.out.println(aString);
+    	String aString = "";
+    	while( aString.length() == 0)
+    		aString = user.nextLine();
+    	
     	return aString;
     }
     
+    /**
+     * Function to close the Scanner user in this class.
+     * Should only be called at the end of the game otherwise the game will break!
+     */
     public void endInput() {
     	user.close();
     }

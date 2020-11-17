@@ -6,7 +6,7 @@ import getInput.GetInput;
  * Class for the WaterMeter in Forbidden Island.
  * 
  * @author  Demi Oke and Daniel McManus
- * @date    04/11/2020
+ * @date    17/11/2020
  * @version 0.1
  */
 public class WaterMeter {

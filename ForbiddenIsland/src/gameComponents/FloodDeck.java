@@ -12,8 +12,8 @@ import board.Tile;
  * Class for FloodDeck in Forbidden Island game.
  * 
  * @author  Demi Oke and Daniel McManus
- * @date    27/10/2020
- * @version 0.1
+ * @date    17/11/2020
+ * @version 0.2
  */
 public class FloodDeck {
 	//===========================================================
