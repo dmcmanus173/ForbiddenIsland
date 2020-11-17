@@ -3,6 +3,7 @@ package player;
 import java.util.ArrayList;
 
 import enums.AdventurerEnum;
+import gameComponents.TreasureDeck;
 
 /**
  * Class containing all Players in a game of Forbidden Island.
@@ -93,6 +94,24 @@ public class Players {
     public ArrayList<Player> getPlayers() {
     	return listPlayers;
     }
+    
+    /**
+     * useHelicopterLift method will use the first Helicopter Lift Card it can find through the list of players
+     * and move the selected players that have been chosen to move.
+     * @return Boolean true if the players have been moved. Otherwise false.
+     */
+    public Boolean useHelicopterLift() {
+    	if( TreasureDeck.getInstance().checkIfPlayersHaveHelicopterLift() ) {
+    		for(Player player : getPlayers()) {
+    			if(player.hasHelicopterLiftCard()) {
+    				player.useHelicopterLift();
+    				return true;
+    			}
+    		}
+    	}
+    	return false;    		
+    }
+    
     
 	/**
 	 * toString will return list of players, with respect to Player number.

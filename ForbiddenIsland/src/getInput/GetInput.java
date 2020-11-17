@@ -65,7 +65,7 @@ public class GetInput {
     public String aString() {
     	String aString;
     	aString = user.nextLine();
-    	System.out.println(aString);
+    	//System.out.println(aString);
     	return aString;
     }
     

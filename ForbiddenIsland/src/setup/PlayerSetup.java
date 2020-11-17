@@ -20,13 +20,12 @@ public class PlayerSetup {
 	// Variable Setup
 	//===========================================================
 	private int numPlayers;
-	private Boolean validNumPlayers;
 	
 	//===========================================================
 	// Variable for Game Settings
 	//===========================================================
-	private final int minPlayers = 2;
-    private final int maxPlayers = 4;
+	private final int MIN_PLAYERS = 2;
+    private final int MAX_PLAYERS = 4;
 	
 	//===========================================================
 	// Constructor
@@ -35,7 +34,6 @@ public class PlayerSetup {
 	 * Constructor to PlayerSetup. Handles creation of all players.
 	 */
 	public PlayerSetup() {
-		validNumPlayers = false;
 		getNumPlayers();
 		createPlayers();
 		
@@ -44,11 +42,10 @@ public class PlayerSetup {
 
 	/**
 	 * getNumPlayers instance will get the number of players wanting to play.
-	 * @param Scanner user will read user input from Console
 	 */
 	private void getNumPlayers() {
-		System.out.println("How many people are playing? (must be between "+minPlayers+" and "+maxPlayers+")");
-		numPlayers = GetInput.getInstance().anInteger(minPlayers, maxPlayers);
+		System.out.println("How many people are playing? (must be between "+MIN_PLAYERS+" and "+MAX_PLAYERS+")");
+		numPlayers = GetInput.getInstance().anInteger(MIN_PLAYERS, MAX_PLAYERS);
 	}
 	
 	/**
@@ -77,7 +74,6 @@ public class PlayerSetup {
 	
 	/**
 	 * Create player for each person wanting to play.
-	 * @param Scanner user will read user input from Console
 	 */
 	private void createPlayers() {
 		//Randomize roles
@@ -88,7 +84,6 @@ public class PlayerSetup {
 	
 	/**
 	 * createOnePlayer will create a single player, and add it to the list of players.
-	 * @param Scanner user will read user input from Console
 	 * @param AdventurerEnum role, the role of the player to be created.
 	 * @param int i, player number.
 	 */
@@ -97,13 +92,10 @@ public class PlayerSetup {
 		playerName = getPlayerName(i);
 		
 		Players.getInstance().addPlayer(playerName, role);
-		//System.out.println("Created Player " + i + ".\n");
-		//System.out.println( Players.getInstance().getPlayer(i).toString() );
 	}
 	
 	/**
 	 * getPlayerName gets the players name from the console.
-	 * @param Scanner user will read user input from Console
 	 * @param int i, player number.
 	 */
 	//TODO don't accept nothing.

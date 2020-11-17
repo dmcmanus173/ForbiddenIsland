@@ -2,6 +2,7 @@ package board;
 
 import enums.FloodStatusEnum;
 import enums.TileEnum;
+import gameComponents.TreasureDeck;
 import gameManager.GameManager;
 import player.Player;
 import player.Players;
@@ -24,14 +25,8 @@ public class FoolsLandingTile extends Tile {
 		super.addPlayerToTile(player);
 		
 		int totalNumOfPlayers = Players.getInstance().getNumPlayers();
-		if(playersOnTile.size() ==  totalNumOfPlayers && Rucksack.getInstance().gottenAllTreasures()) {
-			for(Player playerOnTile: playersOnTile) {
-				if(playerOnTile.hasHelicopterLiftCard()) {
-					GameManager.getInstance().gameWon();
-				}
-			}
-		}
-		
+		if(playersOnTile.size() ==  totalNumOfPlayers && Rucksack.getInstance().gottenAllTreasures() && TreasureDeck.getInstance().checkIfPlayersHaveHelicopterLift())
+			GameManager.getInstance().gameWon();		
 	}
 	
 	

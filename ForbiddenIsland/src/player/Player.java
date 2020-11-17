@@ -135,7 +135,7 @@ public class Player {
 	 * removeTreasureCard method will remove a TreasureCard from player inventory.
 	 * @param AbstractTreasureCard aCard to be removed.
 	 */
-	public void removeTreasureCard(AbstractTreasureCard aCard) {
+	private void removeTreasureCard(AbstractTreasureCard aCard) {
 		treasureCards.remove(aCard);
 		TreasureDeck.getInstance().returnUsedCard(aCard);
 		numTreasureCards -= 1;
@@ -277,38 +277,35 @@ public class Player {
 	}
 	
 	/*
-	 * UseHelicopterLift method will use a HelicopterLift card if there is one in the inventory,
-	 * Otherwise won't be able to move.
-	 * @return Boolean true if was able to move using card, else returns false if do not have card.
+	 * useHelicopterLift method will use a HelicopterLift card if there is one in the inventory.
 	 */
-	private void UseHelicopterLift() {
+	protected void useHelicopterLift() {
+		System.out.println("Using "+getName()+"'s HelicopterLift card.");
 		removeTreasureCard(TreasureDeck.getInstance().aHelicopterLift());
-			
+		ArrayList<Player> playersToMove = new ArrayList<>();
+		for (Player player : Players.getInstance().getPlayers()) {
+			System.out.println("Would you like to move "+player.getName()+" with Helicopter Lift?");
+			System.out.println("1. Yes.");
+			System.out.println("2. No.");
+			if( GetInput.getInstance().anInteger(1, 2) == 1 )
+				playersToMove.add(player);
+		}
+		
 		ArrayList<Tile> potentialTiles = new ArrayList<>();
 		potentialTiles.addAll( Board.getInstance().getUnsunkenTiles() );
 		Tile chosenTile = selectOptionTiles(potentialTiles);
-		changeLocation(chosenTile);
+		for(Player player : playersToMove) {
+			player.changeLocation(chosenTile);
+		}
 	}
 	
 	/**
 	 * move method to be called if player must move.
 	 * If called when player is not on sunk tile, i.e. during a typical go, player can move to opposite tile.
-	 * If player possesses a Helicopter Lift card, can use that to move also.
 	 * @return Boolean, return false if no tile to move to, else true if player has successfully moved.
 	 */
 	public Boolean moveDuringGo () {
 		ArrayList<Tile> potentialTiles = new ArrayList<Tile>();
-		// Helicopter Lift Card to move if holds one.
-		if( hasHelicopterLiftCard() ) {
-			System.out.println("Would you like to use your Helicopter Lift card?" );
-			System.out.println("1. Yes.");
-			System.out.println("2. No.");
-			if( GetInput.getInstance().anInteger(1, 2) == 1 ) {
-				UseHelicopterLift();
-				return true;
-			}
-		}
-		// Otherwise a regular move...
 		potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, true) );
 		if(potentialTiles.isEmpty()) {
 			System.out.println(getName()+" is unable to move.");
@@ -360,12 +357,10 @@ public class Player {
 	public Boolean shoreUp() {
 		if( treasureCards.contains( TreasureDeck.getInstance().aSandbag() ) ) {
 			ArrayList<Tile> potentialTiles = new ArrayList<>();
-			System.out.println("DEBUG: adding tiles");//TODO remove line
 			for(Tile tile : Board.getInstance().getTilesAroundTile(location, true)) {
 				if( tile.getFloodStatus() == FloodStatusEnum.FLOODED ) 
 					potentialTiles.add(tile);
 			}
-			System.out.println("Finished loop");//TODO remove line
 			if ( !potentialTiles.isEmpty() ) {
 				Tile chosenTile = selectOptionTiles(potentialTiles);
 				chosenTile.shoreUp();
@@ -385,11 +380,11 @@ public class Player {
     * Also checks to see if a winning condition is met.
     * @return boolean determining if player has helicopterLift card..
     */
-	public boolean hasHelicopterLiftCard() {
+	protected boolean hasHelicopterLiftCard() {
 		return treasureCards.contains(TreasureDeck.getInstance().aHelicopterLift());
 	}
 	
-	/**\\
+	/**
 	 * toString method will return player info as a String.
 	 * @return String info related to player.
 	 */

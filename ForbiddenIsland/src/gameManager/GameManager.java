@@ -102,19 +102,20 @@ public class GameManager {
     	while( !gameOver && (remainingActions > 0) ) {
     		System.out.println("You have "+remainingActions+" actions remaining. Would you like to: ");
     		
-    		System.out.println("1. Move.                 (Costs 1 Action)");
-    		System.out.println("2. Shore Up.             (Costs 1 Action)");
-    		System.out.println("3. Give a Treasure Card. (Costs 1 Action)");
-    		System.out.println("4. Capture A Treasure.   (Costs 1 Action)");
-    		System.out.println("5. See what Treasure Cards you have.");
-    		System.out.println("6. Remove a Treasure Card.");
-    		System.out.println("7. See what treasure is inside the Rucksack.");
-    		System.out.println("8. Print the map.");
-    		System.out.println("9. Print player location.");
-    		System.out.println("0. End Go.");
+    		System.out.println(" 1. Move.                 (Costs 1 Action)"    );
+    		System.out.println(" 2. Shore Up.             (Costs 1 Action)"    );
+    		System.out.println(" 3. Give a Treasure Card. (Costs 1 Action)"    );
+    		System.out.println(" 4. Capture A Treasure.   (Costs 1 Action)"    );
+    		System.out.println(" 5. Use a Helicopter Lift Card."               );
+    		System.out.println(" 6. See what Treasure Cards you have."         );
+    		System.out.println(" 7. Remove a Treasure Card."                   );
+    		System.out.println(" 8. See what treasure is inside the Rucksack." );
+    		System.out.println(" 9. Print the map."                            );
+    		System.out.println("10. Print player location."                    );
+    		System.out.println(" 0. End Go."                                   );
     		System.out.println("Choose a number for what you would like to do.");
     		
-    		option = GetInput.getInstance().anInteger(0, 9);
+    		option = GetInput.getInstance().anInteger(0, 10);
     		
     		if(option == 1) {
     			if( player.moveDuringGo() ) remainingActions -= 1;
@@ -128,19 +129,23 @@ public class GameManager {
     		else if(option == 4) { 
     			if( player.claimTreasure() ) remainingActions -= 1;
     		}
-    		else if(option == 5) { 
+    		else if(option == 5) {
+    			if( !Players.getInstance().useHelicopterLift() )
+    				System.out.println("No players have a Helicopter Lift card.");
+    		}
+    		else if(option == 6) { 
     			player.printCardsHeld();
     		}
-    		else if(option == 6) {
+    		else if(option == 7) {
     			player.removeTreasureCard();
     		}
-    		else if(option == 7) {
+    		else if(option == 8) {
     			Rucksack.getInstance().printContents();
     		}
-    		else if(option == 8) {
+    		else if(option == 9) {
     			Board.getInstance().printBoard();
     		}
-    		else if(option == 9) {
+    		else if(option == 10) {
     			System.out.println( player.getName()+" is on "+player.getLocation().getTileName()+"." );
     		}
     		else if(option == 0) {
