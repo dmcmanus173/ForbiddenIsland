@@ -76,6 +76,14 @@ abstract public class Role {
 	}
 	
 	/**
+	 * shoreUp method will call the shoreUpContent function with the correct options dependent on the role calling it.
+	 * @return Boolean true if a tile has been shoredUp.
+	 */
+	public Boolean shoreUp(Player aPlayer) {
+		return aPlayer.shoreUpContent();
+	}
+	
+	/**
 	 * toString method returns a String describing the Role class.
 	 * @return String containing information regarding Role class.
 	 */

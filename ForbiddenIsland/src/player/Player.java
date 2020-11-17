@@ -351,10 +351,20 @@ public class Player {
 	}
 	
 	/**
-	 * shoreUp will allow a player to shore-up a flooded island if it is flooded, and the player contains a sandbag card.
-	 * @param Tile islandTile to shore-up.
+	 * shoreUpWrapper is the face to the shoreUpContent function. This is to be called in the GameManager.
+	 * It will interact with the player role to ensure shoreUpContent has been called the correct number of times.
 	 */
-	public Boolean shoreUp() {
+	public Boolean shoreUpWrapper() {
+		if( role.shoreUp(this) )
+			return true;
+		return false;
+	}
+	
+	/**
+	 * shoreUpContent method will shoreUp a tile in the area if possible.
+	 * @return Boolean true if a tile has been shored Up.
+	 */
+	public Boolean shoreUpContent() {
 		if( treasureCards.contains( TreasureDeck.getInstance().aSandbag() ) ) {
 			ArrayList<Tile> potentialTiles = new ArrayList<>();
 			for(Tile tile : Board.getInstance().getTilesAroundTile(location, true)) {

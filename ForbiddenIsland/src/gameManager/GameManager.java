@@ -121,7 +121,7 @@ public class GameManager {
     			if( player.moveDuringGo() ) remainingActions -= 1;
     		}
     		else if(option == 2) {
-    			if( player.shoreUp() ) remainingActions -= 1;
+    			if( player.shoreUpWrapper() ) remainingActions -= 1;
     		}
     		else if(option == 3) {
     			if( player.giveTreasureCard() ) remainingActions -= 1;

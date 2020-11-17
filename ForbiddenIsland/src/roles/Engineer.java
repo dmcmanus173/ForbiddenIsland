@@ -6,6 +6,8 @@ import board.Board;
 import board.Tile;
 import enums.AdventurerEnum;
 import enums.TileEnum;
+import getInput.GetInput;
+import player.Player;
 
 /**
  * Class for a Player Role Engineer in Forbidden Island
@@ -49,5 +51,23 @@ public class Engineer extends Role {
 		return location;
 	}
 	
-	
+	/**
+	 * shoreUp method will call the shoreUpContent function with the correct options dependent on the role calling it.
+	 * Engineer may shoreUp two islands.
+	 * @return Boolean true if a tile has been shoredUp.
+	 */
+	@Override
+	public Boolean shoreUp(Player aPlayer) {
+		Boolean didShoreUp;
+		didShoreUp = aPlayer.shoreUpContent();
+		if(didShoreUp) {
+			System.out.println("The "+super.getRole().name()+" can shoreUp two tiles in one action.");
+			System.out.println("Would you like to shoreUp another tile?");
+			System.out.println("1. Yes.");
+			System.out.println("2. No.");
+			if( GetInput.getInstance().anInteger(1, 2)==1 )
+				aPlayer.shoreUpContent();
+		}
+		return didShoreUp;
+	}
 }
