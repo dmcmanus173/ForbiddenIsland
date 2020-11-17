@@ -1,5 +1,7 @@
 package gameComponents;
 
+import getInput.GetInput;
+
 /**
  * Class for the WaterMeter in Forbidden Island.
  * 
@@ -18,6 +20,7 @@ public class WaterMeter {
 	//===========================================================
 	// Variable for Game Settings
 	//===========================================================
+	private final int MIN_LEVEL = 1;
 	private final int MAX_LEVEL = 5;
 	
 	//===========================================================
@@ -41,7 +44,8 @@ public class WaterMeter {
 	 * Sets the Water level to 1.
 	 */
 	private WaterMeter(){
-		level = 1;
+		System.out.println("Choose a number to set the WaterMeter Level ("+MIN_LEVEL+"-"+MAX_LEVEL+") to:");
+		level = GetInput.getInstance().anInteger(MIN_LEVEL, MAX_LEVEL);
 		System.out.println("WaterMeter has been set. Level set to "+level+".\n");
 	}
 	

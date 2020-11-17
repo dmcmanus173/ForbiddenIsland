@@ -33,8 +33,6 @@ public class GetInput {
 	 * @return integer value of option picked
 	 */
     public Integer anInteger(int minOption, int maxOption) {
-    	//Scanner aUser = new Scanner(System.in);
-    	
     	Boolean validInput = false;
 		int option = 0;
 		String userString;
@@ -42,18 +40,16 @@ public class GetInput {
 			userString = user.nextLine();
 			try {
 				option = Integer.parseInt(userString);
-			} catch (NumberFormatException e) {
-			} catch (NoSuchElementException e) {
-				System.out.println();
-			} finally {
+			}
+			catch (NumberFormatException e) {}
+			catch (NoSuchElementException e) {}
+			finally {
 				if ((option >= minOption) && (option <= maxOption))
 					validInput = true;
 				else
 					System.out.println("Incorrect input.");
 			}
 		}
-		//aUser.close();
-    	//endInput();
     	return option;
     }
     

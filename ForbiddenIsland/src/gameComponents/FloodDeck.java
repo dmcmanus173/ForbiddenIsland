@@ -16,7 +16,6 @@ import board.Tile;
  * @version 0.1
  */
 public class FloodDeck {
-	
 	//===========================================================
 	// Variable Setup
 	//===========================================================
@@ -24,6 +23,10 @@ public class FloodDeck {
 	private Queue<Tile> islands = new LinkedList<>();
 	private ArrayList<Tile> usedCards = new ArrayList<Tile>();
 
+	//===========================================================
+	// Variable for Game Settings
+	//===========================================================
+	private final int NUM_TILE_FLOOD_SETUP = 6;
 	//===========================================================
     // Get Instance of Singleton
     //===========================================================
@@ -49,6 +52,8 @@ public class FloodDeck {
 		this.usedCards.addAll(islands);
 		this.usedCards.addAll(islands);
 		shuffleDeck();
+		for(int i=0; i<NUM_TILE_FLOOD_SETUP; i++)
+			pickCard();
 	}
 	
 	//===========================================================

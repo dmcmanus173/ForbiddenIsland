@@ -22,14 +22,10 @@ public class MainSetup {
 	 */
 	public MainSetup() {
 		Welcome();
-		//Scanner inputScanner = new Scanner(System.in);
-		
-		new PlayerSetup();
-		
-		// Create singletons
-		Board.getInstance().printBoard();
 		WaterMeter.getInstance();
+		new PlayerSetup();
 		FloodDeck.getInstance();
+		Board.getInstance().printBoard();
 		TreasureDeck.getInstance();
 	}
 	
