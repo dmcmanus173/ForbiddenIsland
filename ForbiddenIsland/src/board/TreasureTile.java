@@ -98,6 +98,7 @@ public class TreasureTile extends Tile {
 		if(isSunken()) {
 			if(!Rucksack.getInstance().isTreasureClaimed(treasureType) && sisterTile.isSunken()) {
 				GameManager.getInstance().gameOver();
+				System.out.println("The Treasure "+treasureType.name()+" has sunk!");
 			}
 		}
 	}

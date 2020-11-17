@@ -132,6 +132,8 @@ public class Tile {
 			for(Player aPlayer : playersOnTile) {
 				if( !aPlayer.moveFromSunk() ) {
 					GameManager.getInstance().gameOver();
+					System.out.println(aPlayer.getName()+" has drowned on the sunk tile!");
+					break;
 				}
 			}
 		}

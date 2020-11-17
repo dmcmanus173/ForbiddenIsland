@@ -12,15 +12,8 @@
               | PR 0 | DD 1 |
               ---------------
 
+Regular Tiles:
 FL - Fools' Landing
-TM - Temple of the Moon
-TS - Temple of the Sun
-WG - Whispering Garden
-HG - Howling Garden
-CE - Cave of Embers
-CS - Cave of Shadows
-CP - Coral Palace
-TP - Tidal Palace
 BG - Bronze Gate
 SG - Silver Gate
 CG - Copper Gate
@@ -36,6 +29,20 @@ BB - Breakers Bridge
 OB - Observatory
 PR - Phantom Rock
 DD - Dunes of Deception
+
+Treasure Tiles:
+- The Earth Stone:
+    - TS - Temple of the Sun
+    - TM - Temple of the Moon
+- The Statue of Wind
+    - HW - Howling Garden
+    - WG - Whispering Garden
+- The Crystal of Fire
+    - CE - Cave of Embers
+    - CS - Cave of Shadows
+- The Oceans Chalice
+    - CP - Coral Palace
+    - TP - Tidal Palace
 
 Island Health Levels: 2(Not Flooded), 1(Flooded), 0(Sunken)
 
