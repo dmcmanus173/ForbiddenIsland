@@ -81,6 +81,7 @@ public class FloodDeck {
 		chosenCard = islands.remove();
 		chosenCard.flood();
 		usedCards.add(chosenCard);
+		shuffleDeck();
 	}
 	
 	/**

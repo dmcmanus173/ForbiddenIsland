@@ -50,6 +50,7 @@ public class Explorer extends Role {
 	
 	/**
 	 * getTilesForIfOnSunk method gets the tiles that a player can move to if they're on a sunken tile.
+	 * This method allows the player to move to the tile that is beside the one the player is orthogonal and diagonal to it.
 	 * @param location, the Tile location the player is  on.
 	 */
 	@Override

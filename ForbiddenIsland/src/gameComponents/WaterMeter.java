@@ -1,5 +1,6 @@
 package gameComponents;
 
+import gameManager.GameManager;
 import getInput.GetInput;
 
 /**
@@ -21,7 +22,8 @@ public class WaterMeter {
 	// Variable for Game Settings
 	//===========================================================
 	private final int MIN_LEVEL = 1;
-	private final int MAX_LEVEL = 5;
+	private final int MAX_LEVEL = 4;
+	private final int GAME_OVER_LEVEL = 5;
 	
 	//===========================================================
     // Get Instance of Singleton
@@ -61,8 +63,10 @@ public class WaterMeter {
 			level += 1;
 			System.out.println("WaterMeter has been increased. Level set to "+level+".");
 		}
-		else
-			System.out.print("WaterMeter can't increase past MAX_LEVEL(=" + MAX_LEVEL + "). WaterMeter remaining at MAX_LEVEL.\n");
+		else {
+			System.out.println("The water level has reached "+GAME_OVER_LEVEL+".");
+			GameManager.getInstance().gameOver();
+		}
 	}
 	
 

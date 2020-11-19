@@ -161,10 +161,30 @@ public class Player {
 			TreasureDeck.getInstance().returnUsedCard(aCard);
 		}
 		else {
-			receiveCard(aCard);
-			System.out.println(aCard.toString());
+			System.out.println("You have drawn the following card: ");
+			System.out.println(aCard.toString()						);
+			System.out.println("Do you wish to:"					);
+			System.out.println("1. Keep it."						);
+			System.out.println("2. Give it to another player."		);
+			System.out.println("3. Put it back."				    );
+			int option = GetInput.getInstance().anInteger(1, 3);
+			if( option == 1 )
+				receiveCard(aCard);
+			else if( option == 2 ) {
+				if( !giveTreasureCard() ) {
+					System.out.println("Do you wish to:"			);
+					System.out.println("1. Keep it."				);
+					System.out.println("2. Put it back."		    );
+					option = GetInput.getInstance().anInteger(1, 3);
+					if( option == 1 )
+						receiveCard(aCard);
+					else
+						TreasureDeck.getInstance().returnUsedCard(aCard);
+				}	
+			}
+			else
+				TreasureDeck.getInstance().returnUsedCard(aCard);
 		}
-		
 		if( numTreasureCards == MAX_TREASURE_CARDS+1) {
 			System.out.println("You have exceeded the max number of cards you can carry.");
 			removeTreasureCard();

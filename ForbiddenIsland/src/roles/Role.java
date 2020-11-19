@@ -71,7 +71,7 @@ abstract public class Role {
 	 */
 	public ArrayList<Tile> getTilesForIfOnSunk(Tile location) {
 		ArrayList<Tile> potentialTiles = new ArrayList<>();
-		potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, true) );
+		potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, false) );
 		return potentialTiles;
 	}
 	
