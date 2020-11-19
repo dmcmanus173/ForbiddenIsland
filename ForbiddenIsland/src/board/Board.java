@@ -156,39 +156,39 @@ public class Board {
      * @param dist the search distance from the tile.
      * @return Optional<Tile> at the direction from the given tile. 
      */
-    private Optional<Tile> getTileWithDirectionFrom(Tile tile, PlayerMovesEnum playerDirection, int dist) {
+    private Optional<Tile> getTileWithDirectionFrom(Tile tile, PlayerMovesEnum playerDirection) {
     	int[] currentPos = islandTilesNamePositionMap.get(tile.getTileName());
     	int yPos = currentPos[1];
     	int xPos = currentPos[0];
     	int[] detstination = {xPos, yPos};
     	switch(playerDirection) {
     	case NORTH:
-    		detstination[1] = yPos - dist;
+    		detstination[1] = yPos - 1;
     		return getTileAtPosition(detstination);
     	case EAST:
-    		detstination[0] = xPos + dist;
+    		detstination[0] = xPos + 1;
     		return getTileAtPosition(detstination);
     	case SOUTH:
-    		detstination[1] = yPos + dist;
+    		detstination[1] = yPos + 1;
     		return getTileAtPosition(detstination);
     	case WEST:
-    		detstination[0] = xPos - dist;
+    		detstination[0] = xPos - 1;
     		return getTileAtPosition(detstination);
     	case NORTH_EAST:
-    		detstination[0] = xPos + dist;
-    		detstination[1] = yPos - dist;
+    		detstination[0] = xPos + 1;
+    		detstination[1] = yPos - 1;
     		return getTileAtPosition(detstination);
     	case SOUTH_EAST:
-    		detstination[0] = xPos + dist;
-    		detstination[1] = yPos + dist;
+    		detstination[0] = xPos + 1;
+    		detstination[1] = yPos + 1;
     		return getTileAtPosition(detstination);
     	case SOUTH_WEST:
-    		detstination[0] = xPos - dist;
-    		detstination[1] = yPos + dist;
+    		detstination[0] = xPos - 1;
+    		detstination[1] = yPos + 1;
     		return getTileAtPosition(detstination);
     	case NORTH_WEST:
-    		detstination[0] = xPos - dist;
-    		detstination[1] = yPos - dist;
+    		detstination[0] = xPos - 1;
+    		detstination[1] = yPos - 1;
     		return getTileAtPosition(detstination);
     	default:
     		System.out.println("Option not plausable.");
@@ -210,7 +210,7 @@ public class Board {
     	if (returnAdjacentOnly) {
     		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
     		    if(playerMove.isAdjacentMove()) {
-    		    	tileAtDirection = getTileWithDirectionFrom(tile, playerMove, 1);
+    		    	tileAtDirection = getTileWithDirectionFrom(tile, playerMove);
     		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
     		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
     		    	}
@@ -218,7 +218,7 @@ public class Board {
     		}
     	} else {
     		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
-    			tileAtDirection = getTileWithDirectionFrom(tile, playerMove, 1);
+    			tileAtDirection = getTileWithDirectionFrom(tile, playerMove);
 		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
 		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
 		    	}
