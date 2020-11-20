@@ -6,7 +6,7 @@ import gameComponents.TreasureDeck;
 import gameManager.GameManager;
 import player.Player;
 import player.Players;
-import player.Rucksack;
+import player.TreasureManager;
 
 /**
  * Class for the Fools' Landing tile in the Forbidden Island Game.
@@ -40,7 +40,7 @@ public class FoolsLandingTile extends Tile {
 		super.addPlayerToTile(player);
 		
 		int totalNumOfPlayers = Players.getInstance().getNumPlayers();
-		if(playersOnTile.size() ==  totalNumOfPlayers && Rucksack.getInstance().gottenAllTreasures() && TreasureDeck.getInstance().checkIfPlayersHaveHelicopterLift())
+		if(playersOnTile.size() ==  totalNumOfPlayers && TreasureManager.getInstance().didClaimAllTreasures() && TreasureDeck.getInstance().checkIfPlayersHaveHelicopterLift())
 			GameManager.getInstance().gameWon();		
 	}
 	

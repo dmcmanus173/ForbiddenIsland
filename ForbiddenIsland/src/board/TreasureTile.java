@@ -7,7 +7,7 @@ import enums.TreasureEnum;
 import gameComponents.AbstractTreasureCard;
 import gameComponents.TreasureCard;
 import gameManager.GameManager;
-import player.Rucksack;
+import player.TreasureManager;
 
 
 /**
@@ -78,7 +78,7 @@ public class TreasureTile extends Tile {
 					numOfMatchingTreasureCards += 1;
 					if(numOfMatchingTreasureCards >= maxNumOfMatchingTreasureCards) {
 						// TODO: Trigger treasure in rucksack Notify WinLose class that a treasure has been collected.
-						Rucksack.getInstance().claimTreasure(treasureType);
+						TreasureManager.getInstance().claimTreasure(treasureType);
 						return true;
 					}
 				}
@@ -96,7 +96,7 @@ public class TreasureTile extends Tile {
 		super.flood();
 		Tile sisterTile = Board.getInstance().getTileWithName(sisterTileName);
 		if(isSunken()) {
-			if(!Rucksack.getInstance().isTreasureClaimed(treasureType) && sisterTile.isSunken()) {
+			if(!TreasureManager.getInstance().didClaimTreasure(treasureType) && sisterTile.isSunken()) {
 				GameManager.getInstance().gameOver();
 				System.out.println("The Treasure "+treasureType.name()+" has sunk!");
 			}

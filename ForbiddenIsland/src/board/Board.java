@@ -12,6 +12,7 @@ import java.util.Set;
 import enums.PlayerMovesEnum;
 import enums.TileEnum;
 import enums.TreasureEnum;
+import player.TreasureManager;
 //import player.Player;
 
 
@@ -236,18 +237,6 @@ public class Board {
     public ArrayList<Tile> getNearestTilesToTile(Tile tile) {
     	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
     	Optional<Tile> tileAtDirection;
-//    	for(int i = 0; i< NUM_COLS; i++) {
-//    		int radius = i+1;
-//    		System.out.println("radius is now " + radius);
-//    		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
-//    			System.out.println("\tplayer move: " + playerMove);
-//    			tileAtDirection = getTileWithDirectionFrom(tile, playerMove, i + 1);
-//		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
-//		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
-//		    	}
-//    		}
-//    		if(!tilesPlayerCanMoveTo.isEmpty()) return tilesPlayerCanMoveTo;
-//    	}
     	int xPos, yPos, xMin, yMin, xMax, yMax;
     	for(int radius = 1; radius< NUM_COLS; radius++) {
     		System.out.println("radius is now " + radius);
@@ -361,8 +350,8 @@ public class Board {
 		Optional<TreasureEnum> treasure;
 		Optional<TileEnum> sisterTreasureTile;
 		for (TileEnum tileName : TileEnum.values()) { 
-			treasure = getAssociatedTreasureForTile(tileName);
-			sisterTreasureTile = getSisterTreasureTile(tileName);
+			treasure = TreasureManager.getInstance().getAssociatedTreasureForTile(tileName);
+			sisterTreasureTile = TreasureManager.getInstance().getSisterTreasureTileName(tileName);
 			if ( treasure.isPresent() && sisterTreasureTile.isPresent()) {
 				tiles.add(new TreasureTile(tileName, sisterTreasureTile.get(), treasure.get()));
 			} else if (tileName == TileEnum.FOOLS_LANDING) {
@@ -376,79 +365,6 @@ public class Board {
 		return tiles;
 	}
 	
-	
-	/**
-     * getAssociatedTreasureForTile gets the treasureType associated with a given island tile.
-     * @param tileName the name of the tile.
-     * @return Optional TreasureEnum as not all island tiles have an associated treasure.
-     */
-	private Optional<TreasureEnum> getAssociatedTreasureForTile(TileEnum tileName) {
-		if (getTreasureTilesForTreasure(TreasureEnum.THE_EARTH_STONE).contains(tileName)) 
-			return Optional.of(TreasureEnum.THE_EARTH_STONE);
-		else if (getTreasureTilesForTreasure(TreasureEnum.THE_STATUE_OF_WIND).contains(tileName))
-			return Optional.of(TreasureEnum.THE_STATUE_OF_WIND);
-		else if (getTreasureTilesForTreasure(TreasureEnum.THE_CRYSTAL_OF_FIRE).contains(tileName)) 
-			return Optional.of(TreasureEnum.THE_CRYSTAL_OF_FIRE);
-		else if (getTreasureTilesForTreasure(TreasureEnum.THE_OCEANS_CHALICE).contains(tileName)) 
-			return Optional.of(TreasureEnum.THE_OCEANS_CHALICE);
-		else 
-			return Optional.empty();
-		
-		
-	} 
-	
-	/**
-     * getTreasureTilesForTreasure returns the set of tiles corresponding to a given treasure.
-     * @param TreasureEnum the type of treasure.
-     * @return Set<TileEnum> set of corresponding treasure tiles.
-     */
-	private Set<TileEnum> getTreasureTilesForTreasure(TreasureEnum treasureType) {
-		switch(treasureType) {
-		case THE_EARTH_STONE:
-			return setOf(TileEnum.TEMPLE_OF_THE_MOON, TileEnum.TEMPLE_OF_THE_SUN);
-		case THE_STATUE_OF_WIND:
-			return setOf(TileEnum.WHISPERING_GARDEN, TileEnum.HOWLING_GARDEN);
-		case THE_CRYSTAL_OF_FIRE:
-			return setOf(TileEnum.CAVE_OF_EMBERS, TileEnum.CAVE_OF_SHADOWS);
-		case THE_OCEANS_CHALICE:
-			return setOf(TileEnum.CORAL_PALACE, TileEnum.TIDAL_PALACE);
-		}
-		return null;
-	}
-	
-	
-	/**
-     * getSisterTreasureTile gets the sister tile name for a given treasure tile name.
-     * @param tileName the name of the tile.
-     * @return Optional<TileEnum> the tileEnum corresponding to the sister tile.
-     */
-	private Optional<TileEnum> getSisterTreasureTile(TileEnum tileName) {
-		Set<TileEnum> treasureTilesForTreasure;
-		TileEnum sisterTile;
-		for (TreasureEnum treasure : TreasureEnum.values()) { 
-			treasureTilesForTreasure =  getTreasureTilesForTreasure(treasure);
-			if (treasureTilesForTreasure.contains(tileName)) {
-				treasureTilesForTreasure.removeAll(setOf(tileName));
-				sisterTile = treasureTilesForTreasure.iterator().next();
-				return Optional.of(sisterTile);
-			}
-		}
-		
-		return Optional.empty();
-		
-		
-	}
-	
-	
-	/**
-     * setOf is a helper function used to neatly create sets of TileEnum.
-     * @param TileEnum... tiles comma separated tileEnums
-     * @return Set<TileEnum> created set.
-     */
-	private static Set<TileEnum> setOf(TileEnum... tiles) {
-	    return new HashSet<TileEnum>(Arrays.asList(tiles));
-	}
-
 	
 	public void printOrderedTiles() {
 		for (int y=0; y<24; y++) {
@@ -485,36 +401,36 @@ public class Board {
 		
 		// testing sisterTile
 		ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
-//		Tile tile;
-//		for(int i=0; i<tiles.size(); i++) {
-//			tile = tiles.get(i);
-//			if(tile instanceof TreasureTile) {
-//				System.out.println(tile.tileName + " : " + ((TreasureTile) tile).getSisterTile());
-//			}
-//		}
-		
-		Tile firstTile = tiles.get(0);
-		Tile nearestTile = tiles.get(6);
-		Tile nearestTile2 = tiles.get(7);
-		Tile lastTile = tiles.get(23);
-		
-		System.out.println("First tile is " + firstTile.tileName);
-		System.out.println("Last tile is " + lastTile.tileName);
-		
-		tiles.forEach((tile) -> {
-			if(tile != firstTile & tile != lastTile & tile != nearestTile & tile != nearestTile2) {
-				tile.flood();
-				tile.flood();
+		Tile tile;
+		for(int i=0; i<tiles.size(); i++) {
+			tile = tiles.get(i);
+			if(tile instanceof TreasureTile) {
+				System.out.println(tile.tileName + " : " + ((TreasureTile) tile).getSisterTile());
 			}
-		});
+		}
 		
-		ArrayList<Tile> nearestTiles = Board.getInstance().getNearestTilesToTile(firstTile);
-		
-		
-		System.out.println("Nearest Tiles to " + firstTile.tileName + "are ===========================");
-		nearestTiles.forEach((tile) -> {
-			System.out.println(tile.tileName);
-		});
+//		Tile firstTile = tiles.get(0);
+//		Tile nearestTile = tiles.get(6);
+//		Tile nearestTile2 = tiles.get(7);
+//		Tile lastTile = tiles.get(23);
+//		
+//		System.out.println("First tile is " + firstTile.tileName);
+//		System.out.println("Last tile is " + lastTile.tileName);
+//		
+//		tiles.forEach((tile) -> {
+//			if(tile != firstTile & tile != lastTile & tile != nearestTile & tile != nearestTile2) {
+//				tile.flood();
+//				tile.flood();
+//			}
+//		});
+//		
+//		ArrayList<Tile> nearestTiles = Board.getInstance().getNearestTilesToTile(firstTile);
+//		
+//		
+//		System.out.println("Nearest Tiles to " + firstTile.tileName + "are ===========================");
+//		nearestTiles.forEach((tile) -> {
+//			System.out.println(tile.tileName);
+//		});
 		
 		
 	

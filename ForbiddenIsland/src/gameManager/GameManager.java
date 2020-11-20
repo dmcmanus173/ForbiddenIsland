@@ -5,7 +5,7 @@ import gameComponents.FloodDeck;
 import getInput.GetInput;
 import player.Player;
 import player.Players;
-import player.Rucksack;
+import player.TreasureManager;
 
 /**
  * Class for GameManager of Forbidden Island.
@@ -140,7 +140,7 @@ public class GameManager {
     			player.removeTreasureCard();
     		}
     		else if(option == 8) {
-    			Rucksack.getInstance().printContents();
+    			TreasureManager.getInstance().printContents();
     		}
     		else if(option == 9) {
     			Board.getInstance().printBoard();
