@@ -36,7 +36,7 @@ public class Diver extends Role{
 	@Override
 	public Tile startPosition() {
 		// Diver - Iron Gate
-		TileEnum tileName = TileEnum.IRON_GATE;;
+		TileEnum tileName = TileEnum.IRON_GATE;
 		Tile location = null;
 
 		ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
@@ -44,6 +44,9 @@ public class Diver extends Role{
 			if( tile.getTileName().equals(tileName) )
 				location = tile;
 		}
+		
+		if(location == null)
+    		throw new RuntimeException("startPosition() in Diver can not find correct tile Iron Gate.");
 		
 		return location;
 	}

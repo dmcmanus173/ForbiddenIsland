@@ -62,6 +62,7 @@ public class Players {
     	listPlayers.add(new Player(name, role));
     	numPlayers++;
     }
+    
 	/**
 	 * addPlayers will add a new player to the listPlayers.
 	 * @param Player player. Player to be added to listPlayers.

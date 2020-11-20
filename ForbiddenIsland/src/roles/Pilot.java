@@ -43,6 +43,8 @@ public class Pilot extends Role{
 			if( tile.getTileName().equals(tileName) )
 				location = tile;
 		}
+		if(location == null)
+    		throw new RuntimeException("startPosition() in Pilot can not find correct tile Fools' Landing.");
 		return location;
 	}
 	

@@ -38,13 +38,15 @@ public class Explorer extends Role {
 		TileEnum tileName = TileEnum.COPPER_GATE;
 		Tile location = null;
 		
-		if ( !tileName.equals(null) ) {
-			ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
-			for(Tile tile : tiles) {
-				if( tile.getTileName().equals(tileName) )
-					location = tile;
-			}
+		ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
+		for(Tile tile : tiles) {
+			if( tile.getTileName().equals(tileName) )
+				location = tile;
 		}
+		
+		if(location == null)
+    		throw new RuntimeException("startPosition() in Explorer can not find correct tile Copper Gate.");
+		
 		return location;
 	}
 	

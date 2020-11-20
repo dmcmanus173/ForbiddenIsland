@@ -118,7 +118,7 @@ public class TreasureDeck {
 		for(AbstractTreasureCard treasureCard : allTreasureCards)
 			if( ((TreasureCard) treasureCard).getTreasureType() == type  )
 				return treasureCard;
-		return null;
+		throw new RuntimeException("Can't find the reference TreasureCard for "+type.name());
 	}
 	
 	/**

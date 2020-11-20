@@ -39,13 +39,14 @@ public class Navigator extends Role {
 		TileEnum tileName = TileEnum.GOLDEN_GATE;
 		Tile location = null;
 		
-		if ( !tileName.equals(null) ) {
-			ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
-			for(Tile tile : tiles) {
-				if( tile.getTileName().equals(tileName) )
-					location = tile;
-			}
+		ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
+		for(Tile tile : tiles) {
+			if( tile.getTileName().equals(tileName) )
+				location = tile;
 		}
+		if(location == null)
+    		throw new RuntimeException("startPosition() in Navigator can not find correct tile Golden Gate.");
+
 
 		return location;
 		

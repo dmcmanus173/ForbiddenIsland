@@ -69,7 +69,7 @@ public class Player {
 		else if(role == AdventurerEnum.EXPLORER)
 			this.role = new Explorer();
 		else 
-			System.out.println("Error: Couldn't find role");
+		   	throw new RuntimeException("Can't find role in Player Constructor.");
 
 		location = this.role.startPosition(); 
 		location.addPlayerToTile(this);
@@ -235,9 +235,11 @@ public class Player {
 		    for(int i=0; i<potentialPlayers.size(); i++)
 		    	System.out.println((i+1 )+ ": " + potentialPlayers.get(i).getName() );
 			Player chosenPlayer = potentialPlayers.get( GetInput.getInstance().anInteger(1,potentialPlayers.size())-1 );
+			// Choose card to give
 			System.out.println("Choose the card to give.");
 		    printCardsHeld();
 			AbstractTreasureCard chosenCard = treasureCards.get( GetInput.getInstance().anInteger(1,numTreasureCards)-1 );
+			// Give card away
 			chosenPlayer.receiveCard(chosenCard);
 			removeTreasureCard(chosenCard);
 			return true;
@@ -260,9 +262,8 @@ public class Player {
 					removeTreasureCard(cardToRemove);
 				return true;
 			}
-			else {
+			else
 				return false;
-			}
 		
 		}
 		else {
@@ -386,7 +387,7 @@ public class Player {
 	public Boolean shoreUpWrapper() {
 		if( role.shoreUp(this) )
 			return true;
-		return false;
+		return false; // if can't shore up a tile, return false.
 	}
 	
 	/**

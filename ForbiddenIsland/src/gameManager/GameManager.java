@@ -11,7 +11,7 @@ import player.Rucksack;
  * Class for GameManager of Forbidden Island.
  * 
  * @author  Demi Oke and Daniel McManus
- * @date    16/11/2020
+ * @date    20/11/2020
  * @version 0.1
  */
 public class GameManager {
@@ -151,6 +151,9 @@ public class GameManager {
     		else if(option == 0) {
     			remainingActions = 0;
     		}
+    		else
+        		throw new RuntimeException("The option selected "+option+" does not exist!");
+    		
     	}
     	
     	System.out.println(player.getName()+" is drawing two cards from the TreasureDeck:");

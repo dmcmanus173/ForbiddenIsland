@@ -67,8 +67,7 @@ public class Rucksack {
 	public Boolean isTreasureClaimed(TreasureEnum type) {
 		Treasure foundTreasure = findTreasure(type);
 		if( foundTreasure == null ) {
-			System.out.println("Error found in isTreasureClaimed in Rucksack class. foundTreasure == null");
-			return false;
+	    	throw new RuntimeException("Can't find Treasure in isTreasureClaimed.");
 		}
 		return foundTreasure.isClaimed();
 	}
@@ -79,6 +78,9 @@ public class Rucksack {
 	 */
 	public void claimTreasure(TreasureEnum type) {
 		Treasure aTreasure = findTreasure(type);
+		if( aTreasure == null ) {
+	    	throw new RuntimeException("Can't find Treasure in claimTreasure.");
+		}
 		aTreasure.claimTreasure();
 		numClaimedTreasures += 1;
 		claimedTreasures.add(aTreasure);
@@ -103,8 +105,7 @@ public class Rucksack {
 			if(treasure.getType() == type)
 				return treasure;
 		}
-		System.out.println("ERROR: findTreasure in Rucksack returning a null.");
-		return null;
+	    throw new RuntimeException("Can't find Treasure in findTreasure.");
 	}
 	
 	/**
