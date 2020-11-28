@@ -1,12 +1,12 @@
 package board;
 
-import TreasureCards.TreasureDeck;
 import enums.FloodStatusEnum;
 import enums.TileEnum;
 import gameManager.GameManager;
 import gameManager.TreasureManager;
 import player.Player;
 import player.Players;
+import treasureCards.TreasureDeck;
 
 /**
  * Class for the Fools' Landing tile in the Forbidden Island Game.

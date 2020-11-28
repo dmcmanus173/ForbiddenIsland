@@ -2,8 +2,6 @@ package player;
 
 import java.util.ArrayList;
 
-import TreasureCards.AbstractTreasureCard;
-import TreasureCards.TreasureDeck;
 import board.Board;
 import board.Tile;
 import board.TreasureTile;
@@ -19,6 +17,8 @@ import roles.Messenger;
 import roles.Navigator;
 import roles.Pilot;
 import roles.Role;
+import treasureCards.AbstractTreasureCard;
+import treasureCards.TreasureDeck;
 
 /**
  * Class for the Player in Forbidden Island.

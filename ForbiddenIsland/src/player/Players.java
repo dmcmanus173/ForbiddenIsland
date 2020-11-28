@@ -2,8 +2,8 @@ package player;
 
 import java.util.ArrayList;
 
-import TreasureCards.TreasureDeck;
 import enums.AdventurerEnum;
+import treasureCards.TreasureDeck;
 
 /**
  * Class containing all Players in a game of Forbidden Island.

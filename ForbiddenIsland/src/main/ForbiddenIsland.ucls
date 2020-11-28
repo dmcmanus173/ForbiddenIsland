@@ -37,8 +37,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="5" language="java" name="TreasureCards.SandbagCard" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/TreasureCards/SandbagCard.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="5" language="java" name="treasureCards.SandbagCard" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/treasureCards/SandbagCard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="83" width="116" x="3805" y="1420"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -46,8 +46,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="6" language="java" name="TreasureCards.TreasureCard" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/TreasureCards/TreasureCard.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="6" language="java" name="treasureCards.TreasureCard" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/treasureCards/TreasureCard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="119" width="207" x="2922" y="1420"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -136,8 +136,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="TreasureCards.WaterRiseCard" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/TreasureCards/WaterRiseCard.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="16" language="java" name="treasureCards.WaterRiseCard" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/treasureCards/WaterRiseCard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="83" width="124" x="3641" y="1420"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -235,8 +235,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="27" language="java" name="TreasureCards.AbstractTreasureCard" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/TreasureCards/AbstractTreasureCard.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="27" language="java" name="treasureCards.AbstractTreasureCard" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/treasureCards/AbstractTreasureCard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="119" width="257" x="3342" y="1053"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -244,8 +244,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="TreasureCards.TreasureDeck" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/TreasureCards/TreasureDeck.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="28" language="java" name="treasureCards.TreasureDeck" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/treasureCards/TreasureDeck.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="353" width="380" x="3620" y="462"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
@@ -262,8 +262,8 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="30" language="java" name="TreasureCards.HelicopterLiftCard" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/TreasureCards/HelicopterLiftCard.java" binary="false" corner="BOTTOM_RIGHT">    
+  <class id="30" language="java" name="treasureCards.HelicopterLiftCard" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/treasureCards/HelicopterLiftCard.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="83" width="147" x="3454" y="1420"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      

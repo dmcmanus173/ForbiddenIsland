@@ -1,4 +1,4 @@
-package TreasureCards;
+package treasureCards;
 
 import enums.TreasureCardEnum;
 

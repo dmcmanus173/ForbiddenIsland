@@ -3,12 +3,12 @@ package mess;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import TreasureCards.AbstractTreasureCard;
-import TreasureCards.TreasureDeck;
 import enums.TreasureEnum;
 import otherComponents.Treasure;
 import otherComponents.WaterMeter;
 import setup.MainSetup;
+import treasureCards.AbstractTreasureCard;
+import treasureCards.TreasureDeck;
 
 @SuppressWarnings("unused")
 public class Mess {

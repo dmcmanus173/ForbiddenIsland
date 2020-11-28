@@ -1,93 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <class-diagram version="1.2.4" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
   associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
-  <class id="1" language="java" name="roles.Role" project="ForbiddenIsland" file="/ForbiddenIsland/src/roles/Role.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="209" width="378" x="800" y="-62"/>    
+  <enumeration id="1" language="java" name="enums.TileEnum" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/enums/TileEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="587" width="229" x="701" y="443"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </class>  
-  <class id="2" language="java" name="roles.Engineer" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/roles/Engineer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="161" x="132" y="187"/>    
+  </enumeration>  
+  <enumeration id="2" language="java" name="enums.TreasureCardEnum" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/enums/TreasureCardEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="245" x="122" y="68"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </class>  
-  <class id="3" language="java" name="roles.Explorer" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/roles/Explorer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="247" x="333" y="187"/>    
+  </enumeration>  
+  <enumeration id="3" language="java" name="enums.TreasureEnum" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/enums/TreasureEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="254" x="407" y="68"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </class>  
-  <class id="4" language="java" name="roles.Pilot" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/roles/Pilot.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="247" x="620" y="187"/>    
+  </enumeration>  
+  <enumeration id="4" language="java" name="enums.FloodStatusEnum" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/enums/FloodStatusEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="209" width="219" x="950" y="68"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </class>  
-  <class id="5" language="java" name="roles.Diver" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/roles/Diver.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="247" x="907" y="187"/>    
+  </enumeration>  
+  <enumeration id="5" language="java" name="enums.AdventurerEnum" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/enums/AdventurerEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="245" width="209" x="701" y="68"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </class>  
-  <class id="6" language="java" name="roles.Messenger" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/roles/Messenger.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="119" width="378" x="1194" y="187"/>    
+  </enumeration>  
+  <enumeration id="6" language="java" name="enums.PlayerMovesEnum" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/enums/PlayerMovesEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="335" width="239" x="1209" y="68"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
-  </class>  
-  <class id="7" language="java" name="roles.Navigator" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/roles/Navigator.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="101" width="123" x="1612" y="187"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <generalization id="8">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="9">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="10">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="11">    
-    <end type="SOURCE" refId="3"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="12">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
-  <generalization id="13">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="1"/>  
-  </generalization>  
+  </enumeration>  
+  <association id="7">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="8" name="startingTileName"/>      
+      <multiplicity id="9" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
