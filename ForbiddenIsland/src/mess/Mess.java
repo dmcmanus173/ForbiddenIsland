@@ -3,11 +3,11 @@ package mess;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import TreasureCards.AbstractTreasureCard;
+import TreasureCards.TreasureDeck;
 import enums.TreasureEnum;
-import gameComponents.AbstractTreasureCard;
-import gameComponents.Treasure;
-import gameComponents.TreasureDeck;
-import gameComponents.WaterMeter;
+import otherComponents.Treasure;
+import otherComponents.WaterMeter;
 import setup.MainSetup;
 
 @SuppressWarnings("unused")

@@ -1,4 +1,4 @@
-package player;
+package gameManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,7 @@ import java.util.Set;
 
 import enums.TileEnum;
 import enums.TreasureEnum;
-import gameComponents.Treasure;
+import otherComponents.Treasure;
 
 /**
  * Class for a Rucksack to contain Treasures.

@@ -1,12 +1,11 @@
-package gameComponents;
+package board;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import board.Board;
-import board.Tile;
+import otherComponents.WaterMeter;
 
 /**
  * Class for FloodDeck in Forbidden Island game.

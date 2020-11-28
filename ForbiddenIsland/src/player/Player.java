@@ -2,16 +2,16 @@ package player;
 
 import java.util.ArrayList;
 
+import TreasureCards.AbstractTreasureCard;
+import TreasureCards.TreasureDeck;
 import board.Board;
 import board.Tile;
 import board.TreasureTile;
 import enums.AdventurerEnum;
 import enums.FloodStatusEnum;
 import enums.TreasureCardEnum;
-import gameComponents.AbstractTreasureCard;
-import gameComponents.TreasureDeck;
-import gameComponents.WaterMeter;
-import getInput.GetInput;
+import gameManager.GetInput;
+import otherComponents.WaterMeter;
 import roles.Diver;
 import roles.Engineer;
 import roles.Explorer;

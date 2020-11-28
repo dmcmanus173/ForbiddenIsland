@@ -6,7 +6,7 @@ import board.Board;
 import board.Tile;
 import enums.AdventurerEnum;
 import enums.TileEnum;
-import getInput.GetInput;
+import gameManager.GetInput;
 import player.Player;
 
 /**

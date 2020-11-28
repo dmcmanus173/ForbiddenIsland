@@ -1,4 +1,4 @@
-package gameComponents;
+package TreasureCards;
 
 import java.util.ArrayList;
 import java.util.Collections;
