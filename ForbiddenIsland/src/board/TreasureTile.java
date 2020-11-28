@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 import enums.TileEnum;
 import enums.TreasureEnum;
-import gameComponents.AbstractTreasureCard;
-import gameComponents.TreasureCard;
 import gameManager.GameManager;
-import player.TreasureManager;
+import gameManager.TreasureManager;
+import treasureCards.AbstractTreasureCard;
+import treasureCards.TreasureCard;
 
 
 /**

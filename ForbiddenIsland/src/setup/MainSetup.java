@@ -1,9 +1,9 @@
 package setup;
 
 import board.Board;
-import gameComponents.FloodDeck;
-import gameComponents.TreasureDeck;
-import gameComponents.WaterMeter;
+import board.FloodDeck;
+import otherComponents.WaterMeter;
+import treasureCards.TreasureDeck;
 
 /**
  * Class to setup instance of game Forbidden Island.

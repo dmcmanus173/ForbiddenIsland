@@ -8,10 +8,8 @@ import board.TreasureTile;
 import enums.AdventurerEnum;
 import enums.FloodStatusEnum;
 import enums.TreasureCardEnum;
-import gameComponents.AbstractTreasureCard;
-import gameComponents.TreasureDeck;
-import gameComponents.WaterMeter;
-import getInput.GetInput;
+import gameManager.GetInput;
+import otherComponents.WaterMeter;
 import roles.Diver;
 import roles.Engineer;
 import roles.Explorer;
@@ -19,6 +17,8 @@ import roles.Messenger;
 import roles.Navigator;
 import roles.Pilot;
 import roles.Role;
+import treasureCards.AbstractTreasureCard;
+import treasureCards.TreasureDeck;
 
 /**
  * Class for the Player in Forbidden Island.

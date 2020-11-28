@@ -1,7 +1,7 @@
 package main;
 
 import gameManager.GameManager;
-import getInput.GetInput;
+import gameManager.GetInput;
 import setup.MainSetup;
 
 public class Main {

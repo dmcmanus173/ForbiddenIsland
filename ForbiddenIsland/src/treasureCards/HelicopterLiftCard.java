@@ -1,25 +1,24 @@
-package gameComponents;
+package treasureCards;
 
 import enums.TreasureCardEnum;
 
 /**
- * Class for WaterRiseCard in a Forbidden Island Treasure Deck.
+ * Class for HelicopterLiftCard in a Forbidden Island Treasure Deck.
  * This class is extended from AbstractTreasureCard.
  * 
  * @author  Demi Oke and Daniel McManus
  * @date    27/10/2020
  * @version 0.1
  */
-public class WaterRiseCard extends AbstractTreasureCard {
-	
+public class HelicopterLiftCard extends AbstractTreasureCard {
 	//===========================================================
 	// Constructor
 	//===========================================================
 	/**
-	 * Constructor for WaterRiseCard object.
+	 * Constructor for HelicopterLiftCard object.
 	 */
-	public WaterRiseCard() {
-		super(TreasureCardEnum.WATER_RISE);
+	public HelicopterLiftCard() {
+		super(TreasureCardEnum.HELICOPTER_LIFT);
 	}
-
+	
 }

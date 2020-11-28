@@ -1,4 +1,4 @@
-package gameComponents;
+package treasureCards;
 
 import enums.TreasureEnum;
 import enums.TreasureCardEnum;

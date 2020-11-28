@@ -1,11 +1,9 @@
 package gameManager;
 
 import board.Board;
-import gameComponents.FloodDeck;
-import getInput.GetInput;
+import board.FloodDeck;
 import player.Player;
 import player.Players;
-import player.TreasureManager;
 
 /**
  * Class for GameManager of Forbidden Island.
@@ -109,7 +107,7 @@ public class GameManager {
     		System.out.println(" 5. Use a Helicopter Lift Card."               );
     		System.out.println(" 6. See what Treasure Cards you have."         );
     		System.out.println(" 7. Remove a Treasure Card."                   );
-    		System.out.println(" 8. See what treasure is inside the Rucksack." );
+    		System.out.println(" 8. See what treasure's are claimed."          );
     		System.out.println(" 9. Print the map."                            );
     		System.out.println("10. Print player location."                    );
     		System.out.println(" 0. End Go."                                   );

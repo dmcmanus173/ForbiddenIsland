@@ -1,7 +1,7 @@
-package gameComponents;
+package otherComponents;
 
 import gameManager.GameManager;
-import getInput.GetInput;
+import gameManager.GetInput;
 
 /**
  * Class for the WaterMeter in Forbidden Island.

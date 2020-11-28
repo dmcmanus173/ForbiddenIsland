@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import enums.TreasureEnum;
-import gameComponents.AbstractTreasureCard;
-import gameComponents.Treasure;
-import gameComponents.TreasureDeck;
-import gameComponents.WaterMeter;
+import otherComponents.Treasure;
+import otherComponents.WaterMeter;
 import setup.MainSetup;
+import treasureCards.AbstractTreasureCard;
+import treasureCards.TreasureDeck;
 
 @SuppressWarnings("unused")
 public class Mess {
