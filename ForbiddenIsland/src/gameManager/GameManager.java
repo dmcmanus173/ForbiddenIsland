@@ -153,14 +153,7 @@ public class GameManager {
         		throw new RuntimeException("The option selected "+option+" does not exist!");
     		
     	}
-    	
-    	System.out.println(player.getName()+" is drawing two cards from the TreasureDeck:");
-    	player.getTreasureCard();
-    	player.getTreasureCard();
-    	
-    	System.out.println("\n"+player.getName()+" is drawing flood cards.");
-    	FloodDeck.getInstance().drawFloodCards();
-    	
+    	player.endOfGo();
     	System.out.println("\n"+player.getName()+"'s go is over.\n");
     }
     

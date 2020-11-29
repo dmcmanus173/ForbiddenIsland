@@ -3,6 +3,7 @@ package player;
 import java.util.ArrayList;
 
 import board.Board;
+import board.FloodDeck;
 import board.Tile;
 import board.TreasureTile;
 import enums.AdventurerEnum;
@@ -154,7 +155,7 @@ public class Player {
 	 * getTreasureCard method will take a card from the TreasureDeck.
 	 * If the TreasureCard is a Water Rise card, it will be used immediately. 
 	 */
-	public void getTreasureCard() {
+	private void getTreasureCard() {
 		AbstractTreasureCard aCard = TreasureDeck.getInstance().getNextCard();
 		if( aCard.getCardType() == TreasureCardEnum.WATER_RISE ) {
 			WaterMeter.getInstance().increaseWaterMeter();
@@ -214,6 +215,17 @@ public class Player {
 	}
 	
 	/**
+	 * sendCard method sends a particular card to a player.
+	 * @param AbstractTreasureCard card to send
+	 * @param Player aPlayer to receive card
+	 */
+	private void sendCard(AbstractTreasureCard aCard, Player aPlayer) {
+		aPlayer.receiveCard(aCard);
+		treasureCards.remove(aCard);
+		numTreasureCards -= 1;
+	}
+	
+	/**
 	 * giveTreasureCard will facilitate giving a treasureCard from the inventory
 	 * of AbstractTreasureCards to a different player.
 	 * @return Boolean variable for if can give a card away.
@@ -240,8 +252,7 @@ public class Player {
 		    printCardsHeld();
 			AbstractTreasureCard chosenCard = treasureCards.get( GetInput.getInstance().anInteger(1,numTreasureCards)-1 );
 			// Give card away
-			chosenPlayer.receiveCard(chosenCard);
-			removeTreasureCard(chosenCard);
+			sendCard(chosenCard, chosenPlayer);
 			return true;
 		}
 	}
@@ -412,6 +423,20 @@ public class Player {
 		else
 			System.out.println(name + " does not have a Sandbag card.");
 		return false;
+	}
+	
+	/**
+	 * endOfGo method is the actions a player takes after taking their 3 turns during a go.
+	 * It includes: taking 2 TreasureCards
+	 * 				drawing Flood Cards
+	 */
+	public void endOfGo() {
+    	System.out.println(getName()+" is drawing two cards from the TreasureDeck:");
+    	getTreasureCard();
+    	getTreasureCard();
+    	
+    	System.out.println("\n"+getName()+" is drawing flood cards.");
+    	FloodDeck.getInstance().drawFloodCards();
 	}
 	
 	/**
