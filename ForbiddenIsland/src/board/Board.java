@@ -270,6 +270,52 @@ public class Board {
     
     
     
+    /**
+     * getNearestTilesToTile sequential searches for the nearest unsunk tile on to
+     * a particular tile on the board.
+     * @param Tile the specified tile.
+     * @return ArrayList<Tile> containing the player movement direction and the corresponding tile in that direction.
+     */
+    public ArrayList<Tile> getTiles(Tile tile, int maxRadius, boolean returnadjacebnt) {
+    	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
+    	Optional<Tile> tileAtDirection;
+    	int xPos, yPos, xMin, yMin, xMax, yMax;
+    	for(int radius = 1; radius< maxRadius; radius++) {
+    		System.out.println("radius is now " + radius);
+    		int[] currentPos = islandTilesNamePositionMap.get(tile.getTileName());
+    		xPos = currentPos[0];
+        	yPos = currentPos[1];
+        	
+        	xMin = xPos - radius;
+        	yMin = yPos - radius;
+        	
+        	xMax = xPos + radius;
+        	yMax = yPos + radius;
+        	int[] posWithinRadius = {0, 0};
+        	
+        	for(int j = yMin; j<= yMax; j++) {
+        		for(int i = xMin; i<= xMax; i++) {
+        			if(j == yMin | i == xMin | j == yMax | i == xMax) {
+        				posWithinRadius[0] = i;
+            			posWithinRadius[1] = j;
+        				tileAtDirection = getTileAtPosition(posWithinRadius);
+            			if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
+        		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
+        		    	}
+        			}
+            	}
+        	}
+        	
+        	if(!tilesPlayerCanMoveTo.isEmpty()) return tilesPlayerCanMoveTo;
+    	}
+    	
+    	// return empty map.
+    	return tilesPlayerCanMoveTo;
+    	
+    }
+    
+    
+    
     
     
     
