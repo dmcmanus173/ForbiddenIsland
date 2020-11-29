@@ -144,55 +144,85 @@ public class Board {
 //    	else return Optional.empty();
 //    }
     
-    /**
-     * getTileWithDirectionFrom returns the tile at the direction from the given tile. .
-     * Unlike getTileAtPosition, this function should ALWAYS return a tile, 
-     * as every island tile should be within the shape of the island.
-     * @param tileName the name of the tile.
-     * @param playerDirection the direction at which to get the tile, i.e. up, down, left, right etc.
-     * @param dist the search distance from the tile.
-     * @return Optional<Tile> at the direction from the given tile. 
-     */
-    private Optional<Tile> getTileWithDirectionFrom(Tile tile, PlayerMovesEnum playerDirection) {
-    	int[] currentPos = islandTilesNamePositionMap.get(tile.getTileName());
-    	int yPos = currentPos[1];
-    	int xPos = currentPos[0];
-    	int[] detstination = {xPos, yPos};
-    	switch(playerDirection) {
-    	case NORTH:
-    		detstination[1] = yPos - 1;
-    		return getTileAtPosition(detstination);
-    	case EAST:
-    		detstination[0] = xPos + 1;
-    		return getTileAtPosition(detstination);
-    	case SOUTH:
-    		detstination[1] = yPos + 1;
-    		return getTileAtPosition(detstination);
-    	case WEST:
-    		detstination[0] = xPos - 1;
-    		return getTileAtPosition(detstination);
-    	case NORTH_EAST:
-    		detstination[0] = xPos + 1;
-    		detstination[1] = yPos - 1;
-    		return getTileAtPosition(detstination);
-    	case SOUTH_EAST:
-    		detstination[0] = xPos + 1;
-    		detstination[1] = yPos + 1;
-    		return getTileAtPosition(detstination);
-    	case SOUTH_WEST:
-    		detstination[0] = xPos - 1;
-    		detstination[1] = yPos + 1;
-    		return getTileAtPosition(detstination);
-    	case NORTH_WEST:
-    		detstination[0] = xPos - 1;
-    		detstination[1] = yPos - 1;
-    		return getTileAtPosition(detstination);
-    	default:
-    		System.out.println("Option not plausable.");
-    		return Optional.empty();
-    	
-    	}
-    }
+//    /**
+//     * getTileWithDirectionFrom returns the tile at the direction from the given tile. .
+//     * Unlike getTileAtPosition, this function should ALWAYS return a tile, 
+//     * as every island tile should be within the shape of the island.
+//     * @param tileName the name of the tile.
+//     * @param playerDirection the direction at which to get the tile, i.e. up, down, left, right etc.
+//     * @param dist the search distance from the tile.
+//     * @return Optional<Tile> at the direction from the given tile. 
+//     */
+//    private Optional<Tile> getTileWithDirectionFrom(Tile tile, PlayerMovesEnum playerDirection) {
+//    	int[] currentPos = islandTilesNamePositionMap.get(tile.getTileName());
+//    	int yPos = currentPos[1];
+//    	int xPos = currentPos[0];
+//    	int[] detstination = {xPos, yPos};
+//    	switch(playerDirection) {
+//    	case NORTH:
+//    		detstination[1] = yPos - 1;
+//    		return getTileAtPosition(detstination);
+//    	case EAST:
+//    		detstination[0] = xPos + 1;
+//    		return getTileAtPosition(detstination);
+//    	case SOUTH:
+//    		detstination[1] = yPos + 1;
+//    		return getTileAtPosition(detstination);
+//    	case WEST:
+//    		detstination[0] = xPos - 1;
+//    		return getTileAtPosition(detstination);
+//    	case NORTH_EAST:
+//    		detstination[0] = xPos + 1;
+//    		detstination[1] = yPos - 1;
+//    		return getTileAtPosition(detstination);
+//    	case SOUTH_EAST:
+//    		detstination[0] = xPos + 1;
+//    		detstination[1] = yPos + 1;
+//    		return getTileAtPosition(detstination);
+//    	case SOUTH_WEST:
+//    		detstination[0] = xPos - 1;
+//    		detstination[1] = yPos + 1;
+//    		return getTileAtPosition(detstination);
+//    	case NORTH_WEST:
+//    		detstination[0] = xPos - 1;
+//    		detstination[1] = yPos - 1;
+//    		return getTileAtPosition(detstination);
+//    	default:
+//    		System.out.println("Option not plausable.");
+//    		return Optional.empty();
+//    	
+//    	}
+//    }
+    
+    
+//    /**
+//     * getTilesAroundTile method gets tiles immediately around a specified tile.
+//     * @param tileName the name of the tile.
+//     * @param returnAdjacent boolean determining if chosen tiles should only be adjacent. true returns adjacent tiles, false returns diagonal tiles.
+//     * @return ArrayList<Tile> containing the player movement direction and the corresponding tile in that direction.
+//     */
+//    public ArrayList<Tile>  getTilesAroundTile(Tile tile, boolean returnAdjacentOnly) {
+//    	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
+//    	Optional<Tile> tileAtDirection;
+//    	if (returnAdjacentOnly) {
+//    		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
+//    		    if(playerMove.isAdjacentMove()) {
+//    		    	tileAtDirection = getTileWithDirectionFrom(tile, playerMove);
+//    		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
+//    		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
+//    		    	}
+//    		    }
+//    		}
+//    	} else {
+//    		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
+//    			tileAtDirection = getTileWithDirectionFrom(tile, playerMove);
+//		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
+//		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
+//		    	}
+//    		}
+//    	}
+//    	return tilesPlayerCanMoveTo;
+//    }
     
     
     /**
@@ -202,36 +232,6 @@ public class Board {
      * @return ArrayList<Tile> containing the player movement direction and the corresponding tile in that direction.
      */
     public ArrayList<Tile>  getTilesAroundTile(Tile tile, boolean returnAdjacentOnly) {
-    	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
-    	Optional<Tile> tileAtDirection;
-    	if (returnAdjacentOnly) {
-    		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
-    		    if(playerMove.isAdjacentMove()) {
-    		    	tileAtDirection = getTileWithDirectionFrom(tile, playerMove);
-    		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
-    		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
-    		    	}
-    		    }
-    		}
-    	} else {
-    		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
-    			tileAtDirection = getTileWithDirectionFrom(tile, playerMove);
-		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
-		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
-		    	}
-    		}
-    	}
-    	return tilesPlayerCanMoveTo;
-    }
-    
-    
-    /**
-     * getTilesAroundTile method gets tiles immediately around a specified tile.
-     * @param tileName the name of the tile.
-     * @param returnAdjacent boolean determining if chosen tiles should only be adjacent. true returns adjacent tiles, false returns diagonal tiles.
-     * @return ArrayList<Tile> containing the player movement direction and the corresponding tile in that direction.
-     */
-    public ArrayList<Tile>  getTilesAroundTile1(Tile tile, boolean returnAdjacentOnly) {
     	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
     	ArrayList<Optional<Tile>> tilesAroundPlayer= new ArrayList<Optional<Tile>>();
     	    	
@@ -243,17 +243,17 @@ public class Board {
     	int[] southDetstination = {xPos, yPos+1};
     	int[] westDetstination = {xPos-1, yPos};
     	
-    	int[] northEastDetstination = {xPos+1, yPos-1};
-    	int[] southEastDetstination = {xPos+1, yPos+1};
-    	int[] southWestDetstination = {xPos-1, yPos+1};
-    	int[] northWestDetstination = {xPos-1, yPos-1};
-    	
     	tilesAroundPlayer.add(getTileAtPosition(northDetstination));
 		tilesAroundPlayer.add(getTileAtPosition(eastDetstination));
 		tilesAroundPlayer.add(getTileAtPosition(southDetstination));
 		tilesAroundPlayer.add(getTileAtPosition(westDetstination));
     	
     	if(!returnAdjacentOnly) {
+    		int[] northEastDetstination = {xPos+1, yPos-1};
+        	int[] southEastDetstination = {xPos+1, yPos+1};
+        	int[] southWestDetstination = {xPos-1, yPos+1};
+        	int[] northWestDetstination = {xPos-1, yPos-1};
+        	
     		tilesAroundPlayer.add(getTileAtPosition(northEastDetstination));
     		tilesAroundPlayer.add(getTileAtPosition(southEastDetstination));
     		tilesAroundPlayer.add(getTileAtPosition(southWestDetstination));
