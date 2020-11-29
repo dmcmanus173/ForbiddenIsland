@@ -224,6 +224,53 @@ public class Board {
     	return tilesPlayerCanMoveTo;
     }
     
+    
+    /**
+     * getTilesAroundTile method gets tiles immediately around a specified tile.
+     * @param tileName the name of the tile.
+     * @param returnAdjacent boolean determining if chosen tiles should only be adjacent. true returns adjacent tiles, false returns diagonal tiles.
+     * @return ArrayList<Tile> containing the player movement direction and the corresponding tile in that direction.
+     */
+    public ArrayList<Tile>  getTilesAroundTile1(Tile tile, boolean returnAdjacentOnly) {
+    	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
+    	ArrayList<Optional<Tile>> tilesAroundPlayer= new ArrayList<Optional<Tile>>();
+    	    	
+    	int[] currentPos = islandTilesNamePositionMap.get(tile.getTileName());
+    	int yPos = currentPos[1];
+    	int xPos = currentPos[0];
+    	int[] northDetstination = {xPos, yPos-1};
+    	int[] eastDetstination = {xPos+1, yPos};
+    	int[] southDetstination = {xPos, yPos+1};
+    	int[] westDetstination = {xPos-1, yPos};
+    	
+    	int[] northEastDetstination = {xPos+1, yPos-1};
+    	int[] southEastDetstination = {xPos+1, yPos+1};
+    	int[] southWestDetstination = {xPos-1, yPos+1};
+    	int[] northWestDetstination = {xPos-1, yPos-1};
+    	
+    	tilesAroundPlayer.add(getTileAtPosition(northDetstination));
+		tilesAroundPlayer.add(getTileAtPosition(eastDetstination));
+		tilesAroundPlayer.add(getTileAtPosition(southDetstination));
+		tilesAroundPlayer.add(getTileAtPosition(westDetstination));
+    	
+    	if(!returnAdjacentOnly) {
+    		tilesAroundPlayer.add(getTileAtPosition(northEastDetstination));
+    		tilesAroundPlayer.add(getTileAtPosition(southEastDetstination));
+    		tilesAroundPlayer.add(getTileAtPosition(southWestDetstination));
+    		tilesAroundPlayer.add(getTileAtPosition(northWestDetstination));
+    	}
+    	
+    	tilesAroundPlayer.forEach((tileAtDirection) -> {
+    		if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
+        		tilesPlayerCanMoveTo.add(tileAtDirection.get());
+        	}
+    	});
+   
+    	return tilesPlayerCanMoveTo;
+    }
+    
+    
+    
     /**
      * getNearestTilesToTile sequential searches for the nearest unsunk tile on to
      * a particular tile on the board.
@@ -235,52 +282,6 @@ public class Board {
     	Optional<Tile> tileAtDirection;
     	int xPos, yPos, xMin, yMin, xMax, yMax;
     	for(int radius = 1; radius< NUM_COLS; radius++) {
-    		System.out.println("radius is now " + radius);
-    		int[] currentPos = islandTilesNamePositionMap.get(tile.getTileName());
-    		xPos = currentPos[0];
-        	yPos = currentPos[1];
-        	
-        	xMin = xPos - radius;
-        	yMin = yPos - radius;
-        	
-        	xMax = xPos + radius;
-        	yMax = yPos + radius;
-        	int[] posWithinRadius = {0, 0};
-        	
-        	for(int j = yMin; j<= yMax; j++) {
-        		for(int i = xMin; i<= xMax; i++) {
-        			if(j == yMin | i == xMin | j == yMax | i == xMax) {
-        				posWithinRadius[0] = i;
-            			posWithinRadius[1] = j;
-        				tileAtDirection = getTileAtPosition(posWithinRadius);
-            			if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
-        		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
-        		    	}
-        			}
-            	}
-        	}
-        	
-        	if(!tilesPlayerCanMoveTo.isEmpty()) return tilesPlayerCanMoveTo;
-    	}
-    	
-    	// return empty map.
-    	return tilesPlayerCanMoveTo;
-    	
-    }
-    
-    
-    
-    /**
-     * getNearestTilesToTile sequential searches for the nearest unsunk tile on to
-     * a particular tile on the board.
-     * @param Tile the specified tile.
-     * @return ArrayList<Tile> containing the player movement direction and the corresponding tile in that direction.
-     */
-    public ArrayList<Tile> getTiles(Tile tile, int maxRadius, boolean returnadjacebnt) {
-    	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
-    	Optional<Tile> tileAtDirection;
-    	int xPos, yPos, xMin, yMin, xMax, yMax;
-    	for(int radius = 1; radius< maxRadius; radius++) {
     		System.out.println("radius is now " + radius);
     		int[] currentPos = islandTilesNamePositionMap.get(tile.getTileName());
     		xPos = currentPos[0];
