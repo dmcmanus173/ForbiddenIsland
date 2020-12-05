@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.4" icons="true" automaticImage="PNG" generate-combined-fragments="true">  
+  <object id="1" language="java" name="player.Player" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/player/Player.java" binary="false" label="player" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="812" y="0"/>    
+    <execution id="2">      
+      <position height="1316" width="66" x="5" y="81"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="1253" width="66" x="5" y="123"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="21" width="0" x="0" y="662"/>    
+    </execution>    
+    <execution id="26">      
+      <position height="21" width="0" x="0" y="970"/>    
+    </execution>    
+    <execution id="32">      
+      <position height="21" width="0" x="0" y="1334"/>    
+    </execution>  
+  </object>  
+  <object id="33" language="java" name="treasureCards.TreasureDeck" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/treasureCards/TreasureDeck.java" binary="false" label="&lt;static&gt;" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="6">      
+      <position height="21" width="0" x="0" y="154"/>    
+    </execution>  
+  </object>  
+  <object id="34" language="java" name="treasureCards.TreasureDeck" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/treasureCards/TreasureDeck.java" binary="false" label="treasureDeck" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="8">      
+      <position height="21" width="0" x="0" y="204"/>    
+    </execution>    
+    <execution id="12">      
+      <position height="21" width="0" x="0" y="363"/>    
+    </execution>    
+    <execution id="28">      
+      <position height="21" width="0" x="0" y="1050"/>    
+    </execution>    
+    <execution id="30">      
+      <position height="21" width="0" x="0" y="1158"/>    
+    </execution>  
+  </object>  
+  <object id="35" language="java" name="otherComponents.WaterMeter" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/otherComponents/WaterMeter.java" binary="false" label="&lt;static&gt;" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="10">      
+      <position height="84" width="0" x="0" y="279"/>    
+    </execution>    
+    <execution id="37">      
+      <position height="21" width="7" x="359" y="321"/>    
+    </execution>  
+  </object>  
+  <object id="38" language="java" name="treasureCards.AbstractTreasureCard" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/treasureCards/AbstractTreasureCard.java" binary="false" label="aCard" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="14">      
+      <position height="21" width="0" x="0" y="446"/>    
+    </execution>  
+  </object>  
+  <object id="39" language="java" name="gameManager.GetInput" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/gameManager/GetInput.java" binary="false" label="&lt;static&gt;" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="16">      
+      <position height="21" width="0" x="0" y="493"/>    
+    </execution>    
+    <execution id="22">      
+      <position height="21" width="0" x="0" y="804"/>    
+    </execution>  
+  </object>  
+  <object id="40" language="java" name="gameManager.GetInput" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/gameManager/GetInput.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="18">      
+      <position height="21" width="0" x="0" y="549"/>    
+    </execution>  
+  </object>  
+  <object id="41" language="java" name="gameManager.GetInput" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/gameManager/GetInput.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="24">      
+      <position height="21" width="0" x="0" y="856"/>    
+    </execution>  
+  </object>  
+  <combined-fragment id="42" interaction-operator="ALT">    
+    <interaction-operand id="43" constraint="Is Water Rise Card">      
+      <fragment refId="11"/>      
+      <fragment refId="9"/>      
+      <fragment refId="36"/>    
+    </interaction-operand>    
+    <interaction-operand id="44" constraint="Not a Water Rise Card">      
+      <fragment refId="45"/>      
+      <fragment refId="13"/>      
+      <fragment refId="15"/>      
+      <fragment refId="17"/>    
+    </interaction-operand>    
+    <combined-fragment id="45" interaction-operator="ALT">      
+      <interaction-operand id="46" constraint="Want to Keep Card">        
+        <fragment refId="19"/>      
+      </interaction-operand>      
+      <interaction-operand id="47" constraint="else">        
+        <fragment refId="48"/>      
+      </interaction-operand>      
+      <combined-fragment id="48" interaction-operator="ALT">        
+        <interaction-operand id="49" constraint="Want to Give Away Card to Another Player">          
+          <fragment refId="50"/>        
+        </interaction-operand>        
+        <interaction-operand id="51" constraint="Give Card Back">          
+          <fragment refId="29"/>        
+        </interaction-operand>        
+        <combined-fragment id="50" interaction-operator="OPT">          
+          <interaction-operand id="52" constraint="!giveTreasureCard() - Cant Give Card Away">            
+            <fragment refId="53"/>            
+            <fragment refId="23"/>            
+            <fragment refId="21"/>          
+          </interaction-operand>          
+          <combined-fragment id="53" interaction-operator="ALT">            
+            <interaction-operand id="54" constraint="Keep Card">              
+              <fragment refId="25"/>            
+            </interaction-operand>            
+            <interaction-operand id="55" constraint="Give Card Back">              
+              <fragment refId="27"/>            
+            </interaction-operand>          
+          </combined-fragment>        
+        </combined-fragment>      
+      </combined-fragment>    
+    </combined-fragment>  
+  </combined-fragment>  
+  <combined-fragment id="56" interaction-operator="OPT">    
+    <interaction-operand id="57" constraint="If numCards &gt; MaxNumber">      
+      <fragment refId="31"/>    
+    </interaction-operand>  
+  </combined-fragment>  
+  <message id="3" operation="getTreasureCard():void" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" operation="getInstance():treasureCards.TreasureDeck" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="7" operation="getNextCard():treasureCards.AbstractTreasureCard" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="9" operation="getInstance():otherComponents.WaterMeter" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" operation="returnUsedCard(treasureCards.AbstractTreasureCard):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="13" operation="toString():java.lang.String" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="15" operation="getInstance():gameManager.GetInput" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="17" operation="anInteger(int,int):java.lang.Integer" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="18"/>  
+  </message>  
+  <message id="19" operation="receiveCard(treasureCards.AbstractTreasureCard):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="21" operation="getInstance():gameManager.GetInput" asynchronous="false" x="53" y="789">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="23" operation="anInteger(int,int):java.lang.Integer" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="24"/>  
+  </message>  
+  <message id="25" operation="receiveCard(treasureCards.AbstractTreasureCard):void" asynchronous="false" x="61" y="922">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="26"/>  
+  </message>  
+  <message id="27" operation="returnUsedCard(treasureCards.AbstractTreasureCard):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="28"/>  
+  </message>  
+  <message id="29" operation="returnUsedCard(treasureCards.AbstractTreasureCard):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="30"/>  
+  </message>  
+  <message id="31" operation="removeTreasureCard():void" asynchronous="false" x="50" y="1296">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="32"/>  
+  </message>  
+  <message id="36" operation="increaseWaterMeter():void" asynchronous="false">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="37"/>  
+  </message>
+</sequence-diagram>
