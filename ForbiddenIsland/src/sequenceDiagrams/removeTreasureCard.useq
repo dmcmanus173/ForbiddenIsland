@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.4" icons="true" automaticImage="PNG" generate-combined-fragments="true">  
+  <object id="1" language="java" name="player.Player" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/player/Player.java" binary="false" label="player" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="417" y="0"/>    
+    <execution id="2">      
+      <position height="534" width="66" x="5" y="248"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="471" width="66" x="5" y="290"/>    
+    </execution>    
+    <execution id="12">      
+      <position height="21" width="0" x="0" y="384"/>    
+    </execution>    
+    <execution id="18">      
+      <position height="178" width="0" x="0" y="562"/>    
+    </execution>    
+    <execution id="6">      
+      <position height="21" width="66" x="5" y="290"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="21" width="66" x="5" y="290"/>    
+    </execution>  
+  </object>  
+  <object id="23" language="java" name="treasureCards.TreasureDeck" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/treasureCards/TreasureDeck.java" binary="false" label="&lt;static&gt;" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="22">      
+      <position height="84" width="0" x="0" y="635"/>    
+    </execution>    
+    <execution id="25">      
+      <position height="21" width="7" x="129" y="677"/>    
+    </execution>  
+  </object>  
+  <object id="26" language="java" name="java.io.PrintStream" project="ForbiddenIsland" 
+    file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="10">      
+      <position height="21" width="0" x="0" y="329"/>    
+    </execution>  
+  </object>  
+  <object id="27" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
+    file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" 
+    label="treasureCards" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="14">      
+      <position height="21" width="0" x="0" y="415"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="21" width="0" x="0" y="593"/>    
+    </execution>  
+  </object>  
+  <object id="28" language="java" name="gameManager.GetInput" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/gameManager/GetInput.java" binary="false" label="&lt;static&gt;" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="16">      
+      <position height="84" width="0" x="0" y="457"/>    
+    </execution>    
+    <execution id="30">      
+      <position height="21" width="7" x="334" y="499"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="removeTreasureCard():void" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="7" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="9" operation="println(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" operation="printCardsHeld():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="13" operation="get(int):E" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="15" operation="getInstance():gameManager.GetInput" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="17" operation="removeTreasureCard(treasureCards.AbstractTreasureCard):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="18"/>  
+  </message>  
+  <message id="19" operation="remove(java.lang.Object):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="21" operation="getInstance():treasureCards.TreasureDeck" asynchronous="false">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="24" operation="returnUsedCard(treasureCards.AbstractTreasureCard):void" asynchronous="false">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="25"/>  
+  </message>  
+  <message id="29" operation="anInteger(int,int):java.lang.Integer" asynchronous="false">    
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="30"/>  
+  </message>
+</sequence-diagram>
