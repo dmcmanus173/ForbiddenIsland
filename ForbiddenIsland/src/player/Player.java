@@ -156,10 +156,11 @@ public class Player {
 	 * If the TreasureCard is a Water Rise card, it will be used immediately. 
 	 */
 	private void getTreasureCard() {
-		AbstractTreasureCard aCard = TreasureDeck.getInstance().getNextCard();
+		TreasureDeck treasureDeck = TreasureDeck.getInstance();
+		AbstractTreasureCard aCard = treasureDeck.getNextCard();
 		if( aCard.getCardType() == TreasureCardEnum.WATER_RISE ) {
 			WaterMeter.getInstance().increaseWaterMeter();
-			TreasureDeck.getInstance().returnUsedCard(aCard);
+			treasureDeck.returnUsedCard(aCard);
 		}
 		else {
 			System.out.println("You have drawn the following card: ");
@@ -180,11 +181,11 @@ public class Player {
 					if( option == 1 )
 						receiveCard(aCard);
 					else
-						TreasureDeck.getInstance().returnUsedCard(aCard);
+						treasureDeck.returnUsedCard(aCard);
 				}	
 			}
 			else
-				TreasureDeck.getInstance().returnUsedCard(aCard);
+				treasureDeck.returnUsedCard(aCard);
 		}
 		if( numTreasureCards == MAX_TREASURE_CARDS+1) {
 			System.out.println("You have exceeded the max number of cards you can carry.");
