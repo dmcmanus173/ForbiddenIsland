@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import board.Board;
 import board.Tile;
 import enums.AdventurerEnum;
-import player.Player;
+import player.PlayerView;
 
 /**
  * Class for a Player Role in Forbidden Island
@@ -54,11 +54,11 @@ abstract public class Role {
 	 * @param location, the Tile location the player is  on.
 	 * @param int MAX_TREASURE_CARDS, the Maximum number of treasure cards a player may have.
 	 */
-	public ArrayList<Player> getPlayersForGiveTreasureCard(Player thisPlayer, Tile location, int MAX_TREASURE_CARDS){
-		ArrayList<Player> potentialPlayers = new ArrayList<Player>();
+	public ArrayList<PlayerView> getPlayersForGiveTreasureCard(PlayerView thisPlayer, Tile location, int MAX_TREASURE_CARDS){
+		ArrayList<PlayerView> potentialPlayers = new ArrayList<PlayerView>();
 		System.out.println("This player can only give cards to who is on their tile.");
-		ArrayList<Player> tilePlayers = new ArrayList<>(location.getPlayersOnTile());
-		for(Player aPlayer : tilePlayers) {
+		ArrayList<PlayerView> tilePlayers = new ArrayList<>(thisPlayer.getLocation().getPlayersOnTile());
+		for(PlayerView aPlayer : tilePlayers) {
 			if( (aPlayer.getNumTreasureCards() < MAX_TREASURE_CARDS) && (thisPlayer != aPlayer))
 				potentialPlayers.add(aPlayer);
 		}
@@ -79,7 +79,7 @@ abstract public class Role {
 	 * shoreUp method will call the shoreUpContent function with the correct options dependent on the role calling it.
 	 * @return Boolean true if a tile has been shoredUp.
 	 */
-	public Boolean shoreUp(Player aPlayer) {
+	public Boolean shoreUp(PlayerView aPlayer) {
 		return aPlayer.shoreUpContent();
 	}
 	

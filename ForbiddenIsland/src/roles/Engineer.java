@@ -7,7 +7,7 @@ import board.Tile;
 import enums.AdventurerEnum;
 import enums.TileEnum;
 import gameManager.GetInput;
-import player.Player;
+import player.PlayerView;
 
 /**
  * Class for a Player Role Engineer in Forbidden Island
@@ -59,7 +59,7 @@ public class Engineer extends Role {
 	 * @return Boolean true if a tile has been shoredUp.
 	 */
 	@Override
-	public Boolean shoreUp(Player aPlayer) {
+	public Boolean shoreUp(PlayerView aPlayer) {
 		Boolean didShoreUp;
 		didShoreUp = aPlayer.shoreUpContent();
 		if(didShoreUp) {

@@ -18,7 +18,7 @@ public class Players {
 	// Variable Setup
 	//===========================================================
 	private static Players players;
-	private ArrayList<Player> listPlayers = new ArrayList<Player>();
+	private ArrayList<PlayerView> listPlayers = new ArrayList<PlayerView>();
 	private int numPlayers;
 	
 	//===========================================================
@@ -59,7 +59,7 @@ public class Players {
 	 * @param AdventurerEnum role, role of the player.
 	 */
     public void addPlayer(String name, AdventurerEnum role) {
-    	listPlayers.add(new Player(name, role));
+    	listPlayers.add(new PlayerView(name, role));
     	numPlayers++;
     }
     
@@ -67,7 +67,7 @@ public class Players {
 	 * addPlayers will add a new player to the listPlayers.
 	 * @param Player player. Player to be added to listPlayers.
 	 */
-    public void addPlayer(Player player) {
+    public void addPlayer(PlayerView player) {
     	listPlayers.add(player);
     	numPlayers++;
     }
@@ -84,7 +84,7 @@ public class Players {
 	 * getPlayers will retrieve Player i.
 	 * @param int i, i is the player number. Not the position of the player in listPlayer. i = pos+1.
 	 */  
-    public Player getPlayer(int i) {
+    public PlayerView getPlayer(int i) {
     	return listPlayers.get(i-1);
     }
     
@@ -92,7 +92,7 @@ public class Players {
 	 * getPlayers will retrieve Player i.
 	 * @param int i, i is the player number. Not the position of the player in listPlayer. i = pos+1.
 	 */  
-    public ArrayList<Player> getPlayers() {
+    public ArrayList<PlayerView> getPlayers() {
     	return listPlayers;
     }
     
@@ -103,7 +103,7 @@ public class Players {
      */
     public Boolean useHelicopterLift() {
     	if( TreasureDeck.getInstance().checkIfPlayersHaveHelicopterLift() ) {
-    		for(Player player : getPlayers()) {
+    		for(PlayerView player : getPlayers()) {
     			if(player.hasHelicopterLiftCard()) {
     				player.useHelicopterLift();
     				return true;

@@ -4,7 +4,7 @@ import enums.FloodStatusEnum;
 import enums.TileEnum;
 import gameManager.GameManager;
 import gameManager.TreasureManager;
-import player.Player;
+import player.PlayerView;
 import player.Players;
 import treasureCards.TreasureDeck;
 
@@ -36,7 +36,7 @@ public class FoolsLandingTile extends Tile {
     * @param Player player that is to be added to tile.
     */
 	@Override
-	public void addPlayerToTile(Player player) {
+	public void addPlayerToTile(PlayerView player) {
 		super.addPlayerToTile(player);
 		
 		int totalNumOfPlayers = Players.getInstance().getNumPlayers();

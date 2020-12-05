@@ -1,8 +1,7 @@
 package gameManager;
 
 import board.Board;
-import board.FloodDeck;
-import player.Player;
+import player.PlayerView;
 import player.Players;
 
 /**
@@ -92,7 +91,7 @@ public class GameManager {
      * aPlayersTurn method is the construction of what a players turn should entail.
      */
     private void aPlayersTurn () {
-    	Player player = Players.getInstance().getPlayer(playersGo);
+    	PlayerView player = Players.getInstance().getPlayer(playersGo);
     	int remainingActions = 3;
     	int option;
     	System.out.println("It is "+player.getName()+"'s go. "+player.getName()+" is on "+player.getLocation().getTileName()+".");
@@ -135,7 +134,7 @@ public class GameManager {
     			player.printCardsHeld();
     		}
     		else if(option == 7) {
-    			player.removeTreasureCard();
+    			player.removeATreasureCard();
     		}
     		else if(option == 8) {
     			TreasureManager.getInstance().printContents();

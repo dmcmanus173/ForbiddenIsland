@@ -3,14 +3,11 @@ package player;
 import java.util.ArrayList;
 
 import board.Board;
-import board.FloodDeck;
 import board.Tile;
-import board.TreasureTile;
 import enums.AdventurerEnum;
 import enums.FloodStatusEnum;
 import enums.TreasureCardEnum;
 import gameManager.GetInput;
-import otherComponents.WaterMeter;
 import roles.Diver;
 import roles.Engineer;
 import roles.Explorer;
@@ -28,7 +25,7 @@ import treasureCards.TreasureDeck;
  * @date    13/11/2020
  * @version 0.1
  */
-public class Player {
+abstract class Player {
 
 	//===========================================================
 	// Variable Setup
@@ -36,13 +33,12 @@ public class Player {
 	private String name;
 	private Role role;
 	private Tile location;
-	private ArrayList<AbstractTreasureCard> treasureCards = new ArrayList<>();
+	protected ArrayList<AbstractTreasureCard> treasureCards = new ArrayList<>();
 	private int numTreasureCards;
 	
 	//===========================================================
 	// Variable for Game Settings
 	//===========================================================
-	private final int MAX_TREASURE_CARDS = 5;
 	private final int NUM_INITIAL_CARDS = 2;
 	
 	//===========================================================
@@ -73,7 +69,7 @@ public class Player {
 		   	throw new RuntimeException("Can't find role in Player Constructor.");
 
 		location = this.role.startPosition(); 
-		location.addPlayerToTile(this);
+		location.addPlayerToTile((PlayerView) this);
 		
 		// Adding NUM_INITIAL_CARDS to TreasueCard collection. If get WaterRiseCard, put back and try again.
 		AbstractTreasureCard temp;
@@ -100,10 +96,10 @@ public class Player {
 	
 	/**
 	 * getRole method will return the role of the player.
-	 * @return AdventurerEnum role, the role of the player.
+	 * @return role, the role of the player.
 	 */
-	public AdventurerEnum getRole() {
-		return role.getRole();
+	public Role getRole() {
+		return role;
 	}
 	
 	/**
@@ -123,74 +119,48 @@ public class Player {
 	}
 	
 	/**
+	 * toString method will return player info as a String.
+	 * @return String info related to player.
+	 */
+	@Override
+	public String toString() {
+		StringBuilder temp = new StringBuilder("");
+		temp.append("Player Name: "+name);
+		temp.append("\nRole: "+role.toString());
+		temp.append("\nLocation: "+location.getTileName().toString());
+		temp.append("\n"+treasureCardsToString());
+		return temp.toString();
+	}
+	
+	/**
 	 * receiveCard method is used to let a player receive a TreasureCard.
 	 * @param card, an AbstractTreasureCard to receive.
 	 */
-	private void receiveCard(AbstractTreasureCard card) {
+	protected void receiveCard(AbstractTreasureCard card) {
 		treasureCards.add(card);
 		numTreasureCards += 1;
-	}
-
-	/**
-	 * removeTreasureCard method will remove a TreasureCard from player inventory.
-	 */
-	public void removeTreasureCard() {
-		System.out.println("Choose the card number for the card to remove: ");
-		printCardsHeld();
-		AbstractTreasureCard removedCard = treasureCards.get(GetInput.getInstance().anInteger(1, numTreasureCards)-1);
-		removeTreasureCard( removedCard );
 	}
 	
 	/**
 	 * removeTreasureCard method will remove a TreasureCard from player inventory.
 	 * @param AbstractTreasureCard aCard to be removed.
 	 */
-	private void removeTreasureCard(AbstractTreasureCard aCard) {
-		treasureCards.remove(aCard);
-		TreasureDeck.getInstance().returnUsedCard(aCard);
+	protected void removeTreasureCard(AbstractTreasureCard cardToRemove) {
+		treasureCards.remove(cardToRemove);
+		TreasureDeck.getInstance().returnUsedCard(cardToRemove);
 		numTreasureCards -= 1;
 	}
 	
 	/**
-	 * getTreasureCard method will take a card from the TreasureDeck.
-	 * If the TreasureCard is a Water Rise card, it will be used immediately. 
+	 * removeTreasureCard method will remove a TreasureCard from player inventory.
+	 * @param position of Treasure Card to remove
 	 */
-	private void getTreasureCard() {
-		TreasureDeck treasureDeck = TreasureDeck.getInstance();
-		AbstractTreasureCard aCard = treasureDeck.getNextCard();
-		if( aCard.getCardType() == TreasureCardEnum.WATER_RISE ) {
-			WaterMeter.getInstance().increaseWaterMeter();
-			treasureDeck.returnUsedCard(aCard);
-		}
-		else {
-			System.out.println("You have drawn the following card: ");
-			System.out.println(aCard.toString()						);
-			System.out.println("Do you wish to:"					);
-			System.out.println("1. Keep it."						);
-			System.out.println("2. Give it to another player."		);
-			System.out.println("3. Put it back."				    );
-			int option = GetInput.getInstance().anInteger(1, 3);
-			if( option == 1 )
-				receiveCard(aCard);
-			else if( option == 2 ) {
-				if( !giveTreasureCard() ) {
-					System.out.println("Do you wish to:"			);
-					System.out.println("1. Keep it."				);
-					System.out.println("2. Put it back."		    );
-					option = GetInput.getInstance().anInteger(1, 3);
-					if( option == 1 )
-						receiveCard(aCard);
-					else
-						treasureDeck.returnUsedCard(aCard);
-				}	
-			}
-			else
-				treasureDeck.returnUsedCard(aCard);
-		}
-		if( numTreasureCards == MAX_TREASURE_CARDS+1) {
-			System.out.println("You have exceeded the max number of cards you can carry.");
-			removeTreasureCard();
-		}
+	protected void removeTreasureCard(int position) {
+		// Position on screen 1-numTreasureCards, in Array it is 0-(numTreasureCards-1), thus position-1
+		AbstractTreasureCard aCard = treasureCards.get(position-1);
+		treasureCards.remove(aCard);
+		TreasureDeck.getInstance().returnUsedCard(aCard);
+		numTreasureCards -= 1;
 	}
 	
 	/**
@@ -198,7 +168,7 @@ public class Player {
 	 * in string format.
 	 * @return String containing the cards that the player has in possession.
 	 */
-	public String treasureCardsToString() {
+	protected String treasureCardsToString() {
 		StringBuilder temp = new StringBuilder("");
 		for(int i=0; i<numTreasureCards; i++)
 			temp.append( (i+1) + ". " + treasureCards.get(i).toString() + "\n");
@@ -206,92 +176,24 @@ public class Player {
 	}
 	
 	/**
-	 * printCardsHeld method will print to the console the cards that a player has in their possession.
-	 */
-	public void printCardsHeld() {
-		if( numTreasureCards == 0 )
-			System.out.println(name + " has no cards.");
-		else
-			System.out.println(treasureCardsToString());
-	}
-	
-	/**
 	 * sendCard method sends a particular card to a player.
 	 * @param AbstractTreasureCard card to send
 	 * @param Player aPlayer to receive card
 	 */
-	private void sendCard(AbstractTreasureCard aCard, Player aPlayer) {
+	protected void sendCard(AbstractTreasureCard aCard, Player aPlayer) {
 		aPlayer.receiveCard(aCard);
 		treasureCards.remove(aCard);
 		numTreasureCards -= 1;
 	}
 	
 	/**
-	 * giveTreasureCard will facilitate giving a treasureCard from the inventory
-	 * of AbstractTreasureCards to a different player.
-	 * @return Boolean variable for if can give a card away.
-	 */
-	public Boolean giveTreasureCard() {
-		ArrayList<Player> potentialPlayers = new ArrayList<>();
-		potentialPlayers.addAll( role.getPlayersForGiveTreasureCard(this, location, MAX_TREASURE_CARDS) );
-		if(numTreasureCards == 0) {
-			System.out.println("There are no Treasure Cards to give.");
-			return false;
-		}
-		else if(potentialPlayers.isEmpty()) {
-			System.out.println("There are no players to give cards to.");
-			return false;
-		}
-		else {
-			// Choose Player
-			System.out.println("Choose a player to give a card to.");
-		    for(int i=0; i<potentialPlayers.size(); i++)
-		    	System.out.println((i+1 )+ ": " + potentialPlayers.get(i).getName() );
-			Player chosenPlayer = potentialPlayers.get( GetInput.getInstance().anInteger(1,potentialPlayers.size())-1 );
-			// Choose card to give
-			System.out.println("Choose the card to give.");
-		    printCardsHeld();
-			AbstractTreasureCard chosenCard = treasureCards.get( GetInput.getInstance().anInteger(1,numTreasureCards)-1 );
-			// Give card away
-			sendCard(chosenCard, chosenPlayer);
-			return true;
-		}
-	}
-	
-	/**
-	 * claimTreasure method will allow a player to claim a treasure if they:
-	 * 1. Have the correct number of cards.
-	 * 2. Are on a treasureTile.
-	 * 3. The treasure has not been claimed already.
-	 * @return Boolean variable for if a treasure has been claimed.
-	 */
-	public Boolean claimTreasure() {
-		int numCardsForTreasure = 4;
-		if( location.getClass() == TreasureTile.class ) {
-			if( ((TreasureTile) location).collectTreasure(treasureCards) ) {
-				AbstractTreasureCard cardToRemove = TreasureDeck.getInstance().getTreasureCardReference( ((TreasureTile) location).getTreasureType() );
-				for(int i=0; i<numCardsForTreasure; i++)
-					removeTreasureCard(cardToRemove);
-				return true;
-			}
-			else
-				return false;
-		
-		}
-		else {
-			System.out.println("Not on a treasure tile. Can't claim a treasure.");
-			return false;
-		}
-	}
-	
-	/**
 	 * Removes a player from a tile, then places them on a new tile.
 	 * @param newLocation, the location to move the player to.
 	 */
-	private void changeLocation(Tile newLocation) {
-		location.removePlayerFromTile(this);
+	protected void changeLocation(Tile newLocation) {
+		location.removePlayerFromTile((PlayerView) this);
 		location = newLocation;
-		location.addPlayerToTile(this);
+		location.addPlayerToTile((PlayerView) this);
 	}
 	
 	/**
@@ -303,45 +205,6 @@ public class Player {
 		return treasureCards.contains(TreasureDeck.getInstance().aHelicopterLift());
 	}
 		
-	/*
-	 * useHelicopterLift method will use a HelicopterLift card if there is one in the inventory.
-	 */
-	protected void useHelicopterLift() {
-		System.out.println("Using "+getName()+"'s HelicopterLift card.");
-		removeTreasureCard(TreasureDeck.getInstance().aHelicopterLift());
-		ArrayList<Player> playersToMove = new ArrayList<>();
-		for (Player player : Players.getInstance().getPlayers()) {
-			System.out.println("Would you like to move "+player.getName()+" with Helicopter Lift?");
-			System.out.println("1. Yes.");
-			System.out.println("2. No.");
-			if( GetInput.getInstance().anInteger(1, 2) == 1 )
-				playersToMove.add(player);
-		}
-		
-		ArrayList<Tile> potentialTiles = new ArrayList<>();
-		potentialTiles.addAll( Board.getInstance().getUnsunkenTiles() );
-		Tile chosenTile = selectOptionTiles(potentialTiles);
-		for(Player player : playersToMove) {
-			player.changeLocation(chosenTile);
-		}
-	}
-	
-	/**
-	 * move method to be called if player must move.
-	 * If called when player is not on sunk tile, i.e. during a typical go, player can move to opposite tile.
-	 * @return Boolean, return false if no tile to move to, else true if player has successfully moved.
-	 */
-	public Boolean moveDuringGo () {
-		ArrayList<Tile> potentialTiles = new ArrayList<Tile>();
-		potentialTiles.addAll( Board.getInstance().getTilesAroundTile(location, true) );
-		if(potentialTiles.isEmpty()) {
-			System.out.println(getName()+" is unable to move.");
-			return false;
-		}
-		Tile chosenTile = selectOptionTiles(potentialTiles);
-		changeLocation(chosenTile);
-		return true;
-	}
 	
 	/**
 	 * TilesForIfOnSunkTile method is used to getTiles that player can move to if on a sunken tile.
@@ -383,23 +246,13 @@ public class Player {
 	 * @param optionTiles, ArrayList of tiles to be offered as options.
 	 * @return Tile, the tile chosen.
 	 */
-	private Tile selectOptionTiles(ArrayList <Tile> optionTiles) {
+	protected Tile selectOptionTiles(ArrayList <Tile> optionTiles) {
 		System.out.println("Choose one of the following tiles:");
 		for (int i=0; i<optionTiles.size(); i++) {
 			System.out.println("Tile "+(i+1)+": "+optionTiles.get(i).getTileName());
 		}
 		Tile chosenTile = optionTiles.get(  GetInput.getInstance().anInteger(1, optionTiles.size())-1 );
 		return chosenTile;
-	}
-	
-	/**
-	 * shoreUpWrapper is the face to the shoreUpContent function. This is to be called in the GameManager.
-	 * It will interact with the player role to ensure shoreUpContent has been called the correct number of times.
-	 */
-	public Boolean shoreUpWrapper() {
-		if( role.shoreUp(this) )
-			return true;
-		return false; // if can't shore up a tile, return false.
 	}
 	
 	/**
@@ -424,36 +277,7 @@ public class Player {
 		else
 			System.out.println(name + " does not have a Sandbag card.");
 		return false;
-	}
-	
-	/**
-	 * endOfGo method is the actions a player takes after taking their 3 turns during a go.
-	 * It includes: taking 2 TreasureCards
-	 * 				drawing Flood Cards
-	 */
-	public void endOfGo() {
-    	System.out.println(getName()+" is drawing two cards from the TreasureDeck:");
-    	getTreasureCard();
-    	getTreasureCard();
-    	
-    	System.out.println("\n"+getName()+" is drawing flood cards.");
-    	FloodDeck.getInstance().drawFloodCards();
-	}
-	
-	/**
-	 * toString method will return player info as a String.
-	 * @return String info related to player.
-	 */
-	@Override
-	public String toString() {
-		StringBuilder temp = new StringBuilder("");
-		temp.append("Player Name: "+name);
-		temp.append("\nRole: "+role.toString());
-		temp.append("\nLocation: "+location.getTileName().toString());
-		temp.append("\n"+treasureCardsToString());
-		return temp.toString();
-	}
-	
+	}	
 
 }
 

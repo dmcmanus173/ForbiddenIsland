@@ -6,7 +6,7 @@ import board.Board;
 import board.Tile;
 import enums.AdventurerEnum;
 import enums.TileEnum;
-import player.Player;
+import player.PlayerView;
 import player.Players;
 
 /**
@@ -59,11 +59,11 @@ public class Messenger extends Role {
 	 * @param int MAX_TREASURE_CARDS, the Maximum number of treasure cards a player may have.
 	 */
 	@Override
-	public ArrayList<Player> getPlayersForGiveTreasureCard(Player thisPlayer, Tile location, int MAX_TREASURE_CARDS){
-		ArrayList<Player> potentialPlayers = new ArrayList<Player>();
+	public ArrayList<PlayerView> getPlayersForGiveTreasureCard(PlayerView thisPlayer, Tile location, int MAX_TREASURE_CARDS){
+		ArrayList<PlayerView> potentialPlayers = new ArrayList<PlayerView>();
 		System.out.println("This player is the Messenger. They can give a card to anyone.");
-		ArrayList<Player> allPlayers = Players.getInstance().getPlayers();
-		for(Player aPlayer : allPlayers) {
+		ArrayList<PlayerView> allPlayers = Players.getInstance().getPlayers();
+		for(PlayerView aPlayer : allPlayers) {
 			if( (aPlayer.getNumTreasureCards() < MAX_TREASURE_CARDS) && (thisPlayer != aPlayer))
 				potentialPlayers.add(aPlayer);
 		}
