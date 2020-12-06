@@ -81,7 +81,7 @@ public class WaterMeter {
 	 * MIN_LEVEL and MAX_LEVEL.
 	 */
 	public void setCurrentLevel(int startingLevel) {
-		if( (MIN_LEVEL <= startingLevel) && (startingLevel < MAX_LEVEL) )
+		if( (MIN_LEVEL <= startingLevel) && (startingLevel <= MAX_LEVEL) )
 			currentLevel = startingLevel;
 	}
 	

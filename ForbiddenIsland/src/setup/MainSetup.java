@@ -4,7 +4,7 @@ import fi.board.Board;
 import board.FloodDeck;
 import gameManager.GetInput;
 import fi.watermeter.*;
-import treasureCards.TreasureDeck;
+import fi.cards.TreasureDeck;
 
 /**
  * Class to setup instance of game Forbidden Island.
@@ -66,7 +66,7 @@ public class MainSetup {
 		int minLevel = waterMeter.getMinLevel();
 		int maxLevel = waterMeter.getMaxLevel();
 		System.out.println("Choose a number to set the WaterMeter Level ("+minLevel+"-"+maxLevel+") to:");
-		int chosenLevel = GetInput.getInstance().anInteger(minLevel, maxLevel-1);
+		int chosenLevel = GetInput.getInstance().anInteger(minLevel, maxLevel);
 		waterMeter.setCurrentLevel(chosenLevel);
 		System.out.println("WaterMeter has been set. Level set to "+waterMeter.getCurrentLevel()+".\n");
 	}

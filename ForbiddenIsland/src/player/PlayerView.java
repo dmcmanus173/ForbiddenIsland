@@ -7,11 +7,13 @@ import board.FloodDeck;
 import fi.board.Tile;
 import fi.board.TreasureTile;
 import fi.enums.AdventurerEnum;
-import enums.TreasureCardEnum;
 import gameManager.GetInput;
 import fi.watermeter.WaterMeter;
-import treasureCards.AbstractTreasureCard;
-import treasureCards.TreasureDeck;
+import fi.cards.Card;
+import fi.cards.HelicopterLiftCard;
+import fi.cards.SandbagCard;
+import fi.cards.TreasureDeck;
+import fi.cards.WaterRiseCard;
 
 public class PlayerView extends Player {
 	//===========================================================
@@ -59,9 +61,9 @@ public class PlayerView extends Player {
 	public Boolean claimTreasure() {
 		int numCardsForTreasure = 4;
 		Tile location = getLocation();
-		if( location.getClass() == TreasureTile.class ) {
+		if( location instanceof TreasureTile ) {
 			if( ((TreasureTile) location).collectTreasure(treasureCards) ) {
-				AbstractTreasureCard cardToRemove = TreasureDeck.getInstance().getTreasureCardReference( ((TreasureTile) location).getTreasureType() );
+				Card cardToRemove = TreasureDeck.getInstance().getTreasureCardReference( ((TreasureTile) location).getTreasureType() );
 				for(int i=0; i<numCardsForTreasure; i++)
 					removeTreasureCard(cardToRemove);
 				return true;
@@ -91,7 +93,6 @@ public class PlayerView extends Player {
 	 */
 	public void useHelicopterLift() {
 		System.out.println("Using "+getName()+"'s HelicopterLift card.");
-		removeTreasureCard(TreasureDeck.getInstance().aHelicopterLift());
 		ArrayList<Player> playersToMove = new ArrayList<>();
 		for (Player player : Players.getInstance().getPlayers()) {
 			System.out.println("Would you like to move "+player.getName()+" with Helicopter Lift?");
@@ -100,54 +101,60 @@ public class PlayerView extends Player {
 			if( GetInput.getInstance().anInteger(1, 2) == 1 )
 				playersToMove.add(player);
 		}
-		
-		ArrayList<Tile> potentialTiles = new ArrayList<>();
-		potentialTiles.addAll( Board.getInstance().getUnsunkenTiles() );
-		Tile chosenTile = selectOptionTiles(potentialTiles);
-		for(Player player : playersToMove) {
-			player.changeLocation(chosenTile);
+		if(playersToMove.isEmpty())
+			System.out.println("Didn't select any players to move. Won't use the Helicopter Lift Card.");
+		else {
+			removeCardOfClassType(HelicopterLiftCard.class);
+			ArrayList<Tile> potentialTiles = new ArrayList<>();
+			potentialTiles.addAll( Board.getInstance().getUnsunkenTiles() );
+			Tile chosenTile = selectOptionTiles(potentialTiles);
+			for(Player player : playersToMove) {
+				player.changeLocation(chosenTile);
+			}
 		}
 	}
 	
 	/**
-	 * getTreasureCard method will take a card from the TreasureDeck.
+	 * getTreasureCards method will take a required number of card from the TreasureDeck.
 	 * If the TreasureCard is a Water Rise card, it will be used immediately. 
 	 */
-	private void getTreasureCard() {
+	private void getTreasureCards() {
 		TreasureDeck treasureDeck = TreasureDeck.getInstance();
-		AbstractTreasureCard aCard = treasureDeck.getNextCard();
-		if( aCard.getCardType() == TreasureCardEnum.WATER_RISE ) {
-			WaterMeter.getInstance().increaseWaterMeter();
-			treasureDeck.returnUsedCard(aCard);
-		}
-		else {
-			System.out.println("You have drawn the following card: ");
-			System.out.println(aCard.toString()						);
-			System.out.println("Do you wish to:"					);
-			System.out.println("1. Keep it."						);
-			System.out.println("2. Give it to another player."		);
-			System.out.println("3. Put it back."				    );
-			int option = GetInput.getInstance().anInteger(1, 3);
-			if( option == 1 )
-				receiveCard(aCard);
-			else if( option == 2 ) {
-				if( !giveTreasureCard() ) {
-					System.out.println("Do you wish to:"			);
-					System.out.println("1. Keep it."				);
-					System.out.println("2. Put it back."		    );
-					option = GetInput.getInstance().anInteger(1, 3);
-					if( option == 1 )
-						receiveCard(aCard);
-					else
-						treasureDeck.returnUsedCard(aCard);
-				}	
+		ArrayList<Card> gottenCards = treasureDeck.drawCards();
+		for(Card aCard : gottenCards) {
+			if( aCard instanceof WaterRiseCard ) {
+				WaterMeter.getInstance().increaseWaterMeter();
+				treasureDeck.discardCard(aCard);
 			}
-			else
-				treasureDeck.returnUsedCard(aCard);
-		}
-		if( getNumTreasureCards() == MAX_TREASURE_CARDS+1) {
-			System.out.println("You have exceeded the max number of cards you can carry.");
-			removeATreasureCard();
+			else {
+				System.out.println("You have drawn the following card: ");
+				System.out.println(aCard.toString()						);
+				System.out.println("Do you wish to:"					);
+				System.out.println("1. Keep it."						);
+				System.out.println("2. Give it to another player."		);
+				System.out.println("3. Put it back."				    );
+				int option = GetInput.getInstance().anInteger(1, 3);
+				if( option == 1 )
+					receiveCard(aCard);
+				else if( option == 2 ) {
+					if( !giveTreasureCard() ) {
+						System.out.println("Do you wish to:"			);
+						System.out.println("1. Keep it."				);
+						System.out.println("2. Put it back."		    );
+						option = GetInput.getInstance().anInteger(1, 3);
+						if( option == 1 )
+							receiveCard(aCard);
+						else
+							treasureDeck.discardCard(aCard);
+					}	
+				}
+				else
+					treasureDeck.discardCard(aCard);
+			}
+			if( getNumTreasureCards() == MAX_TREASURE_CARDS+1) {
+				System.out.println("You have exceeded the max number of cards you can carry.");
+				removeATreasureCard();
+			}
 		}
 	}
 	
@@ -177,7 +184,7 @@ public class PlayerView extends Player {
 			// Choose card to give
 			System.out.println("Choose the card to give.");
 		    printCardsHeld();
-			AbstractTreasureCard chosenCard = treasureCards.get( getInput.anInteger(1,getNumTreasureCards())-1 );
+			Card chosenCard = treasureCards.get( getInput.anInteger(1,getNumTreasureCards())-1 );
 			// Give card away
 			sendCard(chosenCard, chosenPlayer);
 			return true;
@@ -211,8 +218,7 @@ public class PlayerView extends Player {
 	 */
 	public void endOfGo() {
     	System.out.println(getName()+" is drawing two cards from the TreasureDeck:");
-    	getTreasureCard();
-    	getTreasureCard();
+    	getTreasureCards();
     	
     	System.out.println("\n"+getName()+" is drawing flood cards.");
     	FloodDeck.getInstance().drawFloodCards();

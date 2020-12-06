@@ -13,10 +13,11 @@ import fi.roles.Messenger;
 import fi.roles.Navigator;
 import fi.roles.Pilot;
 import fi.roles.Role;
-import enums.TreasureCardEnum;
 import gameManager.GetInput;
-import treasureCards.AbstractTreasureCard;
-import treasureCards.TreasureDeck;
+import fi.cards.Card;
+import fi.cards.HelicopterLiftCard;
+import fi.cards.SandbagCard;
+import fi.cards.TreasureDeck;
 
 /**
  * Class for the Player in Forbidden Island.
@@ -33,13 +34,8 @@ abstract class Player {
 	private String name;
 	private Role role;
 	private Tile location;
-	protected ArrayList<AbstractTreasureCard> treasureCards = new ArrayList<>();
+	protected ArrayList<Card> treasureCards = new ArrayList<>();
 	private int numTreasureCards;
-	
-	//===========================================================
-	// Variable for Game Settings
-	//===========================================================
-	private final int NUM_INITIAL_CARDS = 2;
 	
 	//===========================================================
 	// Constructor
@@ -69,17 +65,12 @@ abstract class Player {
 		   	throw new RuntimeException("Can't find role in Player Constructor.");
 
 		location = this.role.startPosition(); 
-		location.addPlayerToTile((PlayerView) this);
+		Board.getInstance().setUpPlayerOnBoard( (PlayerView) this);
 		
 		// Adding NUM_INITIAL_CARDS to TreasueCard collection. If get WaterRiseCard, put back and try again.
-		AbstractTreasureCard temp;
-		for(int i=0; i<NUM_INITIAL_CARDS; i++) {
-			temp = TreasureDeck.getInstance().getNextCard();
-			while(temp.getCardType() == TreasureCardEnum.WATER_RISE ) {
-				TreasureDeck.getInstance().returnUsedCard(temp);
-				temp = TreasureDeck.getInstance().getNextCard();
-			}
-			receiveCard(temp);
+		ArrayList<Card> cards = TreasureDeck.getInstance().drawCardsForStartOfGame();
+		for(Card aCard : cards) {
+			receiveCard(aCard);
 		}
 	}
 	
@@ -136,7 +127,7 @@ abstract class Player {
 	 * receiveCard method is used to let a player receive a TreasureCard.
 	 * @param card, an AbstractTreasureCard to receive.
 	 */
-	protected void receiveCard(AbstractTreasureCard card) {
+	protected void receiveCard(Card card) {
 		treasureCards.add(card);
 		numTreasureCards += 1;
 	}
@@ -145,9 +136,9 @@ abstract class Player {
 	 * removeTreasureCard method will remove a TreasureCard from player inventory.
 	 * @param AbstractTreasureCard aCard to be removed.
 	 */
-	protected void removeTreasureCard(AbstractTreasureCard cardToRemove) {
+	protected void removeTreasureCard(Card cardToRemove) {
 		treasureCards.remove(cardToRemove);
-		TreasureDeck.getInstance().returnUsedCard(cardToRemove);
+		TreasureDeck.getInstance().discardCard(cardToRemove);
 		numTreasureCards -= 1;
 	}
 	
@@ -157,9 +148,9 @@ abstract class Player {
 	 */
 	protected void removeTreasureCard(int position) {
 		// Position on screen 1-numTreasureCards, in Array it is 0-(numTreasureCards-1), thus position-1
-		AbstractTreasureCard aCard = treasureCards.get(position-1);
+		Card aCard = treasureCards.get(position-1);
 		treasureCards.remove(aCard);
-		TreasureDeck.getInstance().returnUsedCard(aCard);
+		TreasureDeck.getInstance().discardCard(aCard);
 		numTreasureCards -= 1;
 	}
 	
@@ -180,7 +171,7 @@ abstract class Player {
 	 * @param AbstractTreasureCard card to send
 	 * @param Player aPlayer to receive card
 	 */
-	protected void sendCard(AbstractTreasureCard aCard, Player aPlayer) {
+	protected void sendCard(Card aCard, Player aPlayer) {
 		aPlayer.receiveCard(aCard);
 		treasureCards.remove(aCard);
 		numTreasureCards -= 1;
@@ -201,7 +192,28 @@ abstract class Player {
 	    * @return boolean determining if player has helicopterLift card..
 	*/
 	protected boolean hasHelicopterLiftCard() {
-		return treasureCards.contains(TreasureDeck.getInstance().aHelicopterLift());
+		return hasCardOfClassType(HelicopterLiftCard.class);
+	}
+	
+	
+	protected boolean hasCardOfClassType(@SuppressWarnings("rawtypes") Class classType) {
+		for(Card aCard : treasureCards) {
+			if( aCard.getClass() == classType )
+				return true;
+		}
+		return false;
+	}
+	
+	protected void removeCardOfClassType(@SuppressWarnings("rawtypes") Class classType) {
+		Card toRemove = null;
+		for(Card aCard : treasureCards) {
+			if( aCard.getClass() == classType ) {
+				toRemove = aCard;
+				break;
+			}
+		}
+		if(toRemove != null)
+			removeTreasureCard(toRemove);
 	}
 		
 	
@@ -259,7 +271,7 @@ abstract class Player {
 	 * @return Boolean true if a tile has been shored Up.
 	 */
 	public Boolean shoreUpContent() {
-		if( treasureCards.contains( TreasureDeck.getInstance().aSandbag() ) ) {
+		if(treasureCards.contains(hasCardOfClassType(SandbagCard.class) )) {
 			ArrayList<Tile> potentialTiles = new ArrayList<>();
 			for(Tile tile : Board.getInstance().getTilesAroundTile(location, true)) {
 				if( tile.getFloodStatus() == FloodStatusEnum.FLOODED ) 
@@ -268,7 +280,7 @@ abstract class Player {
 			if ( !potentialTiles.isEmpty() ) {
 				Tile chosenTile = selectOptionTiles(potentialTiles);
 				chosenTile.shoreUp();
-				removeTreasureCard( TreasureDeck.getInstance().aSandbag() );
+				removeCardOfClassType(SandbagCard.class);
 				return true;
 			}
 			else System.out.println("There are no local Tiles to shoreUp.");

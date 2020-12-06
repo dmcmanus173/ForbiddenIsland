@@ -7,8 +7,8 @@ import fi.enums.TreasureEnum;
 import otherComponents.Treasure;
 import fi.watermeter.WaterMeter;
 import setup.MainSetup;
-import treasureCards.AbstractTreasureCard;
-import treasureCards.TreasureDeck;
+//import fi.cards.AbstractTreasureCard;
+import fi.cards.TreasureDeck;
 
 @SuppressWarnings("unused")
 public class Mess {

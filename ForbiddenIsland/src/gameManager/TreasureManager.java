@@ -83,12 +83,14 @@ public class TreasureManager {
 		if( aTreasure == null ) {
 	    	throw new RuntimeException("Can't find Treasure in claimTreasure.");
 		}
-		aTreasure.claimTreasure();
-		numClaimedTreasures += 1;
-		claimedTreasures.add(aTreasure);
-		if( numClaimedTreasures == NUM_TREASURES ) {
-			gottenAllTreasures = true;
-			System.out.println("All treasures have been claimed!");
+		else if( !aTreasure.isClaimed() ) {
+			aTreasure.claimTreasure();
+			numClaimedTreasures += 1;
+			claimedTreasures.add(aTreasure);
+			if( numClaimedTreasures == NUM_TREASURES ) {
+				gottenAllTreasures = true;
+				System.out.println("All treasures have been claimed!");
+			}
 		}
 	}
 	

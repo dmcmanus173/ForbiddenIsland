@@ -1,7 +1,5 @@
 package fi.roles;
 
-import java.util.ArrayList;
-
 import fi.board.Board;
 import fi.board.Tile;
 import fi.enums.AdventurerEnum;
