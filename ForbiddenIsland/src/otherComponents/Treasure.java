@@ -1,6 +1,6 @@
 package otherComponents;
 
-import enums.TreasureEnum;
+import fi.enums.TreasureEnum;
 
 /**
  * Class for a Treasure in Forbidden Island.

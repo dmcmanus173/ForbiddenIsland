@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import enums.TreasureEnum;
+import fi.enums.TreasureEnum;
 
 /**
  * Class for a TreasureDeck in Forbidden Island.

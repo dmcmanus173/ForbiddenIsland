@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import board.Board;
 import board.Tile;
-import enums.AdventurerEnum;
-import enums.FloodStatusEnum;
+import fi.enums.AdventurerEnum;
+import fi.enums.FloodStatusEnum;
 import enums.TreasureCardEnum;
 import gameManager.GetInput;
 import roles.Diver;

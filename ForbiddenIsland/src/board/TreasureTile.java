@@ -2,8 +2,8 @@ package board;
 
 import java.util.ArrayList;
 
-import enums.TileEnum;
-import enums.TreasureEnum;
+import fi.enums.TileEnum;
+import fi.enums.TreasureEnum;
 import gameManager.GameManager;
 import gameManager.TreasureManager;
 import treasureCards.AbstractTreasureCard;

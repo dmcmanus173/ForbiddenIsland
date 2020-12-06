@@ -1,7 +1,7 @@
 package board;
 
-import enums.FloodStatusEnum;
-import enums.TileEnum;
+import fi.enums.FloodStatusEnum;
+import fi.enums.TileEnum;
 import gameManager.GameManager;
 import gameManager.TreasureManager;
 import player.PlayerView;

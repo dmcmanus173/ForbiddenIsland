@@ -6,7 +6,7 @@ import board.Board;
 import board.FloodDeck;
 import board.Tile;
 import board.TreasureTile;
-import enums.AdventurerEnum;
+import fi.enums.AdventurerEnum;
 import enums.TreasureCardEnum;
 import gameManager.GetInput;
 import fi.watermeter.WaterMeter;

@@ -1,6 +1,6 @@
 package treasureCards;
 
-import enums.TreasureEnum;
+import fi.enums.TreasureEnum;
 import enums.TreasureCardEnum;
 
 /**

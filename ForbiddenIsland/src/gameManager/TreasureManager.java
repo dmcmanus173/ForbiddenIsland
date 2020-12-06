@@ -6,8 +6,8 @@ import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
-import enums.TileEnum;
-import enums.TreasureEnum;
+import fi.enums.TileEnum;
+import fi.enums.TreasureEnum;
 import otherComponents.Treasure;
 
 /**

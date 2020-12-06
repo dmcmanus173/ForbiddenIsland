@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import board.Board;
 import board.Tile;
-import enums.AdventurerEnum;
+import fi.enums.AdventurerEnum;
 import player.PlayerView;
 
 /**

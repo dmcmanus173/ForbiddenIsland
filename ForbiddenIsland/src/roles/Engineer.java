@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import board.Board;
 import board.Tile;
-import enums.AdventurerEnum;
-import enums.TileEnum;
+import fi.enums.AdventurerEnum;
+import fi.enums.TileEnum;
 import gameManager.GetInput;
 import player.PlayerView;
 

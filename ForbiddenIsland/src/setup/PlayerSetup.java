@@ -3,7 +3,7 @@ package setup;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import enums.AdventurerEnum;
+import fi.enums.AdventurerEnum;
 import gameManager.GetInput;
 import player.Players;
 

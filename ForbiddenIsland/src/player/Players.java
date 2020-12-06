@@ -2,7 +2,7 @@ package player;
 
 import java.util.ArrayList;
 
-import enums.AdventurerEnum;
+import fi.enums.AdventurerEnum;
 import treasureCards.TreasureDeck;
 
 /**

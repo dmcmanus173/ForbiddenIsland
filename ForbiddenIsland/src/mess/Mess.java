@@ -3,7 +3,7 @@ package mess;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import enums.TreasureEnum;
+import fi.enums.TreasureEnum;
 import otherComponents.Treasure;
 import fi.watermeter.WaterMeter;
 import setup.MainSetup;
