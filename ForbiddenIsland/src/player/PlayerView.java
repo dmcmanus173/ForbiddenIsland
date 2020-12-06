@@ -9,7 +9,7 @@ import board.TreasureTile;
 import enums.AdventurerEnum;
 import enums.TreasureCardEnum;
 import gameManager.GetInput;
-import otherComponents.WaterMeter;
+import fi.watermeter.WaterMeter;
 import treasureCards.AbstractTreasureCard;
 import treasureCards.TreasureDeck;
 

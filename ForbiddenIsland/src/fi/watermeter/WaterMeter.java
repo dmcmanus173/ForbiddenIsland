@@ -20,7 +20,8 @@ public class WaterMeter {
 	// Variable for Game Settings
 	//===========================================================
 	private final int MIN_LEVEL = 1;
-	private final int MAX_LEVEL = 5;
+	private final int MAX_LEVEL = 4;
+	private final int GAME_OVER_LEVEL = MAX_LEVEL+1;
 	
 	//===========================================================
     // Get Instance of Singleton
@@ -55,8 +56,8 @@ public class WaterMeter {
 	 */
 	public void increaseWaterMeter() {
 		currentLevel += 1; 
-		if(currentLevel == MAX_LEVEL) {
-			// hanle game over.
+		if(currentLevel == GAME_OVER_LEVEL) {
+			//TODO handle game over.
 			System.out.println("WaterMeter has been increased. Level set to "+currentLevel+".");
 		}
 	}
@@ -74,6 +75,17 @@ public class WaterMeter {
 		
 	}
 	
+	
+	/**
+	 * setCurrentLevel method allows setting the waterMeter to be between the 
+	 * MIN_LEVEL and MAX_LEVEL.
+	 */
+	public void setCurrentLevel(int startingLevel) {
+		if( (MIN_LEVEL <= startingLevel) && (startingLevel < MAX_LEVEL) )
+			currentLevel = startingLevel;
+	}
+	
+	
 	/**
 	 * getLevel method which returns the level at which the WaterMeter is at.
 	 * @return integer value of level in class WaterMeter
@@ -83,15 +95,22 @@ public class WaterMeter {
 	}
 	
 	
-	
 	/**
-	 * getLevel method which returns the level at which the WaterMeter is at.
-	 * @return integer value of level in class WaterMeter
+	 * getMinLevel method returns minimum level allowed to set waterMeter to.
+	 * @return
 	 */
-	public void setCurrentLevel(int startingLevel) {
-		currentLevel = startingLevel;
+	public int getMinLevel() {
+		return MIN_LEVEL;
 	}
 	
+	
+	/**
+	 * getMaxLevel method returns maximum level allowed to set waterMeter to.
+	 * @return
+	 */
+	public int getMaxLevel() {
+		return MAX_LEVEL;
+	}
 	
 	
 }

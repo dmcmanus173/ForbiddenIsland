@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 import enums.TreasureEnum;
 import otherComponents.Treasure;
-import otherComponents.WaterMeter;
+import fi.watermeter.WaterMeter;
 import setup.MainSetup;
 import treasureCards.AbstractTreasureCard;
 import treasureCards.TreasureDeck;

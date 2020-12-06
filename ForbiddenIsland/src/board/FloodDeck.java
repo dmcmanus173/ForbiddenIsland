@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import otherComponents.WaterMeter;
+import fi.watermeter.WaterMeter;
 
 /**
  * Class for FloodDeck in Forbidden Island game.
@@ -62,7 +62,7 @@ public class FloodDeck {
 	 * drawFloodCards method draws a number of FloodCards equal to the WaterMeter
 	 */
 	public void drawFloodCards() {
-		int numCards = WaterMeter.getInstance().getLevel();
+		int numCards = WaterMeter.getInstance().getCurrentLevel();
 		for(int i=0; i<numCards; i++)
 			pickCard();
 	}
