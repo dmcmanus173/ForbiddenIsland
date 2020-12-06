@@ -1,7 +1,7 @@
 package fi.board;
 
 import fi.enums.TileEnum;
-import fi.players.Player;
+import player.PlayerView;
 
 /**
  * Class for the Fools' Landing tile in the Forbidden Island Game.
@@ -31,7 +31,7 @@ public class FoolsLandingTile extends Tile {
     * @param Player player that is to be added to tile.
     */
 	@Override
-	public void addPlayerToTile(Player player) {
+	public void addPlayerToTile(PlayerView player) {
 		super.addPlayerToTile(player);
 		//loop throgh players and check if they have a helicopter lift card. If they do notify game manager			
 	}

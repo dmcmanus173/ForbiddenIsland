@@ -10,7 +10,7 @@ import java.util.Set;
 
 import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
-import fi.players.Player;
+import player.PlayerView;
 
 /**
  * Class representing the board object.
@@ -116,20 +116,17 @@ public class Board {
 	
 	
 	// used at the start of a game
-    public void setUpPlayerOnBoard(ArrayList<Player> players) {
-    	players.forEach((player) -> {
-    		Tile playerStartingTile = getTileWithName(player.getLocation());
-    		playerStartingTile.addPlayerToTile(player);
-    	});
+    public void setUpPlayerOnBoard(PlayerView player) {
+    	Tile playerStartingTile = player.getLocation();
+    	playerStartingTile.addPlayerToTile(player);
     }
     
     
-    public void movePlayer(Player player, TileEnum destination) {
-    	Tile currentTile = getTileWithName(player.getLocation());
+    public void movePlayer(PlayerView player, TileEnum destination) {
+    	Tile currentTile = player.getLocation();
     	Tile destinationTile = getTileWithName(destination);
     	currentTile.removePlayerFromTile(player);
     	destinationTile.addPlayerToTile(player);
-    	player.setLocation(destination);
     }
     
     
@@ -147,12 +144,12 @@ public class Board {
     	return tileToFlood;
     }
     
-    public Set<Player> getOtherPlayersOnTile(Player player) {
-    	Tile currentTile = getTileWithName(player.getLocation());
-    	Set<Player> otherPlayers = new HashSet<Player>();
-    	Set<Player> playersOnTile = currentTile.getPlayersOnTile();
+    public Set<PlayerView> getOtherPlayersOnTile(PlayerView player) {
+    	Tile currentTile = player.getLocation();
+    	Set<PlayerView> otherPlayers = new HashSet<PlayerView>();
+    	Set<PlayerView> playersOnTile = currentTile.getPlayersOnTile();
     	
-    	for(Player playerOnTile: playersOnTile) {
+    	for(PlayerView playerOnTile: playersOnTile) {
     		if(playerOnTile != player) {
     			otherPlayers.add(playerOnTile);
     		}

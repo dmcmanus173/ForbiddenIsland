@@ -1,9 +1,9 @@
-package roles;
+package fi.roles;
 
 import java.util.ArrayList;
 
-import board.Board;
-import board.Tile;
+import fi.board.Board;
+import fi.board.Tile;
 import fi.enums.AdventurerEnum;
 import player.PlayerView;
 

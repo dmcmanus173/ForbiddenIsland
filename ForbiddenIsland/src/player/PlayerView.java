@@ -2,10 +2,10 @@ package player;
 
 import java.util.ArrayList;
 
-import board.Board;
+import fi.board.Board;
 import board.FloodDeck;
-import board.Tile;
-import board.TreasureTile;
+import fi.board.Tile;
+import fi.board.TreasureTile;
 import fi.enums.AdventurerEnum;
 import enums.TreasureCardEnum;
 import gameManager.GetInput;

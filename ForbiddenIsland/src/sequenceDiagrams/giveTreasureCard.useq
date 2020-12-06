@@ -47,8 +47,8 @@
       <position height="21" width="0" x="0" y="910"/>    
     </execution>  
   </object>  
-  <object id="43" language="java" name="roles.Role" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/roles/Role.java" binary="false" label="role" type="class" autoSize="true">    
+  <object id="43" language="java" name="fi.roles.Role" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/roles/Role.java" binary="false" label="role" type="class" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="12">      
       <position height="21" width="0" x="0" y="305"/>    
@@ -100,26 +100,26 @@
       <fragment refId="15"/>    
     </interaction-operand>    
     <interaction-operand id="50" constraint="else">      
-      <fragment refId="33"/>      
-      <fragment refId="39"/>      
-      <fragment refId="37"/>      
-      <fragment refId="35"/>      
-      <fragment refId="27"/>      
-      <fragment refId="17"/>      
-      <fragment refId="31"/>      
-      <fragment refId="25"/>      
       <fragment refId="51"/>      
-      <fragment refId="29"/>    
+      <fragment refId="17"/>      
+      <fragment refId="25"/>      
+      <fragment refId="33"/>      
+      <fragment refId="29"/>      
+      <fragment refId="31"/>      
+      <fragment refId="39"/>      
+      <fragment refId="27"/>      
+      <fragment refId="35"/>      
+      <fragment refId="37"/>    
     </interaction-operand>    
     <combined-fragment id="51" interaction-operator="LOOP">      
       <interaction-operand id="52" constraint="for:i&lt;potentialPlayers.size()">        
-        <fragment refId="19"/>        
         <fragment refId="21"/>        
-        <fragment refId="23"/>      
+        <fragment refId="23"/>        
+        <fragment refId="19"/>      
       </interaction-operand>    
     </combined-fragment>  
   </combined-fragment>  
-  <message id="3" operation="giveTreasureCard():java.lang.Boolean" asynchronous="false">    
+  <message id="3" asynchronous="false">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
   </message>  
@@ -135,9 +135,7 @@
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="10"/>  
   </message>  
-  <message id="11" 
-    operation="getPlayersForGiveTreasureCard(player.Player,board.Tile,int):java.util.ArrayList&lt;Player&gt;" 
-    asynchronous="false">    
+  <message id="11" asynchronous="false">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="12"/>  
   </message>  
@@ -181,7 +179,7 @@
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="32"/>  
   </message>  
-  <message id="33" operation="printCardsHeld():void" asynchronous="false">    
+  <message id="33" asynchronous="false">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="34"/>  
   </message>  

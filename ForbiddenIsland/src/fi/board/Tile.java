@@ -5,7 +5,7 @@ import java.util.Set;
 
 import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
-import fi.players.*;
+import player.PlayerView;
 
 
 
@@ -24,7 +24,7 @@ public class Tile {
     //===========================================================
 	protected TileEnum tileName;
 	protected FloodStatusEnum floodStatus;
-	protected Set<Player> playersOnTile;
+	protected Set<PlayerView> playersOnTile;
 	
 	
 	//===========================================================
@@ -38,7 +38,7 @@ public class Tile {
 	public Tile(TileEnum tileName) {
 		this.tileName = tileName;
 		this.floodStatus = FloodStatusEnum.NOT_FLOODED;
-		this.playersOnTile = new HashSet<Player>();
+		this.playersOnTile = new HashSet<PlayerView>();
 	}
 	
 	
@@ -65,7 +65,7 @@ public class Tile {
     * getter to return the players on a tile
     * @return the flood status of the Tile.
     */
-	public Set<Player> getPlayersOnTile() {
+	public Set<PlayerView> getPlayersOnTile() {
 		return playersOnTile;
 	}
 	
@@ -73,7 +73,7 @@ public class Tile {
     * addPlayerToTile method adds a player to the set of players on tile.
     * @param Player player that is to be added to tile.
     */
-	public void addPlayerToTile(Player player) {
+	public void addPlayerToTile(PlayerView player) {
 		if(!playersOnTile.contains(player)) playersOnTile.add(player);
 	    else throw new RuntimeException("Cannot add player to a tile they already exist on.");
 		
@@ -84,7 +84,7 @@ public class Tile {
     * addPlayerToTile method removes a player to the set of players on tile.
     * @param Player player that is to be removed to tile.
     */
-	public void removePlayerFromTile(Player player) {
+	public void removePlayerFromTile(PlayerView player) {
 		if(playersOnTile.contains(player)) playersOnTile.remove(player);
 		else throw new RuntimeException("Cannot remove player from tile. Player does not exist on tile");
 		
@@ -149,7 +149,7 @@ public class Tile {
 		
 		tileString.append("\n\t");
 		tileString.append("Other players here: ");
-		for (Player player : playersOnTile) { 
+		for (PlayerView player : playersOnTile) { 
 			tileString.append("The "+ player.getRole() + ", ");
 		}
 		return tileString.toString();

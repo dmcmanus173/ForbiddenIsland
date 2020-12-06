@@ -1,9 +1,9 @@
-package roles;
+package fi.roles;
 
 import java.util.ArrayList;
 
-import board.Board;
-import board.Tile;
+import fi.board.Board;
+import fi.board.Tile;
 import fi.enums.AdventurerEnum;
 import fi.enums.TileEnum;
 import player.PlayerView;
@@ -38,13 +38,7 @@ public class Messenger extends Role {
 	public Tile startPosition() {
 		// Messenger - Silver Gate
 		TileEnum tileName = TileEnum.SILVER_GATE;
-		Tile location = null;
-		
-		ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
-		for(Tile tile : tiles) {
-			if( tile.getTileName().equals(tileName) )
-				location = tile;
-		}
+		Tile location = Board.getInstance().getTileWithName(tileName);
 		if(location == null)
     		throw new RuntimeException("startPosition() in Messenger can not find correct tile Silver Gate.");
     		

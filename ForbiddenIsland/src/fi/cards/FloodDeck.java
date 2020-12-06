@@ -90,7 +90,7 @@ public class FloodDeck {
   	// class level test
   	public static void main(String[] args) {
 		
-  		FloodDeck floodDeck = FloodDeck.getInstance().getInstance();
+  		FloodDeck floodDeck = FloodDeck.getInstance();
   		ArrayList<TileEnum> tilesToFlood;
   		
   		tilesToFlood = floodDeck.getTilesToFlood(true);

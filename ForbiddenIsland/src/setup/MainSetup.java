@@ -1,6 +1,6 @@
 package setup;
 
-import board.Board;
+import fi.board.Board;
 import board.FloodDeck;
 import gameManager.GetInput;
 import fi.watermeter.*;

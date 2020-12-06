@@ -1,31 +1,31 @@
-package roles;
+package fi.roles;
 
 import java.util.ArrayList;
 
-import board.Board;
-import board.Tile;
+import fi.board.Board;
+import fi.board.Tile;
 import fi.enums.AdventurerEnum;
 import fi.enums.TileEnum;
 
 /**
- * Class for a Player Role Pilot in Forbidden Island
+ * Class for a Player Role Diver in Forbidden Island
  * 
  * @author  Demi Oke and Daniel McManus
  * @date    13/11/2020
  * @version 0.1
  */
-public class Pilot extends Role{
+public class Diver extends Role{
 
 	//===========================================================
 	// Constructor
 	//===========================================================
 	/**
-	 * Constructor for Pilot
+	 * Constructor for Diver
 	 */
-	public Pilot() {
-		super(AdventurerEnum.PILOT);
+	public Diver() {
+		super(AdventurerEnum.DIVER);
 	}
-
+	
 	//===========================================================
 	// Other Functions
 	//===========================================================
@@ -35,16 +35,12 @@ public class Pilot extends Role{
 	 */
 	@Override
 	public Tile startPosition() {
-		// Pilot - Fools' Landing
-		TileEnum tileName = TileEnum.FOOLS_LANDING;
-		Tile location = null;
-		ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
-		for(Tile tile : tiles) {
-			if( tile.getTileName().equals(tileName) )
-				location = tile;
-		}
+		// Diver - Iron Gate
+		TileEnum tileName = TileEnum.IRON_GATE;
+		Tile location = Board.getInstance().getTileWithName(tileName);
 		if(location == null)
-    		throw new RuntimeException("startPosition() in Pilot can not find correct tile Fools' Landing.");
+    		throw new RuntimeException("startPosition() in Diver can not find correct tile Iron Gate.");
+		
 		return location;
 	}
 	
@@ -55,8 +51,10 @@ public class Pilot extends Role{
 	@Override
 	public ArrayList<Tile> getTilesForIfOnSunk(Tile location) {
 		ArrayList<Tile> potentialTiles = new ArrayList<>();
-		potentialTiles.addAll( Board.getInstance().getUnsunkenTiles() );
+		potentialTiles.addAll( Board.getInstance().getNearestTilesToTile(location) );
 		return potentialTiles;
 	}
-
+	
+	
+	
 }

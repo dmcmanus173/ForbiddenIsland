@@ -1,9 +1,9 @@
-package roles;
+package fi.roles;
 
 import java.util.ArrayList;
 
-import board.Board;
-import board.Tile;
+import fi.board.Board;
+import fi.board.Tile;
 import fi.enums.AdventurerEnum;
 import fi.enums.TileEnum;
 import gameManager.GetInput;
@@ -39,13 +39,7 @@ public class Engineer extends Role {
 	public Tile startPosition() {
 		// Engineer - Bronze Gate
 		TileEnum tileName = TileEnum.BRONZE_GATE;
-		Tile location = null;
-		
-		ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
-		for(Tile tile : tiles) {
-			if( tile.getTileName().equals(tileName) )
-				location = tile;
-		}
+		Tile location = Board.getInstance().getTileWithName(tileName);
 		
 		if(location == null)
     		throw new RuntimeException("startPosition() in Engineer can not find correct tile Bronze Gate.");

@@ -1,9 +1,9 @@
-package roles;
+package fi.roles;
 
 import java.util.ArrayList;
 
-import board.Board;
-import board.Tile;
+import fi.board.Board;
+import fi.board.Tile;
 import fi.enums.AdventurerEnum;
 import fi.enums.TileEnum;
 
@@ -37,13 +37,7 @@ public class Navigator extends Role {
 	public Tile startPosition() {
 		// Navigator - Gold Gate
 		TileEnum tileName = TileEnum.GOLDEN_GATE;
-		Tile location = null;
-		
-		ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
-		for(Tile tile : tiles) {
-			if( tile.getTileName().equals(tileName) )
-				location = tile;
-		}
+		Tile location = Board.getInstance().getTileWithName(tileName);
 		if(location == null)
     		throw new RuntimeException("startPosition() in Navigator can not find correct tile Golden Gate.");
 

@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Queue;
 
+import fi.board.Board;
+import fi.board.Tile;
 import fi.watermeter.WaterMeter;
 
 /**

@@ -2,19 +2,19 @@ package player;
 
 import java.util.ArrayList;
 
-import board.Board;
-import board.Tile;
+import fi.board.Board;
+import fi.board.Tile;
 import fi.enums.AdventurerEnum;
 import fi.enums.FloodStatusEnum;
+import fi.roles.Diver;
+import fi.roles.Engineer;
+import fi.roles.Explorer;
+import fi.roles.Messenger;
+import fi.roles.Navigator;
+import fi.roles.Pilot;
+import fi.roles.Role;
 import enums.TreasureCardEnum;
 import gameManager.GetInput;
-import roles.Diver;
-import roles.Engineer;
-import roles.Explorer;
-import roles.Messenger;
-import roles.Navigator;
-import roles.Pilot;
-import roles.Role;
 import treasureCards.AbstractTreasureCard;
 import treasureCards.TreasureDeck;
 
@@ -191,9 +191,8 @@ abstract class Player {
 	 * @param newLocation, the location to move the player to.
 	 */
 	protected void changeLocation(Tile newLocation) {
-		location.removePlayerFromTile((PlayerView) this);
+		Board.getInstance().movePlayer((PlayerView) this, newLocation.getTileName());
 		location = newLocation;
-		location.addPlayerToTile((PlayerView) this);
 	}
 	
 	/**

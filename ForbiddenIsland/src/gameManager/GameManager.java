@@ -1,6 +1,6 @@
 package gameManager;
 
-import board.Board;
+import fi.board.Board;
 import player.PlayerView;
 import player.Players;
 
