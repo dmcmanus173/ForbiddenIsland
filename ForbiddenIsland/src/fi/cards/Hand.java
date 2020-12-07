@@ -23,6 +23,8 @@ public class Hand {
 	
 	ArrayList<Card> allCards;
 	Map<TreasureEnum, ArrayList<TreasureCard>> treasureCards;
+	
+	// TODO: Might consider changing these to stacks??
 	ArrayList<SandbagCard> sandbagCards;
 	ArrayList<HelicopterLiftCard> helicopterLiftCards;
 	
@@ -88,11 +90,10 @@ public class Hand {
 	}
 	
 	/**
-     * private method removes a card to the players hand. Only called
-     * when a card is discarded from hand.
+     * removeCard removes a card to the players hand. 
      * @param Card to be discarded.
      */
-	private void removeCard(Card card) {
+	public void removeCard(Card card) {
 		
 		if (allCards.contains(card)) {
 			if(card instanceof SandbagCard) {
@@ -148,7 +149,7 @@ public class Hand {
      * @return boolean determining if the hand is full.
      */
 	public boolean handIsFull() {
-		return allCards.size() == MAX_CARDS_IN_HAND;
+		return allCards.size() >= MAX_CARDS_IN_HAND;
 	}
 	
 	/**
@@ -167,6 +168,43 @@ public class Hand {
      */
 	public boolean containsHelicopterLiftCard() {
 		return !helicopterLiftCards.isEmpty();
+	}
+	
+	/**
+     * didUseHelicopterLiftCard method removes and discards a HelicopterLiftCard
+     * that was just used by the player.
+     */
+	public void didUseHelicopterLiftCard() {
+		if (!helicopterLiftCards.isEmpty()) {
+			HelicopterLiftCard usedCard = helicopterLiftCards.get(0);
+			removeCard(usedCard);
+			discardCard(usedCard);
+		} else {
+			throw new RuntimeException("Attempting to use A HelicopterLiftCard that the player does not have.");
+		}
+	}
+	
+	/**
+     * didUseSandbagCard method removes and discards a SandbagCard
+     * that was just used by the player.
+     */
+	public void didUseSandbagCard() {
+		if (!helicopterLiftCards.isEmpty()) {
+			HelicopterLiftCard usedCard = helicopterLiftCards.get(0);
+			removeCard(usedCard);
+			discardCard(usedCard);
+		} else {
+			throw new RuntimeException("Attempting to use A HelicopterLiftCard that the player does not have.");
+		}
+	}
+	
+	@Override
+	public String toString() {
+		StringBuilder handString = new StringBuilder("");
+		for(Card card: allCards) {
+			handString.append(card.toString() + ", ");
+		}
+		return handString.toString();
 	}
 	
 	

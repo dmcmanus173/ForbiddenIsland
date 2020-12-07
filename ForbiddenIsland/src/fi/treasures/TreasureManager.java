@@ -1,6 +1,8 @@
 package fi.treasures;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 import fi.board.Board;
 import fi.board.TreasureTile;
@@ -26,6 +28,8 @@ public class TreasureManager {
 	//===========================================================
 	private static TreasureManager treasuereManager;
 	private ArrayList<TreasureEnum> collectedTreasures;
+	private boolean treasuresAreAvailableToCollect;
+	Map<TreasureEnum, Integer> numSunkenTilesForTreasure;
 	
 	
 	//===========================================================
@@ -33,6 +37,7 @@ public class TreasureManager {
 	//===========================================================
 	private final int NUM_TREASURES = TreasureEnum.values().length;
 	private final int NUM_TREASURE_CARDS_TO_COLLECT_TREASURE = 5;
+	private final int MAX_NUM_OF_TREASURE_TILES_TO_SINK = 2;
 	
 	//===========================================================
     // Get Instance of Singleton
@@ -55,6 +60,12 @@ public class TreasureManager {
 	 */
 	private TreasureManager() {
 		collectedTreasures = new ArrayList<TreasureEnum>();
+		treasuresAreAvailableToCollect = true;
+		numSunkenTilesForTreasure = new HashMap<TreasureEnum, Integer>();
+		
+		for (TreasureEnum treasureType : TreasureEnum.values()) { 
+			numSunkenTilesForTreasure.put(treasureType, 0);
+  		}
 	}
 	
 	//===========================================================
@@ -112,6 +123,16 @@ public class TreasureManager {
 	
 	
 	/**
+	 * getNumOfRemainingTreasuresToCollect method returns the remaining number of treasures
+	 * left to collect.
+	 * @return int number of treasures left to collect.
+	 */
+	public int getNumOfRemainingTreasuresToCollect() {
+		return NUM_TREASURES - collectedTreasures.size();
+	}
+	
+	
+	/**
 	 * canCollectTreasure method checks the cards in the players hand 
 	 * and location of the player to see if they meet the criteria to 
 	 * collect a treasure.
@@ -132,6 +153,23 @@ public class TreasureManager {
 		return false;
 	}
 	
+	public boolean treasuresAreAvailableToCollect() {
+		return treasuresAreAvailableToCollect;
+	}
+	
+	public void treasureTileDidSink(TreasureEnum treasureType) {
+		increaseNumberOfTreasureTilesSunkenForTreasure(treasureType);
+		int numSunkenTreasureTilesForTreasure = numSunkenTilesForTreasure.get(treasureType);
+		if( (numSunkenTreasureTilesForTreasure == MAX_NUM_OF_TREASURE_TILES_TO_SINK) && (!didClaimTreasure(treasureType)) ) {
+			treasuresAreAvailableToCollect = false;
+		}
+	}
+	
+	private void increaseNumberOfTreasureTilesSunkenForTreasure(TreasureEnum treasureType) {
+		int currentNumberOfSunkenTreasureTilesForTreasure = numSunkenTilesForTreasure.get(treasureType);
+		numSunkenTilesForTreasure.replace(treasureType, currentNumberOfSunkenTreasureTilesForTreasure + 1);
+	}
+	
 //	public int getNumOfCardsToCollectTreasure() {
 //		return NUM_TREASURE_CARDS_TO_COLLECT_TREASURE;
 //	}
@@ -143,16 +181,22 @@ public class TreasureManager {
 	/**
 	 * printContents method prints what treasures have been claimed!
 	 */
-	public void printContents() {
+	@Override
+	public String toString() {
+		StringBuilder collectedTreasuresString = new StringBuilder("");
 		if(collectedTreasures.size() == 0)
-			System.out.println("No treasures have been collected.");
+			collectedTreasuresString.append("No treasures have been collected.");
 		else {
-			System.out.println("There following treasures have been collected:");
+			collectedTreasuresString.append("There following treasures have been collected: { ");
 			collectedTreasures.forEach((treasureType) -> {
 				System.out.println( treasureType );
+				collectedTreasuresString.append(treasureType.toString() + ", ");
 			});
+			collectedTreasuresString.append(" }");
+			
 		}
-		System.out.println("There are "+(NUM_TREASURES-collectedTreasures.size())+" treasures left on the island.\n");
+		collectedTreasuresString.append("\nThere are "+(NUM_TREASURES-collectedTreasures.size())+" treasures left on the island.\n");
+		return collectedTreasuresString.toString();
 	}
 	 
 }

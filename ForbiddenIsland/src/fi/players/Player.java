@@ -77,6 +77,7 @@ public class Player {
 		if(otherPlayer.handIsFull()) {
 			throw new RuntimeException("Attemting to give card to player but player's hand is full.");
 		} else {
+			playerHand.removeCard(card); // removes card from players hand before giving it to other player.
 			otherPlayer.collectTreasureCard(card);
 		}
 	}
@@ -102,6 +103,24 @@ public class Player {
 	public boolean hasHelicopterLiftCard() {
 		return playerHand.containsHelicopterLiftCard();
 	}
+	
+	
+	public void didUseSandBagCard() {
+		playerHand.didUseSandbagCard();
+	}
+	
+	public void didUseHelicopterLiftCard() {
+		playerHand.didUseHelicopterLiftCard();
+	}
+	
+	public String cardsToString() {
+		StringBuilder handString = new StringBuilder("");
+		handString.append(name + " has the following cards in hand: { " + playerHand.toString() + " }.");
+		return handString.toString();
+	}
+	
+	
+	
 	
 	
 	

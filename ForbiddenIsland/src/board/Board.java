@@ -1,17 +1,15 @@
-package fi.board;
+package board;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.HashSet;
-import java.util.Set;
 
-import fi.enums.FloodStatusEnum;
-import fi.enums.TileEnum;
-import player.PlayerView;
-import fi.players.Player;
+import enums.TileEnum;
+import enums.TreasureEnum;
+import gameManager.TreasureManager;
+
 
 /**
  * Class representing the board object.
@@ -114,54 +112,116 @@ public class Board {
         // the position of every island tile must exist within the island shape.
     }
     
-	
-	
-	// used at the start of a game
-    public void setUpPlayerOnBoard(ArrayList<Player> players) {
-    	players.forEach((player) -> {
-    		Tile playerStartingTile = getTileWithName(player.getLocation());
-    		playerStartingTile.addPlayerToTile(player);
-    	});
-    }
+//    private void setUpPlayerOnBoard(ArrayList<Player> players) {
+//    	players.forEach((player) -> {
+//    		//TODO: Find out why i have to declare the tile inside loop.
+//    		Tile playerStartingTile = getTileWithName(player.getLocation().getTileName());
+//    		playerStartingTile.addPlayerToTile(player);
+//    	});
+//    }
+    
+//    public void movePlayer(Player player, TileEnum destination) {
+//    	Tile currentTile = getTileWithName(player.getLocation().getTileName());
+//    	Tile destinationTile = getTileWithName(destination);
+//    	// TODO: change playersOnTile to arrayAist instead of set?? so we can do this..
+//    	// destinationTile.addPlayerToTile(currentTile.removePlayerFromTile(player));
+//    	currentTile.removePlayerFromTile(player);
+//    	destinationTile.addPlayerToTile(player);
+//    	//TODO: change tilePosition of player from current Tile to destination tile.
+//    }
     
     
-    public void movePlayer(Player player, TileEnum destination) {
-    	Tile currentTile = getTileWithName(player.getLocation());
-    	Tile destinationTile = getTileWithName(destination);
-    	currentTile.removePlayerFromTile(player);
-    	destinationTile.addPlayerToTile(player);
-    	player.setLocation(destination);
-    }
+//    public boolean shoreUpTile(TileEnum tileName) {
+//    	Tile tileToShoreUp = getTileWithName(tileName);
+//    	return tileToShoreUp.shoreUp();
+//    }
+//    
+//    public Optional<Tile> floodTile(TileEnum tileName) {
+//    	Tile tileToFlood = getTileWithName(tileName);
+//    	tileToFlood.flood();
+//    	if (tileToFlood.isSunken()) return Optional.of(tileToFlood);
+//    	else return Optional.empty();
+//    }
+    
+//    /**
+//     * getTileWithDirectionFrom returns the tile at the direction from the given tile. .
+//     * Unlike getTileAtPosition, this function should ALWAYS return a tile, 
+//     * as every island tile should be within the shape of the island.
+//     * @param tileName the name of the tile.
+//     * @param playerDirection the direction at which to get the tile, i.e. up, down, left, right etc.
+//     * @param dist the search distance from the tile.
+//     * @return Optional<Tile> at the direction from the given tile. 
+//     */
+//    private Optional<Tile> getTileWithDirectionFrom(Tile tile, PlayerMovesEnum playerDirection) {
+//    	int[] currentPos = islandTilesNamePositionMap.get(tile.getTileName());
+//    	int yPos = currentPos[1];
+//    	int xPos = currentPos[0];
+//    	int[] detstination = {xPos, yPos};
+//    	switch(playerDirection) {
+//    	case NORTH:
+//    		detstination[1] = yPos - 1;
+//    		return getTileAtPosition(detstination);
+//    	case EAST:
+//    		detstination[0] = xPos + 1;
+//    		return getTileAtPosition(detstination);
+//    	case SOUTH:
+//    		detstination[1] = yPos + 1;
+//    		return getTileAtPosition(detstination);
+//    	case WEST:
+//    		detstination[0] = xPos - 1;
+//    		return getTileAtPosition(detstination);
+//    	case NORTH_EAST:
+//    		detstination[0] = xPos + 1;
+//    		detstination[1] = yPos - 1;
+//    		return getTileAtPosition(detstination);
+//    	case SOUTH_EAST:
+//    		detstination[0] = xPos + 1;
+//    		detstination[1] = yPos + 1;
+//    		return getTileAtPosition(detstination);
+//    	case SOUTH_WEST:
+//    		detstination[0] = xPos - 1;
+//    		detstination[1] = yPos + 1;
+//    		return getTileAtPosition(detstination);
+//    	case NORTH_WEST:
+//    		detstination[0] = xPos - 1;
+//    		detstination[1] = yPos - 1;
+//    		return getTileAtPosition(detstination);
+//    	default:
+//    		System.out.println("Option not plausable.");
+//    		return Optional.empty();
+//    	
+//    	}
+//    }
     
     
-    public FloodStatusEnum shoreUpTile(TileEnum tileName) {
-    	Tile tileToShoreUp = getTileWithName(tileName);
-    	return tileToShoreUp.shoreUp();
-    }
-    
-    
-   
-    
-    public Tile floodTile(TileEnum tileName) {
-    	Tile tileToFlood = getTileWithName(tileName);
-    	tileToFlood.flood();
-    	return tileToFlood;
-    }
-    
-    public Set<Player> getOtherPlayersOnTile(Player player) {
-    	Tile currentTile = getTileWithName(player.getLocation());
-    	Set<Player> otherPlayers = new HashSet<Player>();
-    	Set<Player> playersOnTile = currentTile.getPlayersOnTile();
-    	
-    	for(Player playerOnTile: playersOnTile) {
-    		if(playerOnTile != player) {
-    			otherPlayers.add(playerOnTile);
-    		}
-    	}
-    	
-    	return otherPlayers;
-    }
-    
+//    /**
+//     * getTilesAroundTile method gets tiles immediately around a specified tile.
+//     * @param tileName the name of the tile.
+//     * @param returnAdjacent boolean determining if chosen tiles should only be adjacent. true returns adjacent tiles, false returns diagonal tiles.
+//     * @return ArrayList<Tile> containing the player movement direction and the corresponding tile in that direction.
+//     */
+//    public ArrayList<Tile>  getTilesAroundTile(Tile tile, boolean returnAdjacentOnly) {
+//    	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
+//    	Optional<Tile> tileAtDirection;
+//    	if (returnAdjacentOnly) {
+//    		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
+//    		    if(playerMove.isAdjacentMove()) {
+//    		    	tileAtDirection = getTileWithDirectionFrom(tile, playerMove);
+//    		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
+//    		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
+//    		    	}
+//    		    }
+//    		}
+//    	} else {
+//    		for (PlayerMovesEnum playerMove : PlayerMovesEnum.values()) { 
+//    			tileAtDirection = getTileWithDirectionFrom(tile, playerMove);
+//		    	if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
+//		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
+//		    	}
+//    		}
+//    	}
+//    	return tilesPlayerCanMoveTo;
+//    }
     
     
     /**
@@ -202,69 +262,6 @@ public class Board {
     	tilesAroundPlayer.forEach((tileAtDirection) -> {
     		if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
         		tilesPlayerCanMoveTo.add(tileAtDirection.get());
-        	}
-    	});
-   
-    	return tilesPlayerCanMoveTo;
-    }
-    
-    
-    //========================================================================================================================================================
-    public ArrayList<TileEnum> getTilesToShoreUpAround(TileEnum tileName) {
-    	Tile currentTile = getTileWithName(tileName);
-    	ArrayList<TileEnum>  tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
-    	ArrayList<Tile>  tilesAroundPlayer = getTilesAroundTile(currentTile, true);
-    	
-    	tilesAroundPlayer.forEach((tile) -> {
-    		if(tile.getFloodStatus() == FloodStatusEnum.FLOODED) {
-    			tilesPlayerCanShoreUp.add(tile.getTileName());
-    			System.out.println( "tile is flooded" );
-    		}
-    	});
-    	
-    	return tilesPlayerCanShoreUp;
-    }
-    
-    
-    /**
-     * getTilesAroundTile method gets tiles immediately around a specified tile.
-     * @param tileName the name of the tile.
-     * @param returnAdjacent boolean determining if chosen tiles should only be adjacent. true returns adjacent tiles, false returns diagonal tiles.
-     * @return ArrayList<Tile> containing the player movement direction and the corresponding tile in that direction.
-     */
-    // TODO: MIGHT NEED TO GET RID OF OTHER FUNCTION.
-    public ArrayList<TileEnum>  getTilesAroundTile(TileEnum tileName, boolean returnAdjacentOnly) {
-    	ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
-    	ArrayList<Optional<Tile>> tilesAroundPlayer= new ArrayList<Optional<Tile>>();
-    	    	
-    	int[] currentPos = islandTilesNamePositionMap.get(tileName);
-    	int yPos = currentPos[1];
-    	int xPos = currentPos[0];
-    	int[] northDetstination = {xPos, yPos-1};
-    	int[] eastDetstination = {xPos+1, yPos};
-    	int[] southDetstination = {xPos, yPos+1};
-    	int[] westDetstination = {xPos-1, yPos};
-    	
-    	tilesAroundPlayer.add(getTileAtPosition(northDetstination));
-		tilesAroundPlayer.add(getTileAtPosition(eastDetstination));
-		tilesAroundPlayer.add(getTileAtPosition(southDetstination));
-		tilesAroundPlayer.add(getTileAtPosition(westDetstination));
-    	
-    	if(!returnAdjacentOnly) {
-    		int[] northEastDetstination = {xPos+1, yPos-1};
-        	int[] southEastDetstination = {xPos+1, yPos+1};
-        	int[] southWestDetstination = {xPos-1, yPos+1};
-        	int[] northWestDetstination = {xPos-1, yPos-1};
-        	
-    		tilesAroundPlayer.add(getTileAtPosition(northEastDetstination));
-    		tilesAroundPlayer.add(getTileAtPosition(southEastDetstination));
-    		tilesAroundPlayer.add(getTileAtPosition(southWestDetstination));
-    		tilesAroundPlayer.add(getTileAtPosition(northWestDetstination));
-    	}
-    	
-    	tilesAroundPlayer.forEach((tileAtDirection) -> {
-    		if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
-        		tilesPlayerCanMoveTo.add(tileAtDirection.get().getTileName());
         	}
     	});
    
@@ -392,15 +389,20 @@ public class Board {
      */
 	private ArrayList<Tile> instanciateIslandTiles() {
 		ArrayList<Tile> tiles = new ArrayList<Tile>();
+		Optional<TreasureEnum> treasure;
+		Optional<TileEnum> sisterTreasureTile;
 		for (TileEnum tileName : TileEnum.values()) { 
-			if(tileName == TileEnum.FOOLS_LANDING) {
+			treasure = TreasureManager.getInstance().getAssociatedTreasureForTile(tileName);
+			sisterTreasureTile = TreasureManager.getInstance().getSisterTreasureTileName(tileName);
+			if ( treasure.isPresent() && sisterTreasureTile.isPresent()) {
+				tiles.add(new TreasureTile(tileName, sisterTreasureTile.get(), treasure.get()));
+			} else if (tileName == TileEnum.FOOLS_LANDING) {
 				tiles.add(new FoolsLandingTile(tileName));
-			} else if(tileName.hasTreasure()) {
-				tiles.add(new TreasureTile(tileName));
 			} else {
 				tiles.add(new Tile(tileName));
 			}
 		}
+		
 		Collections.shuffle(tiles);
 		return tiles;
 	}
@@ -431,35 +433,54 @@ public class Board {
 				potentialTiles.add(aTile);
 		}
 		return potentialTiles;
-	}
-	
-	
-	
-	
-	/**
-     * getUnsunkenTiles gets a list of all the Tiles on the board that have not sunk.
-     * @return ArrayList<Tile> containing all tiles that are not sunk Tiles on board.
-     */
-	// TODO: Might have to remove other function.
-	public ArrayList<TileEnum> getUnsunkenTilesToMove() {
-		ArrayList<TileEnum> potentialTiles = new ArrayList<TileEnum>();
-		for(Tile aTile : getIslandTiles()) {
-			if( !aTile.isSunken() )
-				potentialTiles.add(aTile.getTileName());
-		}
-		return potentialTiles;
-	}
-	
-	
-	public ArrayList<TileEnum> getAllFloodedTiles() {
-		ArrayList<TileEnum> potentialTiles = new ArrayList<TileEnum>();
-		for(Tile aTile : getIslandTiles()) {
-			if(aTile.getFloodStatus() == FloodStatusEnum.FLOODED)
-				potentialTiles.add(aTile.getTileName());
-		}
-		return potentialTiles;
 	}	
 	
 	
+	// Class-level test
+	public static void main(String[] args) {
+		Board.getInstance().printBoard();
+//		Board.getInstance().printOrderedTiles();
+		
+		// testing sisterTile
+		ArrayList<Tile> tiles = Board.getInstance().getIslandTiles();
+		Tile tile;
+		for(int i=0; i<tiles.size(); i++) {
+			tile = tiles.get(i);
+			if(tile instanceof TreasureTile) {
+				System.out.println(tile.tileName + " : " + ((TreasureTile) tile).getSisterTile());
+			}
+		}
+		
+//		Tile firstTile = tiles.get(0);
+//		Tile nearestTile = tiles.get(6);
+//		Tile nearestTile2 = tiles.get(7);
+//		Tile lastTile = tiles.get(23);
+//		
+//		System.out.println("First tile is " + firstTile.tileName);
+//		System.out.println("Last tile is " + lastTile.tileName);
+//		
+//		tiles.forEach((tile) -> {
+//			if(tile != firstTile & tile != lastTile & tile != nearestTile & tile != nearestTile2) {
+//				tile.flood();
+//				tile.flood();
+//			}
+//		});
+//		
+//		ArrayList<Tile> nearestTiles = Board.getInstance().getNearestTilesToTile(firstTile);
+//		
+//		
+//		System.out.println("Nearest Tiles to " + firstTile.tileName + "are ===========================");
+//		nearestTiles.forEach((tile) -> {
+//			System.out.println(tile.tileName);
+//		});
+		
+		
+	
+		
+		
+		
+	}
+	
 
 }
+

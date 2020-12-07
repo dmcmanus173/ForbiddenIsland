@@ -1,7 +1,9 @@
 package fi.board;
 
+import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
+import fi.treasures.TreasureManager;
 
 /**
  * Class for TreasureTile in a Forbidden Island Game.
@@ -73,6 +75,14 @@ public class TreasureTile extends Tile {
 		treasureTileString.append(treasureType + " can be collected here.");
 		return treasureTileString.toString();
 		
+	}
+	
+	@Override
+	public FloodStatusEnum flood() {
+		if (super.flood() == FloodStatusEnum.SUNKEN) {
+			TreasureManager.getInstance().treasureTileDidSink(treasureType);
+		}
+		return FloodStatusEnum.SUNKEN;
 	}
 	
 	/*

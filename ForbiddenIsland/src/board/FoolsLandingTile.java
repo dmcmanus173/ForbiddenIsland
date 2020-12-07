@@ -1,8 +1,12 @@
-package fi.board;
+package board;
 
-import fi.enums.TileEnum;
-import fi.players.Player;
+import enums.FloodStatusEnum;
+import enums.TileEnum;
+import gameManager.GameManager;
+import gameManager.TreasureManager;
 import player.PlayerView;
+import player.Players;
+import treasureCards.TreasureDeck;
 
 /**
  * Class for the Fools' Landing tile in the Forbidden Island Game.
@@ -32,11 +36,26 @@ public class FoolsLandingTile extends Tile {
     * @param Player player that is to be added to tile.
     */
 	@Override
-	public void addPlayerToTile(Player player) {
+	public void addPlayerToTile(PlayerView player) {
 		super.addPlayerToTile(player);
-		//loop throgh players and check if they have a helicopter lift card. If they do notify game manager			
+		
+		int totalNumOfPlayers = Players.getInstance().getNumPlayers();
+		if(playersOnTile.size() ==  totalNumOfPlayers && TreasureManager.getInstance().didClaimAllTreasures() && TreasureDeck.getInstance().checkIfPlayersHaveHelicopterLift())
+			GameManager.getInstance().gameWon();		
 	}
 	
+	
+	/**
+    * flood method floods a tile if it is shored up and sinks a tile if it is flooded.
+    */
+	@Override
+	public void flood() {
+		if(floodStatus == FloodStatusEnum.FLOODED) {
+			GameManager.getInstance().gameOver();
+			System.out.println("Fools' Landing has sunk!");
+		} else {
+			super.flood();
+		}
+	}
 
 }
-

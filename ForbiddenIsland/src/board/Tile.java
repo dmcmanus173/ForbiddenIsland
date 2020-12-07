@@ -1,14 +1,12 @@
-package fi.board;
+package board;
 
 import java.util.HashSet;
 import java.util.Set;
 
-import fi.enums.FloodStatusEnum;
-import fi.enums.TileEnum;
+import enums.FloodStatusEnum;
+import enums.TileEnum;
+import gameManager.GameManager;
 import player.PlayerView;
-import fi.players.Player;
-
-
 
 /**
  * Abstract class for tiles on the board in the Forbidden Island Game.
@@ -25,7 +23,7 @@ public class Tile {
     //===========================================================
 	protected TileEnum tileName;
 	protected FloodStatusEnum floodStatus;
-	protected Set<Player> playersOnTile;
+	protected Set<PlayerView> playersOnTile;
 	
 	
 	//===========================================================
@@ -39,7 +37,7 @@ public class Tile {
 	public Tile(TileEnum tileName) {
 		this.tileName = tileName;
 		this.floodStatus = FloodStatusEnum.NOT_FLOODED;
-		this.playersOnTile = new HashSet<Player>();
+		this.playersOnTile = new HashSet<PlayerView>();
 	}
 	
 	
@@ -66,7 +64,7 @@ public class Tile {
     * getter to return the players on a tile
     * @return the flood status of the Tile.
     */
-	public Set<Player> getPlayersOnTile() {
+	public Set<PlayerView> getPlayersOnTile() {
 		return playersOnTile;
 	}
 	
@@ -74,7 +72,7 @@ public class Tile {
     * addPlayerToTile method adds a player to the set of players on tile.
     * @param Player player that is to be added to tile.
     */
-	public void addPlayerToTile(Player player) {
+	public void addPlayerToTile(PlayerView player) {
 		if(!playersOnTile.contains(player)) playersOnTile.add(player);
 	    else throw new RuntimeException("Cannot add player to a tile they already exist on.");
 		
@@ -85,7 +83,7 @@ public class Tile {
     * addPlayerToTile method removes a player to the set of players on tile.
     * @param Player player that is to be removed to tile.
     */
-	public void removePlayerFromTile(Player player) {
+	public void removePlayerFromTile(PlayerView player) {
 		if(playersOnTile.contains(player)) playersOnTile.remove(player);
 		else throw new RuntimeException("Cannot remove player from tile. Player does not exist on tile");
 		
@@ -105,31 +103,39 @@ public class Tile {
     * shoreUp method shores up a tile only if it has been flooded.
     * @return true if tile is has been shored up.
     */
-	public FloodStatusEnum shoreUp() {
+	public Boolean shoreUp() {
 		if(floodStatus == FloodStatusEnum.FLOODED) {
 			floodStatus = FloodStatusEnum.NOT_FLOODED;
-			return FloodStatusEnum.NOT_FLOODED;
+			return true;
 		}
 		else if(floodStatus == FloodStatusEnum.SUNKEN)
-			return FloodStatusEnum.SUNKEN;
+			System.out.println("This tile can't be sandbagged, it is already sunk.");
 		else
-		return FloodStatusEnum.FLOODED;
+			System.out.println("This tile doesn't need to be sandbagged, it isn't flooded.");
+		return false;
 		
 	}
 	
 	/**
     * flood method floods a tile if it is shored up and sinks a tile if it is flooded.
     */
-	public FloodStatusEnum flood() {
+	public void flood() {
 		if(floodStatus == FloodStatusEnum.NOT_FLOODED) {
 			floodStatus = FloodStatusEnum.FLOODED;
-			return FloodStatusEnum.FLOODED;
+			System.out.println(tileName + " is now flooded!");
 		}
 		else if(floodStatus == FloodStatusEnum.FLOODED) {
 			floodStatus = FloodStatusEnum.SUNKEN;
-			return FloodStatusEnum.SUNKEN;
+			System.out.println(tileName + " is now sunk!");
+			for(PlayerView aPlayer : playersOnTile) {
+				if( !aPlayer.moveFromSunk() ) {
+					GameManager.getInstance().gameOver();
+					System.out.println(aPlayer.getName()+" has drowned on the sunk tile!");
+					break;
+				}
+			}
 		}
-		else throw new RuntimeException("Attempting to flood sunken tile.");
+		
 	}
 	
 	/**
@@ -150,7 +156,7 @@ public class Tile {
 		
 		tileString.append("\n\t");
 		tileString.append("Other players here: ");
-		for (Player player : playersOnTile) { 
+		for (PlayerView player : playersOnTile) { 
 			tileString.append("The "+ player.getRole() + ", ");
 		}
 		return tileString.toString();
@@ -197,5 +203,6 @@ public class Tile {
 		
 	}
 	*/
+
 
 }
