@@ -72,6 +72,8 @@ public class PlayerGo {
 		doGo();
 		drawCardsFromTreasureDeck();
 		gameOver = drawCardsFromFloodDeck();
+		if(gameOver)
+			System.out.println("Game Over!");
 		return gameOver;
 	}
 	

@@ -36,7 +36,6 @@ public class Player {
 		this.role = role;
 		this.playerHand = new Hand();
 		this.location = role.getStartingTileName();
-		Board.getInstance().setUpPlayerOnBoard(this);
 	}
 	
 	//===========================================================

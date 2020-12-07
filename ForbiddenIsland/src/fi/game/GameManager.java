@@ -88,7 +88,7 @@ public class GameManager {
      */
     public void playGame() {
     	PlayerGo playerToGo = players.get(playersGoPos); 
-    	while(playerToGo.doRound()) {
+    	while( !playerToGo.doRound() ) {
     		nextPlayersGoPos();
     		playerToGo = players.get(playersGoPos);
     	}
