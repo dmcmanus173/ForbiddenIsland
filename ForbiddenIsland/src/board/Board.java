@@ -6,8 +6,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import enums.TileEnum;
-import enums.TreasureEnum;
+import fi.board.TreasureTile;
+import fi.enums.TileEnum;
+import fi.enums.TreasureEnum;
 import gameManager.TreasureManager;
 
 

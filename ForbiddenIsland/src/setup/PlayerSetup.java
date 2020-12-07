@@ -5,7 +5,7 @@ import java.util.Collections;
 
 import fi.enums.AdventurerEnum;
 import gameManager.GetInput;
-import player.Players;
+import fi.players.Players;
 
 /**
  * Class for PlayerSetup in Forbidden Island game.

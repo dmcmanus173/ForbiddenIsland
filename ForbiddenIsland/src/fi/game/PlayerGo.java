@@ -6,7 +6,9 @@ import java.util.Set;
 
 import fi.board.Board;
 import fi.board.Tile;
+import fi.board.TreasureTile;
 import fi.cards.Card;
+import fi.cards.FloodDeck;
 import fi.cards.HelicopterLiftCard;
 import fi.cards.TreasureDeck;
 import fi.cards.WaterRiseCard;
@@ -42,8 +44,6 @@ public class PlayerGo {
 	private final int MIN_ACTION_NUMBER = 0;
 	private final int MAX_ACTION_NUMBER = 10;
 	
-	
-	
 	//===========================================================
 	// Constructor
 	//===========================================================
@@ -77,23 +77,42 @@ public class PlayerGo {
 	
 	
 	private void drawCardsFromTreasureDeck() {
-		ArrayList<Card> treasureCards = TreasureDeck.getInstance().drawCards();
+		TreasureDeck treasureDeck = TreasureDeck.getInstance();
+		ArrayList<Card> treasureCards = treasureDeck.drawCards();
+		
+		
 		ArrayList<Card> treasureCardsPlayerCanAddToHand = new ArrayList<Card>();
 		System.out.println("Drawing " + treasureCards.size() + " cards from treasure deck for "+player.getName()+".");
 	
 		treasureCards.forEach((card) -> {
+			System.out.println(player.getName()+" just drew a card: "+card.toString());
 			if(card instanceof WaterRiseCard) {
 				WaterMeter.getInstance().increaseWaterMeter();
 				int currentLevel = WaterMeter.getInstance().getCurrentLevel();
-				System.out.println(player.getName()+" just drew a WaterRiseCard. The water meter has been increased to " + currentLevel + ".");
+				System.out.println("The water meter has been increased to " + currentLevel + ".");
 				System.out.println("All players will now have to take " + currentLevel + "FloodCards at the end of their go!");
-				TreasureDeck.getInstance().discardCard(card);
+				treasureDeck.discardCard(card);
 			} else {
 				putCardInPlayersHand(card);
 			}
 		});
 	}
 	
+	public void drawCardsFromTreasureDeckToStart() {
+		TreasureDeck treasureDeck = TreasureDeck.getInstance();
+		ArrayList<Card> treasureCards = treasureDeck.drawCards();
+		
+		System.out.println("Drawing " + treasureCards.size() + " cards from treasure deck for "+player.getName()+".");
+	
+		treasureCards.forEach((card) -> {
+			if(card instanceof WaterRiseCard) {
+				treasureDeck.discardCard(card);
+			} else {
+				System.out.println(player.getName()+" just drew a card: "+card.toString());
+				putCardInPlayersHand(card);
+			}
+		});
+	}
 	
 	private void putCardInPlayersHand(Card card) {
 		if(player.handIsFull()) {
@@ -101,23 +120,27 @@ public class PlayerGo {
 			Card cardToDiscard;
 			
 			player.collectTreasureCard(card);
-			System.out.println(player.getName()+" just drew a  " + card.toString() + " but hand is now full. Select a card to discard from hand.");
+			System.out.println(player.getName()+ "'s hand is now full. Select a card to discard from hand.");
 			chosenCardIndex = selectCardFromList(player.getCardsInPlayersHand());
 			cardToDiscard = player.getCardsInPlayersHand().get(chosenCardIndex);
 			player.discardCard(cardToDiscard);
-		} else {
+		} 
+		else
 			player.collectTreasureCard(card);
-			System.out.println(player.getName()+" just drew a  " + card.toString());
-		}
 	}
 	
 	
 	private boolean drawCardsFromFloodDeck() {
-		// get tiles to flood from flood deck
-		// flood each tile
-		// get all players that need to move and flood them
+		ArrayList<TileEnum> tilesToFlood = FloodDeck.getInstance().getTilesToFlood(false);
+		Board board = Board.getInstance();
 		// check with treasure manager if treasuresAreAvailableToCollect
-		
+		tilesToFlood.forEach((tileEnum) -> {
+			board.floodTile(tileEnum);
+			sunkenPlayersAtEndOfGo.addAll( board.getPlayersFromTile(tileEnum) );
+			//TODO move sunken players
+			
+			
+		});
 		return false;
 	}
 	
@@ -125,7 +148,7 @@ public class PlayerGo {
 	private void doGo() {
 		goHasEnded = false;
 		int actionNumber;
-		System.out.println("It is "+player.getName()+"'s turn! Press [return] to begin.");
+		System.out.println("It is "+player.getName()+"'s turn!");
 		 
 		while(!goHasEnded) {
 			showActions();
@@ -193,20 +216,9 @@ public class PlayerGo {
 		}
 	}
 	
-	
-	
-	
-	
-	
 	private void endGo() {
 		goHasEnded = true;
 	}
-	
-	
-	
-	
-	
-	
 	
 	private void handleMove() {
 		int chosenTileIndex;
@@ -219,18 +231,11 @@ public class PlayerGo {
 			return;
 		}
 		chosenTileIndex = selectTileFromList(tilesPlayerCanMoveTo);
-		System.out.println("moving player");
 		player.move(tilesPlayerCanMoveTo.get(chosenTileIndex));
+		System.out.println(player.getName()+" has moved to "+player.getLocation());
 		decreaseRemainingActions();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	private void handleShoreUp() {
 		int chosenTileIndex;
 		ArrayList<TileEnum> tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
@@ -262,15 +267,7 @@ public class PlayerGo {
 		
 		decreaseRemainingActions();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	private void handleGiveTreasureCard() {
 		int chosenPlayerIndex;
 		int chosenCardIndex;
@@ -324,11 +321,6 @@ public class PlayerGo {
 		
 	}
 	
-	
-	
-	
-	
-	
 	private void handleCaptureTreasure() {
 		if(player.canCollectTreasure()) {
 			TreasureEnum collectedTreasure = player.collectTreasure();
@@ -345,12 +337,6 @@ public class PlayerGo {
 		}
 		
 	}
-	
-	
-	
-	
-	
-	
 	
 	private void handleHelicopterLift() {
 		int indexOdTileToMoveTo;
@@ -381,12 +367,7 @@ public class PlayerGo {
 			System.out.println(player.getName() + " does not have a helicopter lift card to use.");
 		}
 	}
-	
-	
-	
-	
-	
-	
+
 	private void handleSandbag() {
 		
 		if(!player.hasSandBagCard()) {
@@ -404,25 +385,10 @@ public class PlayerGo {
 		Board.getInstance().shoreUpTile(tilesPlayerCanShoreUp.get(chosenTileIndex));
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
 	private void showTreasureCards() {
 		System.out.println(player.cardsToString());
 	}
-	
-	
-	
-	
-	
-	
-	
-	
+
 	private void handleDiscardTreasureCard() {
 		int chosenCardIndex;
 		Card cardToDiscard;
@@ -439,29 +405,17 @@ public class PlayerGo {
 		
 	}
 	
-	
-	
-	
-	
-	
-	
 	private void showClaimedTreasures() {
 		System.out.println( TreasureManager.getInstance().toString());
 	}
-	
-	
-	
-	
-	
-	
+
+	/**
+	 * showMap method will call the Board for a copy of the board map, then print it to the console.
+	 */
 	private void showMap() {
-		//TODO: might need to integrate board print function to this class.
-		Board.getInstance().printBoard();
+		Board board = Board.getInstance();
+		System.out.println(board.toString());
 	}
-	
-	
-	
-	
 	
 	
 	private void showLocation() {
@@ -511,22 +465,17 @@ public class PlayerGo {
 
 	
 	
-	
+/*	
 	public static void main(String[] args) {
 		boolean gameOver;
 		Player myPlayer = new Player("Demi", AdventurerEnum.ENGINEER);
 		ArrayList<Player> myPlayers = new ArrayList<Player>();
 		myPlayers.add(myPlayer);
-		Board.getInstance().setUpPlayerOnBoard(myPlayers);
+		//Board.getInstance().setUpPlayerOnBoard(myPlayers);
 		PlayerGo myPlayerGo = new PlayerGo(myPlayer);
 		gameOver = myPlayerGo.doRound();
 		
 	}
-	
-	
-	
-	
-	
-	
+*/
 
 }

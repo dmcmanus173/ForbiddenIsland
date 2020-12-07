@@ -43,7 +43,7 @@ public abstract class Card {
 	@Override
 	public String toString() {
 		StringBuilder temp = new StringBuilder("");
-		temp.append("Card: " + name.toString());
+		temp.append(name.toString());
 		return temp.toString();
 	}
 	

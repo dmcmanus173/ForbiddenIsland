@@ -2,7 +2,6 @@ package fi.board;
 
 import fi.enums.TileEnum;
 import fi.players.Player;
-import player.PlayerView;
 
 /**
  * Class for the Fools' Landing tile in the Forbidden Island Game.

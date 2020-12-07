@@ -10,7 +10,6 @@ import java.util.Set;
 
 import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
-import player.PlayerView;
 import fi.players.Player;
 
 /**
@@ -117,11 +116,9 @@ public class Board {
 	
 	
 	// used at the start of a game
-    public void setUpPlayerOnBoard(ArrayList<Player> players) {
-    	players.forEach((player) -> {
-    		Tile playerStartingTile = getTileWithName(player.getLocation());
-    		playerStartingTile.addPlayerToTile(player);
-    	});
+    public void setUpPlayerOnBoard(Player player) {
+    	Tile playerStartingTile = getTileWithName(player.getLocation());
+    	playerStartingTile.addPlayerToTile(player);
     }
     
     
@@ -345,9 +342,9 @@ public class Board {
     
     
     /**
-     * void function to print the game board.
+     * toString method returns the map of the game.
      */
-    public void printBoard() {
+    public String toString() {
     	StringBuilder boardString = new StringBuilder("");
     	Tile aTile;
         boardString.append("              ---------------          \n              | ");
@@ -382,7 +379,7 @@ public class Board {
         }
         boardString.append("\n              ---------------           \n");
 
-    	System.out.println(boardString.toString());
+    	return boardString.toString();
     }
     
     
@@ -418,6 +415,18 @@ public class Board {
      */
 	public ArrayList<Tile> getIslandTiles() {
 		return orderedTiles;
+	}
+	
+	/**
+	 * getPlayersFromTile gets a list of all of the players on the tile.
+	 * @return playersFromTile
+	 * @param TileEnum tile
+	 */
+	public ArrayList<Player> getPlayersFromTile(TileEnum tileEnum) {
+		ArrayList<Player> playersOnTile = new ArrayList<Player>();
+		Tile tile = getTileWithName(tileEnum);
+		playersOnTile.addAll(tile.getPlayersOnTile());
+		return playersOnTile;
 	}
 	
 	/**

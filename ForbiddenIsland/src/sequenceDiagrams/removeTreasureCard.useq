@@ -22,18 +22,7 @@
       <position height="21" width="66" x="5" y="290"/>    
     </execution>  
   </object>  
-  <object id="23" language="java" name="treasureCards.TreasureDeck" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/treasureCards/TreasureDeck.java" binary="false" label="&lt;static&gt;" type="class" 
-    autoSize="true">    
-    <position height="0" width="0" x="0" y="0"/>    
-    <execution id="22">      
-      <position height="84" width="0" x="0" y="635"/>    
-    </execution>    
-    <execution id="25">      
-      <position height="21" width="7" x="129" y="677"/>    
-    </execution>  
-  </object>  
-  <object id="26" language="java" name="java.io.PrintStream" project="ForbiddenIsland" 
+  <object id="21" language="java" name="java.io.PrintStream" project="ForbiddenIsland" 
     file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" type="class" 
     autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
@@ -41,7 +30,7 @@
       <position height="21" width="0" x="0" y="329"/>    
     </execution>  
   </object>  
-  <object id="27" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
+  <object id="22" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
     file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" 
     label="treasureCards" type="class" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
@@ -52,18 +41,18 @@
       <position height="21" width="0" x="0" y="593"/>    
     </execution>  
   </object>  
-  <object id="28" language="java" name="gameManager.GetInput" project="ForbiddenIsland" 
+  <object id="23" language="java" name="gameManager.GetInput" project="ForbiddenIsland" 
     file="/ForbiddenIsland/src/gameManager/GetInput.java" binary="false" label="&lt;static&gt;" type="class" 
     autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="16">      
       <position height="84" width="0" x="0" y="457"/>    
     </execution>    
-    <execution id="30">      
+    <execution id="25">      
       <position height="21" width="7" x="334" y="499"/>    
     </execution>  
   </object>  
-  <message id="3" operation="removeTreasureCard():void" asynchronous="false">    
+  <message id="3" asynchronous="false">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
   </message>  
@@ -71,7 +60,7 @@
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="6"/>  
   </message>  
-  <message id="7" asynchronous="false">    
+  <message id="7" operation="removeTreasureCard(fi.cards.Card):void" asynchronous="false">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="8"/>  
   </message>  
@@ -79,7 +68,7 @@
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="10"/>  
   </message>  
-  <message id="11" operation="printCardsHeld():void" asynchronous="false">    
+  <message id="11" asynchronous="false">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="12"/>  
   </message>  
@@ -91,7 +80,7 @@
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="16"/>  
   </message>  
-  <message id="17" operation="removeTreasureCard(treasureCards.AbstractTreasureCard):void" asynchronous="false">    
+  <message id="17" asynchronous="false">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="18"/>  
   </message>  
@@ -99,16 +88,8 @@
     <end type="SOURCE" refId="18"/>    
     <end type="TARGET" refId="20"/>  
   </message>  
-  <message id="21" operation="getInstance():treasureCards.TreasureDeck" asynchronous="false">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="22"/>  
-  </message>  
-  <message id="24" operation="returnUsedCard(treasureCards.AbstractTreasureCard):void" asynchronous="false">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="25"/>  
-  </message>  
-  <message id="29" operation="anInteger(int,int):java.lang.Integer" asynchronous="false">    
+  <message id="24" operation="anInteger(int,int):java.lang.Integer" asynchronous="false">    
     <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="30"/>  
+    <end type="TARGET" refId="25"/>  
   </message>
 </sequence-diagram>

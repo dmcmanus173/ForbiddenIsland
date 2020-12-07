@@ -83,7 +83,6 @@ public class Players {
     	return listOfPlayers;
     }
     
-    
     public ArrayList<Player> getPlayersExcept(Player player) {
     	ArrayList<Player> otherPlayers = new ArrayList<Player>();
     	listOfPlayers.forEach((playerInList) -> {
@@ -104,7 +103,7 @@ public class Players {
     	StringBuilder temp = new StringBuilder("");
     	
     	for(int i=0; i<numPlayers; i++)
-    		temp.append("Player "+(i+1)+":\n"+listOfPlayers.get(i+1).toString()+"\n\n");
+    		temp.append("Player "+(i+1)+":\n"+listOfPlayers.get(i).toString()+"\n\n");
     
     	return temp.toString();    	
     }

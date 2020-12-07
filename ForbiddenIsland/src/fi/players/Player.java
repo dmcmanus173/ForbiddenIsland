@@ -3,6 +3,7 @@ package fi.players;
 import java.util.ArrayList;
 
 import fi.board.Board;
+import fi.board.Tile;
 import fi.board.TreasureTile;
 import fi.cards.Card;
 import fi.cards.Hand;
@@ -20,10 +21,6 @@ public class Player {
 	private AdventurerEnum role;
 	private TileEnum location;
 	private Hand playerHand;
-
-	
-
-	
 	
 	//===========================================================
 	// Constructor
@@ -39,10 +36,8 @@ public class Player {
 		this.role = role;
 		this.playerHand = new Hand();
 		this.location = role.getStartingTileName();
+		Board.getInstance().setUpPlayerOnBoard(this);
 	}
-	
-	
-	
 	
 	//===========================================================
 	// Functions for Board Interactions
@@ -55,11 +50,6 @@ public class Player {
 	public void shoreUp(TileEnum tileToShoreUp) {
 		Board.getInstance().shoreUpTile(tileToShoreUp);
 	}
-	
-	
-	
-	
-	
 	
 	//===========================================================
 	// Functions for Treasure Cards Interactions
@@ -119,12 +109,6 @@ public class Player {
 		return handString.toString();
 	}
 	
-	
-	
-	
-	
-	
-	
 	//===========================================================
 	// Functions for Treasure Interactions
 	//===========================================================
@@ -144,9 +128,7 @@ public class Player {
 			 throw new RuntimeException("Player is attempting to collect a treasure on a tile that is not the treasure tile.");
 		 }
 	}
-	
-	
-	
+
 	//===========================================================
 	// Other Functions
 	//===========================================================
@@ -182,7 +164,18 @@ public class Player {
 		location = newLocation;
 	}
 	
-	
+	/**
+	 * toString method will return player info as a String.
+	 * @return String info related to player.
+	 */
+	@Override
+	public String toString() {
+		StringBuilder temp = new StringBuilder("");
+		temp.append("Player Name: "+name);
+		temp.append("\nRole: "+role.toString());
+		temp.append("\nLocation: "+location.toString());
+		return temp.toString();
+	}
 		
 
 }

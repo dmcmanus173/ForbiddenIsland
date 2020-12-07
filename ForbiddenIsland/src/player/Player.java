@@ -65,7 +65,7 @@ abstract class Player {
 		   	throw new RuntimeException("Can't find role in Player Constructor.");
 
 		location = this.role.startPosition(); 
-		Board.getInstance().setUpPlayerOnBoard( (PlayerView) this);
+		Board.getInstance().setUpPlayerOnBoard(this);
 		
 		// Adding NUM_INITIAL_CARDS to TreasueCard collection. If get WaterRiseCard, put back and try again.
 		ArrayList<Card> cards = TreasureDeck.getInstance().drawCardsForStartOfGame();
