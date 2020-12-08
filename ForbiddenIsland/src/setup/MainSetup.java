@@ -108,8 +108,9 @@ public class MainSetup {
 	 * Board setup
 	 */
 	private void boardSetup() {
+		@SuppressWarnings("unused")
 		Board board = Board.getInstance();
-		System.out.println(board.toString());
+		//System.out.println(board.toString());
 	}
 	
 	/**

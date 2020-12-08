@@ -3,6 +3,7 @@ package fi.game;
 import java.util.ArrayList;
 
 import fi.board.Board;
+import fi.board.FoolsLandingTile;
 import fi.cards.Card;
 import fi.cards.FloodDeck;
 import fi.cards.TreasureDeck;
@@ -35,8 +36,8 @@ public class PlayerGo {
 	// Variable for Game Settings
 	//===========================================================
 	private final int MAX_ACTIONS_PER_GO = 3;
-	private final int MIN_ACTION_NUMBER = 0;
-	private final int MAX_ACTION_NUMBER = 10;
+	private final int MIN_ACTION_NUMBER = 1;
+	private final int MAX_ACTION_NUMBER = 9;
 	
 	//===========================================================
 	// Constructor
@@ -51,8 +52,21 @@ public class PlayerGo {
 		floodedTilesAtEndOfGo = new ArrayList<TileEnum>();
 		sunkenTilesAtEndOfGo = new ArrayList<TileEnum>();
 		sunkenPlayersAtEndOfGo = new ArrayList<Player>();
+		
+		drawCardsFromTreasureDeckToStart();
 	}
 	
+	public void drawCardsFromTreasureDeckToStart() {
+		TreasureDeck treasureDeck = TreasureDeck.getInstance();
+		ArrayList<Card> treasureCards = treasureDeck.drawCardsForStartOfGame();
+		
+		System.out.println("Drawing " + treasureCards.size() + " cards from treasure deck for "+player.getName()+".");
+		treasureCards.forEach((card) -> {
+			System.out.println(player.getName()+" just drew a card: "+card.toString());
+			putCardInPlayersHand(card);
+		});
+		System.out.println();
+	}
 	
 	private void decreaseRemainingActions() {
 		remainingActions -= 1;
@@ -63,9 +77,11 @@ public class PlayerGo {
 	
 	
 	public boolean doRound() {
+		sunkenTilesAtEndOfGo.clear();
+		sunkenPlayersAtEndOfGo.clear();
 		doGo();
 		drawCardsFromTreasureDeck();
-		gameOver = drawCardsFromFloodDeck();
+		drawCardsFromFloodDeck();
 		if(gameOver)
 			System.out.println("Game Over!");
 		return gameOver;
@@ -76,8 +92,6 @@ public class PlayerGo {
 		TreasureDeck treasureDeck = TreasureDeck.getInstance();
 		ArrayList<Card> treasureCards = treasureDeck.drawCards();
 		
-		
-		ArrayList<Card> treasureCardsPlayerCanAddToHand = new ArrayList<Card>();
 		System.out.println("Drawing " + treasureCards.size() + " cards from treasure deck for "+player.getName()+".");
 	
 		treasureCards.forEach((card) -> {
@@ -85,30 +99,16 @@ public class PlayerGo {
 			if(card instanceof WaterRiseCard) {
 				WaterMeter.getInstance().increaseWaterMeter();
 				int currentLevel = WaterMeter.getInstance().getCurrentLevel();
-				System.out.println("The water meter has been increased to " + currentLevel + ".");
-				System.out.println("All players will now have to take " + currentLevel + "FloodCards at the end of their go!");
+				System.out.println("The water meter has been increased to " + currentLevel + ". All players will now have to take " + currentLevel + " FloodCards at the end of their go!");
 				treasureDeck.discardCard(card);
 			} else {
 				putCardInPlayersHand(card);
 			}
 		});
+		System.out.println();
 	}
 	
-	public void drawCardsFromTreasureDeckToStart() {
-		TreasureDeck treasureDeck = TreasureDeck.getInstance();
-		ArrayList<Card> treasureCards = treasureDeck.drawCards();
-		
-		System.out.println("Drawing " + treasureCards.size() + " cards from treasure deck for "+player.getName()+".");
-	
-		treasureCards.forEach((card) -> {
-			if(card instanceof WaterRiseCard) {
-				treasureDeck.discardCard(card);
-			} else {
-				System.out.println(player.getName()+" just drew a card: "+card.toString());
-				putCardInPlayersHand(card);
-			}
-		});
-	}
+
 	
 	private void putCardInPlayersHand(Card card) {
 		if(player.handIsFull()) {
@@ -123,20 +123,66 @@ public class PlayerGo {
 	}
 	
 	
-	private boolean drawCardsFromFloodDeck() {
+	private void drawCardsFromFloodDeck() {
 		ArrayList<TileEnum> tilesToFlood = FloodDeck.getInstance().getTilesToFlood(false);
 		Board board = Board.getInstance();
 		// check with treasure manager if treasuresAreAvailableToCollect
 		tilesToFlood.forEach((tileEnum) -> {
-			board.floodTile(tileEnum);
-			sunkenPlayersAtEndOfGo.addAll( board.getPlayersFromTile(tileEnum) );
-			//TODO move sunken players
-			
-			
+			if(!board.getTileWithName(tileEnum).isSunken()) {
+				board.floodTile(tileEnum);
+				System.out.println(tileEnum.toString()+" is now "+board.getTileWithName(tileEnum).getFloodStatus()+"!");
+			}
+			if(board.getTileWithName(tileEnum).isSunken()) {
+				//sunkenPlayersAtEndOfGo.addAll( board.getPlayersFromTile(tileEnum) );
+				//sunkenTilesAtEndOfGo.add(tileEnum);
+				if( !TreasureManager.getInstance().treasuresAreAvailableToCollect() ) {
+					System.out.println("An uncollected Treasure has sunk!");
+					gameOver = true; 
+				}
+				else if(board.getTileWithName(tileEnum) instanceof FoolsLandingTile) {
+					gameOver = true;
+				}
+				else {	
+					board.getPlayersFromTile(tileEnum).forEach(sunkPlayer -> {
+						if(!moveFromSunk(sunkPlayer)) {
+							gameOver = true;
+							return;
+						}
+					});
+				}
+			}
+	
 		});
-		return false;
+		System.out.println();
 	}
 	
+	private Boolean moveFromSunk(Player sunkPlayer) {
+		TileEnum chosenTile;
+		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
+		Board board = Board.getInstance();
+		
+		if(sunkPlayer.getRole() == AdventurerEnum.PILOT)
+			tilesPlayerCanMoveTo.addAll(board.getUnsunkenTilesToMove()); 
+		else if(sunkPlayer.getRole() == AdventurerEnum.EXPLORER)
+			tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(sunkPlayer.getLocation(), false));
+		else if(sunkPlayer.getRole() == AdventurerEnum.DIVER)
+			tilesPlayerCanMoveTo.addAll(Board.getInstance().getNearestTilesToTile(sunkPlayer.getLocation())); //TODO change to TileEnum
+		else
+			tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(sunkPlayer.getLocation(), false));
+		
+		if(tilesPlayerCanMoveTo.isEmpty()) {
+			System.out.println("There is nowhere for "+sunkPlayer.getName()+" to move to!");
+			return false;
+		}
+		
+		System.out.println(sunkPlayer.getName()+" must move as they're on a sunken Tile!");
+		showMap();
+		System.out.println(sunkPlayer.getName()+" is on "+sunkPlayer.getLocation().toString());
+		chosenTile = selectTileFromList(tilesPlayerCanMoveTo);
+		sunkPlayer.move(chosenTile);
+		System.out.println(sunkPlayer.getName()+" has moved to "+sunkPlayer.getLocation());
+		return true;
+	}
 	
 	private void doGo() {
 		goHasEnded = false;
@@ -163,17 +209,12 @@ public class PlayerGo {
 		System.out.println(" 6. See what Treasure Cards you have."         );
 		System.out.println(" 7. Remove a Treasure Card."                   );
 		System.out.println(" 8. See what treasure's are claimed."          );
-		System.out.println(" 9. Print the map."                            );
-		System.out.println("10. Print player location."                    );
-		System.out.println(" 0. End Go."                                   );
+		System.out.println(" 9. End Go."                                   );
 		System.out.println("Choose a number for what you would like to do.");
 	}
 	
 	private void handleAction(int actionNumber) {
 		switch(actionNumber) {
-		case 0:
-			endGo();
-			break;
 		case 1:
 			handleMove();
 			break;
@@ -199,10 +240,7 @@ public class PlayerGo {
 			showClaimedTreasures();
 			break;
 		case 9:
-			showMap();
-			break;
-		case 10:
-			showLocation();
+			endGo();
 			break;
 		default:
 			throw new RuntimeException("Attempting to select a number outside of range.");	

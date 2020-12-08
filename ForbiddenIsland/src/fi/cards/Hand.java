@@ -97,7 +97,7 @@ public class Hand {
 		
 		if(card instanceof SandbagCard) {
 			sandbagCards.remove((SandbagCard) card);
-		} else if (card instanceof SandbagCard) {
+		} else if (card instanceof HelicopterLiftCard) {
 			helicopterLiftCards.remove((HelicopterLiftCard)card);
 		} else if (card instanceof TreasureCard) {
 			TreasureCard treasureCard = (TreasureCard) card;

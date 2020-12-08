@@ -2,6 +2,7 @@ package fi.game;
 
 import java.util.ArrayList;
 
+import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
 import fi.board.Board;
 import fi.cards.FloodDeck;
@@ -55,16 +56,20 @@ public class GameManager {
     	// Setting up players
     	ArrayList<Player> players = Players.getInstance().getPlayers();
     	for(Player aPlayer : players) {
-    		PlayerGo newPlayerGo = new PlayerGo(aPlayer);
-    		newPlayerGo.drawCardsFromTreasureDeckToStart();
-    		this.players.add(newPlayerGo);
-    
     		board.setUpPlayerOnBoard(aPlayer);
+    		PlayerGo newPlayerGo = new PlayerGo(aPlayer);
+    		this.players.add(newPlayerGo);
     	}
     	
     	// Setting up board
     	ArrayList<TileEnum> tilesToFlood = floodDeck.getTilesToFlood(true);
-    	tilesToFlood.forEach(tileEnum -> board.floodTile(tileEnum));
+    	tilesToFlood.forEach(tileEnum -> {
+    		if(board.getTileWithName(tileEnum).getFloodStatus() == FloodStatusEnum.NOT_FLOODED) {
+    			board.floodTile(tileEnum);
+    			System.out.println(tileEnum.toString()+" is now "+board.getTileWithName(tileEnum).getFloodStatus()+"!");
+    		}
+    	});
+    	System.out.println();
     	
     }
     
