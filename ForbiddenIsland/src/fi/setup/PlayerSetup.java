@@ -1,4 +1,4 @@
-package setup;
+package fi.setup;
 
 import java.util.ArrayList;
 import java.util.Collections;

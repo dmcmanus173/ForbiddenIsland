@@ -1,4 +1,4 @@
-package setup;
+package fi.setup;
 
 import fi.board.Board;
 import fi.cards.FloodDeck;

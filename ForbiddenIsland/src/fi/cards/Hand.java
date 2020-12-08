@@ -204,12 +204,5 @@ public class Hand {
 		}
 		return handString.toString();
 	}
-	
-	
-	
-//	public boolean containesEnoughCardsToCollectTreasure(TreasureEnum treasureType) {
-//		int numOfTreasureCardsOfGivenTreasure = getCardsForTreasure(treasureType).size();
-//		return numOfTreasureCardsOfGivenTreasure == TreasureManager.getInstance().getNumOfCardsToCollectTreasure();
-//	}
 
 }

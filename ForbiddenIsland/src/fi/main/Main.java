@@ -1,8 +1,8 @@
-package main;
+package fi.main;
 
 import fi.game.GameManager;
 import fi.game.GetInput;
-import setup.MainSetup;
+import fi.setup.MainSetup;
 
 public class Main {
 

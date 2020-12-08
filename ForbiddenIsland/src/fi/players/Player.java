@@ -3,7 +3,6 @@ package fi.players;
 import java.util.ArrayList;
 
 import fi.board.Board;
-import fi.board.Tile;
 import fi.board.TreasureTile;
 import fi.cards.Card;
 import fi.cards.Hand;

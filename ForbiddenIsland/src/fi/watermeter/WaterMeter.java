@@ -48,7 +48,7 @@ public class WaterMeter {
 	}
 	
 	//===========================================================
-	// Other Functions
+	// Main Functions
 	//===========================================================
 	/**
 	 * increaseWaterMeter method increase the WaterMeter level value,
@@ -56,12 +56,16 @@ public class WaterMeter {
 	 */
 	public void increaseWaterMeter() {
 		currentLevel += 1; 
-		if(currentLevel == GAME_OVER_LEVEL) {
-			//TODO handle game over.
-			System.out.println("WaterMeter has been increased. Level set to "+currentLevel+".");
-		}
 	}
 	
+	/**
+	 * setCurrentLevel method allows setting the waterMeter to be between the 
+	 * MIN_LEVEL and MAX_LEVEL.
+	 */
+	public void setCurrentLevel(int startingLevel) {
+		if( (MIN_LEVEL <= startingLevel) && (startingLevel <= MAX_LEVEL) )
+			currentLevel = startingLevel;
+	}
 
 	/**
 	 * toString returns the level at which the WaterMeter is at.
@@ -75,16 +79,9 @@ public class WaterMeter {
 		
 	}
 	
-	
-	/**
-	 * setCurrentLevel method allows setting the waterMeter to be between the 
-	 * MIN_LEVEL and MAX_LEVEL.
-	 */
-	public void setCurrentLevel(int startingLevel) {
-		if( (MIN_LEVEL <= startingLevel) && (startingLevel <= MAX_LEVEL) )
-			currentLevel = startingLevel;
-	}
-	
+	//===========================================================
+	// Getter Functions
+	//===========================================================
 	
 	/**
 	 * getLevel method which returns the level at which the WaterMeter is at.
@@ -112,5 +109,11 @@ public class WaterMeter {
 		return MAX_LEVEL;
 	}
 	
-	
+	/**
+	 * getGameOverLevel method returns level which results in gameOver.
+	 * @return
+	 */
+	public int getGameOverLevel() {
+		return GAME_OVER_LEVEL;
+	}	
 }

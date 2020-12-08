@@ -93,7 +93,6 @@ public class GameManager {
     		nextPlayersGoPos();
     		playerToGo = players.get(playersGoPos);
     	}
-    	System.out.println("Game over!"); //TODO is it okay to print here? Currently this, PlayerGo, setup have print/input
     }
     
 }
