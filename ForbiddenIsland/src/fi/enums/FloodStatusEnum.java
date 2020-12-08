@@ -10,7 +10,7 @@ package fi.enums;
 
 public enum FloodStatusEnum {
 	
-	NOT_FLOODED ("Not flodded", 2),
+	NOT_FLOODED ("Not flooded", 2),
 	FLOODED     ("Flooded",     1),
 	SUNKEN      ("Sunken",      0);
 	

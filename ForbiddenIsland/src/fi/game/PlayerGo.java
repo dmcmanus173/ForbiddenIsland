@@ -235,7 +235,7 @@ public class PlayerGo {
 	 */
 	private Boolean doAShoreUp() {
 		Player playerWithSandbag = null;
-		if(!player.hasSandBagCard()) {
+		if(player.hasSandBagCard()) {
 			playerWithSandbag = player;
 		}
 		else {
@@ -262,6 +262,7 @@ public class PlayerGo {
 		}
 		chosenTile = selectTileFromList(tilesPlayerCanShoreUp);
 		playerWithSandbag.shoreUp(chosenTile);
+		System.out.println(chosenTile.toString()+" is now "+board.getTileWithName(chosenTile).getFloodStatus().toString()+"!");
 		return true;
 	}
 

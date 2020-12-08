@@ -216,13 +216,11 @@ public class Board {
     	tilesAroundPlayer.forEach((tile) -> {
     		if(tile.getFloodStatus() == FloodStatusEnum.FLOODED) {
     			tilesPlayerCanShoreUp.add(tile.getTileName());
-    			System.out.println( "tile is flooded" );
     		}
     	});
     	// Add tile player is on if can be shored up
 		if(currentTile.getFloodStatus() == FloodStatusEnum.FLOODED) {
 			tilesPlayerCanShoreUp.add(currentTile.getTileName());
-			System.out.println( "tile is flooded" );
 		}
     	
     	return tilesPlayerCanShoreUp;
