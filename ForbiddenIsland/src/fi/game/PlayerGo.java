@@ -1,15 +1,10 @@
 package fi.game;
 
 import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Set;
 
 import fi.board.Board;
-import fi.board.Tile;
-import fi.board.TreasureTile;
 import fi.cards.Card;
 import fi.cards.FloodDeck;
-import fi.cards.HelicopterLiftCard;
 import fi.cards.TreasureDeck;
 import fi.cards.WaterRiseCard;
 import fi.enums.AdventurerEnum;
@@ -117,13 +112,10 @@ public class PlayerGo {
 	
 	private void putCardInPlayersHand(Card card) {
 		if(player.handIsFull()) {
-			int chosenCardIndex;
 			Card cardToDiscard;
-			
 			player.collectTreasureCard(card);
-			System.out.println(player.getName()+ "'s hand is now full. Select a card to discard from hand.");
-			chosenCardIndex = selectCardFromList(player.getCardsInPlayersHand());
-			cardToDiscard = player.getCardsInPlayersHand().get(chosenCardIndex);
+			System.out.println(player.getName()+ "'s hand is now full.\nSelect a card to discard from hand:");
+			cardToDiscard = selectCardFromList(player.getCardsInPlayersHand());
 			player.discardCard(cardToDiscard);
 		} 
 		else
@@ -242,23 +234,35 @@ public class PlayerGo {
 	 * @return Boolean true if it has shoredUp a tile. Else false.
 	 */
 	private Boolean doAShoreUp() {
+		Player playerWithSandbag = null;
 		if(!player.hasSandBagCard()) {
-			System.out.println(player.getName() + " does not have a SandBag card to use.");
-			return false;
+			playerWithSandbag = player;
 		}
 		else {
-			Board board = Board.getInstance();
-			TileEnum chosenTile;
-			ArrayList<TileEnum> tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
-			tilesPlayerCanShoreUp.addAll(board.getTilesToShoreUpAround(player.getLocation()));
-			if(tilesPlayerCanShoreUp.isEmpty()) {
-				System.out.println(" There are no flooded tiles on the board!");
-				return false;
+			ArrayList<Player> otherPlayers = Players.getInstance().getPlayersExcept(player);
+			for(Player otherPlayer : otherPlayers) {
+				if(otherPlayer.hasSandBagCard()) {
+					playerWithSandbag = otherPlayer;
+					break;
+				}
 			}
-			chosenTile = selectTileFromList(tilesPlayerCanShoreUp);
-			player.shoreUp(chosenTile);
-			return true;
 		}
+		if(playerWithSandbag == null) {
+			System.out.println("None of the players have a SandBag Card for "+player.getName()+" to use.");
+			return false;
+		}
+	
+		Board board = Board.getInstance();
+		TileEnum chosenTile;
+		ArrayList<TileEnum> tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
+		tilesPlayerCanShoreUp.addAll(board.getTilesToShoreUpAround(player.getLocation()));
+		if(tilesPlayerCanShoreUp.isEmpty()) {
+			System.out.println(" There are no flooded tiles on the board!");
+			return false;
+		}
+		chosenTile = selectTileFromList(tilesPlayerCanShoreUp);
+		playerWithSandbag.shoreUp(chosenTile);
+		return true;
 	}
 
 	/**
@@ -281,12 +285,10 @@ public class PlayerGo {
 	}
 
 	private void handleGiveTreasureCard() {
-		int chosenPlayerIndex;
-		int chosenCardIndex;
 		Player playerToGiveCardTo;
 		Card cardToGive;
-		ArrayList<Player> possiblePlayers = new ArrayList<Player>();
-		ArrayList<Player> playersThatCanAcceptACard = new ArrayList<Player>();
+		ArrayList<Player> possiblePlayers = new ArrayList<Player>();           // Players that can be sent a card
+		ArrayList<Player> playersThatCanAcceptACard = new ArrayList<Player>(); // Players that can receive a card (Hand is not full)
 		
 		if(player.getCardsInPlayersHand().isEmpty()) {
 			System.out.println( player.getName() + " does not have any cards to give");
@@ -294,18 +296,16 @@ public class PlayerGo {
 		}
 		
 		if(player.getRole() == AdventurerEnum.MESSENGER) {
-			System.out.println(player.getName() + "is a Messenger and can give a card to anyone other player in the game.");
+			System.out.println(player.getName() + " is a Messenger and can give a card to anyone in the game.");
 			possiblePlayers = Players.getInstance().getPlayersExcept(player);
 			
 		} else {
-			// TODO: MIGHT HAVE TO CONVER PLAYERSONTILE IN TILE CLASS TO ARRAYLIST AND NOT SET
 			possiblePlayers.addAll(Board.getInstance().getOtherPlayersOnTile(player));
-//			ArrayList<Player> targetList = new ArrayList<>(possiblePlayers);
 		}
 		
 		if(possiblePlayers.isEmpty()) {
 			// This Could only happen if the player is not a MESSENGER
-			System.out.println("There are no other players on the same tile as " + player.getName() + "to give a treasure card to.");
+			System.out.println("There are no players on the same tile as " + player.getName() + ".");
 			return;
 		}
 		
@@ -314,18 +314,13 @@ public class PlayerGo {
 				playersThatCanAcceptACard.add(possiblePlayer);
 			}
 		});
-		
 		if(playersThatCanAcceptACard.isEmpty()) {
-			// This Could only happen if the player is not a MESSENGER
 			System.out.println("Everyone's hand is full. cannot give card.");
 			return;
 		}
 		
-		
-		chosenPlayerIndex = selectPlayerFromList(playersThatCanAcceptACard);
-		playerToGiveCardTo = playersThatCanAcceptACard.get(chosenPlayerIndex);
-		chosenCardIndex = selectCardFromList(player.getCardsInPlayersHand());
-		cardToGive = player.getCardsInPlayersHand().get(chosenCardIndex);
+		playerToGiveCardTo = selectPlayerFromList(playersThatCanAcceptACard);
+		cardToGive = selectCardFromList(player.getCardsInPlayersHand());
 		
 		player.giveTreasureCard(playerToGiveCardTo, cardToGive);
 		
@@ -383,7 +378,6 @@ public class PlayerGo {
 	}
 
 	private void handleDiscardTreasureCard() {
-		int chosenCardIndex;
 		Card cardToDiscard;
 		ArrayList<Card> cardInHand = player.getCardsInPlayersHand();
 		
@@ -392,8 +386,7 @@ public class PlayerGo {
 			return;
 		}
 		
-		chosenCardIndex = selectCardFromList(player.getCardsInPlayersHand());
-		cardToDiscard = player.getCardsInPlayersHand().get(chosenCardIndex);
+		cardToDiscard = selectCardFromList(cardInHand);
 		player.discardCard(cardToDiscard);
 		
 	}
@@ -420,44 +413,38 @@ public class PlayerGo {
 	}
 	
 	
+	//===========================================================
+	// selectObjectFromList functions
+	//===========================================================
 	
-	
-	
-	
-	private TileEnum selectTiles(ArrayList<TileEnum> tiles) {
-		System.out.println("Choose one of the following tiles:");
-		for (int i=0; i<tiles.size(); i++) {
-			System.out.println("Tile "+(i+1)+": "+tiles.get(i).toString());
+	private TileEnum selectTileFromList(ArrayList<TileEnum> listOfTileEnums) {
+		System.out.println("Choose a Tile Number:");
+		for (int i=0; i<listOfTileEnums.size(); i++) {
+			System.out.println(i+". "+listOfTileEnums.get(i).toString());
 		}
-		TileEnum chosenTile = tiles.get(  GetInput.getInstance().anInteger(1, tiles.size())-1 );
+		int chosenNumber = GetInput.getInstance().anInteger(0, listOfTileEnums.size()-1);
+		TileEnum chosenTile = listOfTileEnums.get(chosenNumber);
 		return chosenTile;
 	}
 	
-	
-	
-	private TileEnum selectTileFromList(ArrayList<TileEnum> listOfObjects) {
-		for (int i=0; i<listOfObjects.size(); i++) {
-			System.out.println("Tile "+(i)+": "+listOfObjects.get(i).toString());
+	private Player selectPlayerFromList(ArrayList<Player> listOfPlayers) {
+		System.out.println("Choose a player Number:");
+		for (int i=0; i<listOfPlayers.size(); i++) {
+			System.out.println(i+". "+listOfPlayers.get(i).getName().toString());
 		}
-		int chosenNumber = GetInput.getInstance().anInteger(0, listOfObjects.size()-1);
-		TileEnum chosenTile = listOfObjects.get(chosenNumber);
-		return chosenTile;
+		int chosenNumber = GetInput.getInstance().anInteger(0, listOfPlayers.size()-1);
+		Player chosenPlayer = listOfPlayers.get(chosenNumber);
+		return chosenPlayer;
 	}
 	
-	private int selectPlayerFromList(ArrayList<Player> listOfObjects) {
-		for (int i=0; i<listOfObjects.size(); i++) {
-			System.out.println("Tile "+(i)+": "+listOfObjects.get(i).toString());
+	private Card selectCardFromList(ArrayList<Card> listOfCards) {
+		System.out.println("Choose a Card Number:");
+		for (int i=0; i<listOfCards.size(); i++) {
+			System.out.println(i+". "+listOfCards.get(i).toString());
 		}
-		int chosenNumber = GetInput.getInstance().anInteger(0, listOfObjects.size()-1);
-		return chosenNumber;
-	}
-	
-	private int selectCardFromList(ArrayList<Card> listOfObjects) {
-		for (int i=0; i<listOfObjects.size(); i++) {
-			System.out.println("Tile "+(i)+": "+listOfObjects.get(i).toString());
-		}
-		int chosenNumber = GetInput.getInstance().anInteger(0, listOfObjects.size()-1);
-		return chosenNumber;
+		int chosenNumber = GetInput.getInstance().anInteger(0, listOfCards.size()-1);
+		Card chosenCard = listOfCards.get(chosenNumber);
+		return chosenCard;
 	}
 	
 
