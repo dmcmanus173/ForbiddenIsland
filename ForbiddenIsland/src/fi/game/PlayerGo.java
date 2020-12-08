@@ -133,27 +133,31 @@ public class PlayerGo {
 				System.out.println(tileEnum.toString()+" is now "+board.getTileWithName(tileEnum).getFloodStatus()+"!");
 			}
 			if(board.getTileWithName(tileEnum).isSunken()) {
-				//sunkenPlayersAtEndOfGo.addAll( board.getPlayersFromTile(tileEnum) );
-				//sunkenTilesAtEndOfGo.add(tileEnum);
-				if( !TreasureManager.getInstance().treasuresAreAvailableToCollect() ) {
-					System.out.println("An uncollected Treasure has sunk!");
-					gameOver = true; 
-				}
-				else if(board.getTileWithName(tileEnum) instanceof FoolsLandingTile) {
-					gameOver = true;
-				}
-				else {	
-					board.getPlayersFromTile(tileEnum).forEach(sunkPlayer -> {
-						if(!moveFromSunk(sunkPlayer)) {
-							gameOver = true;
-							return;
-						}
-					});
-				}
+				actOnSunkTile(tileEnum);
 			}
 	
 		});
 		System.out.println();
+	}
+	
+	private void actOnSunkTile(TileEnum tileEnum) {
+		Board board = Board.getInstance();
+		
+		if( !TreasureManager.getInstance().treasuresAreAvailableToCollect() ) {
+			System.out.println("An uncollected Treasure has sunk!");
+			gameOver = true; 
+		}
+		else if(board.getTileWithName(tileEnum) instanceof FoolsLandingTile) {
+			gameOver = true;
+		}
+		else {	
+			board.getPlayersFromTile(tileEnum).forEach(sunkPlayer -> {
+				if(!moveFromSunk(sunkPlayer)) {
+					gameOver = true;
+					return;
+				}
+			});
+		}
 	}
 	
 	private Boolean moveFromSunk(Player sunkPlayer) {
@@ -387,8 +391,25 @@ public class PlayerGo {
 	private void handleHelicopterLift() {
 		TileEnum tileToMoveTo;
 		ArrayList<TileEnum> tilesPlayersCanMoveTo = new ArrayList<TileEnum>();
-		//TODO for any player.
-		if(player.hasHelicopterLiftCard()) {
+		
+		// Get use of HelicopterLiftCard
+		Player playerWithHelicopterLift = null;
+		if(player.hasHelicopterLiftCard())
+			playerWithHelicopterLift = player;
+		else {
+			ArrayList<Player> otherPlayers = Players.getInstance().getPlayersExcept(player);
+			for(Player otherPlayer : otherPlayers) {
+				if(otherPlayer.hasHelicopterLiftCard()) {
+					playerWithHelicopterLift= otherPlayer;
+					break;
+				}
+			}
+		}
+		if(playerWithHelicopterLift == null)
+			System.out.println("None of the players have a HelicopterLift Card for "+player.getName()+" to use.");
+		
+		// Gotten use of a HelicopterLift Card
+		else {
 			System.out.println("Selecting players to move...");
 			ArrayList<Player> playersToMove = new ArrayList<>();
 			for (Player player : Players.getInstance().getPlayers()) {
@@ -403,12 +424,10 @@ public class PlayerGo {
 			} else {
 				tilesPlayersCanMoveTo = Board.getInstance().getUnsunkenTilesToMove();
 				tileToMoveTo = selectTileFromList(tilesPlayersCanMoveTo);
-				for(Player player : playersToMove) {
+				for(Player player : playersToMove)
 					player.move(tileToMoveTo);
-				}
+				playerWithHelicopterLift.didUseHelicopterLiftCard();
 			}
-		} else {
-			System.out.println(player.getName() + " does not have a helicopter lift card to use.");
 		}
 	}
 	
@@ -459,9 +478,9 @@ public class PlayerGo {
 	private TileEnum selectTileFromList(ArrayList<TileEnum> listOfTileEnums) {
 		System.out.println("Choose a Tile Number:");
 		for (int i=0; i<listOfTileEnums.size(); i++) {
-			System.out.println(i+". "+listOfTileEnums.get(i).toString());
+			System.out.println((i+1)+". "+listOfTileEnums.get(i).toString());
 		}
-		int chosenNumber = GetInput.getInstance().anInteger(0, listOfTileEnums.size()-1);
+		int chosenNumber = GetInput.getInstance().anInteger(1, listOfTileEnums.size())-1;
 		TileEnum chosenTile = listOfTileEnums.get(chosenNumber);
 		return chosenTile;
 	}
@@ -469,9 +488,9 @@ public class PlayerGo {
 	private Player selectPlayerFromList(ArrayList<Player> listOfPlayers) {
 		System.out.println("Choose a player Number:");
 		for (int i=0; i<listOfPlayers.size(); i++) {
-			System.out.println(i+". "+listOfPlayers.get(i).getName().toString());
+			System.out.println((i+1)+". "+listOfPlayers.get(i).getName().toString());
 		}
-		int chosenNumber = GetInput.getInstance().anInteger(0, listOfPlayers.size()-1);
+		int chosenNumber = GetInput.getInstance().anInteger(1, listOfPlayers.size())-1;
 		Player chosenPlayer = listOfPlayers.get(chosenNumber);
 		return chosenPlayer;
 	}
@@ -479,9 +498,9 @@ public class PlayerGo {
 	private Card selectCardFromList(ArrayList<Card> listOfCards) {
 		System.out.println("Choose a Card Number:");
 		for (int i=0; i<listOfCards.size(); i++) {
-			System.out.println(i+". "+listOfCards.get(i).toString());
+			System.out.println((i+1)+". "+listOfCards.get(i).toString());
 		}
-		int chosenNumber = GetInput.getInstance().anInteger(0, listOfCards.size()-1);
+		int chosenNumber = GetInput.getInstance().anInteger(1, listOfCards.size())-1;
 		Card chosenCard = listOfCards.get(chosenNumber);
 		return chosenCard;
 	}
