@@ -73,7 +73,7 @@ public class GameManager {
      */
     private void nextPlayersGoPos() {
     	if(playersGoPos == players.size()-1)
-    		playersGoPos = 1;
+    		playersGoPos = 0;
     	else
     		playersGoPos += 1;
     }
