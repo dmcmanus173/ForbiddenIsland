@@ -95,16 +95,14 @@ public class Hand {
      */
 	public void removeCard(Card card) {
 		
-		if (allCards.contains(card)) {
-			if(card instanceof SandbagCard) {
-			    sandbagCards.remove((SandbagCard) card);
-			} else if (card instanceof SandbagCard) {
-				helicopterLiftCards.remove((HelicopterLiftCard)card);
-			} else if (card instanceof TreasureCard) {
-				TreasureCard treasureCard = (TreasureCard) card;
-				TreasureEnum treasureType = (TreasureEnum) treasureCard.getName();
-				treasureCards.get(treasureType).remove(treasureCard);
-			}
+		if(card instanceof SandbagCard) {
+			sandbagCards.remove((SandbagCard) card);
+		} else if (card instanceof SandbagCard) {
+			helicopterLiftCards.remove((HelicopterLiftCard)card);
+		} else if (card instanceof TreasureCard) {
+			TreasureCard treasureCard = (TreasureCard) card;
+			TreasureEnum treasureType = (TreasureEnum) treasureCard.getName();
+			treasureCards.get(treasureType).remove(treasureCard);
 		} else {
 			throw new RuntimeException("Attempting to remove card that is not in players hand.");
 		}
@@ -174,7 +172,7 @@ public class Hand {
      * didUseHelicopterLiftCard method removes and discards a HelicopterLiftCard
      * that was just used by the player.
      */
-	public void didUseHelicopterLiftCard() {
+	public void removeHelicopterLiftCard() {
 		if (!helicopterLiftCards.isEmpty()) {
 			HelicopterLiftCard usedCard = helicopterLiftCards.get(0);
 			removeCard(usedCard);
@@ -188,13 +186,13 @@ public class Hand {
      * didUseSandbagCard method removes and discards a SandbagCard
      * that was just used by the player.
      */
-	public void didUseSandbagCard() {
-		if (!helicopterLiftCards.isEmpty()) {
-			HelicopterLiftCard usedCard = helicopterLiftCards.get(0);
+	public void removeSandbagCard() {
+		if (!sandbagCards.isEmpty()) {
+			SandbagCard usedCard = sandbagCards.get(0);
 			removeCard(usedCard);
 			discardCard(usedCard);
 		} else {
-			throw new RuntimeException("Attempting to use A HelicopterLiftCard that the player does not have.");
+			throw new RuntimeException("Attempting to use A SandBagCard that the player does not have.");
 		}
 	}
 	

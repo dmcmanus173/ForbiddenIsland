@@ -19,7 +19,6 @@ import fi.players.Player;
 import fi.players.Players;
 import fi.treasures.TreasureManager;
 import fi.watermeter.WaterMeter;
-import gameManager.GetInput;
 
 
 public class PlayerGo {
@@ -223,51 +222,62 @@ public class PlayerGo {
 	}
 	
 	private void handleMove() {
-		int chosenTileIndex;
+		TileEnum chosenTile;
 		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
-		tilesPlayerCanMoveTo.addAll( Board.getInstance().getTilesAroundTile(player.getLocation(), true) );
+		Board board = Board.getInstance();
+		tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(player.getLocation(), true));
 		if(tilesPlayerCanMoveTo.isEmpty()) {
 			System.out.println(player.getName()+" is unable to move.");
-			// TODO: AUTOMATIC GAME OVER -> NOTIFY GAME MANAGER.
-			
 			return;
 		}
-		chosenTileIndex = selectTileFromList(tilesPlayerCanMoveTo);
-		player.move(tilesPlayerCanMoveTo.get(chosenTileIndex));
+		chosenTile = selectTileFromList(tilesPlayerCanMoveTo);
+		player.move(chosenTile);
 		System.out.println(player.getName()+" has moved to "+player.getLocation());
 		decreaseRemainingActions();
 	}
-
-	private void handleShoreUp() {
-		int chosenTileIndex;
-		ArrayList<TileEnum> tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
-		tilesPlayerCanShoreUp.addAll( Board.getInstance().getTilesToShoreUpAround(player.getLocation()));
-		if(tilesPlayerCanShoreUp.isEmpty()) {
-			System.out.println("There are no flooded tiles adjacent to " + player.getName() + "'s current location that can be shored up.");
-			return;
+	
+	/**
+	 * doAShoreUp method is a function to be called by handleShoreUp.
+	 * It will facilitate the shoring-up of one tile near player.
+	 * @return Boolean true if it has shoredUp a tile. Else false.
+	 */
+	private Boolean doAShoreUp() {
+		if(!player.hasSandBagCard()) {
+			System.out.println(player.getName() + " does not have a SandBag card to use.");
+			return false;
 		}
-		System.out.println("pick a tile to shore up.");
-		chosenTileIndex = selectTileFromList(tilesPlayerCanShoreUp);
-		Board.getInstance().shoreUpTile(tilesPlayerCanShoreUp.get(chosenTileIndex));
-		
-		if(player.getRole() == AdventurerEnum.ENGINEER) {
-			tilesPlayerCanShoreUp.remove(chosenTileIndex);
+		else {
+			Board board = Board.getInstance();
+			TileEnum chosenTile;
+			ArrayList<TileEnum> tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
+			tilesPlayerCanShoreUp.addAll(board.getTilesToShoreUpAround(player.getLocation()));
 			if(tilesPlayerCanShoreUp.isEmpty()) {
-				System.out.println(player.getName() + "is an Engineer and can shore two tiles for the cost of 1. But there are no more unflooded adjacent tiles.");
-				return;
+				System.out.println(" There are no flooded tiles on the board!");
+				return false;
 			}
-			System.out.println(player.getName() + "is an Engineer and can shore two tiles for the cost of 1. Would you like to?");
+			chosenTile = selectTileFromList(tilesPlayerCanShoreUp);
+			player.shoreUp(chosenTile);
+			return true;
+		}
+	}
+
+	/**
+	 * handleShoreUp is the handle to be called as a player action. It will call doAShoreUp, to shore up a tile, if possible.
+	 * If the player is an Engineer, they can shoreUp 2 tiles for one action. This function will facilitate this.
+	 */
+	private void handleShoreUp() {
+		Boolean didShoreUp = doAShoreUp();
+		if(player.getRole() == AdventurerEnum.ENGINEER && didShoreUp) {
+			System.out.println(player.getName() + " is an Engineer and can shoreUp two tiles for the cost of 1 action.");
 			System.out.println("would you like to shore up another tile?");
 			System.out.println("1. Yes.");
-			System.out.println("2. No.");
-			if( GetInput.getInstance().anInteger(1, 2)==1 ) {
-				chosenTileIndex = selectTileFromList(tilesPlayerCanShoreUp);
-				Board.getInstance().shoreUpTile(tilesPlayerCanShoreUp.get(chosenTileIndex));
+			System.out.println("2. No. ");
+			if(GetInput.getInstance().anInteger(1, 2) == 1) {
+				doAShoreUp();
 			}
-				
 		}
-		
-		decreaseRemainingActions();
+		if(didShoreUp)
+			decreaseRemainingActions();
 	}
 
 	private void handleGiveTreasureCard() {
@@ -341,10 +351,9 @@ public class PlayerGo {
 	}
 	
 	private void handleHelicopterLift() {
-		int indexOdTileToMoveTo;
-		ArrayList<TileEnum> tilesPlayersCanMoveTo = new ArrayList<TileEnum>();
 		TileEnum tileToMoveTo;
-		
+		ArrayList<TileEnum> tilesPlayersCanMoveTo = new ArrayList<TileEnum>();
+		//TODO for any player.
 		if(player.hasHelicopterLiftCard()) {
 			System.out.println("Selecting players to move...");
 			ArrayList<Player> playersToMove = new ArrayList<>();
@@ -352,15 +361,14 @@ public class PlayerGo {
 				System.out.println("Would you like to move "+player.getName()+" with Helicopter Lift?");
 				System.out.println("1. Yes.");
 				System.out.println("2. No.");
-				if( GetInput.getInstance().anInteger(1, 2) == 1 )
+				if( GetInput.getInstance().anInteger(1,2) == 1 )
 					playersToMove.add(player);
 			}
 			if(playersToMove.isEmpty()) {
 				System.out.println("Didn't select any players to move. Won't use the Helicopter Lift Card.");
 			} else {
 				tilesPlayersCanMoveTo = Board.getInstance().getUnsunkenTilesToMove();
-				indexOdTileToMoveTo = selectTileFromList(tilesPlayersCanMoveTo);
-				tileToMoveTo = tilesPlayersCanMoveTo.get(indexOdTileToMoveTo);
+				tileToMoveTo = selectTileFromList(tilesPlayersCanMoveTo);
 				for(Player player : playersToMove) {
 					player.move(tileToMoveTo);
 				}
@@ -368,23 +376,6 @@ public class PlayerGo {
 		} else {
 			System.out.println(player.getName() + " does not have a helicopter lift card to use.");
 		}
-	}
-
-	private void handleSandbag() {
-		
-		if(!player.hasSandBagCard()) {
-			System.out.println(player.getName() + " does not have a sanbag card to use.");
-		}
-		
-		int chosenTileIndex;
-		ArrayList<TileEnum> tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
-		tilesPlayerCanShoreUp.addAll( Board.getInstance().getAllFloodedTiles());
-		if(tilesPlayerCanShoreUp.isEmpty()) {
-			System.out.println(" There are no flooded tiles on the board!");
-			return;
-		}
-		chosenTileIndex = selectTileFromList(tilesPlayerCanShoreUp);
-		Board.getInstance().shoreUpTile(tilesPlayerCanShoreUp.get(chosenTileIndex));
 	}
 	
 	private void showTreasureCards() {
@@ -407,8 +398,12 @@ public class PlayerGo {
 		
 	}
 	
+	/**
+	 * showClaimedTreasures method will show what/number of treasures been claimed so far.
+	 */
 	private void showClaimedTreasures() {
-		System.out.println( TreasureManager.getInstance().toString());
+		TreasureManager treasureManager = TreasureManager.getInstance();
+		System.out.println(treasureManager.toString());
 	}
 
 	/**
@@ -440,12 +435,13 @@ public class PlayerGo {
 	
 	
 	
-	private int selectTileFromList(ArrayList<TileEnum> listOfObjects) {
+	private TileEnum selectTileFromList(ArrayList<TileEnum> listOfObjects) {
 		for (int i=0; i<listOfObjects.size(); i++) {
 			System.out.println("Tile "+(i)+": "+listOfObjects.get(i).toString());
 		}
 		int chosenNumber = GetInput.getInstance().anInteger(0, listOfObjects.size()-1);
-		return chosenNumber;
+		TileEnum chosenTile = listOfObjects.get(chosenNumber);
+		return chosenTile;
 	}
 	
 	private int selectPlayerFromList(ArrayList<Player> listOfObjects) {

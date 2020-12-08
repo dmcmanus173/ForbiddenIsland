@@ -1,7 +1,7 @@
 package main;
 
 import fi.game.GameManager;
-import gameManager.GetInput;
+import fi.game.GetInput;
 import setup.MainSetup;
 
 public class Main {

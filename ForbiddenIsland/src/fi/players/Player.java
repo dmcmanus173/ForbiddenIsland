@@ -48,6 +48,7 @@ public class Player {
 	
 	public void shoreUp(TileEnum tileToShoreUp) {
 		Board.getInstance().shoreUpTile(tileToShoreUp);
+		playerHand.removeSandbagCard();
 	}
 	
 	//===========================================================
@@ -93,13 +94,13 @@ public class Player {
 		return playerHand.containsHelicopterLiftCard();
 	}
 	
-	
+	// Following two functions useless. Replace with direct calls from shoreUp.
 	public void didUseSandBagCard() {
-		playerHand.didUseSandbagCard();
+		playerHand.removeSandbagCard();
 	}
 	
 	public void didUseHelicopterLiftCard() {
-		playerHand.didUseHelicopterLiftCard();
+		playerHand.removeHelicopterLiftCard();
 	}
 	
 	public String cardsToString() {

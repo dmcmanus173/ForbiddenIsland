@@ -2,15 +2,11 @@ package fi.game;
 
 import java.util.ArrayList;
 
-import fi.cards.WaterRiseCard;
 import fi.enums.TileEnum;
 import fi.board.Board;
-import fi.cards.Card;
 import fi.cards.FloodDeck;
-import fi.cards.TreasureDeck;
 import fi.players.Player;
 import fi.players.Players;
-import fi.watermeter.WaterMeter;
 
 /**
  * Class for GameManager of Forbidden Island.
@@ -76,7 +72,7 @@ public class GameManager {
      * nextPlayersGo method gets the Player number for the next Player to take a turn.
      */
     private void nextPlayersGoPos() {
-    	if(playersGoPos == players.size())
+    	if(playersGoPos == players.size()-1)
     		playersGoPos = 1;
     	else
     		playersGoPos += 1;
@@ -92,6 +88,7 @@ public class GameManager {
     		nextPlayersGoPos();
     		playerToGo = players.get(playersGoPos);
     	}
+    	System.out.println("Game over!"); //TODO is it okay to print here? Currently this, PlayerGo, setup have print/input
     }
     
 }

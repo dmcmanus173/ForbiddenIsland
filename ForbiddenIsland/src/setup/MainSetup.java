@@ -3,7 +3,7 @@ package setup;
 import fi.board.Board;
 import fi.cards.FloodDeck;
 import fi.game.GameManager;
-import gameManager.GetInput;
+import fi.game.GetInput;
 import fi.watermeter.*;
 import fi.cards.TreasureDeck;
 

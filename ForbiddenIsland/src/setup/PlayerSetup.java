@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import fi.enums.AdventurerEnum;
-import gameManager.GetInput;
+import fi.game.GetInput;
 import fi.players.Players;
 
 /**
