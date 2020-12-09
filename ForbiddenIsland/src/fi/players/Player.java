@@ -47,7 +47,6 @@ public class Player {
 	
 	public void shoreUp(TileEnum tileToShoreUp) {
 		Board.getInstance().shoreUpTile(tileToShoreUp);
-		playerHand.removeSandbagCard();
 	}
 	
 	//===========================================================
