@@ -36,7 +36,7 @@ public class TreasureManager {
 	// Variable for Game Settings
 	//===========================================================
 	private final int NUM_TREASURES = TreasureEnum.values().length;
-	private final int NUM_TREASURE_CARDS_TO_COLLECT_TREASURE = 5;
+	private final int NUM_TREASURE_CARDS_TO_COLLECT_TREASURE = 4;
 	private final int MAX_NUM_OF_TREASURE_TILES_TO_SINK = 2;
 	
 	//===========================================================
@@ -109,7 +109,7 @@ public class TreasureManager {
 	private void discardTreasueCardsFromPlayersHand(Hand playerHand, TreasureEnum treasureType) {
 		ArrayList<TreasureCard> treasureCardsToDiscard = playerHand.getCardsForTreasure(treasureType);
 		for(int i=0; i < NUM_TREASURE_CARDS_TO_COLLECT_TREASURE; i++) {
-			playerHand.discardCard(treasureCardsToDiscard.get(i));
+			playerHand.discardCard(treasureCardsToDiscard.get(0));
 		}
 	}
 	
@@ -170,14 +170,6 @@ public class TreasureManager {
 		numSunkenTilesForTreasure.replace(treasureType, currentNumberOfSunkenTreasureTilesForTreasure + 1);
 	}
 	
-//	public int getNumOfCardsToCollectTreasure() {
-//		return NUM_TREASURE_CARDS_TO_COLLECT_TREASURE;
-//	}
-	
-	
-	
-
-	
 	/**
 	 * printContents method prints what treasures have been claimed!
 	 */
@@ -185,17 +177,16 @@ public class TreasureManager {
 	public String toString() {
 		StringBuilder collectedTreasuresString = new StringBuilder("");
 		if(collectedTreasures.size() == 0)
-			collectedTreasuresString.append("No treasures have been collected.");
+			collectedTreasuresString.append("No treasures have been collected.\n");
 		else {
-			collectedTreasuresString.append("There following treasures have been collected: { ");
+			collectedTreasuresString.append("There following treasures have been collected:\n");
 			collectedTreasures.forEach((treasureType) -> {
 				System.out.println( treasureType );
-				collectedTreasuresString.append(treasureType.toString() + ", ");
+				collectedTreasuresString.append(treasureType.toString() + "\n");
 			});
-			collectedTreasuresString.append(" }");
 			
 		}
-		collectedTreasuresString.append("\nThere are "+(NUM_TREASURES-collectedTreasures.size())+" treasures left on the island.\n");
+		collectedTreasuresString.append("There are "+(NUM_TREASURES-collectedTreasures.size())+" treasures left on the island.\n");
 		return collectedTreasuresString.toString();
 	}
 	 

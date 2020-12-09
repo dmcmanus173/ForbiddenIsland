@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import fi.board.Board;
 import fi.board.FoolsLandingTile;
+import fi.board.TreasureTile;
 import fi.cards.Card;
 import fi.cards.FloodDeck;
 import fi.cards.TreasureDeck;
@@ -179,11 +180,13 @@ public class PlayerGo {
 	}
 	
 	/**
-	 * doAShoreUp method is a function to be called by handleShoreUp.
+	 * handleSandBag method is a function to be called by handleShoreUp.
 	 * It will facilitate the shoring-up of one tile near player.
 	 * @return Boolean true if it has shoredUp a tile. Else false.
 	 */
-	private Boolean doAShoreUp() {
+	//TODO comments
+	//TODO change to picking of player with sandbag
+	private void handleSandBag() {
 		Player playerWithSandbag = null;
 		if(player.hasSandBagCard()) {
 			playerWithSandbag = player;
@@ -197,11 +200,33 @@ public class PlayerGo {
 				}
 			}
 		}
-		if(playerWithSandbag == null) {
+		if(playerWithSandbag == null) { 
 			System.out.println("None of the players have a SandBag Card for "+player.getName()+" to use.");
-			return false;
+			return;
 		}
 	
+		System.out.println(playerWithSandbag.getName()+"'s Sandbag card is being used.");
+		Board board = Board.getInstance();
+		TileEnum chosenTile;
+		ArrayList<TileEnum> tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
+		tilesPlayerCanShoreUp.addAll(board.getAllFloodedTiles());
+		if(tilesPlayerCanShoreUp.isEmpty()) { 
+			System.out.println(" There are no flooded tiles on the board!");
+			return;
+		}
+		
+		chosenTile = selectTileFromList(tilesPlayerCanShoreUp);
+		playerWithSandbag.shoreUp(chosenTile);
+		playerWithSandbag.didUseSandBagCard();
+		System.out.println(chosenTile.toString()+" is now "+board.getTileWithName(chosenTile).getFloodStatus().toString()+"!");
+	}
+	
+	/**
+	 * doAShoreUp method is a function to be called by handleShoreUp.
+	 * It will facilitate the shoring-up of one tile near player.
+	 * @return Boolean true if it has shoredUp a tile. Else false.
+	 */
+	private Boolean doAShoreUp() {
 		Board board = Board.getInstance();
 		TileEnum chosenTile;
 		ArrayList<TileEnum> tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
@@ -211,7 +236,7 @@ public class PlayerGo {
 			return false;
 		}
 		chosenTile = selectTileFromList(tilesPlayerCanShoreUp);
-		playerWithSandbag.shoreUp(chosenTile);
+		player.shoreUp(chosenTile);
 		System.out.println(chosenTile.toString()+" is now "+board.getTileWithName(chosenTile).getFloodStatus().toString()+"!");
 		return true;
 	}
@@ -222,7 +247,7 @@ public class PlayerGo {
 	 */
 	private void handleShoreUp() {
 		Boolean didShoreUp = doAShoreUp();
-		if(player.getRole() == AdventurerEnum.ENGINEER && didShoreUp) {
+		if(player.getRole() == AdventurerEnum.ENGINEER && !Board.getInstance().getTilesToShoreUpAround(player.getLocation()).isEmpty()) {
 			System.out.println(player.getName() + " is an Engineer and can shoreUp two tiles for the cost of 1 action.");
 			System.out.println("would you like to shore up another tile?");
 			System.out.println("1. Yes.");
@@ -288,17 +313,16 @@ public class PlayerGo {
 	private void handleCaptureTreasure() {
 		if(player.canCollectTreasure()) {
 			TreasureEnum collectedTreasure = player.collectTreasure();
-			System.out.println("Congradulations. " + player.getName() + "has just collected the " + collectedTreasure.toString() + " treasure.");
+			System.out.println("Congratulations. " + player.getName() + " has just collected " + collectedTreasure.toString() + ".");
 			decreaseRemainingActions();
 			if(TreasureManager.getInstance().didClaimAllTreasures()) {
-				System.out.println("All treasures have now been collected. Everyone should make thir way to the Fool's Landing Tile and escape with a Helicopter Lift Card!");
+				System.out.println("All treasures have now been collected. Everyone should make their way to Fool's Landing to escape with a Helicopter Lift Card!");
 			} else {
 				System.out.println("Only "+ TreasureManager.getInstance().getNumOfRemainingTreasuresToCollect() + " more treasures to collect before everyone can escape the island.");
 			}
-		} else {
-			// TODO: May need to inform player why not.
+		} 
+		else 
 			System.out.println(player.getName() + " can not collect a treasure.");
-		}
 		
 	}
 	
