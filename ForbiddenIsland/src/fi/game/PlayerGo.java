@@ -68,7 +68,8 @@ public class PlayerGo {
 	 */
 	public boolean doRound() {
 		doActions();
-		drawCardsFromTreasureDeck();
+		if(!gameOver) 
+			drawCardsFromTreasureDeck();
 		if(!gameOver) 
 			drawCardsFromFloodDeck();
 		if(gameOver)
@@ -102,6 +103,9 @@ public class PlayerGo {
 			showActions();
 			actionNumber = GetInput.getInstance().anInteger(MIN_ACTION_NUMBER, MAX_ACTION_NUMBER);
 			handleAction(actionNumber);
+			if(gameOver) {
+				goHasEnded = true;
+			}
 		}
 		
 	}
@@ -331,6 +335,10 @@ public class PlayerGo {
 			}
 			if(playersToMove.isEmpty()) {
 				System.out.println("Didn't select any players to move. Won't use the Helicopter Lift Card.");
+			} else if(playersDidWin(playersToMove)) {
+				System.out.println("Congradulations! You have succsesfully escaped the Island with all of the Treasures. You have won the game!!!");
+				gameOver = true;
+				return;
 			} else {
 				tilesPlayersCanMoveTo = Board.getInstance().getUnsunkenTilesToMove();
 				tileToMoveTo = selectTileFromList(tilesPlayersCanMoveTo);
@@ -339,6 +347,34 @@ public class PlayerGo {
 				playerWithHelicopterLift.didUseHelicopterLiftCard();
 			}
 		}
+	}
+	
+	/**
+	 * playersDidWin is called only when players use they're helicopter lift card.
+	 * The game is won if all players are lifted up from Fools Island Tile 
+	 * and all treasures are collected.
+	 * @param ArrayList<Player> indicating the players being moved with the helicopter lift.
+	 * @return boolean indicating if the players met the aditional criteria to win.
+	 */
+	private boolean playersDidWin(ArrayList<Player> players) {
+		int numPlayersInGame = Players.getInstance().getNumPlayers();
+		
+		if(players.size() != numPlayersInGame) {
+			return false;
+		}
+		
+		if(!TreasureManager.getInstance().didClaimAllTreasures()) {
+			return false;
+		}
+		
+		for(Player player: players) {
+			if(player.getLocation() != TileEnum.FOOLS_LANDING) {
+				return false;
+			}
+		}
+		
+		return true;
+		
 	}
 	
 	/**

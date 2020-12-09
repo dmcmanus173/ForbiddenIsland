@@ -280,13 +280,13 @@ public class Board {
      * @param Tile the specified tile.
      * @return ArrayList<Tile> containing the player movement direction and the corresponding tile in that direction.
      */
-    public ArrayList<Tile> getNearestTilesToTile(Tile tile) {
-    	ArrayList<Tile> tilesPlayerCanMoveTo = new ArrayList<Tile>();
+    public ArrayList<TileEnum> getNearestTilesToTile(TileEnum tileName) {
+    	ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
     	Optional<Tile> tileAtDirection;
     	int xPos, yPos, xMin, yMin, xMax, yMax;
     	for(int radius = 1; radius< NUM_COLS; radius++) {
     		System.out.println("radius is now " + radius);
-    		int[] currentPos = islandTilesNamePositionMap.get(tile.getTileName());
+    		int[] currentPos = islandTilesNamePositionMap.get(tileName);
     		xPos = currentPos[0];
         	yPos = currentPos[1];
         	
@@ -304,7 +304,7 @@ public class Board {
             			posWithinRadius[1] = j;
         				tileAtDirection = getTileAtPosition(posWithinRadius);
             			if(tileAtDirection.isPresent() && tileAtDirection.get().isSunken() == false) {
-        		    		tilesPlayerCanMoveTo.add(tileAtDirection.get());
+        		    		tilesPlayerCanMoveTo.add(tileAtDirection.get().getTileName());
         		    	}
         			}
             	}
