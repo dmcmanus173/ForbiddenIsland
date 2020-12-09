@@ -17,8 +17,6 @@ public enum TreasureEnum {
 	
 	private final String name;
 	
-	
-	
 	/**
      * constructor for Treasures taking in the name associated 
      * with the treasure that will be printed on the board.
@@ -27,7 +25,6 @@ public enum TreasureEnum {
 	private TreasureEnum(String str) {
 		name = str; 
     }
-	
 	
 	/**
      * gets name relating to treasure

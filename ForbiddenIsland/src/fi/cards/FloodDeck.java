@@ -14,24 +14,18 @@ import fi.watermeter.WaterMeter;
  * @date    13/11/2020
  * @version 0.1
  */
-
-
 public class FloodDeck {
-	
 	//===========================================================
 	// Variable Setup
 	//===========================================================
 	private static FloodDeck floodDeck;
 	private DeckSorter floodDeckSorter;
 	
-	
 	//===========================================================
 	// Variable for Game Settings
 	//===========================================================
-	
 	private final int CARDS_PER_ISLAND_TILE = 2;
 	private final int CARDS_FOR_START_OF_GAME = 6;
-	
 	
 	//===========================================================
     // Get Instance of Singleton
@@ -47,7 +41,6 @@ public class FloodDeck {
         return floodDeck;
     }
     
-    
     //===========================================================
   	// Constructor
   	//===========================================================
@@ -57,14 +50,12 @@ public class FloodDeck {
   	public FloodDeck() {		
   		Stack<Card> cards = new Stack<Card>();
   		for (TileEnum tileName : TileEnum.values()) { 
-  			for (int i = 0; i<CARDS_PER_ISLAND_TILE; i++) {
+  			for (int i = 0; i<CARDS_PER_ISLAND_TILE; i++)
   				cards.add(  new FloodCard(tileName) );
-  			} 
   		}
   		floodDeckSorter = new DeckSorter("Flood Deck Sorter", cards);
   	}
   	
- 
   	/**
      * getTilesToFlood method returns the names of the tiles
      * on each of the flood cards that are drawn. The cards 
@@ -84,9 +75,8 @@ public class FloodDeck {
 		} 
   		return tilesToFlood;
   	}
-  	
-  	
-  	
+  
+  	/*
   	// class level test
   	public static void main(String[] args) {
 		
@@ -102,8 +92,8 @@ public class FloodDeck {
   			tilesToFlood = floodDeck.getTilesToFlood(false);
   			System.out.println(tilesToFlood);
 		} 
-  		
-		
+
 	}
+	*/
 
 }

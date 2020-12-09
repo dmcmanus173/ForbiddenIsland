@@ -33,7 +33,7 @@ public class FoolsLandingTile extends Tile {
 	@Override
 	public void addPlayerToTile(Player player) {
 		super.addPlayerToTile(player);
-		//loop throgh players and check if they have a helicopter lift card. If they do notify game manager			
+		//loop through players and check if they have a helicopter lift card. If they do notify game manager			
 	}
 	
 

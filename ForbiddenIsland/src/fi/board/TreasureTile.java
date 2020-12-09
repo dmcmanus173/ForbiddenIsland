@@ -36,19 +36,17 @@ public class TreasureTile extends Tile {
 	}
 	
 	private void setTreasure() {
-		if(tileName == TileEnum.TEMPLE_OF_THE_MOON || tileName == TileEnum.TEMPLE_OF_THE_SUN) {
+		if(tileName == TileEnum.TEMPLE_OF_THE_MOON     || tileName == TileEnum.TEMPLE_OF_THE_SUN)
 			treasureType = TreasureEnum.THE_EARTH_STONE;
-		} else if(tileName == TileEnum.WHISPERING_GARDEN || tileName == TileEnum.HOWLING_GARDEN) {
+		else if(tileName == TileEnum.WHISPERING_GARDEN || tileName == TileEnum.HOWLING_GARDEN)
 			treasureType = TreasureEnum.THE_STATUE_OF_WIND;
-		} else if(tileName == TileEnum.CAVE_OF_EMBERS || tileName == TileEnum.CAVE_OF_SHADOWS) {
+		else if(tileName == TileEnum.CAVE_OF_EMBERS    || tileName == TileEnum.CAVE_OF_SHADOWS)
 			treasureType = TreasureEnum.THE_CRYSTAL_OF_FIRE;
-		} else if(tileName == TileEnum.CORAL_PALACE || tileName == TileEnum.TIDAL_PALACE) {
+		else if(tileName == TileEnum.CORAL_PALACE      || tileName == TileEnum.TIDAL_PALACE)
 			treasureType = TreasureEnum.THE_OCEANS_CHALICE;
-		} else {
+		else
 			throw new RuntimeException("The given tile name is not a Treasure Tile");
-		}
 	}
-	
 	
 	//===========================================================
 	// Public Getters
@@ -61,9 +59,8 @@ public class TreasureTile extends Tile {
 		return treasureType;
 	}
 	
-	
 	/**
-    * toString method returns relevant information about treasure tiletile
+    * toString method returns relevant information about treasure tile tile
     * that will be displayed to players during the game.
     * @return String treasure tile info.
     */
@@ -74,7 +71,6 @@ public class TreasureTile extends Tile {
 		treasureTileString.append("\n\t");
 		treasureTileString.append(treasureType + " can be collected here.");
 		return treasureTileString.toString();
-		
 	}
 	
 	@Override

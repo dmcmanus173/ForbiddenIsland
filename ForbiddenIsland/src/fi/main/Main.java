@@ -9,7 +9,7 @@ public class Main {
 	public static void main(String[] args) {
 		new MainSetup();
 		GameManager.getInstance().playGame();
-		GetInput.getInstance().endInput();
+		GetInput.getInstance().endInput(); // Game is fully over. No longer will receive any inputs.
 	}
 
 }

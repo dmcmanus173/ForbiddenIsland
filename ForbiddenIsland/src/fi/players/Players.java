@@ -63,8 +63,6 @@ public class Players {
     	numPlayers++;
     }
     
-	
-    
 	/**
 	 * removeAllPlayers will remove all players from the listPlayers
 	 */
@@ -72,8 +70,6 @@ public class Players {
     	listOfPlayers.removeAll(listOfPlayers);
     	numPlayers = 0;
     }
-    
-    
     
 	/**
 	 * getPlayers will retrieve Player i.
@@ -83,6 +79,11 @@ public class Players {
     	return listOfPlayers;
     }
     
+    /**
+     * getPlayersExcept gets players except for player
+     * @param player
+     * @return
+     */
     public ArrayList<Player> getPlayersExcept(Player player) {
     	ArrayList<Player> otherPlayers = new ArrayList<Player>();
     	listOfPlayers.forEach((playerInList) -> {
@@ -92,8 +93,6 @@ public class Players {
     	});
     	return otherPlayers;
     }
-    
-    
     
 	/**
 	 * toString will return list of players, with respect to Player number.

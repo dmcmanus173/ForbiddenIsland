@@ -10,7 +10,6 @@ import fi.enums.SingleUseGameCardEnum;
 * @date    27/10/2020
 * @version 0.1
 */
-
 public class WaterRiseCard extends Card {
 	
 	//===========================================================

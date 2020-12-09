@@ -40,11 +40,19 @@ public class Player {
 	//===========================================================
 	// Functions for Board Interactions
 	//===========================================================
-	
+	/**
+	 * move player to destination
+	 * @param destination, where the player is to move to.
+	 */
 	public void move(TileEnum destination) {
 		Board.getInstance().movePlayer(this, destination);
+		location = destination;
 	}
 	
+	/**
+	 * shoreUp method is used to shoreUp tileEnum tileToShoreUp
+	 * @param tileToShoreUp
+	 */
 	public void shoreUp(TileEnum tileToShoreUp) {
 		Board.getInstance().shoreUpTile(tileToShoreUp);
 	}
@@ -52,7 +60,6 @@ public class Player {
 	//===========================================================
 	// Functions for Treasure Cards Interactions
 	//===========================================================
-	
 	/**
 	 * collectTreasureCard method is used to let a player receive a treasure Card.
 	 * @param Card to add to players hand.
@@ -62,14 +69,13 @@ public class Player {
 	}
 	
 	public void giveTreasureCard(Player otherPlayer, Card card) {
-		if(otherPlayer.handIsFull()) {
+		if(otherPlayer.handIsFull())
 			throw new RuntimeException("Attemting to give card to player but player's hand is full.");
-		} else {
+		else {
 			playerHand.removeCard(card); // removes card from players hand before giving it to other player.
 			otherPlayer.collectTreasureCard(card);
 		}
 	}
-	
 	
 	/**
 	 * discardCard method will remove a treasure card from player's hand.
@@ -87,12 +93,10 @@ public class Player {
 		return playerHand.containsSandbagCard();
 	}
 	
-	
 	public boolean hasHelicopterLiftCard() {
 		return playerHand.containsHelicopterLiftCard();
 	}
 	
-	// Following two functions useless. Replace with direct calls from shoreUp.
 	public void didUseSandBagCard() {
 		playerHand.removeSandbagCard();
 	}
@@ -115,16 +119,15 @@ public class Player {
 		return TreasureManager.getInstance().canCollectTreasure(playerHand, location);
 	}
 	
-	
 	public TreasureEnum collectTreasure() {
 		if(location.hasTreasure()) {
 			 TreasureTile treasureTile = (TreasureTile) Board.getInstance().getTileWithName(location);
 			 TreasureEnum treasureType = treasureTile.getTreasureType();
 			 TreasureManager.getInstance().claimTreasure(playerHand, treasureType);
 			 return treasureType;
-		 } else {
+		 } 
+		else
 			 throw new RuntimeException("Player is attempting to collect a treasure on a tile that is not the treasure tile.");
-		 }
 	}
 
 	//===========================================================
@@ -156,10 +159,6 @@ public class Player {
 	
 	public ArrayList<Card> getCardsInPlayersHand() {
 		return playerHand.getCards();
-	}
-	
-	public void setLocation(TileEnum newLocation) {
-		location = newLocation;
 	}
 	
 	/**

@@ -14,6 +14,7 @@ import fi.cards.TreasureDeck;
  * @date    07/12/2020
  * @version 0.2
  */
+@SuppressWarnings("unused")
 public class MainSetup {
 	
 	//===========================================================
@@ -79,7 +80,7 @@ public class MainSetup {
 	 * GetInput setup
 	 */
 	private void getInputSetup() {
-		@SuppressWarnings("unused")
+		
 		GetInput getInput = GetInput.getInstance();
 	}
 	
@@ -100,7 +101,6 @@ public class MainSetup {
 	 * FloodDeck setup
 	 */
 	private void floodDeckSetup() {
-		@SuppressWarnings("unused")
 		FloodDeck floodDeck = FloodDeck.getInstance();
 	}
 	
@@ -108,16 +108,13 @@ public class MainSetup {
 	 * Board setup
 	 */
 	private void boardSetup() {
-		@SuppressWarnings("unused")
 		Board board = Board.getInstance();
-		//System.out.println(board.toString());
 	}
 	
 	/**
 	 * TreasureDeck setup
 	 */
 	private void treasureDeckSetup() {
-		@SuppressWarnings("unused")
 		TreasureDeck treasureDeck = TreasureDeck.getInstance();
 	}
 	
@@ -125,7 +122,6 @@ public class MainSetup {
 	 * GameManager setup
 	 */
 	private void gameManagerSetup() {
-		@SuppressWarnings("unused")
 		GameManager gameManager = GameManager.getInstance();
 	}
 	

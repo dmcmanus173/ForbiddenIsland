@@ -14,16 +14,13 @@ import java.util.Collections;
  * @version 0.1
  */
 public class DeckSorter {
-	
 	//===========================================================
 	// Variable Setup
 	//===========================================================
 	private String name;
 	private Stack<Card> cardDeck;
 	private Stack<Card> discardPile;
-	
-	
-	
+
 	//===========================================================
   	// Constructor
   	//===========================================================
@@ -37,7 +34,6 @@ public class DeckSorter {
 		shuffleCardDeck();
 	}
 	
-	
 	/**
     * drawCard method draws a card from the Deck sorter. If the 
     * main deck runs out of cards, the deck is reset using the 
@@ -45,15 +41,14 @@ public class DeckSorter {
     * @return Card the card that is drawn from the deck
     */
 	public Card drawCard() {
-		if(cardDeck.size() != 0) {
+		if(!cardDeck.isEmpty()) {
 			return cardDeck.pop();
-		} else if(discardPile.size() !=0) {
+		} else if(!discardPile.isEmpty()) {
 			resetCardDeck();
 			return cardDeck.pop();
 		}
 		throw new RuntimeException("Both card deck and discard pile are empty in " + name + ".");
 	}
-	
 	
 	/**
     * discardCard method returns a card to the discard pile.
@@ -83,6 +78,4 @@ public class DeckSorter {
 		Collections.shuffle(cardDeck);
 	}
 	
-	
-
 }

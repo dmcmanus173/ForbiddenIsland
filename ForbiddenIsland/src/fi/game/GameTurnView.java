@@ -3,8 +3,6 @@ package fi.game;
 import java.util.ArrayList;
 
 import fi.board.Board;
-import fi.board.FoolsLandingTile;
-import fi.board.TreasureTile;
 import fi.cards.Card;
 import fi.cards.FloodDeck;
 import fi.cards.TreasureDeck;
@@ -17,23 +15,28 @@ import fi.players.Players;
 import fi.treasures.TreasureManager;
 import fi.watermeter.WaterMeter;
 
-
-public class PlayerGo {
-	
+/**
+ * Class for GameTurnView of Forbidden Island.
+ * 
+ * @author  Demi Oke and Daniel McManus
+ * @date    09/12/2020
+ * @version 0.1
+ */
+public class GameTurnView {
 	//===========================================================
 	// Variable Setup
 	//===========================================================
 	private Player player;
 	private int remainingActions;
-	private boolean goHasEnded;
+	private boolean turnHasEnded;
 	private boolean gameOver;
 	
 	//===========================================================
 	// Variable for Game Settings
 	//===========================================================
 	private final int MAX_ACTIONS_PER_GO = 3;
-	private final int MIN_ACTION_NUMBER = 1;
-	private final int MAX_ACTION_NUMBER = 9;
+	private final int MIN_ACTION_NUMBER  = 0;
+	private final int MAX_ACTION_NUMBER  = 9;
 	
 	//===========================================================
 	// Constructor
@@ -41,10 +44,9 @@ public class PlayerGo {
 	/**
 	 * Constructor for PlayerGo object.
 	 */
-	public PlayerGo(Player player) {
+	public GameTurnView(Player player) {
 		this.player = player;
 		this.remainingActions = MAX_ACTIONS_PER_GO;
-		this.goHasEnded = false;		
 		drawCardsFromTreasureDeckToStart();
 	}
 	
@@ -84,7 +86,7 @@ public class PlayerGo {
 	private void decreaseRemainingActions() {
 		remainingActions -= 1;
 		if(remainingActions == 0) {
-			goHasEnded = true;
+			turnHasEnded = true;
 		}
 	}
 	
@@ -96,16 +98,16 @@ public class PlayerGo {
 	 * doActions will get the player to do their 3 actions as part of their go.
 	 */
 	private void doActions() {
-		goHasEnded = false;
+		turnHasEnded = false;
 		int actionNumber;
 		System.out.println("It is "+player.getName()+"'s turn!");
 		 
-		while(!goHasEnded) {
+		while(!turnHasEnded) {
 			showActions();
 			actionNumber = GetInput.getInstance().anInteger(MIN_ACTION_NUMBER, MAX_ACTION_NUMBER);
 			handleAction(actionNumber);
 			if(gameOver) {
-				goHasEnded = true;
+				turnHasEnded = true;
 			}
 		}
 		
@@ -128,6 +130,10 @@ public class PlayerGo {
 		System.out.println("Choose a number for what you would like to do.");
 	}
 	
+	/**
+	 * handleAction picks the correct action based on actionNumber
+	 * @param actionNumber
+	 */
 	private void handleAction(int actionNumber) {
 		switch(actionNumber) {
 		case 1:
@@ -164,6 +170,9 @@ public class PlayerGo {
 		}
 	}
 	
+	/**
+	 * handleMove will manage movement of player during game.
+	 */
 	private void handleMove() {
 		TileEnum chosenTile;
 		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
@@ -274,13 +283,13 @@ public class PlayerGo {
 			return;
 		}
 		
+		// Get possiblePlayers depending on role
 		if(player.getRole() == AdventurerEnum.MESSENGER) {
 			System.out.println(player.getName() + " is a Messenger and can give a card to anyone in the game.");
-			possiblePlayers = Players.getInstance().getPlayersExcept(player);
-			
-		} else {
+			possiblePlayers = Players.getInstance().getPlayersExcept(player);	
+		} 
+		else
 			possiblePlayers.addAll(Board.getInstance().getOtherPlayersOnTile(player));
-		}
 		
 		if(possiblePlayers.isEmpty()) {
 			// This Could only happen if the player is not a MESSENGER
@@ -288,6 +297,7 @@ public class PlayerGo {
 			return;
 		}
 		
+		// Getting players from possiblePlayers without full hand
 		possiblePlayers.forEach((possiblePlayer) -> {
 			if(!possiblePlayer.handIsFull()) {
 				playersThatCanAcceptACard.add(possiblePlayer);
@@ -302,9 +312,7 @@ public class PlayerGo {
 		cardToGive = selectCardFromList(player.getCardsInPlayersHand());
 		
 		player.giveTreasureCard(playerToGiveCardTo, cardToGive);
-		
 		decreaseRemainingActions();
-		
 	}
 	
    /**
@@ -315,11 +323,10 @@ public class PlayerGo {
 			TreasureEnum collectedTreasure = player.collectTreasure();
 			System.out.println("Congratulations. " + player.getName() + " has just collected " + collectedTreasure.toString() + ".");
 			decreaseRemainingActions();
-			if(TreasureManager.getInstance().didClaimAllTreasures()) {
+			if(TreasureManager.getInstance().didClaimAllTreasures())
 				System.out.println("All treasures have now been collected. Everyone should make their way to Fool's Landing to escape with a Helicopter Lift Card!");
-			} else {
+			else
 				System.out.println("Only "+ TreasureManager.getInstance().getNumOfRemainingTreasuresToCollect() + " more treasures to collect before everyone can escape the island.");
-			}
 		} 
 		else 
 			System.out.println(player.getName() + " can not collect a treasure.");
@@ -332,13 +339,14 @@ public class PlayerGo {
 	private void handleHelicopterLift() {
 		TileEnum tileToMoveTo;
 		ArrayList<TileEnum> tilesPlayersCanMoveTo = new ArrayList<TileEnum>();
+		Players players = Players.getInstance();
 		
 		// Get use of HelicopterLiftCard
 		Player playerWithHelicopterLift = null;
 		if(player.hasHelicopterLiftCard())
 			playerWithHelicopterLift = player;
 		else {
-			ArrayList<Player> otherPlayers = Players.getInstance().getPlayersExcept(player);
+			ArrayList<Player> otherPlayers = players.getPlayersExcept(player);
 			for(Player otherPlayer : otherPlayers) {
 				if(otherPlayer.hasHelicopterLiftCard()) {
 					playerWithHelicopterLift= otherPlayer;
@@ -353,7 +361,7 @@ public class PlayerGo {
 		else {
 			System.out.println("Selecting players to move...");
 			ArrayList<Player> playersToMove = new ArrayList<>();
-			for (Player player : Players.getInstance().getPlayers()) {
+			for (Player player : players.getPlayers()) {
 				System.out.println("Would you like to move "+player.getName()+" with Helicopter Lift?");
 				System.out.println("1. Yes.");
 				System.out.println("2. No.");
@@ -367,7 +375,7 @@ public class PlayerGo {
 				gameOver = true;
 				return;
 			} else {
-				tilesPlayersCanMoveTo = Board.getInstance().getUnsunkenTilesToMove();
+				tilesPlayersCanMoveTo = Board.getInstance().getUnsunkenTiles();
 				tileToMoveTo = selectTileFromList(tilesPlayersCanMoveTo);
 				for(Player player : playersToMove)
 					player.move(tileToMoveTo);
@@ -381,27 +389,20 @@ public class PlayerGo {
 	 * The game is won if all players are lifted up from Fools Island Tile 
 	 * and all treasures are collected.
 	 * @param ArrayList<Player> indicating the players being moved with the helicopter lift.
-	 * @return boolean indicating if the players met the aditional criteria to win.
+	 * @return boolean indicating if the players met the additional criteria to win.
 	 */
 	private boolean playersDidWin(ArrayList<Player> players) {
 		int numPlayersInGame = Players.getInstance().getNumPlayers();
 		
-		if(players.size() != numPlayersInGame) {
+		if(players.size() != numPlayersInGame || !TreasureManager.getInstance().didClaimAllTreasures())
 			return false;
-		}
-		
-		if(!TreasureManager.getInstance().didClaimAllTreasures()) {
-			return false;
-		}
 		
 		for(Player player: players) {
-			if(player.getLocation() != TileEnum.FOOLS_LANDING) {
+			if(player.getLocation() != TileEnum.FOOLS_LANDING)
 				return false;
-			}
 		}
 		
 		return true;
-		
 	}
 	
 	/**
@@ -437,16 +438,15 @@ public class PlayerGo {
 	}
 	
 	/**
-	 * sets goHasEnded to true.
+	 * sets turnHasEnded to true.
 	 */
 	private void endGo() {
-		goHasEnded = true;
+		turnHasEnded = true;
 	}
 	
 	//===========================================================
 	// Mandatory Player Action Functions
 	//===========================================================
-
 	/**
 	 * drawCardsFromTreasureDeck method will draw the cards for a player and act accordingly.
 	 * It will increase waterMeter level if required, or add a card to the player hand.
@@ -484,7 +484,7 @@ public class PlayerGo {
 		ArrayList<TileEnum> tilesToFlood = FloodDeck.getInstance().getTilesToFlood(false);
 		Board board = Board.getInstance();
 		// check with treasure manager if treasuresAreAvailableToCollect
-		tilesToFlood.forEach((tileEnum) -> {
+		tilesToFlood.forEach((tileEnum) -> { //TODO check order
 			if(!board.getTileWithName(tileEnum).isSunken()) {
 				board.floodTile(tileEnum);
 				System.out.println(tileEnum.toString()+" is now "+board.getTileWithName(tileEnum).getFloodStatus()+"!");
@@ -505,12 +505,11 @@ public class PlayerGo {
 	 */
 	private void actOnSunkTile(TileEnum tileEnum) {
 		Board board = Board.getInstance();
-		
 		if( !TreasureManager.getInstance().treasuresAreAvailableToCollect() ) {
 			System.out.println("An uncollected Treasure has sunk!");
 			gameOver = true; 
 		}
-		else if(board.getTileWithName(tileEnum) instanceof FoolsLandingTile) {
+		else if(tileEnum == TileEnum.FOOLS_LANDING) {
 			gameOver = true;
 		}
 		else {	
@@ -534,7 +533,7 @@ public class PlayerGo {
 		Board board = Board.getInstance();
 		
 		if(sunkPlayer.getRole() == AdventurerEnum.PILOT)
-			tilesPlayerCanMoveTo.addAll(board.getUnsunkenTilesToMove()); 
+			tilesPlayerCanMoveTo.addAll(board.getUnsunkenTiles()); 
 		else if(sunkPlayer.getRole() == AdventurerEnum.EXPLORER)
 			tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(sunkPlayer.getLocation(), false));
 		else if(sunkPlayer.getRole() == AdventurerEnum.DIVER)
@@ -595,7 +594,6 @@ public class PlayerGo {
 	//===========================================================
 	// Other functions
 	//===========================================================
-	
 	/**
 	 * showMap method will call the Board for a copy of the board map, then print it to the console.
 	 */
@@ -603,7 +601,6 @@ public class PlayerGo {
 		Board board = Board.getInstance();
 		System.out.println(board.toString());
 	}
-	
 	
 	private void showLocation() {
 		System.out.println(player.getName() + " is on " + player.getLocation());

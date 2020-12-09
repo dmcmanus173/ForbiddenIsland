@@ -20,9 +20,7 @@ import fi.enums.TreasureEnum;
  * @date    13/11/2020
  * @version 0.1
  */
-
 public class TreasureManager {
-	
 	//===========================================================
 	// Variable Setup
 	//===========================================================
@@ -30,7 +28,6 @@ public class TreasureManager {
 	private ArrayList<TreasureEnum> collectedTreasures;
 	private boolean treasuresAreAvailableToCollect;
 	Map<TreasureEnum, Integer> numSunkenTilesForTreasure;
-	
 	
 	//===========================================================
 	// Variable for Game Settings
@@ -86,18 +83,14 @@ public class TreasureManager {
 	 * @param TreasureEnum detailing the type of treasure that was collected
 	 */
 	public void claimTreasure(Hand playerHand, TreasureEnum treasureType) {
-		if(collectedTreasures.contains(treasureType)) {
+		if(collectedTreasures.contains(treasureType)) 
 			throw new RuntimeException("Attempting to claim a treasure that is already claimed.");
-		} else {
+		
+		else {
 			collectedTreasures.add(treasureType);
 			discardTreasueCardsFromPlayersHand(playerHand, treasureType);
-			
-			if(didClaimAllTreasures()) {
-				// TODO: Notify Gamemanager
-			}
 		}
 	}
-	
 	
 	/**
 	 * private method to discard the treasure cards used to collect a 
@@ -121,7 +114,6 @@ public class TreasureManager {
 		return collectedTreasures.size() == NUM_TREASURES;
 	}
 	
-	
 	/**
 	 * getNumOfRemainingTreasuresToCollect method returns the remaining number of treasures
 	 * left to collect.
@@ -130,7 +122,6 @@ public class TreasureManager {
 	public int getNumOfRemainingTreasuresToCollect() {
 		return NUM_TREASURES - collectedTreasures.size();
 	}
-	
 	
 	/**
 	 * canCollectTreasure method checks the cards in the players hand 
@@ -149,13 +140,17 @@ public class TreasureManager {
 				 return numOfTreasureCardsOfGivenTreasure >= NUM_TREASURE_CARDS_TO_COLLECT_TREASURE;
 			 }
 		 } 
-		
 		return false;
 	}
 	
+	/**
+	 * treasuresAreAvailableToCollect returns true if there is still treasures left to claim.
+	 * @return Boolean true if treasures are still to be collected
+	 */
 	public boolean treasuresAreAvailableToCollect() {
 		return treasuresAreAvailableToCollect;
 	}
+	
 	
 	public void treasureTileDidSink(TreasureEnum treasureType) {
 		increaseNumberOfTreasureTilesSunkenForTreasure(treasureType);

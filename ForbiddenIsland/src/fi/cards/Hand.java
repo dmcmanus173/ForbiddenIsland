@@ -15,16 +15,13 @@ import fi.enums.TreasureEnum;
  * @date    13/11/2020
  * @version 0.1
  */
-
 public class Hand {
 	//===========================================================
 	// Variable Setup
 	//===========================================================
-	
 	ArrayList<Card> allCards;
 	Map<TreasureEnum, ArrayList<TreasureCard>> treasureCards;
 	
-	// TODO: Might consider changing these to stacks??
 	ArrayList<SandbagCard> sandbagCards;
 	ArrayList<HelicopterLiftCard> helicopterLiftCards;
 	
@@ -32,10 +29,7 @@ public class Hand {
 	//===========================================================
 	// Variable for Game Settings
 	//===========================================================
-	
 	private final int MAX_CARDS_IN_HAND = 5;
-	
-	
 	
 	//===========================================================
   	// Constructor
@@ -54,7 +48,6 @@ public class Hand {
   		}
 	}
 	
-	
 	/**
      * addCard method adds a card to the players hand. Must not be a flood Card
      * @param Card to be handed to hand.
@@ -63,18 +56,19 @@ public class Hand {
 		
 		if(card instanceof SandbagCard) {
 			sandbagCards.add((SandbagCard) card);
-		} else if (card instanceof HelicopterLiftCard) {
+		} 
+		else if (card instanceof HelicopterLiftCard) {
 			helicopterLiftCards.add((HelicopterLiftCard)card);
-		} else if (card instanceof TreasureCard) {
+		}
+		else if (card instanceof TreasureCard) {
 			TreasureCard treasureCard = (TreasureCard) card;
 			TreasureEnum treasureType = (TreasureEnum) treasureCard.getName();
 			treasureCards.get(treasureType).add(treasureCard);
-		} else {
+		} 
+		else 
 			throw new RuntimeException("Attempting to add invalid card type to players hand.");
-		}
 		
 		allCards.add(card);
-		
 		return handIsFull();
 	}
 	
@@ -90,39 +84,36 @@ public class Hand {
 	}
 	
 	/**
-     * removeCard removes a card to the players hand. 
+     * removeCard removes a card from the players hand. (i.e. giving card to someone else)
      * @param Card to be discarded.
      */
 	public void removeCard(Card card) {
-		
 		if(card instanceof SandbagCard) {
 			sandbagCards.remove((SandbagCard) card);
-		} else if (card instanceof HelicopterLiftCard) {
+		} 
+		else if (card instanceof HelicopterLiftCard) {
 			helicopterLiftCards.remove((HelicopterLiftCard)card);
-		} else if (card instanceof TreasureCard) {
+		} 
+		else if (card instanceof TreasureCard) {
 			TreasureCard treasureCard = (TreasureCard) card;
 			TreasureEnum treasureType = (TreasureEnum) treasureCard.getName();
 			treasureCards.get(treasureType).remove(treasureCard);
-		} else {
+		} 
+		else
 			throw new RuntimeException("Attempting to remove card that is not in players hand.");
-		}
 		
 		allCards.remove(card);
-
 	}
-	
 	
 	//===========================================================
 	// Getters
 	//===========================================================
-	
 	/**
      * getCards method returns all the cards in the hand.
      * @return ArrayList<Card> containing cards in players hand.
      */
 	public ArrayList<Card> getCards() {
 		return allCards;
-		
 	}
 	
 	/**
@@ -130,17 +121,14 @@ public class Hand {
      * treasure) in a players hand
      * @return ArrayList<Card> containing cards in players hand.
      */
-	// TODO: might consider just returning the number.
 	public ArrayList<TreasureCard> getCardsForTreasure(TreasureEnum treasureType) {
 		return treasureCards.get(treasureType);
 		
 	}
 	
-	
 	//===========================================================
 	// Boolean Checkers
 	//===========================================================
-	
 	/**
      * handIsFull method checks if the hand has reached the
      * maximum number of cards it can contain.
@@ -196,6 +184,9 @@ public class Hand {
 		}
 	}
 	
+	/**
+	 * returns a hand as a String
+	 */
 	@Override
 	public String toString() {
 		StringBuilder handString = new StringBuilder("");

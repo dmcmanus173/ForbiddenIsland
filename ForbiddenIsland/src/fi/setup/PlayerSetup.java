@@ -49,6 +49,16 @@ public class PlayerSetup {
 	}
 	
 	/**
+	 * Create player for each person wanting to play.
+	 */
+	private void createPlayers() {
+		//Randomize roles
+		ArrayList<AdventurerEnum> randomisedRoles = getRandomisedRoles();
+		for(int i=0; i<numPlayers; i++) 
+			createOnePlayer(randomisedRoles.get(i), i+1);
+	}
+	
+	/**
 	 * getRandomisedRoles instance will pick a random player for each role.
 	 * There is always a pilot chosen.
 	 * @return ArrayList<AdventurerEnum> roles for the players.
@@ -70,16 +80,6 @@ public class PlayerSetup {
 		Collections.shuffle(randomRoles);	   // Shuffle again so that Pilot isn't always the first player 
 		
 		return randomRoles;
-	}
-	
-	/**
-	 * Create player for each person wanting to play.
-	 */
-	private void createPlayers() {
-		//Randomize roles
-		ArrayList<AdventurerEnum> randomisedRoles = getRandomisedRoles();
-		for(int i=0; i<numPlayers; i++) 
-			createOnePlayer(randomisedRoles.get(i), i+1);
 	}
 	
 	/**

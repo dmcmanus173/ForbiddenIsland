@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 import fi.enums.TreasureEnum;
 
-
 /**
  * Class for a TreasureDeck in the Forbidden Island Game.
  * 
@@ -14,16 +13,12 @@ import fi.enums.TreasureEnum;
  * @date    13/11/2020
  * @version 0.1
  */
-
 public class TreasureDeck {
-	
-	
 	//===========================================================
 	// Variable Setup
 	//===========================================================
 	private static TreasureDeck treasureDeck;
 	private DeckSorter treasureDeckSorter;
-	
 	
 	//===========================================================
 	// Variable for Game Settings
@@ -32,9 +27,7 @@ public class TreasureDeck {
 	private final int NUM_SANDBAG_CARDS    = 2;
 	private final int NUM_WATERRISE_CARDS  = 3;
 	private final int NUM_HELICOPTER_LIFT_CARDS = 3;
-	
 	private final int CARD_DRAW_RATE = 2;
-	
 	
 	//===========================================================
     // Get Instance of Singleton
@@ -49,7 +42,6 @@ public class TreasureDeck {
         }
         return treasureDeck;
     }
-    
     
     //===========================================================
   	// Constructor
@@ -72,9 +64,9 @@ public class TreasureDeck {
   		
   		for (int i = 0; i<NUM_HELICOPTER_LIFT_CARDS; i++)
   			cards.add(new HelicopterLiftCard());
+  		
   		treasureDeckSorter = new DeckSorter("Treasure Deck Sorter", cards);
   	}
-  	
   	
   	/**
      * drawCardsForStartOfGame method is used to get the cards for the
@@ -97,7 +89,6 @@ public class TreasureDeck {
   		return cardsForPlayer;
   	}
   	
-  	
   	/**
      * drawCards method is used to get the cards drawn for a single player
      * during the game.
@@ -112,7 +103,6 @@ public class TreasureDeck {
 		} 
   		return cardsForPlayer;
   	}
-  	
   	
   	/**
      * discardCard method discards a given card by putting it into the discard 

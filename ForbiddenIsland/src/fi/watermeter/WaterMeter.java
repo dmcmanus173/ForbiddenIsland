@@ -7,9 +7,7 @@ package fi.watermeter;
  * @date    17/11/2020
  * @version 0.1
  */
-
 public class WaterMeter {
-	
 	//===========================================================
 	// Variable Setup
 	//===========================================================
@@ -82,7 +80,6 @@ public class WaterMeter {
 	//===========================================================
 	// Getter Functions
 	//===========================================================
-	
 	/**
 	 * getLevel method which returns the level at which the WaterMeter is at.
 	 * @return integer value of level in class WaterMeter
@@ -91,7 +88,6 @@ public class WaterMeter {
 		return currentLevel;
 	}
 	
-	
 	/**
 	 * getMinLevel method returns minimum level allowed to set waterMeter to.
 	 * @return
@@ -99,7 +95,6 @@ public class WaterMeter {
 	public int getMinLevel() {
 		return MIN_LEVEL;
 	}
-	
 	
 	/**
 	 * getMaxLevel method returns maximum level allowed to set waterMeter to.

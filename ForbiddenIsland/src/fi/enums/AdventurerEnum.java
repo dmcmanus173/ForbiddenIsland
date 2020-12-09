@@ -30,7 +30,6 @@ public enum AdventurerEnum {
 		this.startingTileName = startingTileName;
     }
 	
-	
 	/**
      * gets type relating to type of adventurer
      * @return the name.

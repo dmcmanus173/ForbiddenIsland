@@ -30,7 +30,6 @@ public class TreasureCard extends Card {
 	 * values for this class and its super class.
 	 */
 	@Override
-	//TODO: Might be redundant.
 	public String toString() {
 		StringBuilder temp = new StringBuilder("");
 		temp.append(super.toString());

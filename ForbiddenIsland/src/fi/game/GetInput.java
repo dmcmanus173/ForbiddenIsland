@@ -9,6 +9,7 @@ public class GetInput {
 	//===========================================================
 	private static GetInput getInput;
 	Scanner user;
+	
 	//===========================================================
     // Get Instance of Singleton
     //===========================================================
@@ -22,6 +23,12 @@ public class GetInput {
         return getInput;
     }
     
+	//===========================================================
+    // Constructor
+    //===========================================================
+    /*
+     * Constructor for GetInput
+     */
     private GetInput() {
     	user = new Scanner(System.in);
     }

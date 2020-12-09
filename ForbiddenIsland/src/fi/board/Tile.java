@@ -18,14 +18,12 @@ import fi.players.Player;
  */
 
 public class Tile {
-	
 	//===========================================================
     // Variable Setup
     //===========================================================
 	protected TileEnum tileName;
 	protected FloodStatusEnum floodStatus;
 	protected Set<Player> playersOnTile;
-	
 	
 	//===========================================================
     // Constructor
@@ -40,7 +38,6 @@ public class Tile {
 		this.floodStatus = FloodStatusEnum.NOT_FLOODED;
 		this.playersOnTile = new HashSet<Player>();
 	}
-	
 	
 	//===========================================================
     // Public Getters
@@ -90,13 +87,13 @@ public class Tile {
 		
 	}
 	
-	
 	/**
     * checks to see if tile is sunken
     * @return true if tile is sunken or false if not.
     */
 	public boolean isSunken() {
-		if(floodStatus == FloodStatusEnum.SUNKEN) return true;
+		if(floodStatus == FloodStatusEnum.SUNKEN)
+			return true;
 		return false;
 	}
 	
@@ -112,7 +109,7 @@ public class Tile {
 		else if(floodStatus == FloodStatusEnum.SUNKEN)
 			return FloodStatusEnum.SUNKEN;
 		else
-		return FloodStatusEnum.FLOODED;
+			return FloodStatusEnum.FLOODED;
 		
 	}
 	
@@ -154,24 +151,6 @@ public class Tile {
 		}
 		return tileString.toString();
 	}
-	
-	/*
-	public String toString() {	
-		StringBuilder temp = new StringBuilder("");
-		temp.append("Tile Name: " + tileName);
-		temp.append("\nFlooded: " + floodStatus.toString());
-		return temp.toString();
-			
-	}
-	public Boolean compareTo(Tile otherTile) {
-		
-		if(this.toString() == otherTile.toString())
-			return true;
-		else return false;
-		
-	}
-	*/
-	
 	
 	/*
 	// Class-level test

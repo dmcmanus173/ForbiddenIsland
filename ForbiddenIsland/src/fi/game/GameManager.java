@@ -17,12 +17,11 @@ import fi.players.Players;
  * @version 0.1
  */
 public class GameManager {
-	
 	//===========================================================
 	// Variable Setup
 	//===========================================================
 	private static GameManager gameManager;
-	private ArrayList<PlayerGo> players = new ArrayList<PlayerGo>();
+	private ArrayList<GameTurnView> players = new ArrayList<GameTurnView>();
 	private int playersGoPos;
 	
 	//===========================================================
@@ -49,6 +48,10 @@ public class GameManager {
     	gameSetup();
     }
     
+    /**
+     * Sets up playerGo for each player. Puts players on board.
+     * Changes drawn tiles to flooded side.
+     */
     private void gameSetup() {
     	Board board = Board.getInstance();
     	FloodDeck floodDeck = FloodDeck.getInstance();
@@ -57,7 +60,7 @@ public class GameManager {
     	ArrayList<Player> players = Players.getInstance().getPlayers();
     	for(Player aPlayer : players) {
     		board.setUpPlayerOnBoard(aPlayer);
-    		PlayerGo newPlayerGo = new PlayerGo(aPlayer);
+    		GameTurnView newPlayerGo = new GameTurnView(aPlayer);
     		this.players.add(newPlayerGo);
     	}
     	
@@ -70,7 +73,6 @@ public class GameManager {
     		}
     	});
     	System.out.println();
-    	
     }
     
     /**
@@ -88,7 +90,7 @@ public class GameManager {
      * A loop which will run until there are no more goes for the group of players to take!
      */
     public void playGame() {
-    	PlayerGo playerToGo = players.get(playersGoPos); 
+    	GameTurnView playerToGo = players.get(playersGoPos); 
     	while( !playerToGo.doRound() ) {
     		nextPlayersGoPos();
     		playerToGo = players.get(playersGoPos);

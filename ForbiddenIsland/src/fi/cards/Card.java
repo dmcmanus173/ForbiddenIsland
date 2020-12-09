@@ -7,12 +7,14 @@ package fi.cards;
  * @date    27/10/2020
  * @version 0.1
  */
+
+// Remove Enum rawtype warnings.
+@SuppressWarnings("rawtypes")
 public abstract class Card {
 
 	//===========================================================
 	// Variable Setup
 	//===========================================================
-	@SuppressWarnings("rawtypes")
     protected Enum name;   // Name of object referred to by card
 	
 	//===========================================================
@@ -22,7 +24,8 @@ public abstract class Card {
 	 * Abstract constructor for Card object.
 	 * @param name Enum name for card.
 	 */
-	Card(@SuppressWarnings("rawtypes") Enum name){
+	
+	Card(Enum name){
 		this.name   = name;
 	}
 
@@ -30,12 +33,10 @@ public abstract class Card {
 	// Getters
 	//===========================================================
 	// getter for card's name
-	@SuppressWarnings("rawtypes")
     public Enum getName() {
 		return this.name;
 	}
 
-	
 	/**
 	 * toString method to return details of the class.
 	 * @return String type object containing cardType as String.
