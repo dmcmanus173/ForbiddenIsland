@@ -122,7 +122,8 @@ public class PlayerGo {
 		System.out.println(" 6. See what Treasure Cards you have."         );
 		System.out.println(" 7. Remove a Treasure Card."                   );
 		System.out.println(" 8. See what treasure's are claimed."          );
-		System.out.println(" 9. End Go."                                   );
+		System.out.println(" 9. Use a Sandbag Card."                       );
+		System.out.println(" 0. End Go."                                   );
 		System.out.println("Choose a number for what you would like to do.");
 	}
 	
@@ -153,6 +154,8 @@ public class PlayerGo {
 			showClaimedTreasures();
 			break;
 		case 9:
+			handleSandBag();
+		case 0:
 			endGo();
 			break;
 		default:
