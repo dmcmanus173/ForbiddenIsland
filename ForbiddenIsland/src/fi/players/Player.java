@@ -104,7 +104,7 @@ public class Player {
 	
 	public String cardsToString() {
 		StringBuilder handString = new StringBuilder("");
-		handString.append(name + " has the following cards in hand: { " + playerHand.toString() + " }.");
+		handString.append(name + " has the following cards in hand: \n" + playerHand.toString());
 		return handString.toString();
 	}
 	

@@ -200,7 +200,7 @@ public class Hand {
 	public String toString() {
 		StringBuilder handString = new StringBuilder("");
 		for(Card card: allCards) {
-			handString.append(card.toString() + ", ");
+			handString.append(card.toString() + "\n");
 		}
 		return handString.toString();
 	}

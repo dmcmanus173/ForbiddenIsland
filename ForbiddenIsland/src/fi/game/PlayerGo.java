@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import fi.board.Board;
 import fi.board.FoolsLandingTile;
+import fi.board.TreasureTile;
 import fi.cards.Card;
 import fi.cards.FloodDeck;
 import fi.cards.TreasureDeck;
@@ -285,17 +286,16 @@ public class PlayerGo {
 	private void handleCaptureTreasure() {
 		if(player.canCollectTreasure()) {
 			TreasureEnum collectedTreasure = player.collectTreasure();
-			System.out.println("Congradulations. " + player.getName() + "has just collected the " + collectedTreasure.toString() + " treasure.");
+			System.out.println("Congratulations. " + player.getName() + " has just collected " + collectedTreasure.toString() + ".");
 			decreaseRemainingActions();
 			if(TreasureManager.getInstance().didClaimAllTreasures()) {
-				System.out.println("All treasures have now been collected. Everyone should make thir way to the Fool's Landing Tile and escape with a Helicopter Lift Card!");
+				System.out.println("All treasures have now been collected. Everyone should make their way to Fool's Landing to escape with a Helicopter Lift Card!");
 			} else {
 				System.out.println("Only "+ TreasureManager.getInstance().getNumOfRemainingTreasuresToCollect() + " more treasures to collect before everyone can escape the island.");
 			}
-		} else {
-			// TODO: May need to inform player why not.
+		} 
+		else 
 			System.out.println(player.getName() + " can not collect a treasure.");
-		}
 		
 	}
 	
