@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
+import fi.playerController.PlayerController;
 import fi.board.Board;
 import fi.cards.FloodDeck;
 import fi.players.Player;
@@ -21,7 +22,7 @@ public class GameManager {
 	// Variable Setup
 	//===========================================================
 	private static GameManager gameManager;
-	private ArrayList<GameTurnView> players = new ArrayList<GameTurnView>();
+	private ArrayList<PlayerController> players = new ArrayList<PlayerController>();
 	private int playersGoPos;
 	
 	//===========================================================
@@ -60,8 +61,8 @@ public class GameManager {
     	ArrayList<Player> players = Players.getInstance().getPlayers();
     	for(Player aPlayer : players) {
     		board.setUpPlayerOnBoard(aPlayer);
-    		GameTurnView newPlayerGo = new GameTurnView(aPlayer);
-    		this.players.add(newPlayerGo);
+    		PlayerController newPlayerController = new PlayerController(aPlayer);
+    		this.players.add(newPlayerController);
     	}
     	
     	// Setting up board
@@ -90,7 +91,7 @@ public class GameManager {
      * A loop which will run until there are no more goes for the group of players to take!
      */
     public void playGame() {
-    	GameTurnView playerToGo = players.get(playersGoPos); 
+    	PlayerController playerToGo = players.get(playersGoPos); 
     	while( !playerToGo.doRound() ) {
     		nextPlayersGoPos();
     		playerToGo = players.get(playersGoPos);

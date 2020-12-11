@@ -1,4 +1,4 @@
-package fi.game;
+package fi.playerController;
 
 import java.util.ArrayList;
 
@@ -10,23 +10,19 @@ import fi.cards.WaterRiseCard;
 import fi.enums.AdventurerEnum;
 import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
+import fi.game.GetInput;
+import fi.players.PlayerView;
 import fi.players.Player;
 import fi.players.Players;
 import fi.treasures.TreasureManager;
 import fi.watermeter.WaterMeter;
 
-/**
- * Class for GameTurnView of Forbidden Island.
- * 
- * @author  Demi Oke and Daniel McManus
- * @date    09/12/2020
- * @version 0.1
- */
-public class GameTurnView {
+public class PlayerController {
 	//===========================================================
 	// Variable Setup
 	//===========================================================
 	private Player player;
+	private PlayerView playerView;
 	private int remainingActions;
 	private boolean turnHasEnded;
 	private boolean gameOver;
@@ -44,90 +40,31 @@ public class GameTurnView {
 	/**
 	 * Constructor for PlayerGo object.
 	 */
-	public GameTurnView(Player player) {
+	public PlayerController(Player player) {
 		this.player = player;
 		this.remainingActions = MAX_ACTIONS_PER_GO;
+		playerView = new PlayerView(player);
 		drawCardsFromTreasureDeckToStart();
 	}
 	
-	/**
-	 * drawCardsFromTreasureDeckToStart method will add the cards needed for a player to begin the game.
-	 */
-	private void drawCardsFromTreasureDeckToStart() {
-		TreasureDeck treasureDeck = TreasureDeck.getInstance();
-		ArrayList<Card> treasureCards = treasureDeck.drawCardsForStartOfGame();
-		
-		System.out.println("Drawing " + treasureCards.size() + " cards from treasure deck for "+player.getName()+".");
-		treasureCards.forEach((card) -> {
-			System.out.println(player.getName()+" just drew a card: "+card.toString());
-			putCardInPlayersHand(card);
-		});
-		System.out.println();
-	}
-	
-	/**
-	 * doRound is a full round done by a player.
-	 * @return
-	 */
-	public boolean doRound() {
-		doActions();
-		if(!gameOver) 
-			drawCardsFromTreasureDeck();
-		if(!gameOver) 
-			drawCardsFromFloodDeck();
-		if(gameOver)
-			System.out.println("Game Over!");
-		return gameOver;
-	}
-	
-	/**
-	 * decreaseRemainingActions removes a remaining action from the number of player actions.
-	 */
-	private void decreaseRemainingActions() {
-		remainingActions -= 1;
-		if(remainingActions == 0) {
-			turnHasEnded = true;
-		}
-	}
-	
-	//===========================================================
-	// Actions during a Player Go.
-	//===========================================================
-	
-	/**
-	 * doActions will get the player to do their 3 actions as part of their go.
-	 */
-	private void doActions() {
+	public void doActions() {
 		turnHasEnded = false;
-		int actionNumber;
-		System.out.println("It is "+player.getName()+"'s turn!");
-		 
 		while(!turnHasEnded) {
-			showActions();
-			actionNumber = GetInput.getInstance().anInteger(MIN_ACTION_NUMBER, MAX_ACTION_NUMBER);
-			handleAction(actionNumber);
+			getAction();
 			if(gameOver) {
 				turnHasEnded = true;
 			}
 		}
-		
 	}
 	
-	private void showActions() {
-		showMap();
-		showLocation();
-		System.out.println("You have "+remainingActions+" actions remaining. Would you like to: ");
-		System.out.println(" 1. Move.                 (Costs 1 Action)"    );
-		System.out.println(" 2. Shore Up.             (Costs 1 Action)"    );
-		System.out.println(" 3. Give a Treasure Card. (Costs 1 Action)"    );
-		System.out.println(" 4. Capture A Treasure.   (Costs 1 Action)"    );
-		System.out.println(" 5. Use a Helicopter Lift Card."               );
-		System.out.println(" 6. See what Treasure Cards you have."         );
-		System.out.println(" 7. Remove a Treasure Card."                   );
-		System.out.println(" 8. See what treasure's are claimed."          );
-		System.out.println(" 9. Use a Sandbag Card."                       );
-		System.out.println(" 0. End Go."                                   );
-		System.out.println("Choose a number for what you would like to do.");
+	/**
+	 * getAction method calls the playerView to get the next action to be done.
+	 */
+	public void getAction() {
+		int option = playerView.getAction(remainingActions);
+		if(option < MIN_ACTION_NUMBER || option > MAX_ACTION_NUMBER)
+			throw new RuntimeException("Invalid option number received");
+		handleAction(option);
 	}
 	
 	/**
@@ -169,6 +106,50 @@ public class GameTurnView {
 			throw new RuntimeException("Attempting to select a number outside of range.");	
 		}
 	}
+	
+	/**
+	 * drawCardsFromTreasureDeckToStart method will add the cards needed for a player to begin the game.
+	 */
+	private void drawCardsFromTreasureDeckToStart() {
+		TreasureDeck treasureDeck = TreasureDeck.getInstance();
+		ArrayList<Card> treasureCards = treasureDeck.drawCardsForStartOfGame();
+		
+		playerView.printNumberDrawnCards(treasureCards.size());
+		treasureCards.forEach((card) -> {
+			playerView.printPlayerCard(card);
+			putCardInPlayersHand(card);
+		});
+		playerView.printNewLine(); //TODO use a gameView to format game.
+	}
+	
+	/**
+	 * doRound is a full round done by a player.
+	 * @return
+	 */
+	public boolean doRound() {
+		doActions();
+		if(!gameOver) 
+			drawCardsFromTreasureDeck();
+		if(!gameOver) 
+			drawCardsFromFloodDeck();
+		if(gameOver)
+			playerView.gameOver();
+		return gameOver;
+	}
+	
+	/**
+	 * decreaseRemainingActions removes a remaining action from the number of player actions.
+	 */
+	private void decreaseRemainingActions() {
+		remainingActions -= 1;
+		if(remainingActions == 0) {
+			turnHasEnded = true;
+		}
+	}
+	
+	//===========================================================
+	// Actions during a Player Go.
+	//===========================================================
 	
 	/**
 	 * handleMove will manage movement of player during game.
@@ -621,5 +602,4 @@ public class GameTurnView {
 		else
 			player.collectTreasureCard(card);
 	}
-	
 }
