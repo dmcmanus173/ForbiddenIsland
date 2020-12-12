@@ -17,23 +17,23 @@ import fi.players.Players;
 import fi.treasures.TreasureManager;
 import fi.watermeter.WaterMeter;
 
-public class PlayerController {
+public abstract class PlayerController {
 	//===========================================================
 	// Variable Setup
 	//===========================================================
-	private Player player;
-	private PlayerView playerView;
-	private GameView gameView;
-	private int remainingActions;
-	private boolean turnHasEnded;
-	private boolean gameOver;
+	protected Player player;
+	protected PlayerView playerView;
+	protected GameView gameView;
+	protected int remainingActions;
+	protected boolean turnHasEnded;
+	protected boolean gameOver;
 	
 	//===========================================================
 	// Variable for Game Settings
 	//===========================================================
-	private final int MAX_ACTIONS_PER_GO = 3;
-	private final int MIN_ACTION_NUMBER  = 0;
-	private final int MAX_ACTION_NUMBER  = 9;
+	protected final int MAX_ACTIONS_PER_GO = 3;
+	protected final int MIN_ACTION_NUMBER  = 0;
+	protected final int MAX_ACTION_NUMBER  = 9;
 	
 	//===========================================================
 	// Constructor
@@ -143,7 +143,7 @@ public class PlayerController {
 	/**
 	 * decreaseRemainingActions removes a remaining action from the number of player actions.
 	 */
-	private void decreaseRemainingActions() {
+	protected void decreaseRemainingActions() {
 		remainingActions -= 1;
 		if(remainingActions == 0) {
 			turnHasEnded = true;
@@ -214,7 +214,7 @@ public class PlayerController {
 	 * It will facilitate the shoring-up of one tile near player.
 	 * @return Boolean true if it has shoredUp a tile. Else false.
 	 */
-	private Boolean doAShoreUp() {
+	protected Boolean doAShoreUp() {
 		Board board = Board.getInstance();
 		TileEnum chosenTile;
 		ArrayList<TileEnum> tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
@@ -237,10 +237,6 @@ public class PlayerController {
 	 */
 	private void handleShoreUp() {
 		Boolean didShoreUp = doAShoreUp();
-		if(player.getRole() == AdventurerEnum.ENGINEER && !Board.getInstance().getTilesToShoreUpAround(player.getLocation()).isEmpty()) {
-			if(playerView.engineerShoreUpOption())
-				doAShoreUp();
-		}
 		if(didShoreUp)
 			decreaseRemainingActions();
 	}
