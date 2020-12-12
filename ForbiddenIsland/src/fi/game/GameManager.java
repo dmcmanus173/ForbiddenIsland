@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
+import fi.gameView.GameView;
 import fi.playerController.PlayerController;
 import fi.board.Board;
 import fi.cards.FloodDeck;
@@ -70,7 +71,7 @@ public class GameManager {
     	tilesToFlood.forEach(tileEnum -> {
     		if(board.getTileWithName(tileEnum).getFloodStatus() == FloodStatusEnum.NOT_FLOODED) {
     			board.floodTile(tileEnum);
-    			System.out.println(tileEnum.toString()+" is now "+board.getTileWithName(tileEnum).getFloodStatus()+"!");
+    			GameView.getInstance().changeFloodStatus(tileEnum);
     		}
     	});
     	System.out.println();

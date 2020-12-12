@@ -10,8 +10,8 @@ import fi.cards.WaterRiseCard;
 import fi.enums.AdventurerEnum;
 import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
-import fi.game.GetInput;
-import fi.players.PlayerView;
+import fi.gameView.GameView;
+import fi.gameView.PlayerView;
 import fi.players.Player;
 import fi.players.Players;
 import fi.treasures.TreasureManager;
@@ -23,6 +23,7 @@ public class PlayerController {
 	//===========================================================
 	private Player player;
 	private PlayerView playerView;
+	private GameView gameView;
 	private int remainingActions;
 	private boolean turnHasEnded;
 	private boolean gameOver;
@@ -44,6 +45,7 @@ public class PlayerController {
 		this.player = player;
 		this.remainingActions = MAX_ACTIONS_PER_GO;
 		playerView = new PlayerView(player);
+		gameView = GameView.getInstance();
 		drawCardsFromTreasureDeckToStart();
 	}
 	
@@ -89,16 +91,17 @@ public class PlayerController {
 			handleHelicopterLift();
 			break;
 		case 6:
-			showTreasureCards();
+			playerView.showTreasureCards();
 			break;
 		case 7:
 			handleDiscardTreasureCard();
 			break;
 		case 8:
-			showClaimedTreasures();
+			gameView.showClaimedTreasures();
 			break;
 		case 9:
 			handleSandBag();
+			break;
 		case 0:
 			endGo();
 			break;
@@ -119,7 +122,7 @@ public class PlayerController {
 			playerView.printPlayerCard(card);
 			putCardInPlayersHand(card);
 		});
-		playerView.printNewLine(); //TODO use a gameView to format game.
+		gameView.printNewLine(); //TODO use a gameView to format game.
 	}
 	
 	/**
@@ -133,7 +136,7 @@ public class PlayerController {
 		if(!gameOver) 
 			drawCardsFromFloodDeck();
 		if(gameOver)
-			playerView.gameOver();
+			gameView.gameOver();
 		return gameOver;
 	}
 	
@@ -160,55 +163,50 @@ public class PlayerController {
 		Board board = Board.getInstance();
 		tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(player.getLocation(), true));
 		if(tilesPlayerCanMoveTo.isEmpty()) {
-			System.out.println(player.getName()+" is unable to move.");
+			playerView.playerCantMove();
 			return;
 		}
-		chosenTile = selectTileFromList(tilesPlayerCanMoveTo);
+		chosenTile = playerView.selectTileFromList(tilesPlayerCanMoveTo);
 		player.move(chosenTile);
-		System.out.println(player.getName()+" has moved to "+player.getLocation());
+		playerView.playerHasMoved();
 		decreaseRemainingActions();
 	}
 	
 	/**
-	 * handleSandBag method is a function to be called by handleShoreUp.
-	 * It will facilitate the shoring-up of one tile near player.
-	 * @return Boolean true if it has shoredUp a tile. Else false.
+	 * handleSandBag method is a function to be called which will allow
+	 * any player to use their sandbag card at any time.
 	 */
-	//TODO comments
-	//TODO change to picking of player with sandbag
 	private void handleSandBag() {
-		Player playerWithSandbag = null;
-		if(player.hasSandBagCard()) {
-			playerWithSandbag = player;
-		}
-		else {
-			ArrayList<Player> otherPlayers = Players.getInstance().getPlayersExcept(player);
-			for(Player otherPlayer : otherPlayers) {
-				if(otherPlayer.hasSandBagCard()) {
-					playerWithSandbag = otherPlayer;
-					break;
-				}
-			}
-		}
-		if(playerWithSandbag == null) { 
-			System.out.println("None of the players have a SandBag Card for "+player.getName()+" to use.");
-			return;
-		}
-	
-		System.out.println(playerWithSandbag.getName()+"'s Sandbag card is being used.");
+		ArrayList<Player> allPlayers = Players.getInstance().getPlayers();
+		ArrayList<Player> playersWithSandbag = new ArrayList<Player>();
+		Player playerUsingSandbag;
 		Board board = Board.getInstance();
 		TileEnum chosenTile;
 		ArrayList<TileEnum> tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
-		tilesPlayerCanShoreUp.addAll(board.getAllFloodedTiles());
-		if(tilesPlayerCanShoreUp.isEmpty()) { 
-			System.out.println(" There are no flooded tiles on the board!");
+		
+		for(Player aPlayer : allPlayers) {
+			if(aPlayer.hasSandBagCard()) {
+				playersWithSandbag.add(aPlayer);
+				break;
+			}
+		}	
+		if(playersWithSandbag.isEmpty()) { 
+			playerView.noSandbagCards();
 			return;
 		}
 		
-		chosenTile = selectTileFromList(tilesPlayerCanShoreUp);
-		playerWithSandbag.shoreUp(chosenTile);
-		playerWithSandbag.didUseSandBagCard();
-		System.out.println(chosenTile.toString()+" is now "+board.getTileWithName(chosenTile).getFloodStatus().toString()+"!");
+		playerUsingSandbag = playerView.selectPlayerWithSandbag(playersWithSandbag);
+		
+		tilesPlayerCanShoreUp.addAll(board.getAllFloodedTiles());
+		if(tilesPlayerCanShoreUp.isEmpty()) { 
+			gameView.noFloodedTiles();
+			return;
+		}
+		
+		chosenTile = playerView.selectTileFromList(tilesPlayerCanShoreUp);
+		playerUsingSandbag.shoreUp(chosenTile);
+		playerUsingSandbag.didUseSandBagCard();
+		gameView.changeFloodStatus(chosenTile);
 	}
 	
 	/**
@@ -222,14 +220,16 @@ public class PlayerController {
 		ArrayList<TileEnum> tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
 		tilesPlayerCanShoreUp.addAll(board.getTilesToShoreUpAround(player.getLocation()));
 		if(tilesPlayerCanShoreUp.isEmpty()) {
-			System.out.println(" There are no flooded tiles on the board!");
+			gameView.noFloodedTiles();
 			return false;
 		}
-		chosenTile = selectTileFromList(tilesPlayerCanShoreUp);
+		chosenTile = playerView.selectTileFromList(tilesPlayerCanShoreUp);
 		player.shoreUp(chosenTile);
-		System.out.println(chosenTile.toString()+" is now "+board.getTileWithName(chosenTile).getFloodStatus().toString()+"!");
+		
+		gameView.changeFloodStatus(chosenTile);
 		return true;
 	}
+	//TODO use doAShoreUp with argument tile list, player, call from sandbag and shoreUp9
 
 	/**
 	 * handleShoreUp is the handle to be called as a player action. It will call doAShoreUp, to shore up a tile, if possible.
@@ -238,13 +238,8 @@ public class PlayerController {
 	private void handleShoreUp() {
 		Boolean didShoreUp = doAShoreUp();
 		if(player.getRole() == AdventurerEnum.ENGINEER && !Board.getInstance().getTilesToShoreUpAround(player.getLocation()).isEmpty()) {
-			System.out.println(player.getName() + " is an Engineer and can shoreUp two tiles for the cost of 1 action.");
-			System.out.println("would you like to shore up another tile?");
-			System.out.println("1. Yes.");
-			System.out.println("2. No. ");
-			if(GetInput.getInstance().anInteger(1, 2) == 1) {
+			if(playerView.engineerShoreUpOption())
 				doAShoreUp();
-			}
 		}
 		if(didShoreUp)
 			decreaseRemainingActions();
@@ -260,13 +255,13 @@ public class PlayerController {
 		ArrayList<Player> playersThatCanAcceptACard = new ArrayList<Player>(); // Players that can receive a card (Hand is not full)
 		
 		if(player.getCardsInPlayersHand().isEmpty()) {
-			System.out.println( player.getName() + " does not have any cards to give");
+			playerView.playerHasNoCards();
 			return;
 		}
 		
 		// Get possiblePlayers depending on role
 		if(player.getRole() == AdventurerEnum.MESSENGER) {
-			System.out.println(player.getName() + " is a Messenger and can give a card to anyone in the game.");
+			playerView.playerIsMessengerGiveCards();
 			possiblePlayers = Players.getInstance().getPlayersExcept(player);	
 		} 
 		else
@@ -274,7 +269,7 @@ public class PlayerController {
 		
 		if(possiblePlayers.isEmpty()) {
 			// This Could only happen if the player is not a MESSENGER
-			System.out.println("There are no players on the same tile as " + player.getName() + ".");
+			playerView.playersNotOnSameTile();
 			return;
 		}
 		
@@ -285,12 +280,12 @@ public class PlayerController {
 			}
 		});
 		if(playersThatCanAcceptACard.isEmpty()) {
-			System.out.println("Everyone's hand is full. cannot give card.");
+			gameView.allHandsAreFull();
 			return;
 		}
 		
-		playerToGiveCardTo = selectPlayerFromList(playersThatCanAcceptACard);
-		cardToGive = selectCardFromList(player.getCardsInPlayersHand());
+		playerToGiveCardTo = playerView.selectPlayerFromList(playersThatCanAcceptACard);
+		cardToGive = playerView.selectCardFromList(player.getCardsInPlayersHand());
 		
 		player.giveTreasureCard(playerToGiveCardTo, cardToGive);
 		decreaseRemainingActions();
@@ -302,15 +297,15 @@ public class PlayerController {
 	private void handleCaptureTreasure() {
 		if(player.canCollectTreasure()) {
 			TreasureEnum collectedTreasure = player.collectTreasure();
-			System.out.println("Congratulations. " + player.getName() + " has just collected " + collectedTreasure.toString() + ".");
+			playerView.playerCollectedTreasure(collectedTreasure);
 			decreaseRemainingActions();
 			if(TreasureManager.getInstance().didClaimAllTreasures())
-				System.out.println("All treasures have now been collected. Everyone should make their way to Fool's Landing to escape with a Helicopter Lift Card!");
+				gameView.claimedAllTreasures();
 			else
-				System.out.println("Only "+ TreasureManager.getInstance().getNumOfRemainingTreasuresToCollect() + " more treasures to collect before everyone can escape the island.");
+				gameView.getRemainingNumberTreasures();
 		} 
 		else 
-			System.out.println(player.getName() + " can not collect a treasure.");
+			playerView.cantCollectTreasure();
 		
 	}
 	
@@ -336,28 +331,25 @@ public class PlayerController {
 			}
 		}
 		if(playerWithHelicopterLift == null)
-			System.out.println("None of the players have a HelicopterLift Card for "+player.getName()+" to use.");
+			playerView.noHelicopterLiftCards();
 		
 		// Gotten use of a HelicopterLift Card
 		else {
-			System.out.println("Selecting players to move...");
+			playerView.selectPlayerToMove();
 			ArrayList<Player> playersToMove = new ArrayList<>();
 			for (Player player : players.getPlayers()) {
-				System.out.println("Would you like to move "+player.getName()+" with Helicopter Lift?");
-				System.out.println("1. Yes.");
-				System.out.println("2. No.");
-				if( GetInput.getInstance().anInteger(1,2) == 1 )
+				if(playerView.selectThisPlayerToMove(player))
 					playersToMove.add(player);
 			}
 			if(playersToMove.isEmpty()) {
-				System.out.println("Didn't select any players to move. Won't use the Helicopter Lift Card.");
+				playerView.noPlayersToHelicopterLift();
 			} else if(playersDidWin(playersToMove)) {
-				System.out.println("Congradulations! You have succsesfully escaped the Island with all of the Treasures. You have won the game!!!");
+				gameView.gameWon();
 				gameOver = true;
 				return;
 			} else {
 				tilesPlayersCanMoveTo = Board.getInstance().getUnsunkenTiles();
-				tileToMoveTo = selectTileFromList(tilesPlayersCanMoveTo);
+				tileToMoveTo = playerView.selectTileFromList(tilesPlayersCanMoveTo);
 				for(Player player : playersToMove)
 					player.move(tileToMoveTo);
 				playerWithHelicopterLift.didUseHelicopterLiftCard();
@@ -385,13 +377,6 @@ public class PlayerController {
 		
 		return true;
 	}
-	
-	/**
-	 * showTreasureCards will show the TreasureCards a player has in their Hand.
-	 */
-	private void showTreasureCards() {
-		System.out.println(player.cardsToString());
-	}
 
 	/**
 	 * handleDiscardTreasureCard asks the player which card they would like to remove from their Hand and then removes it.
@@ -401,21 +386,13 @@ public class PlayerController {
 		ArrayList<Card> cardInHand = player.getCardsInPlayersHand();
 		
 		if(player.getCardsInPlayersHand().isEmpty()) {
-			System.out.println( player.getName() + " does not have any cards to discard.");
+			playerView.playerHasNoCards();
 			return;
 		}
 		
-		cardToDiscard = selectCardFromList(cardInHand);
+		cardToDiscard = playerView.selectCardFromList(cardInHand);
 		player.discardCard(cardToDiscard);
 		
-	}
-	
-	/**
-	 * showClaimedTreasures method will show what/number of treasures been claimed so far.
-	 */
-	private void showClaimedTreasures() {
-		TreasureManager treasureManager = TreasureManager.getInstance();
-		System.out.println(treasureManager.toString());
 	}
 	
 	/**
@@ -437,23 +414,23 @@ public class PlayerController {
 		WaterMeter waterMeter = WaterMeter.getInstance();
 		ArrayList<Card> treasureCards = treasureDeck.drawCards();
 		
-		System.out.println("Drawing " + treasureCards.size() + " cards from treasure deck for "+player.getName()+".");
+		playerView.printNumberDrawnCards(treasureCards.size());
 	
 		treasureCards.forEach((card) -> {
-			System.out.println(player.getName()+" just drew a card: "+card.toString());
+			playerView.printPlayerCard(card);
 			if(card instanceof WaterRiseCard) {
 				waterMeter.increaseWaterMeter();
 				int currentLevel = waterMeter.getCurrentLevel();
 				if(currentLevel == waterMeter.getGameOverLevel())
 					gameOver = true;
 				else
-					System.out.println("The water meter has been increased to " + currentLevel + ". All players will now have to take " + currentLevel + " FloodCards at the end of their go!");
+					gameView.increasedWaterMeter();
 				treasureDeck.discardCard(card);
 			} else {
 				putCardInPlayersHand(card);
 			}
 		});
-		System.out.println();
+		gameView.printNewLine();
 	}
 	
 	/**
@@ -468,16 +445,15 @@ public class PlayerController {
 		tilesToFlood.forEach((tileEnum) -> { //TODO check order
 			if(!board.getTileWithName(tileEnum).isSunken()) {
 				board.floodTile(tileEnum);
-				System.out.println(tileEnum.toString()+" is now "+board.getTileWithName(tileEnum).getFloodStatus()+"!");
+				gameView.changeFloodStatus(tileEnum);
 			}
 			if(board.getTileWithName(tileEnum).isSunken()) {
 				actOnSunkTile(tileEnum);
 				if(gameOver)
 					return;
 			}
-	
 		});
-		System.out.println();
+		gameView.printNewLine();
 	}
 	
 	/**
@@ -487,7 +463,7 @@ public class PlayerController {
 	private void actOnSunkTile(TileEnum tileEnum) {
 		Board board = Board.getInstance();
 		if( !TreasureManager.getInstance().treasuresAreAvailableToCollect() ) {
-			System.out.println("An uncollected Treasure has sunk!");
+			gameView.treasureHasSunk();
 			gameOver = true; 
 		}
 		else if(tileEnum == TileEnum.FOOLS_LANDING) {
@@ -523,70 +499,19 @@ public class PlayerController {
 			tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(sunkPlayer.getLocation(), false));
 		
 		if(tilesPlayerCanMoveTo.isEmpty()) {
-			System.out.println("There is nowhere for "+sunkPlayer.getName()+" to move to!");
+			playerView.playerCantMove();
 			return false;
 		}
 		
-		System.out.println(sunkPlayer.getName()+" must move as they're on a sunken Tile!");
-		showMap();
-		System.out.println(sunkPlayer.getName()+" is on "+sunkPlayer.getLocation().toString());
-		chosenTile = selectTileFromList(tilesPlayerCanMoveTo);
+		chosenTile = playerView.tileToMoveFromSunk(sunkPlayer, tilesPlayerCanMoveTo);
 		sunkPlayer.move(chosenTile);
-		System.out.println(sunkPlayer.getName()+" has moved to "+sunkPlayer.getLocation());
+		playerView.playerHasMovedFromSunk(sunkPlayer);
 		return true;
 	}
-	
-	
-	//===========================================================
-	// selectObjectFromList functions
-	//===========================================================
-	
-	private TileEnum selectTileFromList(ArrayList<TileEnum> listOfTileEnums) {
-		System.out.println("Choose a Tile Number:");
-		for (int i=0; i<listOfTileEnums.size(); i++) {
-			System.out.println((i+1)+". "+listOfTileEnums.get(i).toString());
-		}
-		int chosenNumber = GetInput.getInstance().anInteger(1, listOfTileEnums.size())-1;
-		TileEnum chosenTile = listOfTileEnums.get(chosenNumber);
-		return chosenTile;
-	}
-	
-	private Player selectPlayerFromList(ArrayList<Player> listOfPlayers) {
-		System.out.println("Choose a player Number:");
-		for (int i=0; i<listOfPlayers.size(); i++) {
-			System.out.println((i+1)+". "+listOfPlayers.get(i).getName().toString());
-		}
-		int chosenNumber = GetInput.getInstance().anInteger(1, listOfPlayers.size())-1;
-		Player chosenPlayer = listOfPlayers.get(chosenNumber);
-		return chosenPlayer;
-	}
-
-	private Card selectCardFromList(ArrayList<Card> listOfCards) {
-		System.out.println("Choose a Card Number:");
-		for (int i=0; i<listOfCards.size(); i++) {
-			System.out.println((i+1)+". "+listOfCards.get(i).toString());
-		}
-		int chosenNumber = GetInput.getInstance().anInteger(1, listOfCards.size())-1;
-		Card chosenCard = listOfCards.get(chosenNumber);
-		return chosenCard;
-	}
-	
 	
 	//===========================================================
 	// Other functions
 	//===========================================================
-	/**
-	 * showMap method will call the Board for a copy of the board map, then print it to the console.
-	 */
-	private void showMap() {
-		Board board = Board.getInstance();
-		System.out.println(board.toString());
-	}
-	
-	private void showLocation() {
-		System.out.println(player.getName() + " is on " + player.getLocation());
-	}
-
 	/**
 	 * putCardInPlayersHand method will add a card to a player hand. It will remove a card if their hand is full.
 	 * @param card, a card to add to the player hand.
@@ -595,8 +520,7 @@ public class PlayerController {
 		if(player.handIsFull()) {
 			Card cardToDiscard;
 			player.collectTreasureCard(card);
-			System.out.println(player.getName()+ "'s hand is now full.\nSelect a card to discard from hand:");
-			cardToDiscard = selectCardFromList(player.getCardsInPlayersHand());
+			cardToDiscard = playerView.selectCardToDiscard();
 			player.discardCard(cardToDiscard);
 		} 
 		else
