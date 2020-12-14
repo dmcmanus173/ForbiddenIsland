@@ -7,7 +7,14 @@ import fi.enums.TileEnum;
 import fi.players.Player;
 
 public class DiverController extends PlayerController {
-
+	
+	
+	//===========================================================
+	// Constructor
+	//===========================================================
+	/**
+	 * Constructor for DiverController object.
+	 */
 	public DiverController(Player player) {
 		super(player);
 	}
