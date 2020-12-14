@@ -6,7 +6,6 @@ import java.util.Map;
 import fi.enums.AdventurerEnum;
 import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
-import fi.enums.TreasureEnum;
 import fi.gameView.GameView;
 import fi.playerController.DiverController;
 import fi.playerController.EngineerController;
@@ -17,7 +16,6 @@ import fi.playerController.PilotController;
 import fi.playerController.PlayerController;
 import fi.board.Board;
 import fi.cards.FloodDeck;
-import fi.cards.TreasureCard;
 import fi.players.Player;
 import fi.players.Players;
 
@@ -126,7 +124,7 @@ public class GameManager {
     	for(Player aPlayer : sunkenPlayers) {
     		canMove = playerMap.get(aPlayer).handlePlayerSunk();
     		if(!canMove) {
-    			//TODO Call observer to notify game over
+    			GameOverObserver.getInstance().sunkenPlayerCanNotMove();
     			return; // Stop here. Game is over.
     		}
     	}
@@ -147,9 +145,10 @@ public class GameManager {
      * A loop which will run until there are no more goes for the group of players to take!
      */
     public void playGame() {
+    	//TODO: LOOP THROUGH PLAYERS IN MAP INSTEAD OF HAVING SEPERATE ARRAY.
     	ArrayList<Player> sunkenPlayers = new ArrayList<>();
     	PlayerController playerToGo = players.get(playersGoPos); 
-    	while( !ObserverGameOver... ) {
+    	while( !GameOverObserver.getInstance().isGameOver() ) {
     		sunkenPlayers = playerToGo.doRound();
     		moveSunkenPlayers(sunkenPlayers);
     		nextPlayersGoPos();

@@ -10,6 +10,7 @@ import fi.cards.WaterRiseCard;
 import fi.enums.AdventurerEnum;
 import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
+import fi.game.GameOverObserver;
 import fi.gameView.GameView;
 import fi.gameView.PlayerView;
 import fi.players.Player;
@@ -26,7 +27,8 @@ public abstract class PlayerController {
 	protected GameView gameView;
 	protected int remainingActions;
 	protected boolean turnHasEnded;
-	protected boolean gameOver;
+//	protected boolean gameOver;
+	protected GameOverObserver gameOverObserver = GameOverObserver.getInstance();
 	
 	//===========================================================
 	// Variable for Game Settings
@@ -53,7 +55,7 @@ public abstract class PlayerController {
 		turnHasEnded = false;
 		while(!turnHasEnded) {
 			getAction();
-			if(gameOver) {
+			if(gameOverObserver.isGameOver()) {
 				turnHasEnded = true;
 			}
 		}
@@ -132,12 +134,13 @@ public abstract class PlayerController {
 	public ArrayList<Player> doRound() {
 		ArrayList<Player> sunkenPlayers = new ArrayList<>();
 		doActions();
-		if(!gameOver) 
+		if(!gameOverObserver.isGameOver()) 
 			drawCardsFromTreasureDeck();
-		if(!gameOver) 
+		if(!gameOverObserver.isGameOver()) 
 			sunkenPlayers = drawCardsFromFloodDeck();
-		if(gameOver)
-			gameView.gameOver();
+		// TODO: REPLACE IN GAME MANAGER
+//		if(gameOverObserver.isGameOver())
+//			gameView.gameOverObserver.isGameOver();
 		return sunkenPlayers;
 	}
 	
@@ -342,7 +345,6 @@ public abstract class PlayerController {
 				playerView.noPlayersToHelicopterLift();
 			} else if(playersDidWin(playersToMove)) {
 				gameView.gameWon();
-				gameOver = true;
 				return;
 			} else {
 				tilesPlayersCanMoveTo = Board.getInstance().getUnsunkenTiles();
@@ -417,11 +419,7 @@ public abstract class PlayerController {
 			playerView.printPlayerCard(card);
 			if(card instanceof WaterRiseCard) {
 				waterMeter.increaseWaterMeter();
-				int currentLevel = waterMeter.getCurrentLevel();
-				if(currentLevel == waterMeter.getGameOverLevel())
-					gameOver = true;
-				else
-					gameView.increasedWaterMeter();
+				gameView.increasedWaterMeter();
 				treasureDeck.discardCard(card);
 			} else {
 				putCardInPlayersHand(card);
@@ -447,7 +445,7 @@ public abstract class PlayerController {
 				gameView.changeFloodStatus(tile);
 			}
 			if(board.getTileWithName(tile).isSunken()) {
-				sunkPlayers = actOnSunkTile(tile);
+				sunkPlayers = board.getPlayersFromTile(tile);
 //				if(gameOver)
 //					return;
 			}
@@ -456,29 +454,6 @@ public abstract class PlayerController {
 		return sunkPlayers;
 	}
 	
-	/**
-	 * Check for lose conditions when a tile has sunk.
-	 * @param tileEnum, name of the sunken tile.
-	 * @return sunkPlayers, players that are now on sunk tiles.
-	 */
-	//TODO replace this function and always return sunkPlayers. Won't be necessary with observers
-	private ArrayList<Player> actOnSunkTile(TileEnum tileEnum) {
-		Board board = Board.getInstance();
-		TreasureManager treasureManager = TreasureManager.getInstance();
-		ArrayList<Player> sunkPlayers = new ArrayList<>();
-		
-		if( !treasureManager.treasuresAreAvailableToCollect() ) {
-			gameView.treasureHasSunk();
-			gameOver = true; 
-		}
-		else if(tileEnum == TileEnum.FOOLS_LANDING) {
-			gameOver = true;
-		}
-		
-		sunkPlayers = board.getPlayersFromTile(tileEnum);
-		return sunkPlayers;
-		
-	}
 	
 	/**
 	 * handleSunk moves this player from their current tile because it is sunk.

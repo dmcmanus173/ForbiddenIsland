@@ -26,7 +26,7 @@ public class TreasureManager {
 	//===========================================================
 	private static TreasureManager treasuereManager;
 	private ArrayList<TreasureEnum> collectedTreasures;
-	private boolean treasuresAreAvailableToCollect;
+//	private boolean treasuresAreAvailableToCollect;
 	Map<TreasureEnum, Integer> numSunkenTilesForTreasure;
 	
 	//===========================================================
@@ -34,7 +34,7 @@ public class TreasureManager {
 	//===========================================================
 	private final int NUM_TREASURES = TreasureEnum.values().length;
 	private final int NUM_TREASURE_CARDS_TO_COLLECT_TREASURE = 4;
-	private final int MAX_NUM_OF_TREASURE_TILES_TO_SINK = 2;
+//	private final int MAX_NUM_OF_TREASURE_TILES_TO_SINK = 2;
 	
 	//===========================================================
     // Get Instance of Singleton
@@ -57,7 +57,7 @@ public class TreasureManager {
 	 */
 	private TreasureManager() {
 		collectedTreasures = new ArrayList<TreasureEnum>();
-		treasuresAreAvailableToCollect = true;
+//		treasuresAreAvailableToCollect = true;
 		numSunkenTilesForTreasure = new HashMap<TreasureEnum, Integer>();
 		
 		for (TreasureEnum treasureType : TreasureEnum.values()) { 
@@ -147,23 +147,23 @@ public class TreasureManager {
 	 * treasuresAreAvailableToCollect returns true if there is still treasures left to claim.
 	 * @return Boolean true if treasures are still to be collected
 	 */
-	public boolean treasuresAreAvailableToCollect() {
-		return treasuresAreAvailableToCollect;
-	}
+//	public boolean treasuresAreAvailableToCollect() {
+//		return treasuresAreAvailableToCollect;
+//	}
 	
 	
-	public void treasureTileDidSink(TreasureEnum treasureType) {
-		increaseNumberOfTreasureTilesSunkenForTreasure(treasureType);
-		int numSunkenTreasureTilesForTreasure = numSunkenTilesForTreasure.get(treasureType);
-		if( (numSunkenTreasureTilesForTreasure == MAX_NUM_OF_TREASURE_TILES_TO_SINK) && (!didClaimTreasure(treasureType)) ) {
-			treasuresAreAvailableToCollect = false;
-		}
-	}
-	
-	private void increaseNumberOfTreasureTilesSunkenForTreasure(TreasureEnum treasureType) {
-		int currentNumberOfSunkenTreasureTilesForTreasure = numSunkenTilesForTreasure.get(treasureType);
-		numSunkenTilesForTreasure.replace(treasureType, currentNumberOfSunkenTreasureTilesForTreasure + 1);
-	}
+//	public void treasureTileDidSink(TreasureEnum treasureType) {
+//		increaseNumberOfTreasureTilesSunkenForTreasure(treasureType);
+//		int numSunkenTreasureTilesForTreasure = numSunkenTilesForTreasure.get(treasureType);
+//		if( (numSunkenTreasureTilesForTreasure == MAX_NUM_OF_TREASURE_TILES_TO_SINK) && (!didClaimTreasure(treasureType)) ) {
+//			treasuresAreAvailableToCollect = false;
+//		}
+//	}
+//	
+//	private void increaseNumberOfTreasureTilesSunkenForTreasure(TreasureEnum treasureType) {
+//		int currentNumberOfSunkenTreasureTilesForTreasure = numSunkenTilesForTreasure.get(treasureType);
+//		numSunkenTilesForTreasure.replace(treasureType, currentNumberOfSunkenTreasureTilesForTreasure + 1);
+//	}
 	
 	/**
 	 * printContents method prints what treasures have been claimed!

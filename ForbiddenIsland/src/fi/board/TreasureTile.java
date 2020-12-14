@@ -3,6 +3,7 @@ package fi.board;
 import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
+import fi.game.GameOverObserver;
 import fi.treasures.TreasureManager;
 
 /**
@@ -76,7 +77,7 @@ public class TreasureTile extends Tile {
 	@Override
 	public FloodStatusEnum flood() {
 		if (super.flood() == FloodStatusEnum.SUNKEN) {
-			TreasureManager.getInstance().treasureTileDidSink(treasureType);
+			GameOverObserver.getInstance().treasureTileDidSink(treasureType);
 		}
 		return FloodStatusEnum.SUNKEN;
 	}

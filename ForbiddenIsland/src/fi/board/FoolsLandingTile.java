@@ -1,6 +1,8 @@
 package fi.board;
 
+import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
+import fi.game.GameOverObserver;
 import fi.players.Player;
 
 /**
@@ -22,18 +24,12 @@ public class FoolsLandingTile extends Tile {
 		super(tileName);
 	}
 	
-	//===========================================================
-	// Other Functions
-	//===========================================================
-	/**
-    * addPlayerToTile method adds a player to the set of players on tile.
-    * Also checks to see if a winning condition is met.
-    * @param Player player that is to be added to tile.
-    */
 	@Override
-	public void addPlayerToTile(Player player) {
-		super.addPlayerToTile(player);
-		//loop through players and check if they have a helicopter lift card. If they do notify game manager			
+	public FloodStatusEnum flood() {
+		if (super.flood() == FloodStatusEnum.SUNKEN) {
+			GameOverObserver.getInstance().FoolsLandingTileDidSink();
+		}
+		return FloodStatusEnum.SUNKEN;
 	}
 	
 
