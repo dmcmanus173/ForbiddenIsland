@@ -25,7 +25,7 @@ public class MessengerController extends PlayerController {
 	 * Function to manage a player (Messenger) being able to give away treasure cards.
 	 */
 	@Override
-	private void handleGiveTreasureCard() {
+	protected void handleGiveTreasureCard() {
 		Player playerToGiveCardTo;
 		Card cardToGive;
 		ArrayList<Player> possiblePlayers = new ArrayList<Player>();           // Players that can be sent a card

@@ -235,7 +235,7 @@ public abstract class PlayerController {
 	 * handleShoreUp is the handle to be called as a player action. It will call doAShoreUp, to shore up a tile, if possible.
 	 * If the player is an Engineer, they can shoreUp 2 tiles for one action. This function will facilitate this.
 	 */
-	private void handleShoreUp() {
+	protected void handleShoreUp() {
 		Boolean didShoreUp = doAShoreUp();
 		if(didShoreUp)
 			decreaseRemainingActions();
@@ -244,7 +244,7 @@ public abstract class PlayerController {
 	/**
 	 * Function to manage a player being able to give away treasure cards.
 	 */
-	private void handleGiveTreasureCard() {
+	protected void handleGiveTreasureCard() {
 		Player playerToGiveCardTo;
 		Card cardToGive;
 		ArrayList<Player> possiblePlayers = new ArrayList<Player>();           // Players that can be sent a card
@@ -480,7 +480,7 @@ public abstract class PlayerController {
 	 * @param sunkPlayer, a player that is on a sunk tile.
 	 * @return true if the player is able to move. Else false.
 	 */
-	private Boolean moveFromSunk(Player sunkPlayer) {
+	protected Boolean moveFromSunk(Player sunkPlayer) {
 		TileEnum chosenTile;
 		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
 		Board board = Board.getInstance();

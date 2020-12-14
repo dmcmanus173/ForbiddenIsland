@@ -14,7 +14,7 @@ public class EngineerController extends PlayerController {
 	 * If the player is an Engineer, they can shoreUp 2 tiles for one action. This function will facilitate this.
 	 */
 	@Override
-	private void handleShoreUp() {
+	protected void handleShoreUp() {
 		Boolean didShoreUp = doAShoreUp();
 		if(!Board.getInstance().getTilesToShoreUpAround(player.getLocation()).isEmpty()) {
 			if(playerView.engineerShoreUpOption())

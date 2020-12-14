@@ -24,7 +24,7 @@ public class PilotController extends PlayerController {
 	 * @return true if the player is able to move. Else false.
 	 */
 	@Override
-	private Boolean moveFromSunk(Player sunkPlayer) {
+	protected Boolean moveFromSunk(Player sunkPlayer) {
 		TileEnum chosenTile;
 		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
 		Board board = Board.getInstance();
