@@ -2,6 +2,7 @@ package fi.gameView;
 
 import fi.board.Board;
 import fi.enums.TileEnum;
+import fi.game.GameOverObserver;
 import fi.treasures.TreasureManager;
 import fi.watermeter.WaterMeter;
 
@@ -33,10 +34,6 @@ public class GameView {
     private GameView() {
     	
     }
-    
-	public void gameWon() {
-		System.out.println("Congradulations! You have succsesfully escaped the Island with all of the Treasures. You have won the game!!!");
-	}
 	
 	public void increasedWaterMeter() {
 		WaterMeter waterMeter = WaterMeter.getInstance();
@@ -73,7 +70,7 @@ public class GameView {
 	}
 	
 	public void gameOver() {
-		System.out.println("Game Over!");
+		System.out.println(GameOverObserver.getInstance().toString());
 	}
 	
 	/**

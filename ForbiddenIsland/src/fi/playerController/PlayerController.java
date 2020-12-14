@@ -344,7 +344,7 @@ public abstract class PlayerController {
 			if(playersToMove.isEmpty()) {
 				playerView.noPlayersToHelicopterLift();
 			} else if(playersDidWin(playersToMove)) {
-				gameView.gameWon();
+				gameOverObserver.playersWonGame();
 				return;
 			} else {
 				tilesPlayersCanMoveTo = Board.getInstance().getUnsunkenTiles();
