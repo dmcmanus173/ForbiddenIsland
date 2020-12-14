@@ -8,7 +8,6 @@ import fi.players.Player;
 
 public class DiverController extends PlayerController {
 	
-	
 	//===========================================================
 	// Constructor
 	//===========================================================
@@ -18,7 +17,6 @@ public class DiverController extends PlayerController {
 	public DiverController(Player player) {
 		super(player);
 	}
-	
 	
 	/**
 	 * moveFromSunk moves a sunk Player (Diver) from the sunk tile that they are on.
