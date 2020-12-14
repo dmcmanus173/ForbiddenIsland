@@ -2,6 +2,7 @@ package fi.game;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.HashMap;
 
 import fi.enums.AdventurerEnum;
 import fi.enums.FloodStatusEnum;
@@ -31,7 +32,7 @@ public class GameManager {
 	// Variable Setup
 	//===========================================================
 	private static GameManager gameManager;
-	Map<Player, PlayerController> playerMap;
+	Map<Player, PlayerController> playerMap = new HashMap<Player, PlayerController>();
 	private ArrayList<PlayerController> players = new ArrayList<PlayerController>();
 	private int playersGoPos;
 	
