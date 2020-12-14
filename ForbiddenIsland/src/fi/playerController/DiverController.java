@@ -27,7 +27,6 @@ public class DiverController extends PlayerController {
 	protected Boolean moveFromSunk(Player sunkPlayer) {
 		TileEnum chosenTile;
 		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
-		Board board = Board.getInstance();
 		
 		tilesPlayerCanMoveTo.addAll(Board.getInstance().getNearestTilesToTile(sunkPlayer.getLocation())); //TODO: PERHAPS THIS IS THE ONLY LINE THAT NEEDS TO BE OVERRIDEN?
 		
