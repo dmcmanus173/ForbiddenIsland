@@ -49,7 +49,7 @@ public abstract class PlayerController {
 		drawCardsFromTreasureDeckToStart();
 	}
 	
-	public void doActions() {
+	private void doActions() {
 		turnHasEnded = false;
 		while(!turnHasEnded) {
 			getAction();
@@ -122,22 +122,23 @@ public abstract class PlayerController {
 			playerView.printPlayerCard(card);
 			putCardInPlayersHand(card);
 		});
-		gameView.printNewLine(); //TODO use a gameView to format game.
+		gameView.printNewLine(); 
 	}
 	
 	/**
 	 * doRound is a full round done by a player.
 	 * @return
 	 */
-	public boolean doRound() {
+	public ArrayList<Player> doRound() {
+		ArrayList<Player> sunkenPlayers = new ArrayList<>();
 		doActions();
 		if(!gameOver) 
 			drawCardsFromTreasureDeck();
 		if(!gameOver) 
-			drawCardsFromFloodDeck();
+			sunkenPlayers = drawCardsFromFloodDeck();
 		if(gameOver)
 			gameView.gameOver();
-		return gameOver;
+		return sunkenPlayers;
 	}
 	
 	/**
@@ -433,75 +434,82 @@ public abstract class PlayerController {
 	 * drawCardsFromFloodDeck is the last act a player does at the end of their go.
 	 * It will change tiles flood status from cards taken from FloodDeck.
 	 * It will move players off of sunk tiles and call gameOver if a gameOver condition is met.
+	 * @return sunkPlayers, players that are now on sunk tiles.
 	 */
-	private void drawCardsFromFloodDeck() {
+	private ArrayList<Player> drawCardsFromFloodDeck() {
 		ArrayList<TileEnum> tilesToFlood = FloodDeck.getInstance().getTilesToFlood(false);
 		Board board = Board.getInstance();
+		ArrayList<Player> sunkPlayers = new ArrayList<Player>();
 		// check with treasure manager if treasuresAreAvailableToCollect
-		tilesToFlood.forEach((tileEnum) -> { //TODO check order
-			if(!board.getTileWithName(tileEnum).isSunken()) {
-				board.floodTile(tileEnum);
-				gameView.changeFloodStatus(tileEnum);
+		for(TileEnum tile : tilesToFlood) {           //tilesToFlood.forEach((tileEnum) -> { //TODO check order
+			if(!board.getTileWithName(tile).isSunken()) {
+				board.floodTile(tile);
+				gameView.changeFloodStatus(tile);
 			}
-			if(board.getTileWithName(tileEnum).isSunken()) {
-				actOnSunkTile(tileEnum);
-				if(gameOver)
-					return;
+			if(board.getTileWithName(tile).isSunken()) {
+				sunkPlayers = actOnSunkTile(tile);
+//				if(gameOver)
+//					return;
 			}
-		});
+		}
 		gameView.printNewLine();
+		return sunkPlayers;
 	}
 	
 	/**
 	 * Check for lose conditions when a tile has sunk.
 	 * @param tileEnum, name of the sunken tile.
+	 * @return sunkPlayers, players that are now on sunk tiles.
 	 */
-	private void actOnSunkTile(TileEnum tileEnum) {
+	//TODO replace this function and always return sunkPlayers. Won't be necessary with observers
+	private ArrayList<Player> actOnSunkTile(TileEnum tileEnum) {
 		Board board = Board.getInstance();
-		if( !TreasureManager.getInstance().treasuresAreAvailableToCollect() ) {
+		TreasureManager treasureManager = TreasureManager.getInstance();
+		ArrayList<Player> sunkPlayers = new ArrayList<>();
+		
+		if( !treasureManager.treasuresAreAvailableToCollect() ) {
 			gameView.treasureHasSunk();
 			gameOver = true; 
 		}
 		else if(tileEnum == TileEnum.FOOLS_LANDING) {
 			gameOver = true;
 		}
-		else {	
-			board.getPlayersFromTile(tileEnum).forEach(sunkPlayer -> {
-				if(!moveFromSunk(sunkPlayer)) {
-					gameOver = true;
-					return;
-				}
-			});
-		}
+		
+		sunkPlayers = board.getPlayersFromTile(tileEnum);
+		return sunkPlayers;
+		
 	}
+	
+	/**
+	 * handleSunk moves this player from their current tile because it is sunk.
+	 */
+	public Boolean handlePlayerSunk() {
+		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
+		Board board = Board.getInstance();
+		
+		tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(player.getLocation(), false));
+		
+		return moveFromSunk(tilesPlayerCanMoveTo);
+		
+	}
+	
 	
 	/**
 	 * moveFromSunk moves a player sunkPlayer from the sunk tile that they are on.
 	 * @param sunkPlayer, a player that is on a sunk tile.
 	 * @return true if the player is able to move. Else false.
 	 */
-	protected Boolean moveFromSunk(Player sunkPlayer) {
+	protected Boolean moveFromSunk(ArrayList<TileEnum> tilesPlayerCanMoveTo) {
 		TileEnum chosenTile;
-		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
-		Board board = Board.getInstance();
-		
-		if(sunkPlayer.getRole() == AdventurerEnum.PILOT)
-			tilesPlayerCanMoveTo.addAll(board.getUnsunkenTiles()); 
-		else if(sunkPlayer.getRole() == AdventurerEnum.EXPLORER)
-			tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(sunkPlayer.getLocation(), false));
-		else if(sunkPlayer.getRole() == AdventurerEnum.DIVER)
-			tilesPlayerCanMoveTo.addAll(Board.getInstance().getNearestTilesToTile(sunkPlayer.getLocation()));
-		else
-			tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(sunkPlayer.getLocation(), false));
 		
 		if(tilesPlayerCanMoveTo.isEmpty()) {
 			playerView.playerCantMove();
 			return false;
 		}
 		
-		chosenTile = playerView.tileToMoveFromSunk(sunkPlayer, tilesPlayerCanMoveTo);
-		sunkPlayer.move(chosenTile);
-		playerView.playerHasMovedFromSunk(sunkPlayer);
+		chosenTile = playerView.tileToMoveFromSunk(tilesPlayerCanMoveTo);
+		player.move(chosenTile);
+		playerView.playerHasMoved(); 
 		return true;
 	}
 	

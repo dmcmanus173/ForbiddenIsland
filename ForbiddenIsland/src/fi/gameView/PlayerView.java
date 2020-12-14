@@ -218,17 +218,13 @@ public class PlayerView {
 	//===========================================================
 	// Sunk Player
 	//===========================================================
-	public TileEnum tileToMoveFromSunk(Player aPlayer, ArrayList<TileEnum> tilesPlayerCanMoveTo) {
+	public TileEnum tileToMoveFromSunk(ArrayList<TileEnum> tilesPlayerCanMoveTo) {
 		TileEnum chosenTile;
-		System.out.println(aPlayer.getName()+" must move as they're on a sunken Tile!");
+		System.out.println(player.getName()+" must move as they're on a sunken Tile!");
 		GameView.getInstance().showMap();
-		System.out.println(aPlayer.getName()+" is on "+aPlayer.getLocation().toString());
+		System.out.println(player.getName()+" is on "+player.getLocation().toString());
 		chosenTile = selectTileFromList(tilesPlayerCanMoveTo);
 		return chosenTile;
-	}
-	
-	public void playerHasMovedFromSunk(Player aPlayer) {
-		System.out.println(aPlayer.getName()+" has moved to "+aPlayer.getLocation());
 	}
 	
 }
