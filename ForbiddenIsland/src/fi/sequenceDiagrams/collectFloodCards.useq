@@ -1,52 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sequence-diagram version="1.2.4" icons="true" automaticImage="PNG" generate-combined-fragments="true">  
-  <object id="1" language="java" name="player.Player" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/player/Player.java" binary="false" label="player" type="class" autoSize="true">    
-    <position height="-1" width="-1" x="766" y="0"/>    
+  <object id="1" language="java" name="fi.playerController.PlayerController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/PlayerController.java" binary="false" label="playerController" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="324" y="0"/>    
     <execution id="2">      
-      <position height="270" width="66" x="5" y="92"/>    
-    </execution>  
-  </object>  
-  <object id="5" language="java" name="board.FloodDeck" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/board/FloodDeck.java" binary="false" label="floodDeck" type="class" autoSize="true">    
-    <position height="-1" width="-1" x="481" y="0"/>    
-    <execution id="4">      
-      <position height="228" width="95" x="75" y="113"/>    
+      <position height="511" width="132" x="5" y="87"/>    
     </execution>    
-    <execution id="9">      
-      <position height="21" width="0" x="0" y="299"/>    
+    <execution id="4">      
+      <position height="448" width="132" x="5" y="129"/>    
     </execution>  
   </object>  
-  <object id="10" language="java" name="otherComponents.WaterMeter" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/otherComponents/WaterMeter.java" binary="false" label="&lt;static&gt;" type="class" 
+  <object id="19" language="java" name="fi.cards.FloodDeck" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/cards/FloodDeck.java" binary="false" label="&lt;static&gt;" type="class" 
     autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
-    <execution id="7">      
-      <position height="84" width="0" x="0" y="133"/>    
-    </execution>    
-    <execution id="12">      
-      <position height="21" width="7" x="220" y="175"/>    
+    <execution id="6">      
+      <position height="21" width="0" x="0" y="160"/>    
     </execution>  
   </object>  
-  <combined-fragment id="13" interaction-operator="LOOP">    
-    <interaction-operand id="14" constraint="for:i&lt;numCards">      
-      <fragment refId="8"/>    
-    </interaction-operand>  
+  <object id="20" language="java" name="fi.board.Board" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/Board.java" binary="false" label="&lt;static&gt;" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="8">      
+      <position height="21" width="0" x="0" y="204"/>    
+    </execution>  
+  </object>  
+  <object id="21" language="java" name="fi.cards.FloodDeck" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/cards/FloodDeck.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="10">      
+      <position height="21" width="0" x="0" y="251"/>    
+    </execution>  
+  </object>  
+  <object id="22" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
+    file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" 
+    label="sunkPlayers" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="12">      
+      <position height="21" width="0" x="0" y="286"/>    
+    </execution>  
+  </object>  
+  <object id="23" language="java" name="fi.board.Board" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/Board.java" binary="false" label="board" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="14">      
+      <position height="21" width="0" x="0" y="400"/>    
+    </execution>    
+    <execution id="18">      
+      <position height="21" width="0" x="0" y="535"/>    
+    </execution>  
+  </object>  
+  <object id="24" language="java" name="fi.gameView.GameView" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/gameView/GameView.java" binary="false" label="gameView" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="16">      
+      <position height="21" width="0" x="0" y="442"/>    
+    </execution>  
+  </object>  
+  <combined-fragment id="25" interaction-operator="LOOP">    
+    <interaction-operand id="26" constraint="for:i&lt;numCards"/>  
   </combined-fragment>  
-  <message id="3" operation="drawFloodCards():void" asynchronous="false">    
+  <combined-fragment id="27" interaction-operator="LOOP">    
+    <interaction-operand id="28" constraint="for: tilesToFlood">      
+      <fragment refId="29"/>      
+      <fragment refId="30"/>    
+    </interaction-operand>    
+    <combined-fragment id="30" interaction-operator="OPT">      
+      <interaction-operand id="31" constraint="!board.getTileWithName(tile).isSunken()">        
+        <fragment refId="15"/>        
+        <fragment refId="13"/>      
+      </interaction-operand>    
+    </combined-fragment>    
+    <combined-fragment id="29" interaction-operator="OPT">      
+      <interaction-operand id="32" constraint="board.getTileWithName(tile).isSunken()">        
+        <fragment refId="17"/>      
+      </interaction-operand>    
+    </combined-fragment>  
+  </combined-fragment>  
+  <message id="3" operation="drawCardsFromFloodDeck():java.util.ArrayList&lt;Player&gt;" asynchronous="false">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
   </message>  
-  <message id="6" operation="getInstance():otherComponents.WaterMeter" asynchronous="false">    
+  <message id="5" operation="getInstance():fi.cards.FloodDeck" asynchronous="false">    
     <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="7"/>  
+    <end type="TARGET" refId="6"/>  
   </message>  
-  <message id="8" operation="pickCard():void" asynchronous="false">    
+  <message id="7" operation="getInstance():fi.board.Board" asynchronous="false">    
     <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="9"/>  
+    <end type="TARGET" refId="8"/>  
   </message>  
-  <message id="11" operation="getLevel():int" asynchronous="false">    
-    <end type="SOURCE" refId="7"/>    
+  <message id="9" operation="getTilesToFlood(boolean):java.util.ArrayList&lt;TileEnum&gt;" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" operation="ArrayList()" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="13" operation="floodTile(fi.enums.TileEnum):fi.enums.FloodStatusEnum" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="15" operation="changeFloodStatus(fi.enums.TileEnum):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="17" operation="getPlayersFromTile(fi.enums.TileEnum):java.util.ArrayList&lt;Player&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="18"/>  
   </message>
 </sequence-diagram>
