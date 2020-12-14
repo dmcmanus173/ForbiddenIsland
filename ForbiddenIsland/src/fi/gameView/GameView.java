@@ -35,10 +35,9 @@ public class GameView {
     	
     }
 	
-	public void increasedWaterMeter() {
-		WaterMeter waterMeter = WaterMeter.getInstance();
-		System.out.println("The water meter has been increased to " + waterMeter.getCurrentLevel() + ". All players will now have to take " +  waterMeter.getCurrentLevel() + " FloodCards at the end of their go!");
-	}
+	//===========================================================
+    // Treasure stuff
+    //===========================================================
 	
 	public void treasureHasSunk() {
 		System.out.println("An uncollected Treasure has sunk!");
@@ -52,10 +51,9 @@ public class GameView {
 		System.out.println("Only "+ TreasureManager.getInstance().getNumOfRemainingTreasuresToCollect() + " more treasures to collect before everyone can escape the island.");
 	}
 	
-	public void allHandsAreFull() {
-		System.out.println("Everyone's hand is full. Cannot give card.");
-	}
-	
+	//===========================================================
+    // Tile stuff
+    //===========================================================
 	public void noFloodedTiles() {
 		System.out.println("There are no flooded tiles on the board!");
 	}
@@ -65,10 +63,12 @@ public class GameView {
 		System.out.println(tileEnum.toString()+" is now "+board.getTileWithName(tileEnum).getFloodStatus().toString()+"!");
 	}
 	
-	public void printNewLine() {
-		System.out.println();
-	}
-	
+	//===========================================================
+    // Other
+    //===========================================================
+	/**
+	 * gameOver prints the gameOver state to the console.
+	 */
 	public void gameOver() {
 		System.out.println(GameOverObserver.getInstance().toString());
 	}
@@ -88,6 +88,18 @@ public class GameView {
 		Board board = Board.getInstance();
 		System.out.println(board.toString());
 	}
+	
+	public void increasedWaterMeter() {
+		WaterMeter waterMeter = WaterMeter.getInstance();
+		System.out.println("The water meter has been increased to " + waterMeter.getCurrentLevel() + ". All players will now have to take " +  waterMeter.getCurrentLevel() + " FloodCards at the end of their go!");
+	}
+	
+	public void allHandsAreFull() {
+		System.out.println("Everyone's hand is full. Cannot give card.");
+	}
     
+	public void printNewLine() {
+		System.out.println();
+	}
 
 }

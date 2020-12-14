@@ -3,7 +3,6 @@ package fi.board;
 import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
 import fi.game.GameOverObserver;
-import fi.players.Player;
 
 /**
  * Class for the Fools' Landing tile in the Forbidden Island Game.

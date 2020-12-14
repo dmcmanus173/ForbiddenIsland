@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import fi.enums.TreasureEnum;
-import otherComponents.Treasure;
 import fi.watermeter.WaterMeter;
-import setup.MainSetup;
-//import fi.cards.AbstractTreasureCard;
 import fi.cards.TreasureDeck;
 
 @SuppressWarnings("unused")

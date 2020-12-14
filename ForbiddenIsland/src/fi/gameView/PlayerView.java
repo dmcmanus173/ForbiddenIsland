@@ -149,6 +149,7 @@ public class PlayerView {
 	public void noHelicopterLiftCards() {
 		System.out.println("None of the players have a HelicopterLift Card to use.");
 	}
+	
 	//===========================================================
 	// Player Movement functions
 	//===========================================================
@@ -198,6 +199,13 @@ public class PlayerView {
 	//===========================================================
 	// Helicopter Lift
 	//===========================================================
+	public Player choosePlayerWithHelicopterLift(ArrayList<Player> players) {
+		Player chosenPlayer;
+		System.out.println("Choose a player who wants to use their HelicopterLift.");
+		chosenPlayer = selectPlayerFromList(players);
+		return chosenPlayer;
+	}
+	
 	public void noPlayersToHelicopterLift() {
 		System.out.println("Didn't select any players to move. Won't use the Helicopter Lift Card.");
 	}

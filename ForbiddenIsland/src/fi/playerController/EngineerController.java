@@ -1,6 +1,9 @@
 package fi.playerController;
 
+import java.util.ArrayList;
+
 import fi.board.Board;
+import fi.enums.TileEnum;
 import fi.players.Player;
 
 public class EngineerController extends PlayerController {
@@ -15,10 +18,14 @@ public class EngineerController extends PlayerController {
 	 */
 	@Override
 	protected void handleShoreUp() {
-		Boolean didShoreUp = doAShoreUp();
-		if(!Board.getInstance().getTilesToShoreUpAround(player.getLocation()).isEmpty()) {
+		Board board = Board.getInstance();
+		ArrayList<TileEnum> tilesPlayerCanShoreUp = board.getTilesToShoreUpAround(player.getLocation());
+		
+		Boolean didShoreUp = doAShoreUp(tilesPlayerCanShoreUp);
+		tilesPlayerCanShoreUp = board.getTilesToShoreUpAround(player.getLocation());
+		if(!tilesPlayerCanShoreUp.isEmpty()) {
 			if(playerView.engineerShoreUpOption())
-				doAShoreUp();
+				doAShoreUp(tilesPlayerCanShoreUp);
 		}
 		if(didShoreUp)
 			decreaseRemainingActions();

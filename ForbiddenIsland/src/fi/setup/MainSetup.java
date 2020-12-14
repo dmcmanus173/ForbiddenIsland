@@ -3,6 +3,7 @@ package fi.setup;
 import fi.board.Board;
 import fi.cards.FloodDeck;
 import fi.game.GameManager;
+import fi.game.GameOverObserver;
 import fi.game.GetInput;
 import fi.watermeter.*;
 import fi.cards.TreasureDeck;
@@ -29,6 +30,9 @@ public class MainSetup {
 		
 		// Get Input setup 
 		getInputSetup();
+		
+		// GameOverObserver implemented in WaterMeter, TreasureTile (Board), FoolsLandingTile (Board), GameManager
+		gameOverObserverSetup();
 		
 		// Water Meter Setup needs getInput
 		waterMeterSetup();
@@ -82,6 +86,10 @@ public class MainSetup {
 	private void getInputSetup() {
 		
 		GetInput getInput = GetInput.getInstance();
+	}
+	
+	private void gameOverObserverSetup() {
+		GameOverObserver gameOverObserver = GameOverObserver.getInstance();
 	}
 	
 	/**

@@ -4,7 +4,6 @@ import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
 import fi.game.GameOverObserver;
-import fi.treasures.TreasureManager;
 
 /**
  * Class for TreasureTile in a Forbidden Island Game.
