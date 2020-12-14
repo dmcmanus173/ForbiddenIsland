@@ -2,10 +2,7 @@ package fi.playerController;
 
 import java.util.ArrayList;
 
-import fi.board.Board;
 import fi.cards.Card;
-import fi.enums.AdventurerEnum;
-import fi.enums.TileEnum;
 import fi.players.Player;
 import fi.players.Players;
 
