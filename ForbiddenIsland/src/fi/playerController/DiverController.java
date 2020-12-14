@@ -12,6 +12,12 @@ public class DiverController extends PlayerController {
 		super(player);
 	}
 	
+	
+	/**
+	 * moveFromSunk moves a sunk Player (Diver) from the sunk tile that they are on.
+	 * @param sunkPlayer (Diver), a player that is on a sunk tile.
+	 * @return true if the player is able to move. Else false.
+	 */
 	@Override
 	private Boolean moveFromSunk(Player sunkPlayer) {
 		TileEnum chosenTile;
