@@ -24,6 +24,8 @@ public class DiverController extends PlayerController {
 		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
 		Board board = Board.getInstance();
 		
+		tilesPlayerCanMoveTo.addAll(board.getUnsunkenTiles()); 
+		
 		if(tilesPlayerCanMoveTo.isEmpty()) {
 			playerView.playerCantMove();
 			return false;
