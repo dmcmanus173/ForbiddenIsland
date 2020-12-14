@@ -19,26 +19,16 @@ public class ExplorerController extends PlayerController {
 	}
 	
 	/**
-	 * moveFromSunk moves a sunk Player (Explorer) from the sunk tile that they are on.
-	 * @param sunkPlayer (Explorer), a player that is on a sunk tile.
-	 * @return true if the player is able to move. Else false.
+	 * handleSunk moves this player from their current tile because it is sunk.
 	 */
 	@Override
-	protected Boolean moveFromSunk(Player sunkPlayer) {
-		TileEnum chosenTile;
+	public Boolean handlePlayerSunk() {
 		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
 		Board board = Board.getInstance();
 		
-		tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(sunkPlayer.getLocation(), false)); //TODO: PERHAPS THIS IS THE ONLY LINE THAT NEEDS TO BE OVERRIDEN?
+		tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(player.getLocation(), false));
 		
-		if(tilesPlayerCanMoveTo.isEmpty()) {
-			playerView.playerCantMove();
-			return false;
-		}
+		return moveFromSunk(tilesPlayerCanMoveTo);
 		
-		chosenTile = playerView.tileToMoveFromSunk(sunkPlayer, tilesPlayerCanMoveTo);
-		sunkPlayer.move(chosenTile);
-		playerView.playerHasMovedFromSunk(sunkPlayer);
-		return true;
 	}
 }
