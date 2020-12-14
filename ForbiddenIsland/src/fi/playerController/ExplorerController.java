@@ -29,7 +29,7 @@ public class ExplorerController extends PlayerController {
 		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
 		Board board = Board.getInstance();
 		
-		tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(sunkPlayer.getLocation(), false));
+		tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(sunkPlayer.getLocation(), false)); //TODO: PERHAPS THIS IS THE ONLY LINE THAT NEEDS TO BE OVERRIDEN?
 		
 		if(tilesPlayerCanMoveTo.isEmpty()) {
 			playerView.playerCantMove();
