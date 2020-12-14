@@ -24,15 +24,16 @@ public class GameOverObserver {
 	private final int MAX_NUM_OF_TREASURE_TILES_TO_SINK = 2;
 	
 	
-	private final String GAME_OVER = "----- THE GAME IS OVER -----\"";
+	private final String GAME_OVER = "----- THE GAME IS OVER -----\n";
 	
-	private final String YOU_LOSE = "\nYou lose.";
-	private final String SUNKEN_TREASURE_TILE = "\nThe treasure has sunken";
-	private final String SUNKEN_FOOLS_LANDING_TILE = "\nFool's Landing has sunken. No way to escape.";
-	private final String SUNKEN_PLAYER = "\nA player is sunken and there is no tile the player can movve to.";
+	private final String YOU_LOSE = "You lose.\n";
+	private final String SUNKEN_TREASURE_TILE = "The treasure has sunken.\n";
+	private final String SUNKEN_FOOLS_LANDING_TILE = "Fool's Landing has sunken. No way to escape.\n";
+	private final String SUNKEN_PLAYER = "A player is sunken and there is no tile the player can movve to.\n";
+	private final String WATER_METER_MAX = "The water meter has been increased to its maximum level.\n";
 	
-	private final String YOU_WIN = "\nYou win.";
-	private final String PLAYERS_DID_ESCAPE_WITH_TREASURE = "\nAll players escaped from Fool's Landing Tile with all the treasures.";
+	private final String YOU_WIN = "You win.\n";
+	private final String PLAYERS_DID_ESCAPE_WITH_TREASURE = "All players escaped from Fool's Landing Tile with all the treasures.\n";
 	
 	//===========================================================
     // Get Instance of Singleton
@@ -84,6 +85,11 @@ public class GameOverObserver {
     	setGameLose();
     	gameOverReason += SUNKEN_PLAYER;
     }
+    
+    public void waterMeterIsFull() {
+    	setGameLose();
+    	gameOverReason += WATER_METER_MAX;
+	}
     
     public void playersWonGame() {
     	setGameWin();

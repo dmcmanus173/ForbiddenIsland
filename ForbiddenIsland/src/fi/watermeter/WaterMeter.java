@@ -1,5 +1,7 @@
 package fi.watermeter;
 
+import fi.game.GameOverObserver;
+
 /**
  * Class for the WaterMeter in Forbidden Island.
  * 
@@ -53,7 +55,9 @@ public class WaterMeter {
 	 * unless the level is already at MAX_LEVEL.
 	 */
 	public void increaseWaterMeter() {
-		currentLevel += 1; 
+		currentLevel += 1;
+		if (currentLevel == GAME_OVER_LEVEL)
+			GameOverObserver.getInstance().waterMeterIsFull();
 	}
 	
 	/**
