@@ -154,6 +154,8 @@ public class GameManager {
     		nextPlayersGoPos();
     		playerToGo = players.get(playersGoPos);
     	}
+    	
+    	GameView.getInstance().gameOver();
     }
     
 }
