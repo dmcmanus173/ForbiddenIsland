@@ -11,7 +11,7 @@ import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
 import fi.game.GameOverObserver;
 import fi.gameView.GameView;
-import fi.gameView.PlayerView;
+import fi.playerView.PlayerView;
 import fi.players.Player;
 import fi.players.Players;
 import fi.treasures.TreasureManager;
@@ -224,10 +224,9 @@ public abstract class PlayerController {
 		possiblePlayers.addAll(Board.getInstance().getOtherPlayersOnTile(player));
 		if(possiblePlayers.isEmpty()) {
 			playerView.playersNotOnSameTile();
-			return;
 		}
-		
-		toGiveTreasureCard(possiblePlayers);
+		else		
+			toGiveTreasureCard(possiblePlayers);
 	}
 	
 	/**
@@ -239,27 +238,27 @@ public abstract class PlayerController {
 		Card cardToGive;
 		ArrayList<Player> playersThatCanAcceptACard = new ArrayList<Player>(); // Players that can receive a card (Hand is not full)
 		
-		if(player.getCardsInPlayersHand().isEmpty()) {
-			playerView.playerHasNoCards();
-			return;
-		}
-		
 		// Getting players from possiblePlayers without full hand
 		possiblePlayers.forEach((possiblePlayer) -> {
 			if(!possiblePlayer.handIsFull()) {
 				playersThatCanAcceptACard.add(possiblePlayer);
 			}
 		});
-		if(playersThatCanAcceptACard.isEmpty()) {
+		
+		if(player.getCardsInPlayersHand().isEmpty()) {
+			playerView.playerHasNoCards();
+		}
+		else if(playersThatCanAcceptACard.isEmpty()) {
 			gameView.allHandsAreFull();
-			return;
+		}
+		else {
+			playerToGiveCardTo = playerView.selectPlayerFromList(playersThatCanAcceptACard);
+			cardToGive = playerView.selectCardFromList(player.getCardsInPlayersHand());
+			
+			player.giveTreasureCard(playerToGiveCardTo, cardToGive);
+			decreaseRemainingActions();
 		}
 		
-		playerToGiveCardTo = playerView.selectPlayerFromList(playersThatCanAcceptACard);
-		cardToGive = playerView.selectCardFromList(player.getCardsInPlayersHand());
-		
-		player.giveTreasureCard(playerToGiveCardTo, cardToGive);
-		decreaseRemainingActions();
 	}
 	
    /**

@@ -1,4 +1,4 @@
-package fi.gameView;
+package fi.playerView;
 
 import java.util.ArrayList;
 
@@ -6,6 +6,7 @@ import fi.cards.Card;
 import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
 import fi.game.GetInput;
+import fi.gameView.GameView;
 import fi.players.Player;
 
 /**

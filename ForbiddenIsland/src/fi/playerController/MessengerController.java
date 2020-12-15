@@ -27,9 +27,8 @@ public class MessengerController extends PlayerController {
 		possiblePlayers.addAll(Players.getInstance().getPlayersExcept(player));
 		if(possiblePlayers.isEmpty()) {
 			playerView.playersNotOnSameTile();
-			return;
 		}
-		
-		toGiveTreasureCard(possiblePlayers);
+		else
+			toGiveTreasureCard(possiblePlayers);
 	}
 }
