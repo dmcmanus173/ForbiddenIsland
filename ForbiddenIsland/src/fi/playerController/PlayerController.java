@@ -20,7 +20,7 @@ import fi.watermeter.WaterMeter;
 public abstract class PlayerController {
 	//===========================================================
 	// Variable Setup
-	//===========================================================
+	//=========================================================== 
 	protected Player player;
 	protected PlayerView playerView;
 	protected GameView gameView;

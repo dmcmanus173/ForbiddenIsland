@@ -125,6 +125,7 @@ public class Tile {
 			floodStatus = FloodStatusEnum.SUNKEN;
 			return FloodStatusEnum.SUNKEN;
 		}
+		//TODO: TALK ABOUT THIS WITH DANIEL.
 		else throw new RuntimeException("Attempting to flood sunken tile.");
 	}
 	
