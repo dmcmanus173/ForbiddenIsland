@@ -68,10 +68,10 @@
       <fragment refId="15"/>    
     </interaction-operand>    
     <interaction-operand id="32" constraint="else">      
-      <fragment refId="19"/>      
       <fragment refId="23"/>      
-      <fragment refId="17"/>      
-      <fragment refId="21"/>    
+      <fragment refId="21"/>      
+      <fragment refId="19"/>      
+      <fragment refId="17"/>    
     </interaction-operand>  
   </combined-fragment>  
   <message id="3" operation="handleMove():void" asynchronous="false">    
@@ -90,8 +90,7 @@
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="10"/>  
   </message>  
-  <message id="11" operation="getTilesAroundTile(fi.enums.TileEnum,boolean):java.util.ArrayList&lt;TileEnum&gt;" 
-    asynchronous="false">    
+  <message id="11" asynchronous="false">    
     <end type="SOURCE" refId="4"/>    
     <end type="TARGET" refId="12"/>  
   </message>  
