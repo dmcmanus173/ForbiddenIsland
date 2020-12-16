@@ -3,104 +3,208 @@
   <object id="1" language="java" name="fi.playerController.PlayerController" project="ForbiddenIsland" 
     file="/ForbiddenIsland/src/fi/playerController/PlayerController.java" binary="false" label="playerController" 
     type="class" autoSize="true">    
-    <position height="-1" width="-1" x="875" y="0"/>    
+    <position height="-1" width="-1" x="339" y="0"/>    
     <execution id="2">      
-      <position height="929" width="132" x="5" y="84"/>    
+      <position height="1009" width="132" x="5" y="122"/>    
     </execution>    
     <execution id="4">      
-      <position height="866" width="132" x="5" y="126"/>    
+      <position height="946" width="132" x="5" y="164"/>    
     </execution>    
     <execution id="16">      
-      <position height="532" width="0" x="0" y="439"/>    
+      <position height="582" width="0" x="0" y="507"/>    
     </execution>    
     <execution id="34">      
-      <position height="21" width="0" x="0" y="929"/>    
+      <position height="21" width="0" x="0" y="1047"/>    
     </execution>  
   </object>  
-  <object id="35" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
-    file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" 
-    label="possiblePlayers" type="class" autoSize="true">    
-    <position height="0" width="0" x="0" y="0"/>    
-    <execution id="6">      
-      <position height="21" width="0" x="0" y="157"/>    
+  <object id="35" language="java" name="fi.playerController.MessengerController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/MessengerController.java" binary="false" label="messengerController" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="914" y="0"/>    
+    <execution id="36">      
+      <position height="886" width="164" x="141" y="1123"/>    
     </execution>    
-    <execution id="8">      
-      <position height="21" width="0" x="0" y="199"/>    
+    <execution id="38">      
+      <position height="823" width="164" x="141" y="1165"/>    
     </execution>    
-    <execution id="22">      
-      <position height="21" width="0" x="0" y="605"/>    
+    <execution id="48">      
+      <position height="582" width="0" x="0" y="1385"/>    
+    </execution>    
+    <execution id="66">      
+      <position height="21" width="0" x="0" y="1925"/>    
     </execution>  
   </object>  
-  <object id="36" language="java" name="fi.board.Board" project="ForbiddenIsland" 
+  <object id="67" language="java" name="fi.board.Board" project="ForbiddenIsland" 
     file="/ForbiddenIsland/src/fi/board/Board.java" binary="false" label="&lt;static&gt;" type="class" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="10">      
-      <position height="21" width="0" x="0" y="241"/>    
+      <position height="21" width="0" x="0" y="279"/>    
     </execution>  
   </object>  
-  <object id="37" language="java" name="fi.board.Board" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/fi/board/Board.java" binary="false" type="class" autoSize="true">    
-    <position height="0" width="0" x="0" y="0"/>    
-    <execution id="12">      
-      <position height="21" width="0" x="0" y="283"/>    
-    </execution>  
-  </object>  
-  <object id="38" language="java" name="fi.gameView.PlayerView" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/fi/gameView/PlayerView.java" binary="false" label="playerView" type="class" 
+  <object id="68" language="java" name="fi.players.Players" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/players/Players.java" binary="false" label="&lt;static&gt;" type="class" 
     autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
-    <execution id="14">      
-      <position height="21" width="0" x="0" y="366"/>    
-    </execution>    
-    <execution id="20">      
-      <position height="21" width="0" x="0" y="553"/>    
-    </execution>    
-    <execution id="26">      
-      <position height="21" width="0" x="0" y="740"/>    
-    </execution>    
-    <execution id="28">      
-      <position height="21" width="0" x="0" y="782"/>    
+    <execution id="44">      
+      <position height="21" width="0" x="0" y="1280"/>    
     </execution>  
   </object>  
-  <object id="39" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
+  <object id="69" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
     file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" 
     label="playersThatCanAcceptACard" type="class" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="18">      
-      <position height="21" width="0" x="0" y="470"/>    
+      <position height="21" width="0" x="0" y="538"/>    
+    </execution>    
+    <execution id="50">      
+      <position height="21" width="0" x="0" y="1416"/>    
     </execution>  
   </object>  
-  <object id="40" language="java" name="fi.gameView.GameView" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/fi/gameView/GameView.java" binary="false" label="gameView" type="class" autoSize="true">    
-    <position height="0" width="0" x="0" y="0"/>    
-    <execution id="24">      
-      <position height="21" width="0" x="0" y="688"/>    
-    </execution>  
-  </object>  
-  <object id="41" language="java" name="fi.players.Player" project="ForbiddenIsland" 
+  <object id="70" language="java" name="fi.players.Player" project="ForbiddenIsland" 
     file="/ForbiddenIsland/src/fi/players/Player.java" binary="false" label="player" type="class" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
     <execution id="30">      
-      <position height="21" width="0" x="0" y="824"/>    
+      <position height="21" width="0" x="0" y="942"/>    
     </execution>    
     <execution id="32">      
-      <position height="21" width="0" x="0" y="866"/>    
+      <position height="21" width="0" x="0" y="984"/>    
+    </execution>    
+    <execution id="62">      
+      <position height="21" width="0" x="0" y="1820"/>    
+    </execution>    
+    <execution id="64">      
+      <position height="21" width="0" x="0" y="1862"/>    
     </execution>  
   </object>  
-  <combined-fragment id="42" interaction-operator="OPT">    
-    <interaction-operand id="43" constraint="possiblePlayers.isEmpty()">      
+  <object id="71" language="java" name="fi.players.Players" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/players/Players.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="46">      
+      <position height="21" width="0" x="0" y="1322"/>    
+    </execution>  
+  </object>  
+  <object id="72" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
+    file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" 
+    label="possiblePlayers" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="6">      
+      <position height="21" width="0" x="0" y="195"/>    
+    </execution>    
+    <execution id="8">      
+      <position height="21" width="0" x="0" y="237"/>    
+    </execution>    
+    <execution id="40">      
+      <position height="21" width="0" x="0" y="1196"/>    
+    </execution>    
+    <execution id="42">      
+      <position height="21" width="0" x="0" y="1238"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="21" width="0" x="0" y="580"/>    
+    </execution>    
+    <execution id="52">      
+      <position height="21" width="0" x="0" y="1458"/>    
+    </execution>  
+  </object>  
+  <object id="73" language="java" name="fi.board.Board" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/Board.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="12">      
+      <position height="21" width="0" x="0" y="321"/>    
+    </execution>  
+  </object>  
+  <object id="74" language="java" name="fi.gameView.GameView" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/gameView/GameView.java" binary="false" label="gameView" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="24">      
+      <position height="21" width="0" x="0" y="776"/>    
+    </execution>    
+    <execution id="56">      
+      <position height="21" width="0" x="0" y="1654"/>    
+    </execution>  
+  </object>  
+  <object id="75" language="java" name="fi.playerView.PlayerView" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerView/PlayerView.java" binary="false" label="playerView" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="14">      
+      <position height="21" width="0" x="0" y="404"/>    
+    </execution>    
+    <execution id="22">      
+      <position height="21" width="0" x="0" y="663"/>    
+    </execution>    
+    <execution id="26">      
+      <position height="21" width="0" x="0" y="858"/>    
+    </execution>    
+    <execution id="28">      
+      <position height="21" width="0" x="0" y="900"/>    
+    </execution>    
+    <execution id="54">      
+      <position height="21" width="0" x="0" y="1541"/>    
+    </execution>    
+    <execution id="58">      
+      <position height="21" width="0" x="0" y="1736"/>    
+    </execution>    
+    <execution id="60">      
+      <position height="21" width="0" x="0" y="1778"/>    
+    </execution>  
+  </object>  
+  <combined-fragment id="76" interaction-operator="OPT">    
+    <interaction-operand id="77" constraint="possiblePlayers.isEmpty()"/>  
+  </combined-fragment>  
+  <combined-fragment id="78" interaction-operator="OPT">    
+    <interaction-operand id="79" constraint="player.getCardsInPlayersHand().isEmpty()"/>  
+  </combined-fragment>  
+  <combined-fragment id="80" interaction-operator="ALT">    
+    <interaction-operand id="81" constraint="possiblePlayers.isEmpty()">      
       <fragment refId="13"/>    
-    </interaction-operand>  
+    </interaction-operand>    
+    <interaction-operand id="82" constraint="else">      
+      <fragment refId="15"/>      
+      <fragment refId="83"/>      
+      <fragment refId="19"/>      
+      <fragment refId="17"/>    
+    </interaction-operand>    
+    <combined-fragment id="83" interaction-operator="ALT">      
+      <interaction-operand id="84" constraint="player.getCardsInPlayersHand().isEmpty()">        
+        <fragment refId="21"/>      
+      </interaction-operand>      
+      <interaction-operand id="85" constraint="else">        
+        <fragment refId="86"/>      
+      </interaction-operand>      
+      <combined-fragment id="86" interaction-operator="ALT">        
+        <interaction-operand id="87" constraint="playersThatCanAcceptACard.isEmpty()">          
+          <fragment refId="23"/>        
+        </interaction-operand>        
+        <interaction-operand id="88" constraint="else">          
+          <fragment refId="25"/>          
+          <fragment refId="27"/>          
+          <fragment refId="29"/>          
+          <fragment refId="31"/>          
+          <fragment refId="33"/>        
+        </interaction-operand>      
+      </combined-fragment>    
+    </combined-fragment>  
   </combined-fragment>  
-  <combined-fragment id="44" interaction-operator="OPT">    
-    <interaction-operand id="45" constraint="player.getCardsInPlayersHand().isEmpty()">      
-      <fragment refId="19"/>    
-    </interaction-operand>  
-  </combined-fragment>  
-  <combined-fragment id="46" interaction-operator="OPT">    
-    <interaction-operand id="47" constraint="playersThatCanAcceptACard.isEmpty()">      
-      <fragment refId="23"/>    
-    </interaction-operand>  
+  <combined-fragment id="89" interaction-operator="ALT">    
+    <interaction-operand id="90" constraint="player.getCardsInPlayersHand().isEmpty()">      
+      <fragment refId="53"/>    
+    </interaction-operand>    
+    <interaction-operand id="91" constraint="else">      
+      <fragment refId="92"/>    
+    </interaction-operand>    
+    <combined-fragment id="92" interaction-operator="ALT">      
+      <interaction-operand id="93" constraint="playersThatCanAcceptACard.isEmpty()">        
+        <fragment refId="55"/>      
+      </interaction-operand>      
+      <interaction-operand id="94" constraint="else">        
+        <fragment refId="63"/>        
+        <fragment refId="61"/>        
+        <fragment refId="59"/>        
+        <fragment refId="65"/>        
+        <fragment refId="57"/>      
+      </interaction-operand>    
+    </combined-fragment>  
   </combined-fragment>  
   <message id="3" operation="handleGiveTreasureCard():void" asynchronous="false">    
     <end type="SOURCE" refId="2"/>    
@@ -135,11 +239,11 @@
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="18"/>  
   </message>  
-  <message id="19" operation="playerHasNoCards():void" asynchronous="false">    
+  <message id="19" operation="forEach(java.util.function.Consumer&lt;? super E&gt;):void" asynchronous="false">    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="20"/>  
   </message>  
-  <message id="21" operation="forEach(java.util.function.Consumer&lt;? super E&gt;):void" asynchronous="false">    
+  <message id="21" operation="playerHasNoCards():void" asynchronous="false">    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="22"/>  
   </message>  
@@ -168,5 +272,69 @@
   <message id="33" operation="decreaseRemainingActions():void" asynchronous="false">    
     <end type="SOURCE" refId="16"/>    
     <end type="TARGET" refId="34"/>  
+  </message>  
+  <message id="37" operation="handleGiveTreasureCard():void" asynchronous="false">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="38"/>  
+  </message>  
+  <message id="39" operation="ArrayList()" asynchronous="false">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="40"/>  
+  </message>  
+  <message id="41" operation="addAll(java.util.Collection&lt;? extends E&gt;):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="42"/>  
+  </message>  
+  <message id="43" operation="getInstance():fi.players.Players" asynchronous="false">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="44"/>  
+  </message>  
+  <message id="45" operation="getPlayersExcept(fi.players.Player):java.util.ArrayList&lt;Player&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="46"/>  
+  </message>  
+  <message id="47" operation="toGiveTreasureCard(java.util.ArrayList&lt;fi.players.Player&gt;):void" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="38"/>    
+    <end type="TARGET" refId="48"/>  
+  </message>  
+  <message id="49" operation="ArrayList()" asynchronous="false">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="50"/>  
+  </message>  
+  <message id="51" operation="forEach(java.util.function.Consumer&lt;? super E&gt;):void" asynchronous="false">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="52"/>  
+  </message>  
+  <message id="53" operation="playerHasNoCards():void" asynchronous="false">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="54"/>  
+  </message>  
+  <message id="55" operation="allHandsAreFull():void" asynchronous="false">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="56"/>  
+  </message>  
+  <message id="57" operation="selectPlayerFromList(java.util.ArrayList&lt;fi.players.Player&gt;):fi.players.Player" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="58"/>  
+  </message>  
+  <message id="59" operation="selectCardFromList(java.util.ArrayList&lt;fi.cards.Card&gt;):fi.cards.Card" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="60"/>  
+  </message>  
+  <message id="61" operation="getCardsInPlayersHand():java.util.ArrayList&lt;Card&gt;" asynchronous="false">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="62"/>  
+  </message>  
+  <message id="63" operation="giveTreasureCard(fi.players.Player,fi.cards.Card):void" asynchronous="false">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="64"/>  
+  </message>  
+  <message id="65" operation="decreaseRemainingActions():void" asynchronous="false">    
+    <end type="SOURCE" refId="48"/>    
+    <end type="TARGET" refId="66"/>  
   </message>
 </sequence-diagram>

@@ -1,0 +1,663 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.4" icons="true" automaticImage="PNG" always-add-relationships="false" generalizations="true" 
+  realizations="true" associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="fi.cards.WaterRiseCard" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/cards/WaterRiseCard.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="124" x="928" y="3070"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="fi.playerController.PilotController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/PilotController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="179" x="-158" y="958"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="fi.watermeter.WaterMeter" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/watermeter/WaterMeter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="299" width="167" x="432" y="0"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="fi.playerController.NavigatorController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/NavigatorController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="172" x="61" y="958"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="fi.playerView.PlayerView" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerView/PlayerView.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="587" width="334" x="1902" y="958"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="fi.game.GameManager" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/game/GameManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="265" x="1240" y="0"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="fi.game.GetInput" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/game/GetInput.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="173" width="155" x="1814" y="0"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="fi.cards.TreasureDeck" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/cards/TreasureDeck.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="245" width="272" x="714" y="1585"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="fi.cards.Hand" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/cards/Hand.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="317" width="366" x="1656" y="2050"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="fi.board.FoolsLandingTile" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/FoolsLandingTile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="176" x="1794" y="1585"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="fi.playerController.DiverController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/DiverController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="179" x="273" y="958"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="fi.cards.FloodDeck" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/cards/FloodDeck.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="276" x="1036" y="1585"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="fi.cards.DeckSorter" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/cards/DeckSorter.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="173" width="199" x="1083" y="2050"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="fi.gameView.GameView" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/gameView/GameView.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="299" width="230" x="492" y="958"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="fi.game.GameOverObserver" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/game/GameOverObserver.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="497" width="418" x="772" y="958"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="fi.playerController.PlayerController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/PlayerController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="569" width="278" x="1240" y="349"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="fi.cards.SandbagCard" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/cards/SandbagCard.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="116" x="1500" y="3070"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="fi.playerController.EngineerController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/EngineerController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="169" x="1240" y="958"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="fi.treasures.TreasureManager" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/treasures/TreasureManager.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="281" width="382" x="1362" y="1585"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="20" language="java" name="fi.enums.SingleUseGameCardEnum" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/enums/SingleUseGameCardEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="173" width="285" x="2278" y="0"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="21" language="java" name="fi.cards.TreasureCard" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/cards/TreasureCard.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="187" x="1092" y="3070"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="22" language="java" name="fi.playerController.ExplorerController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/ExplorerController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="179" x="1449" y="958"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="23" language="java" name="fi.players.Players" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/players/Players.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="227" width="261" x="2552" y="958"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="24" language="java" name="fi.players.Player" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/players/Player.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="425" width="253" x="2257" y="1585"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="25" language="java" name="fi.cards.Card" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/cards/Card.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="137" width="118" x="1290" y="2407"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="26" language="java" name="fi.board.Tile" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/Tile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="245" width="215" x="2297" y="958"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="27" language="java" name="fi.enums.AdventurerEnum" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/enums/AdventurerEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="245" width="209" x="2257" y="2050"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="28" language="java" name="fi.enums.TreasureEnum" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/enums/TreasureEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="254" x="1362" y="2050"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="29" language="java" name="fi.playerController.MessengerController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/MessengerController.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="194" x="1668" y="958"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="30" language="java" name="fi.cards.HelicopterLiftCard" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/cards/HelicopterLiftCard.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="147" x="1656" y="3070"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="31" language="java" name="fi.cards.FloodCard" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/cards/FloodCard.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="141" x="1319" y="3070"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="32" language="java" name="fi.enums.TileEnum" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/enums/TileEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="623" width="229" x="2487" y="2407"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <enumeration id="33" language="java" name="fi.enums.FloodStatusEnum" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/enums/FloodStatusEnum.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="209" width="219" x="2550" y="1585"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </enumeration>  
+  <class id="34" language="java" name="fi.board.Board" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/Board.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="479" width="345" x="2297" y="349"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="fi.board.TreasureTile" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/TreasureTile.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="207" x="2010" y="1585"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <generalization id="36">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <association id="37">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="38" name="gameView"/>      
+      <multiplicity id="39" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="40">    
+    <end type="SOURCE" refId="15" navigable="false">      
+      <attribute id="41" name="gameOverObserver"/>      
+      <multiplicity id="42" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="43">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="44" name="playerView"/>      
+      <multiplicity id="45" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="46">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="47" name="treasureDeck"/>      
+      <multiplicity id="48" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="49">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="25"/>  
+  </generalization>  
+  <generalization id="50">    
+    <end type="SOURCE" refId="35"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <association id="51">    
+    <end type="SOURCE" refId="35" navigable="false">      
+      <attribute id="52" name="treasureType"/>      
+      <multiplicity id="53" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="54">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <generalization id="55">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="25"/>  
+  </generalization>  
+  <association id="56">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="57" name="orderedTiles"/>      
+      <multiplicity id="58" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="26" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="59">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="60" name="waterMeter"/>      
+      <multiplicity id="61" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="3" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="62">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="63" name="collectedTreasures"/>      
+      <multiplicity id="64" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="28" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="65">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="66" name="discardPile"/>      
+      <multiplicity id="67" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="68">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="25"/>  
+  </generalization>  
+  <association id="69">    
+    <end type="SOURCE" refId="34" navigable="false">      
+      <attribute id="70" name="board"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="34" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="72">    
+    <bendpoint x="2799" y="1585"/>    
+    <bendpoint x="2799" y="2050"/>    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="73" name="tileName"/>      
+      <multiplicity id="74" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="75">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="76" name="getInput"/>      
+      <multiplicity id="77" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="7" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="78">    
+    <bendpoint x="1665" y="2407"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="79" name="helicopterLiftCards"/>      
+      <multiplicity id="80" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="30" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="81">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <association id="82">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="83" name="treasuereManager"/>      
+      <multiplicity id="84" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="85">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <generalization id="86">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <association id="87">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="88" name="floodDeck"/>      
+      <multiplicity id="89" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="90">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="25"/>  
+  </generalization>  
+  <association id="91">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="92" name="floodStatus"/>      
+      <multiplicity id="93" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="33" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="94">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="95" name="playerMap"/>      
+      <multiplicity id="96" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="97">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="26"/>  
+  </generalization>  
+  <association id="98">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="99" name="role"/>      
+      <multiplicity id="100" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="27" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="101">    
+    <end type="SOURCE" refId="27" navigable="false">      
+      <attribute id="102" name="startingTileName"/>      
+      <multiplicity id="103" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="104">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="105" name="gameManager"/>      
+      <multiplicity id="106" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="6" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="107">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="108" name="treasureDeckSorter"/>      
+      <multiplicity id="109" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="110">    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="111" name="playerHand"/>      
+      <multiplicity id="112" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="113">    
+    <end type="SOURCE" refId="13" navigable="false">      
+      <attribute id="114" name="cardDeck"/>      
+      <multiplicity id="115" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="116">    
+    <end type="SOURCE" refId="5" navigable="false">      
+      <attribute id="117" name="player"/>      
+      <multiplicity id="118" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="119">    
+    <end type="SOURCE" refId="26" navigable="false">      
+      <attribute id="120" name="playersOnTile"/>      
+      <multiplicity id="121" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="122">    
+    <end type="SOURCE" refId="12" navigable="false">      
+      <attribute id="123" name="floodDeckSorter"/>      
+      <multiplicity id="124" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="13" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="125">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="25"/>  
+  </generalization>  
+  <association id="126">    
+    <bendpoint x="2266" y="958"/>    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="127" name="player"/>      
+      <multiplicity id="128" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="129">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="130" name="players"/>      
+      <multiplicity id="131" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="23" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="132">    
+    <bendpoint x="2496" y="2050"/>    
+    <end type="SOURCE" refId="24" navigable="false">      
+      <attribute id="133" name="location"/>      
+      <multiplicity id="134" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="32" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="135">    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="136" name="allCards"/>      
+      <multiplicity id="137" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="25" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="138">    
+    <bendpoint x="1587" y="2407"/>    
+    <end type="SOURCE" refId="9" navigable="false">      
+      <attribute id="139" name="sandbagCards"/>      
+      <multiplicity id="140" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="141">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <association id="142">    
+    <end type="SOURCE" refId="23" navigable="false">      
+      <attribute id="143" name="listOfPlayers"/>      
+      <multiplicity id="144" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="24" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="145">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="146" name="players"/>      
+      <multiplicity id="147" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="148">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="149" name="gameOverObserver"/>      
+      <multiplicity id="150" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="15" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="151">    
+    <end type="SOURCE" refId="14" navigable="false">      
+      <attribute id="152" name="gameView"/>      
+      <multiplicity id="153" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

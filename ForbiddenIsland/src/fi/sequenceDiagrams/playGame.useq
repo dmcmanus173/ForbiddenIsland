@@ -1,18 +1,105 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sequence-diagram version="1.2.4" icons="true" automaticImage="PNG" generate-combined-fragments="true">  
-  <object id="1" language="java" name="fi.playerController.PlayerController" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/fi/playerController/PlayerController.java" binary="false" label="playerController" 
-    type="class" autoSize="true">    
-    <position height="-1" width="-1" x="469" y="0"/>    
+  <object id="1" language="java" name="fi.game.GameManager" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/game/GameManager.java" binary="false" label="gameManager" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="757" y="0"/>    
     <execution id="2">      
-      <position height="84" width="132" x="5" y="109"/>    
+      <position height="501" width="120" x="5" y="86"/>    
     </execution>    
     <execution id="4">      
-      <position height="21" width="132" x="5" y="151"/>    
+      <position height="438" width="120" x="5" y="128"/>    
+    </execution>    
+    <execution id="12">      
+      <position height="21" width="0" x="0" y="347"/>    
+    </execution>    
+    <execution id="14">      
+      <position height="21" width="0" x="0" y="399"/>    
     </execution>  
   </object>  
-  <message id="3" asynchronous="false">    
+  <object id="21" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
+    file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" 
+    label="sunkenPlayers" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="6">      
+      <position height="21" width="0" x="0" y="159"/>    
+    </execution>  
+  </object>  
+  <object id="22" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
+    file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" label="players" 
+    type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="8">      
+      <position height="21" width="0" x="0" y="201"/>    
+    </execution>    
+    <execution id="16">      
+      <position height="21" width="0" x="0" y="430"/>    
+    </execution>  
+  </object>  
+  <object id="23" language="java" name="fi.playerController.PlayerController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/PlayerController.java" binary="false" label="playerToGo" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="10">      
+      <position height="21" width="0" x="0" y="284"/>    
+    </execution>  
+  </object>  
+  <object id="24" language="java" name="fi.gameView.GameView" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/gameView/GameView.java" binary="false" label="&lt;static&gt;" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="18">      
+      <position height="21" width="0" x="0" y="482"/>    
+    </execution>  
+  </object>  
+  <object id="25" language="java" name="fi.gameView.GameView" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/gameView/GameView.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="20">      
+      <position height="21" width="0" x="0" y="524"/>    
+    </execution>  
+  </object>  
+  <combined-fragment id="26" interaction-operator="LOOP">    
+    <interaction-operand id="27" constraint="while: !GameOverObserver.getInstance().isGameOver()">      
+      <fragment refId="9"/>      
+      <fragment refId="11"/>      
+      <fragment refId="15"/>      
+      <fragment refId="13"/>    
+    </interaction-operand>  
+  </combined-fragment>  
+  <message id="3" operation="playGame():void" asynchronous="false">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" operation="ArrayList()" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="7" operation="get(int):E" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="9" operation="doRound():java.util.ArrayList&lt;Player&gt;" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" operation="moveSunkenPlayers(java.util.ArrayList&lt;fi.players.Player&gt;):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="13" operation="nextPlayersGoPos():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="15" operation="get(int):E" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="17" operation="getInstance():fi.gameView.GameView" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="18"/>  
+  </message>  
+  <message id="19" operation="gameOver():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="20"/>  
   </message>
 </sequence-diagram>

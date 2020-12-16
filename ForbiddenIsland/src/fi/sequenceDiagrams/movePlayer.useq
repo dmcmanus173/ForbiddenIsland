@@ -5,13 +5,13 @@
     type="class" autoSize="true">    
     <position height="-1" width="-1" x="621" y="0"/>    
     <execution id="2">      
-      <position height="586" width="132" x="5" y="79"/>    
+      <position height="616" width="132" x="5" y="79"/>    
     </execution>    
     <execution id="4">      
-      <position height="523" width="132" x="5" y="121"/>    
+      <position height="553" width="132" x="5" y="121"/>    
     </execution>    
     <execution id="24">      
-      <position height="21" width="0" x="0" y="602"/>    
+      <position height="21" width="0" x="0" y="632"/>    
     </execution>  
   </object>  
   <object id="25" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
@@ -46,7 +46,7 @@
       <position height="21" width="0" x="0" y="320"/>    
     </execution>    
     <execution id="20">      
-      <position height="21" width="0" x="0" y="497"/>    
+      <position height="21" width="0" x="0" y="527"/>    
     </execution>  
   </object>  
   <object id="29" language="java" name="fi.playerView.PlayerView" project="ForbiddenIsland" 
@@ -57,15 +57,21 @@
       <position height="21" width="0" x="0" y="403"/>    
     </execution>    
     <execution id="18">      
-      <position height="21" width="0" x="0" y="455"/>    
+      <position height="21" width="0" x="0" y="485"/>    
     </execution>    
     <execution id="22">      
-      <position height="21" width="0" x="0" y="539"/>    
+      <position height="21" width="0" x="0" y="569"/>    
     </execution>  
   </object>  
-  <combined-fragment id="30" interaction-operator="OPT">    
+  <combined-fragment id="30" interaction-operator="ALT">    
     <interaction-operand id="31" constraint="tilesPlayerCanMoveTo.isEmpty()">      
       <fragment refId="15"/>    
+    </interaction-operand>    
+    <interaction-operand id="32" constraint="else">      
+      <fragment refId="19"/>      
+      <fragment refId="23"/>      
+      <fragment refId="17"/>      
+      <fragment refId="21"/>    
     </interaction-operand>  
   </combined-fragment>  
   <message id="3" operation="handleMove():void" asynchronous="false">    

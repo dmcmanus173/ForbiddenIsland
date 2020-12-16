@@ -25,10 +25,6 @@ public class MessengerController extends PlayerController {
 		ArrayList<Player> possiblePlayers = new ArrayList<Player>();           // Players that can be sent a card
 		
 		possiblePlayers.addAll(Players.getInstance().getPlayersExcept(player));
-		if(possiblePlayers.isEmpty()) {
-			playerView.playersNotOnSameTile();
-		}
-		else
-			toGiveTreasureCard(possiblePlayers);
+		toGiveTreasureCard(possiblePlayers);
 	}
 }

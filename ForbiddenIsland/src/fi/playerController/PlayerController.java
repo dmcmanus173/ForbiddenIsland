@@ -145,14 +145,14 @@ public abstract class PlayerController {
 		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
 		Board board = Board.getInstance();
 		tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(player.getLocation(), true));
-		if(tilesPlayerCanMoveTo.isEmpty()) {
+		if(tilesPlayerCanMoveTo.isEmpty())
 			playerView.playerCantMove();
-			return;
+		else {
+			chosenTile = playerView.selectTileFromList(tilesPlayerCanMoveTo);
+			player.move(chosenTile);
+			playerView.playerHasMoved();
+			decreaseRemainingActions();
 		}
-		chosenTile = playerView.selectTileFromList(tilesPlayerCanMoveTo);
-		player.move(chosenTile);
-		playerView.playerHasMoved();
-		decreaseRemainingActions();
 	}
 	
 	/**
@@ -358,13 +358,12 @@ public abstract class PlayerController {
 		Card cardToDiscard;
 		ArrayList<Card> cardInHand = player.getCardsInPlayersHand();
 		
-		if(player.getCardsInPlayersHand().isEmpty()) {
+		if(player.getCardsInPlayersHand().isEmpty())
 			playerView.playerHasNoCards();
-			return;
+		else {
+			cardToDiscard = playerView.selectCardFromList(cardInHand);
+			player.discardCard(cardToDiscard);
 		}
-		
-		cardToDiscard = playerView.selectCardFromList(cardInHand);
-		player.discardCard(cardToDiscard);
 	}
 	
 	/**
@@ -403,16 +402,16 @@ public abstract class PlayerController {
 		
 		playerView.printNumberDrawnCards(treasureCards.size());
 	
-		treasureCards.forEach((card) -> {
-			playerView.printPlayerCard(card);
-			if(card instanceof WaterRiseCard) {
+		for(Card aCard : treasureCards) {
+			playerView.printPlayerCard(aCard);
+			if(aCard instanceof WaterRiseCard) {
 				waterMeter.increaseWaterMeter();
 				gameView.increasedWaterMeter();
-				treasureDeck.discardCard(card);
-			} else {
-				putCardInPlayersHand(card);
-			}
-		});
+				treasureDeck.discardCard(aCard);
+			} 
+			else
+				putCardInPlayersHand(aCard);
+		}
 		gameView.printNewLine();
 	}
 	
