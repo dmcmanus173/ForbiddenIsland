@@ -5,10 +5,10 @@
     type="class" autoSize="true">    
     <position height="-1" width="-1" x="542" y="0"/>    
     <execution id="2">      
-      <position height="313" width="132" x="5" y="91"/>    
+      <position height="343" width="132" x="5" y="91"/>    
     </execution>    
     <execution id="4">      
-      <position height="250" width="132" x="5" y="133"/>    
+      <position height="280" width="132" x="5" y="133"/>    
     </execution>  
   </object>  
   <object id="13" language="java" name="fi.players.Player" project="ForbiddenIsland" 
@@ -18,7 +18,7 @@
       <position height="21" width="0" x="0" y="164"/>    
     </execution>    
     <execution id="12">      
-      <position height="21" width="0" x="0" y="341"/>    
+      <position height="21" width="0" x="0" y="371"/>    
     </execution>  
   </object>  
   <object id="14" language="java" name="fi.playerView.PlayerView" project="ForbiddenIsland" 
@@ -29,12 +29,16 @@
       <position height="21" width="0" x="0" y="247"/>    
     </execution>    
     <execution id="10">      
-      <position height="21" width="0" x="0" y="299"/>    
+      <position height="21" width="0" x="0" y="329"/>    
     </execution>  
   </object>  
-  <combined-fragment id="15" interaction-operator="OPT">    
+  <combined-fragment id="15" interaction-operator="ALT">    
     <interaction-operand id="16" constraint="player.getCardsInPlayersHand().isEmpty()">      
       <fragment refId="7"/>    
+    </interaction-operand>    
+    <interaction-operand id="17" constraint="else">      
+      <fragment refId="9"/>      
+      <fragment refId="11"/>    
     </interaction-operand>  
   </combined-fragment>  
   <message id="3" operation="handleDiscardTreasureCard():void" asynchronous="false">    
