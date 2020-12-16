@@ -12,6 +12,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import fi.board.Board;
 import fi.board.Tile;
 import fi.enums.FloodStatusEnum;
@@ -58,23 +60,37 @@ public class BoardTest {
 	public void tearDown() throws Exception {
 		board.destroy();
 	}
-
-//	@Test
-//	public void floodStatusOfTilesOnBoardTest() {
-//		assertTrue("There are no flooded tiles when the board is created.", board.getAllFloodedTiles().isEmpty());
-//		assertTrue("There are no sunken tiles when the board is created.", board.getUnsunkenTiles().size() == 24);
-//	}
 	
 	@Test
 	public void boardInitialisationTest() {
-//		Tile tile;
+		Tile tile;
 		for(TileEnum tileName: TileEnum.values()) {
-//			tile = board.getTileWithName(tileName);
-//			assertTrue("Tile with name " + tileName +"is on board", tile != null);
-//			assertTrue("Tile with name " + tileName +"is on board", tile != null);	
-			assertTrue("Tile with name " + tileName +"is on board and is not flooded", board.getTileWithName(tileName).getFloodStatus() == FloodStatusEnum.NOT_FLOODED);
-
+			tile = board.getTileWithName(tileName);
+			assertTrue("Tile with name " + tileName +"is on board", tile != null);
+			assertTrue("Tile with name " + tileName +"is on board", tile.getFloodStatus() == FloodStatusEnum.NOT_FLOODED);	
 		}
+		
+	}
+	
+	@Test
+	public void getNearestTileTest() {
+		TileEnum nameOfFirstTileLaidOnBoard = board.getIslandTiles().get(0).getTileName();
+		TileEnum nameOfLastastTileLaidOnBoard = board.getIslandTiles().get(23).getTileName();
+		ArrayList<TileEnum> nearestTiles;
+		
+		for(Tile tile: board.getIslandTiles()) {
+			// sink every tile except the first AND last tiles laid on the board
+			if(tile.getTileName() != nameOfFirstTileLaidOnBoard & tile.getTileName() != nameOfLastastTileLaidOnBoard) {
+				tile.flood();
+				tile.flood();
+			}
+		}
+		
+		nearestTiles = board.getNearestTilesToTile(nameOfFirstTileLaidOnBoard);
+		
+		assertTrue("There should only be one unsunken tile in this case.", nearestTiles.size() == 1);
+		assertTrue("The nearest tile should be the only unsunken tile.", nearestTiles.get(0) == nameOfLastastTileLaidOnBoard);
+		
 		
 	}
 
