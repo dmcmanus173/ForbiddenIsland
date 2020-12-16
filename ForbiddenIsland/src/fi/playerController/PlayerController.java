@@ -174,13 +174,12 @@ public abstract class PlayerController {
 		}	
 		if(playersWithSandbag.isEmpty()) { 
 			playerView.noSandbagCards();
-			return;
+		} else {
+			playerUsingSandbag = playerView.selectPlayerWithSandbag(playersWithSandbag);
+			tilesPlayerCanShoreUp.addAll(board.getAllFloodedTiles());
+			doAShoreUp(tilesPlayerCanShoreUp);
+			playerUsingSandbag.didUseSandBagCard();
 		}
-		
-		playerUsingSandbag = playerView.selectPlayerWithSandbag(playersWithSandbag);
-		tilesPlayerCanShoreUp.addAll(board.getAllFloodedTiles());
-		doAShoreUp(tilesPlayerCanShoreUp);
-		playerUsingSandbag.didUseSandBagCard();
 	}
 	
 	/**
