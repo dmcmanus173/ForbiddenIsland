@@ -409,7 +409,17 @@ public class Board {
 				potentialTiles.add(aTile.getTileName());
 		}
 		return potentialTiles;
-	}	
+	}
+	
+	
+	//===========================================================
+    // Singleton destroyer for unit testing ONLY
+    //===========================================================
+    
+    public void destroy() {
+    	board = null;
+    }
+
 	
 	
 
