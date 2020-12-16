@@ -77,6 +77,7 @@ public class BoardTest {
 	public void getTilesAroundTest() {
 		
 		//TODO: TEST SUGGEST THAT WE MIGN NEED TO REFACTOR METHOD - split into diagonal and adjacent.
+		// This is based on the positional layout of the board as printed for clarity.
 		TileEnum nameOfTileWith2AdjacentAnd3DiagonalTiles = board.getIslandTiles().get(2).getTileName();
 		TileEnum nameOfTileWith4AdjacentAnd3DiagonalTiles = board.getIslandTiles().get(4).getTileName();
 		ArrayList<TileEnum> tilesAroundTile;
@@ -91,15 +92,12 @@ public class BoardTest {
 		tilesAroundTile = board.getTilesAroundTile(nameOfTileWith4AdjacentAnd3DiagonalTiles, true);
 		assertEquals("This tile should have only 2 unsunken adjacent tiles.", 4, tilesAroundTile.size());
 		
-		
 		// Making sure that the correct number of  unsunken tiles (including diagonal) is returned
 		tilesAroundTile = board.getTilesAroundTile(nameOfTileWith2AdjacentAnd3DiagonalTiles, false);
 		assertEquals("This tile should have only 5 unsunken total tiles (including diagonal) around it.", 5, tilesAroundTile.size());
 		
 		tilesAroundTile = board.getTilesAroundTile(nameOfTileWith4AdjacentAnd3DiagonalTiles, false);
 		assertEquals("This tile should have only 7 unsunken tiles (including diagonal) around it.", 7, tilesAroundTile.size());
-		
-		
 		
 		// Making sure that only unsunken tiles are returned
 		nameOfTileToSink = board.getTilesAroundTile(nameOfTileWith4AdjacentAnd3DiagonalTiles, true).get(0);
