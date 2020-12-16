@@ -13,11 +13,15 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 import fi.board.Board;
 import fi.board.Tile;
+import fi.enums.AdventurerEnum;
 import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
+import fi.players.Player;
 
 /**
  * @author demioke
@@ -147,6 +151,48 @@ public class BoardTest {
 		
 		assertTrue("There should only be one unsunken tile in this case.", nearestTiles.size() == 1);
 		assertTrue("The nearest tile should be the only unsunken tile.", nearestTiles.get(0) == nameOfLastastTileLaidOnBoard);
+	}
+	
+	@Test
+	public void movingPlayersOnBoardTest() {
+		//TODO: MIGHT NEED TO SEPERATE OUT THESE INTO SEPERATE TESTS.
+		ArrayList<Player> players = new ArrayList<Player>();
+		ArrayList<TileEnum> namesOfPlayerStartingTiles = new ArrayList<TileEnum>();
+		Map<Player, TileEnum> playerStartingTilesMap = new HashMap<Player, TileEnum>();
+		
+		Player player;
+		TileEnum nameOfPlayerStartingTile;
+		Tile tileWithPlayer;
+		
+		// Testing board is placing players on correct tiles at start of game..
+		for(AdventurerEnum adventurer: AdventurerEnum.values()) {
+			player = new Player("player", adventurer);
+			nameOfPlayerStartingTile = adventurer.getStartingTileName();
+			
+			board.setUpPlayerOnBoard(player);
+			tileWithPlayer = board.getTileWithName(nameOfPlayerStartingTile);
+
+			assertTrue("The player starts the game on the tile determined by their adventurer role.", tileWithPlayer.getPlayersOnTile().contains(player));
+			assertTrue("The starting tiles should only have one player each.", tileWithPlayer.getPlayersOnTile().size() == 1);
+			players.add(player);
+		}
+		
+		// Testing board is moving players  to and from tiles correctly.
+		for(Player playerOnBoard: players) {
+			//TODO: NOT SURE WHAT THE BEST WAY TO TEST MOVING PLAYER SHOULD BE SINCE BOTH THE PLAYER AND THE BOARD USE THE SAME FUNCTION.
+			playerOnBoard.move(TileEnum.CAVE_OF_EMBERS); // must pick a tile that is not a starting tile for any adventurer.
+			// board.movePlayer(playerOnBoard, TileEnum.FOOLS_LANDING);
+			tileWithPlayer = board.getTileWithName(playerOnBoard.getLocation());
+			assertTrue("All players should now be on Cave of Embers Tile.", tileWithPlayer.getPlayersOnTile().contains(playerOnBoard));
+		}
+		
+		for(AdventurerEnum adventurer: AdventurerEnum.values()) {
+			tileWithPlayer = board.getTileWithName(adventurer.getStartingTileName());
+			
+			System.out.println(tileWithPlayer.getPlayersOnTile().size());
+			assertTrue("Player should no longer be on theeir starting tile.", tileWithPlayer.getPlayersOnTile().isEmpty());
+		}
+
 	}
 
 }
