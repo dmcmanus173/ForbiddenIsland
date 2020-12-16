@@ -112,5 +112,13 @@ public class TreasureDeck {
   	public void discardCard(Card card) {
   		treasureDeckSorter.discardCard(card);
   	}
+  	
+	//===========================================================
+    // Singleton destroyer for unit testing ONLY
+    //===========================================================
+    
+    public void destroy() {
+    	treasureDeck = null;
+    }
 
 }

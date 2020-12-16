@@ -95,5 +95,12 @@ public class FloodDeck {
 
 	}
 	*/
+	//===========================================================
+    // Singleton destroyer for unit testing ONLY
+    //===========================================================
+    
+    public void destroy() {
+    	floodDeck = null;
+    }
 
 }

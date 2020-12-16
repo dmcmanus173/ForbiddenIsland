@@ -2,8 +2,6 @@ package ut.cards;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 
 import fi.cards.Card;
@@ -167,11 +165,6 @@ public class HandTest {
 	
 	@Test (expected = RuntimeException.class)
 	public void removingCardsWhenHandEmpty(){
-		System.out.println(1);
-		removeCardWhenHandEmpty(sandbag);
-		System.out.println(2);
-		removeCardWhenHandEmpty(helicopterLift);
-		
 		TreasureCard oceansChaliceCard = new TreasureCard(oceansChalice);
 		TreasureCard statueOfWindCard = new TreasureCard(statueOfWind);
 		TreasureCard earthStoneCard = new TreasureCard(earthStone);
@@ -185,14 +178,14 @@ public class HandTest {
 		
 	}
 	
-	public void removeCardWhenHandEmpty(Card aCard) {
+	public void removeCardWhenHandEmpty(TreasureCard aCard) {
 		   try
 		   {
 			   hand.removeCard(aCard);
 		   }
 		   catch(RuntimeException re)
 		   {
-		      String message = "Attempting to remove card that is not in players hand.";
+		      String message = "Attempting to remove a Treasure Card that the player does not have.";
 		      assertEquals(message, re.getMessage());
 		      throw re;
 		    }

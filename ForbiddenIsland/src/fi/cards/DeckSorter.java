@@ -29,7 +29,8 @@ public class DeckSorter {
   	 */
 	public DeckSorter(String name, Stack<Card> cards) {
 		this.name = name;
-		this.cardDeck = cards;
+		this.cardDeck = new Stack<Card>();
+		this.cardDeck.addAll(cards);
 		this.discardPile = new Stack<Card>();
 		shuffleCardDeck();
 	}
@@ -47,7 +48,8 @@ public class DeckSorter {
 			resetCardDeck();
 			return cardDeck.pop();
 		}
-		throw new RuntimeException("Both card deck and discard pile are empty in " + name + ".");
+		else
+			throw new RuntimeException("Both card deck and discard pile are empty in " + name + ".");
 	}
 	
 	/**
