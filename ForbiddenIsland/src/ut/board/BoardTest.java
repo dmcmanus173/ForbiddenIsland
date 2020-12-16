@@ -195,8 +195,8 @@ public class BoardTest {
 		
 		
 		// TODO: Add test to check getting other players on tile method. discuss with Daniel on how to approach this.
+		// TODO: discuss with Daniel on whether there is a need to test the board flood methods?
 		
-
 
 	}
 
