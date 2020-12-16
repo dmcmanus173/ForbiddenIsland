@@ -192,6 +192,11 @@ public class BoardTest {
 			System.out.println(tileWithPlayer.getPlayersOnTile().size());
 			assertTrue("Player should no longer be on theeir starting tile.", tileWithPlayer.getPlayersOnTile().isEmpty());
 		}
+		
+		
+		// TODO: Add test to check getting other players on tile method. discuss with Daniel on how to approach this.
+		
+
 
 	}
 
