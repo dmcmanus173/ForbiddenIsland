@@ -58,6 +58,8 @@ public class WaterMeter {
 		currentLevel += 1;
 		if (currentLevel == GAME_OVER_LEVEL)
 			GameOverObserver.getInstance().waterMeterIsFull();
+		else if(currentLevel > GAME_OVER_LEVEL)
+			throw new RuntimeException("The watermeter has exceeded the Game Over Level.");
 	}
 	
 	/**
@@ -67,6 +69,7 @@ public class WaterMeter {
 	public void setCurrentLevel(int startingLevel) {
 		if( (MIN_LEVEL <= startingLevel) && (startingLevel <= MAX_LEVEL) )
 			currentLevel = startingLevel;
+		else throw new RuntimeException("The watermeter has been set to be out of legal bounds.");
 	}
 
 	/**
@@ -115,4 +118,12 @@ public class WaterMeter {
 	public int getGameOverLevel() {
 		return GAME_OVER_LEVEL;
 	}	
+	
+	//===========================================================
+    // Singleton destroyer for unit testing ONLY
+    //===========================================================
+    
+    public void destroy() {
+    	waterMeter = null;
+    }
 }
