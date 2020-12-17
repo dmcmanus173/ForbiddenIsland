@@ -15,7 +15,7 @@ public class GameOverObserver {
 	
 	private boolean gameOver;
 	private String gameOverReason;
-	Map<TreasureEnum, Integer> numSunkenTilesForTreasure;
+	private Map<TreasureEnum, Integer> numSunkenTilesForTreasure;
 	
 	
 	//===========================================================
@@ -120,6 +120,10 @@ public class GameOverObserver {
 	//===========================================================
     // Singleton destroyer for unit testing ONLY
     //===========================================================
+    
+    public int getNumSunkTreasures(TreasureEnum treasureEnum) {
+    	return numSunkenTilesForTreasure.get(treasureEnum);
+    }
     
     public void destroy() {
     	gameOverObserver = null;

@@ -78,7 +78,7 @@ public class TreasureTile extends Tile {
 		if (super.flood() == FloodStatusEnum.SUNKEN) {
 			GameOverObserver.getInstance().treasureTileDidSink(treasureType);
 		}
-		return FloodStatusEnum.SUNKEN;
+		return floodStatus;
 	}
 	
 	/*
