@@ -13,7 +13,9 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import fi.board.Board;
 import fi.board.Tile;
@@ -169,7 +171,7 @@ public class BoardTest {
 			assertEquals("Didn't get correct players from tile", player, board.getPlayersFromTile(tileEnum).get(0));
 		}
 
-	}
+	} 
 	
 	//===========================================================
     // Flood Tile test
@@ -270,5 +272,21 @@ public class BoardTest {
 		}
 	}
 	
-	
+	//===========================================================
+	// Testing Get other Players on Tile
+	//===========================================================
+	@Test
+    public void getOtherPlayersOnTileTest() {
+    	Player player1 = new Player("Demi", AdventurerEnum.DIVER);
+    	Player player2 = new Player("Daniel", AdventurerEnum.ENGINEER);
+    	
+    	assertEquals("Didn't expect any other players on tile.", 0, board.getOtherPlayersOnTile(player1).size());
+    	assertEquals("Didn't expect any other players on tile.", 0, board.getOtherPlayersOnTile(player2).size());
+    	
+    	Player player3 = new Player("McManus", AdventurerEnum.ENGINEER);
+    	assertEquals("Expected one other players on tile.", 1, board.getOtherPlayersOnTile(player2).size());
+    	
+    	assertEquals("Expected player3 on tile.", Boolean.TRUE, board.getOtherPlayersOnTile(player2).contains(player3));
+    	assertEquals("Expected player2 on tile.", Boolean.TRUE, board.getOtherPlayersOnTile(player2).contains(player3));
+    }
 }

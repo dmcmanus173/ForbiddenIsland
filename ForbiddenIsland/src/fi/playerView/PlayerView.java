@@ -211,6 +211,10 @@ public class PlayerView {
 		System.out.println("Didn't select any players to move. Won't use the Helicopter Lift Card.");
 	}
 	
+	public void noTilesToMoveTo() {
+		System.out.println("There are no tiles to move to.");
+	}
+	
 	//===========================================================
 	// Collect a Treasure
 	//===========================================================
