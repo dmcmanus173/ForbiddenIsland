@@ -175,6 +175,14 @@ public class Player {
 		temp.append("\nLocation: "+location.toString());
 		return temp.toString();
 	}
+	
+	//===========================================================
+    // For unit test on board only
+    //===========================================================
+    
+    public void setLocation(TileEnum tileName) {
+    	location = tileName;
+    }
 		
 
 }

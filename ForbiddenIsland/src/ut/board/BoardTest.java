@@ -153,50 +153,122 @@ public class BoardTest {
 	}
 	
 	@Test
-	public void movingPlayersOnBoardTest() {
-		//TODO: MIGHT NEED TO SEPERATE OUT THESE INTO SEPERATE TESTS.
-		ArrayList<Player> players = new ArrayList<Player>();
-		ArrayList<TileEnum> namesOfPlayerStartingTiles = new ArrayList<TileEnum>();
-		Map<Player, TileEnum> playerStartingTilesMap = new HashMap<Player, TileEnum>();
-		
+	public void movingPlayerOnBoardTest() {		
 		Player player;
 		TileEnum nameOfPlayerStartingTile;
 		Tile tileWithPlayer;
 		
-		// Testing board is placing players on correct tiles at start of game..
-		for(AdventurerEnum adventurer: AdventurerEnum.values()) {
-			player = new Player("player", adventurer);
-			nameOfPlayerStartingTile = adventurer.getStartingTileName();
-			
-			board.setUpPlayerOnBoard(player);
-			tileWithPlayer = board.getTileWithName(nameOfPlayerStartingTile);
-
-			assertTrue("The player starts the game on the tile determined by their adventurer role.", tileWithPlayer.getPlayersOnTile().contains(player));
-			assertTrue("The starting tiles should only have one player each.", tileWithPlayer.getPlayersOnTile().size() == 1);
-			players.add(player);
+		player = new Player("Demi", AdventurerEnum.DIVER);
+		nameOfPlayerStartingTile = AdventurerEnum.DIVER.getStartingTileName();
+		
+		assertEquals("Didn't get correct number of players from tile", 1, board.getPlayersFromTile(nameOfPlayerStartingTile).size());
+		for(TileEnum tileEnum : TileEnum.values()) {
+			board.movePlayer(player, tileEnum);
+			player.setLocation(tileEnum);
+			assertEquals("Didn't get correct number of players from tile", 1, board.getPlayersFromTile(tileEnum).size());
+			assertEquals("Didn't get correct players from tile", player, board.getPlayersFromTile(tileEnum).get(0));
 		}
-		
-		// Testing board is moving players  to and from tiles correctly.
-		for(Player playerOnBoard: players) {
-			//TODO: NOT SURE WHAT THE BEST WAY TO TEST MOVING PLAYER SHOULD BE SINCE BOTH THE PLAYER AND THE BOARD USE THE SAME FUNCTION.
-			playerOnBoard.move(TileEnum.CAVE_OF_EMBERS); // must pick a tile that is not a starting tile for any adventurer.
-			// board.movePlayer(playerOnBoard, TileEnum.FOOLS_LANDING);
-			tileWithPlayer = board.getTileWithName(playerOnBoard.getLocation());
-			assertTrue("All players should now be on Cave of Embers Tile.", tileWithPlayer.getPlayersOnTile().contains(playerOnBoard));
-		}
-		
-		for(AdventurerEnum adventurer: AdventurerEnum.values()) {
-			tileWithPlayer = board.getTileWithName(adventurer.getStartingTileName());
-			
-			System.out.println(tileWithPlayer.getPlayersOnTile().size());
-			assertTrue("Player should no longer be on theeir starting tile.", tileWithPlayer.getPlayersOnTile().isEmpty());
-		}
-		
-		
-		// TODO: Add test to check getting other players on tile method. discuss with Daniel on how to approach this.
-		// TODO: discuss with Daniel on whether there is a need to test the board flood methods?
-		
 
 	}
+	
+	//===========================================================
+    // Flood Tile test
+    //===========================================================
+	@Test
+	public void floodTileTest() {
+		for(TileEnum tileEnum : TileEnum.values()) {
+			// FLOOD ALL TILES
+			assert(board.getTileWithName(tileEnum).getFloodStatus() == FloodStatusEnum.NOT_FLOODED);
+			board.floodTile(tileEnum);
+			assertEquals("Tile didn't flood.", FloodStatusEnum.FLOODED, board.getTileWithName(tileEnum).getFloodStatus());
+		}
+	}
+	
+	@Test
+	public void sinkTileTest() {
+		floodTileTest();
+		for(TileEnum tileEnum : TileEnum.values()) {
+			// FLOOD ALL TILES
+			assert(board.getTileWithName(tileEnum).getFloodStatus() == FloodStatusEnum.FLOODED);
+			board.floodTile(tileEnum);
+			assertEquals("Tile didn't sink.", FloodStatusEnum.SUNKEN, board.getTileWithName(tileEnum).getFloodStatus());
+		}
+	}
+	
+	//===========================================================
+    // get sunken/unsunken/flooded tiles test
+    //===========================================================
+	@Test
+	public void getUnsunkenTilesTest() {
+		ArrayList<TileEnum> tileEnums = board.getUnsunkenTiles();
+		assertEquals("Tile lists are exepcted to be same size.", TileEnum.values().length, tileEnums.size());
+		for(TileEnum tileEnum : TileEnum.values()) {
+			assertEquals("Couldn't find expected tile.", Boolean.TRUE, tileEnums.contains(tileEnum));
+		}
+	}
+	
+	@Test
+	public void getFloodedTilesTest() {
+		floodTileTest();
+		ArrayList<TileEnum> tileEnums = board.getAllFloodedTiles();
+		assertEquals("Tile lists are exepcted to be same size.", TileEnum.values().length, tileEnums.size());
+		for(TileEnum tileEnum : TileEnum.values()) {
+			assertEquals("Couldn't find expected tile.", Boolean.TRUE, tileEnums.contains(tileEnum));
+		}
+	}
 
+	@Test
+	public void getSunkenTilesTest() {
+		sinkTileTest();
+		ArrayList<TileEnum> tileEnums = board.getUnsunkenTiles();
+		assertEquals("Tile lists are exepcted to be same size.", 0, tileEnums.size());
+		for(TileEnum tileEnum : TileEnum.values()) {
+			assertEquals("Couldn't find expected tile.", Boolean.FALSE, tileEnums.contains(tileEnum));
+		}
+	}
+	
+	//===========================================================
+	// Testing shoreUp
+	//===========================================================
+	@Test
+	public void shoreUpNotFloodedTileTest() {
+		for(TileEnum tileEnum : TileEnum.values()) {
+			assert(board.getTileWithName(tileEnum).getFloodStatus() == FloodStatusEnum.NOT_FLOODED);
+
+			// TEST IF SHOREUP ALL TILES
+			board.shoreUpTile(tileEnum);
+			assertEquals("Tile Status changed.", FloodStatusEnum.NOT_FLOODED, board.getTileWithName(tileEnum).getFloodStatus());
+		}
+	}
+	
+	@Test
+	public void shoreUpFloodedTileTest() {
+		floodTileTest();
+		for(TileEnum tileEnum : TileEnum.values()) {
+			board.shoreUpTile(tileEnum);
+			assertEquals("Tile didn't shoreUp.", FloodStatusEnum.NOT_FLOODED, board.getTileWithName(tileEnum).getFloodStatus());
+		}
+	}
+	
+	@Test
+	public void shoreUpSunkenTileTest() {
+		sinkTileTest();
+		for(TileEnum tileEnum : TileEnum.values()) {
+			board.shoreUpTile(tileEnum);
+			assertEquals("Tile did shoreUp.", FloodStatusEnum.SUNKEN, board.getTileWithName(tileEnum).getFloodStatus());
+		}
+	}
+	
+	@Test
+	public void getTilesToShoreUpAroundTileTest() {
+		for(TileEnum tileEnum : TileEnum.values()) {
+			assertEquals("Could find tiles to shore-up.", Boolean.TRUE, board.getTilesToShoreUpAround(tileEnum).isEmpty());
+		}
+		floodTileTest();
+		for(TileEnum tileEnum : TileEnum.values()) {
+			assertEquals("Couldn't find tiles to shore-up.", Boolean.FALSE, board.getTilesToShoreUpAround(tileEnum).isEmpty());
+		}
+	}
+	
+	
 }
