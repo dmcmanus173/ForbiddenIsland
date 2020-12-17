@@ -115,6 +115,14 @@ public class GameOverObserver {
     @Override
     public String toString() {
     	return gameOverReason;
-    } 
+    }
+    
+	//===========================================================
+    // Singleton destroyer for unit testing ONLY
+    //===========================================================
+    
+    public void destroy() {
+    	gameOverObserver = null;
+    }
 
 }

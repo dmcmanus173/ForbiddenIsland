@@ -109,8 +109,6 @@ public class TreasureManagerTest {
 		
 	}
 	
-	
-	
 	public Hand createHandWith(TreasureEnum treasureType, int numCards) {
 		 Hand hand = new Hand();
 		 for(int i = 0; i < numCards; i++) {
