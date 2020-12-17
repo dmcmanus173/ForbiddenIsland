@@ -18,6 +18,7 @@ import fi.treasures.TreasureManager;
 
 public class GameOverTest {
 	GameOverObserver gameOverObserver;
+	TreasureManager treasureManager;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -30,6 +31,7 @@ public class GameOverTest {
 	@Before
 	public void setUp() throws Exception {
 		gameOverObserver = GameOverObserver.getInstance();
+		treasureManager = TreasureManager.getInstance();
 		System.out.println("SetUp");
 
 	}
@@ -37,6 +39,7 @@ public class GameOverTest {
 	@After
 	public void tearDown() throws Exception {
 		gameOverObserver.destroy();
+		treasureManager.destroy();
 		System.out.println("Tear down");
 	}
 
@@ -76,7 +79,7 @@ public class GameOverTest {
 		assertEquals("Sinking a single treasure tile has caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
 		
 		
-		TreasureManager.getInstance().claimTreasure(hand, windTreasureTile1.getTreasureType());
+		treasureManager.claimTreasure(hand, windTreasureTile1.getTreasureType());
 		
 		windTreasureTile2.flood();
 		assertEquals("Flooding a treasure tile has caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());

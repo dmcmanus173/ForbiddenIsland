@@ -63,6 +63,7 @@ public class BoardTest {
 	@After
 	public void tearDown() throws Exception {
 		board.destroy();
+		System.out.println("Tear Down");
 	}
 	
 	@Test
@@ -169,12 +170,11 @@ public class BoardTest {
 			player = new Player("player", adventurer);
 			nameOfPlayerStartingTile = adventurer.getStartingTileName();
 			
-			board.setUpPlayerOnBoard(player);
-			tileWithPlayer = board.getTileWithName(nameOfPlayerStartingTile);
+			tileWithPlayer = board.getTileWithName(nameOfPlayerStartingTile); 
 
 			assertTrue("The player starts the game on the tile determined by their adventurer role.", tileWithPlayer.getPlayersOnTile().contains(player));
 			assertTrue("The starting tiles should only have one player each.", tileWithPlayer.getPlayersOnTile().size() == 1);
-			players.add(player);
+			players.add(player); 
 		}
 		
 		// Testing board is moving players  to and from tiles correctly.
