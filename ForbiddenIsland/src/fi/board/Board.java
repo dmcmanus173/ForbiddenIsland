@@ -68,7 +68,7 @@ public class Board {
             		islandTile = Optional.of(orderedTiles.get(tileCounter));
             		islandTiles.get(y).add(islandTile);
             		int[] pos = {x, y};
-            		islandTilesNamePositionMap.put(islandTile.get().tileName, pos);
+            		islandTilesNamePositionMap.put(islandTile.get().tileName, pos); 
             		tileCounter += 1;
             	} else {
             		islandTiles.get(y).add(Optional.empty());

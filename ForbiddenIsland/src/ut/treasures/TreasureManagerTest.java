@@ -65,7 +65,7 @@ public class TreasureManagerTest {
 	@Test
 	public void canClaimTreasureTest() {
 		ArrayList<TreasureTile> treasureTiles = new ArrayList<TreasureTile>();
-		ArrayList<Tile> noramlTiles = new ArrayList<Tile>();
+		ArrayList<Tile> normalTiles = new ArrayList<Tile>();
 		int numOfTreasureCardsOfGivenTreasureType;
 		Hand hand;
 		
@@ -73,7 +73,7 @@ public class TreasureManagerTest {
 			if(tileName.hasTreasure())
 				treasureTiles.add(new TreasureTile(tileName));
 			else
-				noramlTiles.add(new Tile(tileName));
+				normalTiles.add(new Tile(tileName));
 		}
 		
 		for(TreasureTile treasureTile: treasureTiles) {
@@ -87,12 +87,13 @@ public class TreasureManagerTest {
 		}
 		
 		
-		for(Tile tile: noramlTiles) {
+		for(Tile tile: normalTiles) {
 			numOfTreasureCardsOfGivenTreasureType = 4;
 			hand = createHandWith(TreasureEnum.THE_STATUE_OF_WIND, numOfTreasureCardsOfGivenTreasureType);
 			assertEquals("There are enough treasure cards but can not collect any treasure on a normal tile. ", Boolean.FALSE, treasureManager.canCollectTreasure(hand, tile.getTileName()));
 		}
 	}
+	
 	
 	@Test
 	public void claimedTreasuresWithEnoughTreasureCardsTest() {
