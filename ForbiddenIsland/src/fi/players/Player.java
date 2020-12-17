@@ -116,7 +116,7 @@ public class Player {
 	// Functions for Treasure Interactions
 	//===========================================================
 	
-	public boolean canCollectTreasure() {
+	private boolean canCollectTreasure() {
 		return TreasureManager.getInstance().canCollectTreasure(playerHand, location);
 	}
 	

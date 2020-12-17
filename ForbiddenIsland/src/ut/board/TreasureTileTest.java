@@ -4,16 +4,11 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import fi.board.Board;
 import fi.board.TreasureTile;
-import fi.cards.HelicopterLiftCard;
-import fi.cards.SandbagCard;
-import fi.enums.AdventurerEnum;
 import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
 import fi.game.GameOverObserver;
-import fi.players.Player;
 
 public class TreasureTileTest {
 	
