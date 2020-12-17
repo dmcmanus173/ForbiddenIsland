@@ -32,7 +32,7 @@ public class GameOverObserver {
 	private final String SUNKEN_PLAYER = "A player is sunken and there is no tile the player can movve to.\n";
 	private final String WATER_METER_MAX = "The water meter has been increased to its maximum level.\n";
 	
-	private final String YOU_WIN = "You win.\n";
+	private final String YOU_WIN = "You win.\n"; 
 	private final String PLAYERS_DID_ESCAPE_WITH_TREASURE = "All players escaped from Fool's Landing Tile with all the treasures.\n";
 	
 	//===========================================================
