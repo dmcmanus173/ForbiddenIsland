@@ -8,6 +8,9 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
+import fi.board.Tile;
 import fi.board.TreasureTile;
 import fi.cards.Hand;
 import fi.cards.TreasureCard;
@@ -60,6 +63,38 @@ public class TreasureManagerTest {
 	}
 	
 	@Test
+	public void canClaimTreasureTest() {
+		ArrayList<TreasureTile> treasureTiles = new ArrayList<TreasureTile>();
+		ArrayList<Tile> noramlTiles = new ArrayList<Tile>();
+		int numOfTreasureCardsOfGivenTreasureType;
+		Hand hand;
+		
+		for(TileEnum tileName: TileEnum.values()) {
+			if(tileName.hasTreasure())
+				treasureTiles.add(new TreasureTile(tileName));
+			else
+				noramlTiles.add(new Tile(tileName));
+		}
+		
+		for(TreasureTile treasureTile: treasureTiles) {
+			numOfTreasureCardsOfGivenTreasureType = 4;
+			hand = createHandWith(treasureTile.getTreasureType(), numOfTreasureCardsOfGivenTreasureType);
+			assertEquals("The required conditions are present to collect a treasure.", Boolean.TRUE, treasureManager.canCollectTreasure(hand, treasureTile.getTileName()));
+			
+			numOfTreasureCardsOfGivenTreasureType = 3;
+			hand = createHandWith(treasureTile.getTreasureType(), numOfTreasureCardsOfGivenTreasureType);
+			assertEquals("The re are not enough treasure cards to collect a treasure.", Boolean.FALSE, treasureManager.canCollectTreasure(hand, treasureTile.getTileName()));
+		}
+		
+		
+		for(Tile tile: noramlTiles) {
+			numOfTreasureCardsOfGivenTreasureType = 4;
+			hand = createHandWith(TreasureEnum.THE_STATUE_OF_WIND, numOfTreasureCardsOfGivenTreasureType);
+			assertEquals("There are enough treasure cards but can not collect any treasure on a normal tile. ", Boolean.FALSE, treasureManager.canCollectTreasure(hand, tile.getTileName()));
+		}
+	}
+	
+	@Test
 	public void claimedTreasuresWithEnoughTreasureCardsTest() {
 		//TODO: WILL WE NEED TO ADD SAFEGUARD FOR WHEN TREASURE IS BEING CLAIMED BUT HASNT CALLED CANClaim method before hand. if not might change the name of the test.
 		int numOfTreasureCardsOfGivenTreasureType = 4;
@@ -83,6 +118,9 @@ public class TreasureManagerTest {
 		 }
 		return hand;
 	}
+	
+	
+	// TODO: CURRENTLY NO LOGIC TO PREVENT CREATING A NORMAL TILE WITH A TREASURE TILE ENUM?
 	
 	
 	
