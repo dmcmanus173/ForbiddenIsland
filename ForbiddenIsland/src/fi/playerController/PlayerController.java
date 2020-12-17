@@ -9,6 +9,7 @@ import fi.cards.TreasureDeck;
 import fi.cards.WaterRiseCard;
 import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
+import fi.board.TreasureTile;
 import fi.game.GameOverObserver;
 import fi.gameView.GameView;
 import fi.playerView.PlayerView;
@@ -264,15 +265,15 @@ public abstract class PlayerController {
     * handleCaptureTreasure will facilitate a player claiming a treasure.
     */
 	private void handleCaptureTreasure() {
-		if(player.canCollectTreasure()) {
-			TreasureEnum collectedTreasure = player.collectTreasure();
+		if(player.collectTreasure()) {
+			TreasureEnum collectedTreasure = ((TreasureTile) Board.getInstance().getTileWithName(player.getLocation())).getTreasureType();
 			playerView.playerCollectedTreasure(collectedTreasure);
 			decreaseRemainingActions();
 			if(TreasureManager.getInstance().didClaimAllTreasures())
 				gameView.claimedAllTreasures();
 			else
 				gameView.getRemainingNumberTreasures();
-		} 
+		}  
 		else 
 			playerView.cantCollectTreasure();
 		

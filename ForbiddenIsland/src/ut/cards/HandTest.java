@@ -5,10 +5,12 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import fi.cards.Card;
+import fi.cards.FloodCard;
 import fi.cards.Hand;
 import fi.cards.HelicopterLiftCard;
 import fi.cards.SandbagCard;
 import fi.cards.TreasureCard;
+import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
 
 public class HandTest {
@@ -162,6 +164,35 @@ public class HandTest {
 		    fail("Removing SandbagCard when No Card in Hand exception did not throw!");
 	}
 	
+	@Test (expected = RuntimeException.class)
+	public void discardSandbagWhenHandEmpty() {
+		   try
+		   {
+			   hand.discardCard(sandbag);
+		   }
+		   catch(RuntimeException re)
+		   {
+		      String message = "Attempting to remove A SandBagCard that the player does not have.";
+		      assertEquals(message, re.getMessage());
+		      throw re;
+		    }
+		    fail("Removing SandbagCard when No Card in Hand exception did not throw!");
+	}
+	
+	@Test (expected = RuntimeException.class)
+	public void discardHelicopterLiftWhenHandEmpty() {
+		   try
+		   {
+			   hand.discardCard(helicopterLift);
+		   }
+		   catch(RuntimeException re)
+		   {
+		      String message = "Attempting to remove A HelicopterLiftCard that the player does not have.";
+		      assertEquals(message, re.getMessage());
+		      throw re;
+		    }
+		    fail("Removing Helicopter Lift Card when No Card in Hand exception did not throw!");
+	}
 	
 	@Test (expected = RuntimeException.class)
 	public void removingCardsWhenHandEmpty(){
@@ -189,6 +220,38 @@ public class HandTest {
 		      throw re;
 		    }
 		    fail("Removing a card when No Card in Hand exception did not throw!");
+	}
+	
+	@Test (expected = RuntimeException.class)
+	public void addUnknownCardType() {
+		FloodCard floodCard = new FloodCard(TileEnum.BREAKERS_BRIDGE);
+		   try
+		   {
+			   hand.addCard(floodCard);
+		   }
+		   catch(RuntimeException re)
+		   {
+		      String message = "Attempting to add invalid card type to players hand.";
+		      assertEquals(message, re.getMessage());
+		      throw re;
+		    }
+		    fail("Added an unknown card to hand!");
+	}
+	
+	@Test (expected = RuntimeException.class)
+	public void removeUnknownCardType() {
+		FloodCard floodCard = new FloodCard(TileEnum.BREAKERS_BRIDGE);
+		   try
+		   {
+			   hand.removeCard(floodCard);
+		   }
+		   catch(RuntimeException re)
+		   {
+		      String message = "Attempting to remove card that is not a valid card type.";
+		      assertEquals(message, re.getMessage());
+		      throw re;
+		    }
+		    fail("Added an unknown card to hand!");
 	}
 	
 	@Test

@@ -2,12 +2,9 @@ package ut.players;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
-
 import org.junit.Test;
 
 import fi.board.Board;
-import fi.board.Tile;
 import fi.cards.Card;
 import fi.cards.HelicopterLiftCard;
 import fi.cards.SandbagCard;
@@ -262,17 +259,17 @@ public class PlayerTest {
 	}
 	
 	public void removeCardWhenHandEmpty(Card aCard) {
-		   try
-		   {
-			   player.discardCard(aCard);
-		   }
-		   catch(RuntimeException re)
-		   {
-		      String message = "Attempting to remove a Treasure Card that the player does not have.";
-		      assertEquals(message, re.getMessage());
-		      throw re;
-		    }
-		    fail("Removing a card when No Card in Hand exception did not throw!");
+		try
+		{
+			player.discardCard(aCard);
+		}
+		catch(RuntimeException re)
+		{
+			String message = "Attempting to remove a Treasure Card that the player does not have.";
+		    assertEquals(message, re.getMessage());
+		    throw re;
+		}
+		fail("Removing a card when No Card in Hand exception did not throw!");
 	}
 	
 	@Test (expected = RuntimeException.class)
@@ -333,6 +330,23 @@ public class PlayerTest {
 		assertEquals("Player still contains a card", 0, player.getCardsInPlayersHand().size());
 		assertEquals("Other player didn't receive a card", 1, otherPlayer.getCardsInPlayersHand().size());
 		assertEquals("Other player didn't receive correct card", sandbag, otherPlayer.getCardsInPlayersHand().get(0));
+	}
+	
+	@Test (expected = RuntimeException.class)
+	public void giveTreasureCardsToPlayerWithFullDeck() {
+		for(int i=0; i<5; i++)
+			otherPlayer.collectTreasureCard(sandbag);
+		try
+		{
+			giveTreasureCardsTest();
+		}
+		catch(RuntimeException re)
+		{
+			String message = "Attempting to give card to player but player's hand is full.";
+		    assertEquals(message, re.getMessage());
+		    throw re;
+		}
+		fail("Removing a card when No Card in Hand exception did not throw!");
 	}
 	
 	//===========================================================

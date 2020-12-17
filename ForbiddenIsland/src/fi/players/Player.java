@@ -71,7 +71,7 @@ public class Player {
 	
 	public void giveTreasureCard(Player otherPlayer, Card card) {
 		if(otherPlayer.handIsFull())
-			throw new RuntimeException("Attemting to give card to player but player's hand is full.");
+			throw new RuntimeException("Attempting to give card to player but player's hand is full.");
 		else {
 			playerHand.removeCard(card); // removes card from players hand before giving it to other player.
 			otherPlayer.collectTreasureCard(card);
@@ -120,17 +120,16 @@ public class Player {
 		return TreasureManager.getInstance().canCollectTreasure(playerHand, location);
 	}
 	
-	public TreasureEnum collectTreasure() {
-		if(location.hasTreasure()) {
+	public Boolean collectTreasure() {
+		if(location.hasTreasure() && canCollectTreasure()) {
 			 TreasureTile treasureTile = (TreasureTile) Board.getInstance().getTileWithName(location);
 			 TreasureEnum treasureType = treasureTile.getTreasureType();
 			 TreasureManager.getInstance().claimTreasure(playerHand, treasureType);
-			 return treasureType;
+			 return true;
 		 } 
 		 //TODO 
-	//	return null;
 		else
-			 throw new RuntimeException("Player is attempting to collect a treasure on a tile that is not the treasure tile.");
+			 return false;
 	}
 
 	//===========================================================

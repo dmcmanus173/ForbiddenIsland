@@ -20,6 +20,7 @@ public class TreasureDeckTest {
 	
 	@org.junit.BeforeClass
 	public static void BeforeClass() {
+		
 		NUM_CARDS_TO_START = 2;
 		NUM_CARDS_TO_DRAW  = 2;
 		NUM_CARDS_IN_DECK  = 28;
@@ -83,18 +84,18 @@ public class TreasureDeckTest {
 	
 	@Test (expected = RuntimeException.class)
 	public void overDrawCardsTest() {
-		   try
-		   {
-				drawAllCards();
-				treasureDeck.drawCards();	
-		   }
-		   catch(RuntimeException re)
-		   {
-		      String message = "Both card deck and discard pile are empty in Treasure Deck Sorter.";
-		      assertEquals(message, re.getMessage());
-		      throw re;
-		    }
-		    fail("Didn't get Runtime exception for drawing more cards than in deck!");
+		try
+		{
+			drawAllCards();
+			treasureDeck.drawCards();	
+		}
+		catch(RuntimeException re)
+		{
+			String message = "Both card deck and discard pile are empty in Treasure Deck Sorter.";
+		    assertEquals(message, re.getMessage());
+		    throw re;
+		}
+		fail("Didn't get Runtime exception for drawing more cards than in deck!");
 	}
 	
 	@org.junit.After
@@ -105,7 +106,6 @@ public class TreasureDeckTest {
 
 	@org.junit.AfterClass
 	public static void AfterClass() {
-
 		System.out.println("After Class");
 	}
 
