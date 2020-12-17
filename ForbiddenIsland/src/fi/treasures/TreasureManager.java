@@ -184,5 +184,14 @@ public class TreasureManager {
 		collectedTreasuresString.append("There are "+(NUM_TREASURES-collectedTreasures.size())+" treasures left on the island.\n");
 		return collectedTreasuresString.toString();
 	}
+	
+	
+	//===========================================================
+    // Singleton destroyer for unit testing ONLY
+    //===========================================================
+    
+    public void destroy() {
+    	treasuereManager = null;
+    }
 	 
 }
