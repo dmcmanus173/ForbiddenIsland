@@ -49,7 +49,7 @@ public class Players {
      * getNumPlayers method will return the number of players involved in the game.
      * @return Integer, the number of players.
      */
-    public Integer getNumPlayers() {
+    public int getNumPlayers() {
     	return numPlayers;
     }
     
@@ -105,6 +105,14 @@ public class Players {
     		temp.append("Player "+(i+1)+":\n"+listOfPlayers.get(i).toString()+"\n");
     
     	return temp.toString();    	
+    }
+    
+	//===========================================================
+    // Singleton destroyer for unit testing ONLY
+    //===========================================================
+    
+    public void destroy() {
+    	players = null;
     }
 
 }

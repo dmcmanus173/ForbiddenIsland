@@ -4,12 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import fi.cards.Card;
-import fi.cards.Hand;
-import fi.cards.HelicopterLiftCard;
-import fi.cards.SandbagCard;
-import fi.cards.TreasureCard;
-import fi.enums.TreasureEnum;
 import fi.watermeter.WaterMeter;
 
 public class WaterMeterTest {

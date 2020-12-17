@@ -170,7 +170,6 @@ public class HandTest {
 		TreasureCard earthStoneCard = new TreasureCard(earthStone);
 		TreasureCard crystalOfFireCard = new TreasureCard(crystalOfFire);
 		
-		System.out.println(3);
 		removeCardWhenHandEmpty(oceansChaliceCard);
 		removeCardWhenHandEmpty(statueOfWindCard );
 		removeCardWhenHandEmpty(earthStoneCard   );

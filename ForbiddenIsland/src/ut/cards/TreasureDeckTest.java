@@ -85,9 +85,8 @@ public class TreasureDeckTest {
 	public void overDrawCardsTest() {
 		   try
 		   {
-				for(int i = 0; i<NUM_CARDS_IN_DECK; i++) {
-					treasureDeck.drawCards();
-				}
+				drawAllCards();
+				treasureDeck.drawCards();	
 		   }
 		   catch(RuntimeException re)
 		   {

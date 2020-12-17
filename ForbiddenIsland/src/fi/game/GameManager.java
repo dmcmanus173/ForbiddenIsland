@@ -71,7 +71,6 @@ public class GameManager {
     	// Setting up players
     	ArrayList<Player> players = Players.getInstance().getPlayers();
     	for(Player aPlayer : players) {
-    		board.setUpPlayerOnBoard(aPlayer);
     		if(aPlayer.getRole() == AdventurerEnum.DIVER) {
     			DiverController diverPlayerController = new DiverController(aPlayer);
     			this.players.add(diverPlayerController);

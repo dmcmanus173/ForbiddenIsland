@@ -35,6 +35,7 @@ public class Player {
 		this.role = role;
 		this.playerHand = new Hand();
 		this.location = role.getStartingTileName();
+		Board.getInstance().setUpPlayerOnBoard(this);
 	}
 	
 	//===========================================================
@@ -126,6 +127,8 @@ public class Player {
 			 TreasureManager.getInstance().claimTreasure(playerHand, treasureType);
 			 return treasureType;
 		 } 
+		 //TODO 
+	//	return null;
 		else
 			 throw new RuntimeException("Player is attempting to collect a treasure on a tile that is not the treasure tile.");
 	}
