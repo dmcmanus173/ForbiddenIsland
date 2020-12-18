@@ -73,7 +73,7 @@ public class TreasureManagerTest {
 			if(tileName.hasTreasure())
 				treasureTiles.add(new TreasureTile(tileName));
 			else
-				normalTiles.add(new Tile(tileName));
+				normalTiles.add(new Tile(tileName)); 
 		}
 		
 		for(TreasureTile treasureTile: treasureTiles) {
@@ -98,18 +98,41 @@ public class TreasureManagerTest {
 	@Test
 	public void claimedTreasuresWithEnoughTreasureCardsTest() {
 		//TODO: WILL WE NEED TO ADD SAFEGUARD FOR WHEN TREASURE IS BEING CLAIMED BUT HASNT CALLED CANClaim method before hand. if not might change the name of the test.
+		int numberOfColetedTreasures = 0;
 		int numOfTreasureCardsOfGivenTreasureType = 4;
+		int numTreasuresToClaim = TreasureEnum.values().length;
 		for(TreasureEnum treasureType: TreasureEnum.values()) {
 			Hand hand = createHandWith(treasureType, numOfTreasureCardsOfGivenTreasureType);
 			treasureManager.claimTreasure(hand, treasureType);
 			assertEquals("The treasure should be claimed once hand has enough treasure cards.", Boolean.TRUE, treasureManager.didClaimTreasure(treasureType));
 			assertEquals("TreasureManager shouold remove the treasure cards from hand.", Boolean.TRUE, hand.getCardsForTreasure(treasureType).isEmpty());
+			assertEquals("The treasure should be claimed once hand has enough treasure cards.", Boolean.TRUE, treasureManager.didClaimTreasure(treasureType));
+			numberOfColetedTreasures += 1;
+			assertEquals("The number of remaining treasures to collecte should be returned correctly from treasure manager.", numTreasuresToClaim - numberOfColetedTreasures, treasureManager.getNumOfRemainingTreasuresToCollect());
 		}
-		
 		assertEquals("If All Ttreasures have been claimed Treasure manager should state this.", Boolean.TRUE, treasureManager.didClaimAllTreasures());
 		
 	}
 	
+	@Test (expected = RuntimeException.class)
+	public void claimClaimedTreasureTest() {
+	
+		for(TreasureEnum treasureType: TreasureEnum.values()) {
+			Hand hand = createHandWith(treasureType, 4);
+			
+			try {
+				treasureManager.claimTreasure(hand, treasureType);
+				treasureManager.claimTreasure(hand, treasureType);
+			} catch(RuntimeException re) {
+				String message = "Attempting to claim a treasure that is already claimed.";
+			    assertEquals(message, re.getMessage());
+			    throw re;
+			}
+			fail("treasureManager claimTreasure Null exception did not throw!");
+		}
+	}
+	
+	    	
 	public Hand createHandWith(TreasureEnum treasureType, int numCards) {
 		 Hand hand = new Hand();
 		 for(int i = 0; i < numCards; i++) {
