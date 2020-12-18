@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.4" icons="true" automaticImage="PNG" generate-combined-fragments="true">  
+  <object id="1" language="java" name="fi.playerController.PlayerController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/PlayerController.java" binary="false" label="playerController" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="587" y="0"/>    
+    <execution id="2">      
+      <position height="147" width="132" x="5" y="99"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="fi.playerView.PlayerView" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerView/PlayerView.java" binary="false" label="playerView" type="class" 
+    autoSize="true">    
+    <position height="-1" width="-1" x="586" y="0"/>    
+    <execution id="4">      
+      <position height="105" width="97" x="141" y="120"/>    
+    </execution>  
+  </object>  
+  <object id="10" language="java" name="fi.players.Player" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/players/Player.java" binary="false" label="player" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="7">      
+      <position height="21" width="0" x="0" y="141"/>    
+    </execution>  
+  </object>  
+  <object id="11" language="java" name="java.io.PrintStream" project="ForbiddenIsland" 
+    file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="9">      
+      <position height="21" width="0" x="0" y="183"/>    
+    </execution>  
+  </object>  
+  <message id="3" operation="showTreasureCards():void" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="cardsToString():java.lang.String" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="println(java.lang.String):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>
+</sequence-diagram>
