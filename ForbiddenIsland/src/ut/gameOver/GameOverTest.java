@@ -58,52 +58,6 @@ public class GameOverTest {
 		board.destroy();
 		System.out.println("Tear down");
 	}
-
-	@Test
-	public void sunkenTreasureTilesWithUnclaimedTreasureTest() {
-		TreasureTile windTreasureTile1 = new TreasureTile(TileEnum.HOWLING_GARDEN);
-		TreasureTile windTreasureTile2 = new TreasureTile(TileEnum.WHISPERING_GARDEN);
-		
-		//TODO: MAKE MESSAGIS MORE SPECIFIC
-		
-		assertEquals("No action has caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
-		
-		windTreasureTile1.flood();
-		assertEquals("Flooding a treasure tile has caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
-		windTreasureTile1.flood();
-		assertEquals("Sinking a single treasure tile has caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
-		
-		
-		windTreasureTile2.flood();
-		assertEquals("Flooding a treasure tile has caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
-		windTreasureTile2.flood();
-		assertEquals("Sinking both treasure tiles associated with a given treasure that has not been claimed did not end the game.", Boolean.TRUE, gameOverObserver.isGameOver());
-	
-	}
-	
-	@Test
-	public void sunkenTreasureTilesWithClaimedTreasureTest() {
-		TreasureTile windTreasureTile1 = new TreasureTile(TileEnum.HOWLING_GARDEN); 
-		TreasureTile windTreasureTile2 = new TreasureTile(TileEnum.WHISPERING_GARDEN);
-		Hand hand = createHandWith(windTreasureTile1.getTreasureType(), 4);
-		
-		assertEquals("No action has caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
-		
-		windTreasureTile1.flood();
-		assertEquals("Flooding a treasure tile has caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
-		windTreasureTile1.flood();
-		assertEquals("Sinking a single treasure tile has caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
-		
-		
-		treasureManager.claimTreasure(hand, windTreasureTile1.getTreasureType());
-		
-		windTreasureTile2.flood();
-		assertEquals("Flooding a treasure tile has caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
-		windTreasureTile2.flood();
-		assertEquals("Sinking both treasure tiles associated with a given treasure that has been claimed caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
-	
-	}
-	
 	
 	//=======================================================================
     // Testing game over for win condition.
