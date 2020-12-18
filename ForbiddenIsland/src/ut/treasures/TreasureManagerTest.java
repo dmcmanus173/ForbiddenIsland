@@ -19,27 +19,16 @@ import fi.enums.TreasureEnum;
 import fi.treasures.TreasureManager;
 
 public class TreasureManagerTest {
-	private static TreasureEnum oceansChalice;
-	private static TreasureEnum statueOfWind;
-	private static TreasureEnum earthStone;
-	private static TreasureEnum crystalOfFire;
+	
 	private TreasureManager treasureManager;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		oceansChalice = TreasureEnum.THE_OCEANS_CHALICE;
-		statueOfWind  = TreasureEnum.THE_STATUE_OF_WIND;
-		earthStone    = TreasureEnum.THE_EARTH_STONE;
-		crystalOfFire = TreasureEnum.THE_CRYSTAL_OF_FIRE;
 		System.out.println("BeforeClass");
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception {
-		oceansChalice = null;
-		statueOfWind  = null;
-		earthStone    = null;
-		crystalOfFire = null;
 		System.out.println("After Class");
 	}
 
@@ -141,11 +130,4 @@ public class TreasureManagerTest {
 		return hand;
 	}
 	
-	
-	// TODO: CURRENTLY NO LOGIC TO PREVENT CREATING A NORMAL TILE WITH A TREASURE TILE ENUM?
-	
-	
-	
-	
-
 }
