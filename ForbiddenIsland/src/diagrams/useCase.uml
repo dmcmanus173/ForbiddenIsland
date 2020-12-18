@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_tsQ14DJAEeuDaMLdKJf7Uw" name="useCase">
   <ownedComment xmi:type="uml:Comment" xmi:id="_5i1MgDJGEeuDaMLdKJf7Uw">
-    <body>Game manager
-</body>
+    <body>playerController</body>
   </ownedComment>
   <packageImport xmi:type="uml:PackageImport" xmi:id="_t6dC4DJAEeuDaMLdKJf7Uw">
     <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
