@@ -34,20 +34,6 @@ public enum TreasureEnum {
 	public String toString() {
 		return this.name;
 	}
-	
-	
-	/*
-	// Class-level test
-	public static void main(String[] args) {
 		
-		for (TreasureEnum treasure : TreasureEnum.values()) { 
-		    System.out.println(treasure); 
-		}
-		
-	}
-	*/
-		
-	
-	
 
 }

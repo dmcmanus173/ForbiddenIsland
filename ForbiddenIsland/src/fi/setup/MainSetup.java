@@ -5,6 +5,7 @@ import fi.cards.FloodDeck;
 import fi.game.GameManager;
 import fi.game.GameOverObserver;
 import fi.game.GetInput;
+import fi.gameView.GameView;
 import fi.watermeter.*;
 import fi.cards.TreasureDeck;
 
@@ -26,7 +27,7 @@ public class MainSetup {
 	 */
 	public MainSetup() {
 		// Welcome message
-		welcome();
+		GameView.getInstance().welcome();
 		
 		// Get Input setup 
 		getInputSetup();
@@ -54,33 +55,6 @@ public class MainSetup {
 	}
 	
 	/**
-	 * Welcome function prints welcome to game screen.
-	 */
-	private void welcome() {
-		StringBuilder temp = new StringBuilder("");
-		temp.append("     ▄████████  ▄██████▄     ▄████████ ▀█████████▄   ▄█  ████████▄  ████████▄     ▄████████ ███▄▄▄▄     ");
-		temp.append("\n    ███    ███ ███    ███   ███    ███   ███    ███ ███  ███   ▀███ ███   ▀███   ███    ███ ███▀▀▀██▄ ");
-		temp.append("\n    ███    █▀  ███    ███   ███    ███   ███    ███ ███▌ ███    ███ ███    ███   ███    █▀  ███   ███ ");
-		temp.append("\n   ▄███▄▄▄     ███    ███  ▄███▄▄▄▄██▀  ▄███▄▄▄██▀  ███▌ ███    ███ ███    ███  ▄███▄▄▄     ███   ███ ");
-		temp.append("\n  ▀▀███▀▀▀     ███    ███ ▀▀███▀▀▀▀▀   ▀▀███▀▀▀██▄  ███▌ ███    ███ ███    ███ ▀▀███▀▀▀     ███   ███ ");
-		temp.append("\n    ███        ███    ███ ▀███████████   ███    ██▄ ███  ███    ███ ███    ███   ███    █▄  ███   ███ ");
-		temp.append("\n    ███        ███    ███   ███    ███   ███    ███ ███  ███   ▄███ ███   ▄███   ███    ███ ███   ███ ");
-		temp.append("\n    ███         ▀██████▀    ███    ███ ▄█████████▀  █▀   ████████▀  ████████▀    ██████████  ▀█   █▀  ");
-		temp.append("\n                            ███    ███                                                                ");
-		temp.append("\n                       ▄█     ▄████████  ▄█          ▄████████ ███▄▄▄▄   ████████▄                    ");
-		temp.append("\n                      ███    ███    ███ ███         ███    ███ ███▀▀▀██▄ ███   ▀███                   ");
-		temp.append("\n                      ███▌   ███    █▀  ███         ███    ███ ███   ███ ███    ███                   ");
-		temp.append("\n                      ███▌   ███        ███         ███    ███ ███   ███ ███    ███                   ");
-		temp.append("\n                      ███▌ ▀███████████ ███       ▀███████████ ███   ███ ███    ███                   ");
-		temp.append("\n                      ███           ███ ███         ███    ███ ███   ███ ███    ███                   ");
-		temp.append("\n                      ███     ▄█    ███ ███▌    ▄   ███    ███ ███   ███ ███   ▄███                   ");
-		temp.append("\n                      █▀    ▄████████▀  █████▄▄██   ███    █▀   ▀█   █▀  ████████▀                    ");
-		temp.append("\n                                        ▀                                                             ");
-		temp.append("\n"																									  );
-		System.out.println(temp);
-	}
-	
-	/**
 	 * GetInput setup
 	 */
 	private void getInputSetup() {
@@ -96,13 +70,7 @@ public class MainSetup {
 	 * WaterMeter Setup
 	 */
 	private void waterMeterSetup() {
-		WaterMeter waterMeter = WaterMeter.getInstance();
-		int minLevel = waterMeter.getMinLevel();
-		int maxLevel = waterMeter.getMaxLevel();
-		System.out.println("Choose a number to set the WaterMeter Level ("+minLevel+"-"+maxLevel+") to:");
-		int chosenLevel = GetInput.getInstance().anInteger(minLevel, maxLevel);
-		waterMeter.setCurrentLevel(chosenLevel);
-		System.out.println("WaterMeter has been set. Level set to "+waterMeter.getCurrentLevel()+".\n");
+		GameView.getInstance().waterMeterSetup();
 	}
 	
 	/**

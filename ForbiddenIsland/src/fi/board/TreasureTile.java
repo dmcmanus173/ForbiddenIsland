@@ -81,28 +81,4 @@ public class TreasureTile extends Tile {
 		return floodStatus;
 	}
 	
-	/*
-	// Class-level test
-	public static void main(String[] args) {
-		TreasureTile tile = new TreasureTile(TileEnum.BREAKERS_BRIDGE, TreasureEnum.THE_CRYSTAL_OF_FIRE);
-		Player player1 = new Player("Tom", AdventurerEnum.DIVER);
-		Player player2 = new Player("Wendy", AdventurerEnum.EXPLORER);
-		
-		tile.addPlayerToTile(player1);
-		tile.addPlayerToTile(player2);
-		tile.flood();
-		System.out.println(tile.toString());
-		
-		tile.removePlayerFromTile(player1);
-		tile.shoreUp();
-		System.out.println(tile.toString());
-		
-		tile.removePlayerFromTile(player2);
-		tile.flood();
-		tile.flood();
-		System.out.println(tile.toString());
-		
-	}
-	*/
-
 }

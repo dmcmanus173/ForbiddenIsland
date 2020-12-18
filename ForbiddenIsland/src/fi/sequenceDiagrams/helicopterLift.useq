@@ -1,0 +1,271 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.4" icons="true" automaticImage="PNG" generate-combined-fragments="true">  
+  <object id="1" language="java" name="fi.playerController.PlayerController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/PlayerController.java" binary="false" label="playerController" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="807" y="0"/>    
+    <execution id="2">      
+      <position height="1451" width="132" x="5" y="87"/>    
+    </execution>    
+    <execution id="4">      
+      <position height="1388" width="132" x="5" y="129"/>    
+    </execution>    
+    <execution id="20">      
+      <position height="21" width="0" x="0" y="679"/>    
+    </execution>  
+  </object>  
+  <object id="43" language="java" name="fi.players.Players" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/players/Players.java" binary="false" label="&lt;static&gt;" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="6">      
+      <position height="21" width="0" x="0" y="160"/>    
+    </execution>  
+  </object>  
+  <object id="44" language="java" name="fi.players.Players" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/players/Players.java" binary="false" label="players" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="8">      
+      <position height="21" width="0" x="0" y="202"/>    
+    </execution>  
+  </object>  
+  <object id="45" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
+    file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" 
+    label="playersWithHelicopterLift" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="10">      
+      <position height="21" width="0" x="0" y="244"/>    
+    </execution>    
+    <execution id="14">      
+      <position height="21" width="0" x="0" y="400"/>    
+    </execution>  
+  </object>  
+  <object id="46" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
+    file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" 
+    label="tilesPlayersCanMoveTo" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="12">      
+      <position height="21" width="0" x="0" y="286"/>    
+    </execution>  
+  </object>  
+  <object id="47" language="java" name="fi.playerView.PlayerView" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerView/PlayerView.java" binary="false" label="playerView" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="16">      
+      <position height="21" width="0" x="0" y="503"/>    
+    </execution>    
+    <execution id="22">      
+      <position height="21" width="0" x="0" y="750"/>    
+    </execution>    
+    <execution id="24">      
+      <position height="21" width="0" x="0" y="792"/>    
+    </execution>    
+    <execution id="30">      
+      <position height="21" width="0" x="0" y="1051"/>    
+    </execution>    
+    <execution id="36">      
+      <position height="21" width="0" x="0" y="1258"/>    
+    </execution>    
+    <execution id="38">      
+      <position height="21" width="0" x="0" y="1340"/>    
+    </execution>  
+  </object>  
+  <object id="48" language="java" name="fi.game.GameOverObserver" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/game/GameOverObserver.java" binary="false" label="gameOverObserver" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="18">      
+      <position height="21" width="0" x="0" y="616"/>    
+    </execution>  
+  </object>  
+  <object id="49" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
+    file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" 
+    label="playersToMove" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="26">      
+      <position height="21" width="0" x="0" y="834"/>    
+    </execution>    
+    <execution id="28">      
+      <position height="21" width="0" x="0" y="948"/>    
+    </execution>  
+  </object>  
+  <object id="50" language="java" name="fi.board.Board" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/Board.java" binary="false" label="&lt;static&gt;" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="32">      
+      <position height="21" width="0" x="0" y="1133"/>    
+    </execution>  
+  </object>  
+  <object id="51" language="java" name="fi.board.Board" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/Board.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="34">      
+      <position height="21" width="0" x="0" y="1175"/>    
+    </execution>  
+  </object>  
+  <object id="52" language="java" name="fi.players.Player" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/players/Player.java" binary="false" label="player" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="40">      
+      <position height="21" width="0" x="0" y="1423"/>    
+    </execution>  
+  </object>  
+  <object id="53" language="java" name="fi.players.Player" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/players/Player.java" binary="false" label="chosenPlayerWithHelicopterLift" 
+    type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="42">      
+      <position height="21" width="0" x="0" y="1475"/>    
+    </execution>  
+  </object>  
+  <combined-fragment id="54" interaction-operator="LOOP">    
+    <interaction-operand id="55" constraint="for: allPlayers">      
+      <fragment refId="56"/>    
+    </interaction-operand>    
+    <combined-fragment id="56" interaction-operator="OPT">      
+      <interaction-operand id="57" constraint="aPlayer.hasHelicopterLiftCard()">        
+        <fragment refId="13"/>      
+      </interaction-operand>    
+    </combined-fragment>  
+  </combined-fragment>  
+  <combined-fragment id="58" interaction-operator="ALT">    
+    <interaction-operand id="59" constraint="playersWithHelicopterLift.isEmpty()">      
+      <fragment refId="15"/>    
+    </interaction-operand>    
+    <interaction-operand id="60" constraint="else">      
+      <fragment refId="61"/>    
+    </interaction-operand>    
+    <combined-fragment id="61" interaction-operator="ALT">      
+      <interaction-operand id="62" constraint="playersDidWin()">        
+        <fragment refId="19"/>        
+        <fragment refId="17"/>      
+      </interaction-operand>      
+      <interaction-operand id="63" constraint="else">        
+        <fragment refId="64"/>        
+        <fragment refId="65"/>        
+        <fragment refId="23"/>        
+        <fragment refId="21"/>        
+        <fragment refId="25"/>      
+      </interaction-operand>      
+      <combined-fragment id="64" interaction-operator="LOOP">        
+        <interaction-operand id="66" constraint="for: allPlayers">          
+          <fragment refId="67"/>        
+        </interaction-operand>        
+        <combined-fragment id="67" interaction-operator="OPT">          
+          <interaction-operand id="68" constraint="playerView.selectThisPlayerToMove(player)">            
+            <fragment refId="27"/>          
+          </interaction-operand>        
+        </combined-fragment>      
+      </combined-fragment>      
+      <combined-fragment id="65" interaction-operator="ALT">        
+        <interaction-operand id="69" constraint="playersToMove.isEmpty()">          
+          <fragment refId="29"/>        
+        </interaction-operand>        
+        <interaction-operand id="70" constraint="else">          
+          <fragment refId="31"/>          
+          <fragment refId="71"/>          
+          <fragment refId="33"/>        
+        </interaction-operand>        
+        <combined-fragment id="71" interaction-operator="ALT">          
+          <interaction-operand id="72" constraint="tilesPlayersCanMoveTo.isEmpty()">            
+            <fragment refId="35"/>          
+          </interaction-operand>          
+          <interaction-operand id="73" constraint="else">            
+            <fragment refId="37"/>            
+            <fragment refId="74"/>            
+            <fragment refId="41"/>          
+          </interaction-operand>          
+          <combined-fragment id="74" interaction-operator="LOOP">            
+            <interaction-operand id="75" constraint="for: playersToMove">              
+              <fragment refId="39"/>            
+            </interaction-operand>          
+          </combined-fragment>        
+        </combined-fragment>      
+      </combined-fragment>    
+    </combined-fragment>  
+  </combined-fragment>  
+  <message id="3" operation="handleHelicopterLift():void" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="5" operation="getInstance():fi.players.Players" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="6"/>  
+  </message>  
+  <message id="7" operation="getPlayers():java.util.ArrayList&lt;Player&gt;" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </message>  
+  <message id="9" operation="ArrayList()" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="10"/>  
+  </message>  
+  <message id="11" operation="ArrayList()" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="12"/>  
+  </message>  
+  <message id="13" operation="add(E):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="14"/>  
+  </message>  
+  <message id="15" operation="noHelicopterLiftCards():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="16"/>  
+  </message>  
+  <message id="17" operation="playersWonGame():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="18"/>  
+  </message>  
+  <message id="19" operation="endGo():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="20"/>  
+  </message>  
+  <message id="21" 
+    operation="choosePlayerWithHelicopterLift(java.util.ArrayList&lt;fi.players.Player&gt;):fi.players.Player" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="22"/>  
+  </message>  
+  <message id="23" operation="selectPlayerToMove():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="24"/>  
+  </message>  
+  <message id="25" operation="ArrayList()" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="26"/>  
+  </message>  
+  <message id="27" operation="add(E):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="28"/>  
+  </message>  
+  <message id="29" operation="noPlayersToHelicopterLift():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="30"/>  
+  </message>  
+  <message id="31" operation="getInstance():fi.board.Board" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="32"/>  
+  </message>  
+  <message id="33" operation="getUnsunkenTiles():java.util.ArrayList&lt;TileEnum&gt;" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="34"/>  
+  </message>  
+  <message id="35" operation="noTilesToMoveTo():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="36"/>  
+  </message>  
+  <message id="37" operation="selectTileFromList(java.util.ArrayList&lt;fi.enums.TileEnum&gt;):fi.enums.TileEnum" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="38"/>  
+  </message>  
+  <message id="39" operation="move(fi.enums.TileEnum):void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="40"/>  
+  </message>  
+  <message id="41" operation="didUseHelicopterLiftCard():void" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="42"/>  
+  </message>
+</sequence-diagram>

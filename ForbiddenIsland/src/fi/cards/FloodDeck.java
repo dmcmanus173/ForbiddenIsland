@@ -76,25 +76,7 @@ public class FloodDeck {
   		return tilesToFlood;
   	}
   
-  	/*
-  	// class level test
-  	public static void main(String[] args) {
-		
-  		FloodDeck floodDeck = FloodDeck.getInstance();
-  		ArrayList<TileEnum> tilesToFlood;
-  		
-  		tilesToFlood = floodDeck.getTilesToFlood(true);
-  		System.out.println("Tiles for beginning of game:");
-  		System.out.println(tilesToFlood);
-  		
-  		for (int i=0; i<20; i++) {
-  			System.out.println("Flood Round: " + i);
-  			tilesToFlood = floodDeck.getTilesToFlood(false);
-  			System.out.println(tilesToFlood);
-		} 
 
-	}
-	*/
 	//===========================================================
     // Singleton destroyer for unit testing ONLY
     //===========================================================
