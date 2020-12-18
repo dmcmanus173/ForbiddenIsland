@@ -8,6 +8,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import fi.board.FoolsLandingTile;
+import fi.board.Tile;
 import fi.board.TreasureTile;
 import fi.cards.Hand;
 import fi.cards.TreasureCard;
@@ -68,7 +70,7 @@ public class GameOverTest {
 	
 	@Test
 	public void sunkenTreasureTilesWithClaimedTreasureTest() {
-		TreasureTile windTreasureTile1 = new TreasureTile(TileEnum.HOWLING_GARDEN);
+		TreasureTile windTreasureTile1 = new TreasureTile(TileEnum.HOWLING_GARDEN); 
 		TreasureTile windTreasureTile2 = new TreasureTile(TileEnum.WHISPERING_GARDEN);
 		Hand hand = createHandWith(windTreasureTile1.getTreasureType(), 4);
 		
@@ -88,6 +90,23 @@ public class GameOverTest {
 		assertEquals("Sinking both treasure tiles associated with a given treasure that has been claimed caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
 	
 	}
+	
+	//=======================================================================
+    // Testing game over when Fools Landing Tile sinks 
+    //=======================================================================
+	@Test
+	public void sunkenFoolsLandingTilesTest() {
+		FoolsLandingTile foolsLandingTile = new FoolsLandingTile(TileEnum.FOOLS_LANDING);
+		assertEquals("Flood status should be Not Flooded", FloodStatusEnum.NOT_FLOODED, foolsLandingTile.getFloodStatus());
+		
+		foolsLandingTile.flood();
+		assertEquals("Flood status should be Flooded", FloodStatusEnum.FLOODED, foolsLandingTile.getFloodStatus());
+		assertEquals("Flooding Fools Island should not cause the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
+		
+		foolsLandingTile.flood();
+		assertEquals("Flood status should be Flooded", FloodStatusEnum.SUNKEN, foolsLandingTile.getFloodStatus());
+		assertEquals("Sinking Fools Island should cause the game to end.", Boolean.TRUE, gameOverObserver.isGameOver());
+	} 
 	
 	//=======================================================================
     // Testing game over when treasure is unclaimed and treasure tiles sink
