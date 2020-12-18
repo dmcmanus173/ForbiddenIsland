@@ -61,7 +61,7 @@ public abstract class PlayerController {
 	/**
 	 * getAction method calls the playerView to get the next action to be done.
 	 */
-	public void getAction() {
+	private void getAction() {
 		int option = playerView.getAction(remainingActions);
 		if(option < MIN_ACTION_NUMBER || option > MAX_ACTION_NUMBER)
 			throw new RuntimeException("Invalid option number received");
@@ -115,6 +115,7 @@ public abstract class PlayerController {
 	 */
 	public ArrayList<Player> doRound() {
 		ArrayList<Player> sunkenPlayers = new ArrayList<>();
+		remainingActions = MAX_ACTIONS_PER_GO;
 		doActions();
 		if(!gameOverObserver.isGameOver()) 
 			drawCardsFromTreasureDeck();

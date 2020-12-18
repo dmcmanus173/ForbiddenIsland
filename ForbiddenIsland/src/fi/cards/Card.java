@@ -24,7 +24,6 @@ public abstract class Card {
 	 * Abstract constructor for Card object.
 	 * @param name Enum name for card.
 	 */
-	
 	Card(Enum name){
 		this.name   = name;
 	}

@@ -45,16 +45,5 @@ public enum FloodStatusEnum {
 	public int toInt() {
 		return this.statusLevel;
 	}
-	
-	
-	/*
-	// Class-level test
-	public static void main(String[] args) {
-		
-		for (FloodStatusEnum floodStatus : FloodStatusEnum.values()) { 
-		    System.out.println(floodStatus); 
-		}
-		
-	}
-	*/
+
 }

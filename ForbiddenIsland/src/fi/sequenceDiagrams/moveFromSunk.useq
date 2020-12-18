@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sequence-diagram version="1.2.4" icons="true" automaticImage="PNG" generate-combined-fragments="true">  
+  <object id="1" language="java" name="fi.game.GameManager" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/game/GameManager.java" binary="false" label="gameManager" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="767" y="0"/>    
+    <execution id="2">      
+      <position height="555" width="120" x="5" y="99"/>    
+    </execution>  
+  </object>  
+  <object id="5" language="java" name="fi.playerController.PlayerController" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerController/PlayerController.java" binary="false" label="playerController" 
+    type="class" autoSize="true">    
+    <position height="-1" width="-1" x="794" y="0"/>    
+    <execution id="4">      
+      <position height="513" width="132" x="129" y="120"/>    
+    </execution>    
+    <execution id="17">      
+      <position height="240" width="0" x="0" y="372"/>    
+    </execution>  
+  </object>  
+  <object id="26" language="java" name="fi.playerView.PlayerView" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/playerView/PlayerView.java" binary="false" label="playerView" type="class" 
+    autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="19">      
+      <position height="21" width="0" x="0" y="434"/>    
+    </execution>    
+    <execution id="21">      
+      <position height="21" width="0" x="0" y="486"/>    
+    </execution>    
+    <execution id="25">      
+      <position height="21" width="0" x="0" y="570"/>    
+    </execution>  
+  </object>  
+  <object id="27" language="java" name="java.util.ArrayList" project="ForbiddenIsland" 
+    file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" 
+    label="tilesPlayerCanMoveTo" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="7">      
+      <position height="21" width="0" x="0" y="141"/>    
+    </execution>    
+    <execution id="11">      
+      <position height="21" width="0" x="0" y="225"/>    
+    </execution>  
+  </object>  
+  <object id="28" language="java" name="fi.board.Board" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/Board.java" binary="false" label="&lt;static&gt;" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="9">      
+      <position height="21" width="0" x="0" y="183"/>    
+    </execution>  
+  </object>  
+  <object id="29" language="java" name="fi.board.Board" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/Board.java" binary="false" label="board" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="13">      
+      <position height="21" width="0" x="0" y="267"/>    
+    </execution>  
+  </object>  
+  <object id="30" language="java" name="fi.players.Player" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/players/Player.java" binary="false" label="player" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="15">      
+      <position height="21" width="0" x="0" y="309"/>    
+    </execution>    
+    <execution id="23">      
+      <position height="21" width="0" x="0" y="528"/>    
+    </execution>  
+  </object>  
+  <combined-fragment id="31" interaction-operator="OPT">    
+    <interaction-operand id="32" constraint="tilesPlayerCanMoveTo.isEmpty()">      
+      <fragment refId="18"/>    
+    </interaction-operand>  
+  </combined-fragment>  
+  <message id="3" operation="handlePlayerSunk():java.lang.Boolean" asynchronous="false">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="4"/>  
+  </message>  
+  <message id="6" operation="ArrayList()" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="7"/>  
+  </message>  
+  <message id="8" operation="getInstance():fi.board.Board" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="9"/>  
+  </message>  
+  <message id="10" operation="addAll(java.util.Collection&lt;? extends E&gt;):boolean" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="11"/>  
+  </message>  
+  <message id="12" operation="getTilesAroundTile(fi.enums.TileEnum,boolean):java.util.ArrayList&lt;TileEnum&gt;" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="13"/>  
+  </message>  
+  <message id="14" operation="getLocation():fi.enums.TileEnum" asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="15"/>  
+  </message>  
+  <message id="16" operation="moveFromSunk(java.util.ArrayList&lt;fi.enums.TileEnum&gt;):java.lang.Boolean" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="17"/>  
+  </message>  
+  <message id="18" operation="playerCantMove():void" asynchronous="false">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="19"/>  
+  </message>  
+  <message id="20" operation="tileToMoveFromSunk(java.util.ArrayList&lt;fi.enums.TileEnum&gt;):fi.enums.TileEnum" 
+    asynchronous="false">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="21"/>  
+  </message>  
+  <message id="22" operation="move(fi.enums.TileEnum):void" asynchronous="false">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="23"/>  
+  </message>  
+  <message id="24" operation="playerHasMoved():void" asynchronous="false">    
+    <end type="SOURCE" refId="17"/>    
+    <end type="TARGET" refId="25"/>  
+  </message>
+</sequence-diagram>

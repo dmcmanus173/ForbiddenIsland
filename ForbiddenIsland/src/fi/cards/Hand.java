@@ -69,7 +69,7 @@ public class Hand {
 			throw new RuntimeException("Attempting to add invalid card type to players hand.");
 		
 		allCards.add(card);
-		return !handIsFull(); //TODO changed this to !handIsFull because think it is more intuitive. ie True if addCard success
+		return !handIsFull(); 
 	}
 	
 	

@@ -3,6 +3,7 @@ package fi.gameView;
 import fi.board.Board;
 import fi.enums.TileEnum;
 import fi.game.GameOverObserver;
+import fi.game.GetInput;
 import fi.treasures.TreasureManager;
 import fi.watermeter.WaterMeter;
 
@@ -34,6 +35,32 @@ public class GameView {
     private GameView() {
     	
     }
+    
+    public void welcome() {
+		StringBuilder temp = new StringBuilder("");
+		temp.append("     ▄████████  ▄██████▄     ▄████████ ▀█████████▄   ▄█  ████████▄  ████████▄     ▄████████ ███▄▄▄▄     ");
+		temp.append("\n    ███    ███ ███    ███   ███    ███   ███    ███ ███  ███   ▀███ ███   ▀███   ███    ███ ███▀▀▀██▄ ");
+		temp.append("\n    ███    █▀  ███    ███   ███    ███   ███    ███ ███▌ ███    ███ ███    ███   ███    █▀  ███   ███ ");
+		temp.append("\n   ▄███▄▄▄     ███    ███  ▄███▄▄▄▄██▀  ▄███▄▄▄██▀  ███▌ ███    ███ ███    ███  ▄███▄▄▄     ███   ███ ");
+		temp.append("\n  ▀▀███▀▀▀     ███    ███ ▀▀███▀▀▀▀▀   ▀▀███▀▀▀██▄  ███▌ ███    ███ ███    ███ ▀▀███▀▀▀     ███   ███ ");
+		temp.append("\n    ███        ███    ███ ▀███████████   ███    ██▄ ███  ███    ███ ███    ███   ███    █▄  ███   ███ ");
+		temp.append("\n    ███        ███    ███   ███    ███   ███    ███ ███  ███   ▄███ ███   ▄███   ███    ███ ███   ███ ");
+		temp.append("\n    ███         ▀██████▀    ███    ███ ▄█████████▀  █▀   ████████▀  ████████▀    ██████████  ▀█   █▀  ");
+		temp.append("\n                            ███    ███                                                                ");
+		temp.append("\n                       ▄█     ▄████████  ▄█          ▄████████ ███▄▄▄▄   ████████▄                    ");
+		temp.append("\n                      ███    ███    ███ ███         ███    ███ ███▀▀▀██▄ ███   ▀███                   ");
+		temp.append("\n                      ███▌   ███    █▀  ███         ███    ███ ███   ███ ███    ███                   ");
+		temp.append("\n                      ███▌   ███        ███         ███    ███ ███   ███ ███    ███                   ");
+		temp.append("\n                      ███▌ ▀███████████ ███       ▀███████████ ███   ███ ███    ███                   ");
+		temp.append("\n                      ███           ███ ███         ███    ███ ███   ███ ███    ███                   ");
+		temp.append("\n                      ███     ▄█    ███ ███▌    ▄   ███    ███ ███   ███ ███   ▄███                   ");
+		temp.append("\n                      █▀    ▄████████▀  █████▄▄██   ███    █▀   ▀█   █▀  ████████▀                    ");
+		temp.append("\n                                        ▀                                                             ");
+		temp.append("\n"																									  );
+		System.out.println(temp);
+    }
+    
+    
 	
 	//===========================================================
     // Treasure stuff
@@ -64,6 +91,24 @@ public class GameView {
 	}
 	
 	//===========================================================
+    // WaterMeter
+    //===========================================================
+	public void waterMeterSetup() {
+		WaterMeter waterMeter = WaterMeter.getInstance();
+		int minLevel = waterMeter.getMinLevel();
+		int maxLevel = waterMeter.getMaxLevel();
+		System.out.println("Choose a number to set the WaterMeter Level ("+minLevel+"-"+maxLevel+") to:");
+		int chosenLevel = GetInput.getInstance().anInteger(minLevel, maxLevel);
+		waterMeter.setCurrentLevel(chosenLevel);
+		System.out.println("WaterMeter has been set. Level set to "+waterMeter.getCurrentLevel()+".\n");
+	}
+	
+	public void increasedWaterMeter() {
+		WaterMeter waterMeter = WaterMeter.getInstance();
+		System.out.println("The water meter has been increased to " + waterMeter.getCurrentLevel() + ". All players will now have to take " +  waterMeter.getCurrentLevel() + " FloodCards at the end of their go!");
+	}
+		
+	//===========================================================
     // Other
     //===========================================================
 	/**
@@ -87,11 +132,6 @@ public class GameView {
 	public void showMap() {
 		Board board = Board.getInstance();
 		System.out.println(board.toString());
-	}
-	
-	public void increasedWaterMeter() {
-		WaterMeter waterMeter = WaterMeter.getInstance();
-		System.out.println("The water meter has been increased to " + waterMeter.getCurrentLevel() + ". All players will now have to take " +  waterMeter.getCurrentLevel() + " FloodCards at the end of their go!");
 	}
 	
 	public void allHandsAreFull() {

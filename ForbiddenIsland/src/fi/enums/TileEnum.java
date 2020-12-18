@@ -80,20 +80,5 @@ public enum TileEnum {
 	public boolean hasTreasure() {
 		return this.hasTreasure;
 	}
-	
-	
-	
-	/*
-	// Class-level test
-	public static void main(String[] args) {
-		
-		for (TileEnum tile : TileEnum.values()) { 
-		    System.out.println(tile); 
-		}
-		
-	}
-	*/
-
-
 
 }
