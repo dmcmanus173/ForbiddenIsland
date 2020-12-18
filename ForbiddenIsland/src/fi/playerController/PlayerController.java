@@ -178,8 +178,8 @@ public abstract class PlayerController {
 		} else {
 			playerUsingSandbag = playerView.selectPlayerWithSandbag(playersWithSandbag);
 			tilesPlayerCanShoreUp.addAll(board.getAllFloodedTiles());
-			doAShoreUp(tilesPlayerCanShoreUp);
-			playerUsingSandbag.didUseSandBagCard();
+			if( doAShoreUp(tilesPlayerCanShoreUp) )
+				playerUsingSandbag.didUseSandBagCard();
 		}
 	}
 	
@@ -196,11 +196,13 @@ public abstract class PlayerController {
 			gameView.noFloodedTiles();
 			return false;
 		}
-		chosenTile = playerView.selectTileFromList(tilesPlayerCanShoreUp);
-		player.shoreUp(chosenTile);
+		else {
+			chosenTile = playerView.selectTileFromList(tilesPlayerCanShoreUp);
+			player.shoreUp(chosenTile);
 		
-		gameView.changeFloodStatus(chosenTile);
-		return true;
+			gameView.changeFloodStatus(chosenTile);
+			return true;
+		}
 	}
 
 	/**
@@ -323,10 +325,16 @@ public abstract class PlayerController {
 				playerView.noPlayersToHelicopterLift();
 			else {
 				tilesPlayersCanMoveTo = Board.getInstance().getUnsunkenTiles();
-				tileToMoveTo = playerView.selectTileFromList(tilesPlayersCanMoveTo);
-				for(Player player : playersToMove)
-					player.move(tileToMoveTo);
-				chosenPlayerWithHelicopterLift.didUseHelicopterLiftCard();
+				if(tilesPlayersCanMoveTo.isEmpty()) {
+					playerView.noTilesToMoveTo();
+					return;
+				}
+				else {
+					tileToMoveTo = playerView.selectTileFromList(tilesPlayersCanMoveTo);
+					for(Player player : playersToMove)
+						player.move(tileToMoveTo);
+					chosenPlayerWithHelicopterLift.didUseHelicopterLiftCard();
+				}
 			}
 		}
 	}
@@ -359,7 +367,7 @@ public abstract class PlayerController {
 		Card cardToDiscard;
 		ArrayList<Card> cardInHand = player.getCardsInPlayersHand();
 		
-		if(player.getCardsInPlayersHand().isEmpty())
+		if(cardInHand.isEmpty())
 			playerView.playerHasNoCards();
 		else {
 			cardToDiscard = playerView.selectCardFromList(cardInHand);
@@ -492,4 +500,189 @@ public abstract class PlayerController {
 		else
 			player.collectTreasureCard(card);
 	}
+	
+	
+	//===========================================================
+	// EDITED FUNCTIONS FOR UNIT TESTING
+	//===========================================================
+	/**
+	 * handleMove will manage movement of player during game.
+	 */
+	public void handleMoveUT() {
+		TileEnum chosenTile;
+		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
+		Board board = Board.getInstance();
+		tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(player.getLocation(), true));
+		if(tilesPlayerCanMoveTo.isEmpty()) {
+			// playerView.playerCantMove();
+			return;
+		}
+		else {
+			chosenTile = tilesPlayerCanMoveTo.get(0); //playerView.selectTileFromList(tilesPlayerCanMoveTo);
+			player.move(chosenTile);
+			//playerView.playerHasMoved();
+			decreaseRemainingActions();
+		}
+	}
+	
+	public Boolean getTurnHasEnded() {
+		return turnHasEnded;
+	}
+	
+	protected Boolean doAShoreUpUT(ArrayList<TileEnum> tilesPlayerCanShoreUp) {
+		TileEnum chosenTile;
+
+		if(tilesPlayerCanShoreUp.isEmpty()) {
+			gameView.noFloodedTiles();
+			return false;
+		}
+		else {
+			chosenTile = tilesPlayerCanShoreUp.get(0);//playerView.selectTileFromList(tilesPlayerCanShoreUp);
+			player.shoreUp(chosenTile);
+		
+			//gameView.changeFloodStatus(chosenTile);
+			return true;
+		}
+	}
+	
+	public void handleSandBagUT() {
+		ArrayList<Player> allPlayers = new ArrayList<Player>();//Players.getInstance().getPlayers();
+		allPlayers.add(player);
+		
+		ArrayList<Player> playersWithSandbag = new ArrayList<Player>();
+		Player playerUsingSandbag;
+		Board board = Board.getInstance();
+		ArrayList<TileEnum> tilesPlayerCanShoreUp = new ArrayList<TileEnum>();
+		
+		for(Player aPlayer : allPlayers) {
+			if(aPlayer.hasSandBagCard()) {
+				playersWithSandbag.add(aPlayer);
+				break;
+			}
+		}	
+		if(playersWithSandbag.isEmpty()) { 
+			return;
+			//playerView.noSandbagCards();
+		} 
+		else {
+			playerUsingSandbag = player; //playerView.selectPlayerWithSandbag(playersWithSandbag);
+			tilesPlayerCanShoreUp.addAll(board.getAllFloodedTiles());
+			if( doAShoreUpUT(tilesPlayerCanShoreUp) )
+				playerUsingSandbag.didUseSandBagCard();
+			//TODO remove card only if they use sandbag
+		}
+	}
+	
+	public void handleShoreUpUT() {
+		Board board = Board.getInstance();
+		ArrayList<TileEnum> tilesPlayerCanShoreUp = board.getTilesToShoreUpAround(player.getLocation());
+		Boolean didShoreUp = doAShoreUpUT(tilesPlayerCanShoreUp);
+		if(didShoreUp)
+			decreaseRemainingActions();
+	}
+	
+	public int getRemainingActions() {
+		return remainingActions;
+	}
+	
+	public void handleDiscardTreasureCardUT() {
+		Card cardToDiscard;
+		ArrayList<Card> cardInHand = player.getCardsInPlayersHand();
+		
+		if(player.getCardsInPlayersHand().isEmpty()) {
+			// playerView.playerHasNoCards();
+			return;
+		}
+		else {
+			cardToDiscard = cardInHand.get(0); //playerView.selectCardFromList(cardInHand);
+			player.discardCard(cardToDiscard);
+		}
+	}
+	
+	public void handleHelicopterLiftUT() {
+		//Players players = Players.getInstance();
+		//ArrayList<Player> allPlayers = players.getPlayers();
+		ArrayList<Player> allPlayers = new ArrayList<>();
+		allPlayers.add(player);
+		
+		ArrayList<Player> playersWithHelicopterLift = new ArrayList<Player>();
+		Player chosenPlayerWithHelicopterLift;
+		
+		ArrayList<TileEnum> tilesPlayersCanMoveTo = new ArrayList<TileEnum>();
+		TileEnum tileToMoveTo;
+		
+		// Get players with helicopter lift
+		for(Player aPlayer : allPlayers) {
+			if(aPlayer.hasHelicopterLiftCard()) {
+				playersWithHelicopterLift.add(aPlayer);
+				break;
+			}
+		}
+		// If no one has a helicopter lift
+		if(playersWithHelicopterLift.isEmpty()) {
+			return;
+			// playerView.noHelicopterLiftCards();
+		}
+		
+		// If someone has helicopter lift, check for win state
+		else if(playersDidWin()) {
+			gameOverObserver.playersWonGame();
+			endGo();
+			return;
+		}
+		
+		// Gotten use of a HelicopterLift Card
+		else {
+			chosenPlayerWithHelicopterLift = playersWithHelicopterLift.get(0); //playerView.choosePlayerWithHelicopterLift(playersWithHelicopterLift);
+			
+			//playerView.selectPlayerToMove();
+			ArrayList<Player> playersToMove = new ArrayList<>();
+			for (Player player : allPlayers) {
+				if(Boolean.TRUE) //playerView.selectThisPlayerToMove(player))
+					playersToMove.add(player);
+			}
+			if(playersToMove.isEmpty()) {
+				return;
+				// playerView.noPlayersToHelicopterLift();
+			}
+			else {
+				tilesPlayersCanMoveTo = Board.getInstance().getUnsunkenTiles();
+				if(tilesPlayersCanMoveTo.isEmpty()) {
+					// playerView.noTilesToMoveTo();
+					return;
+				}
+				else {
+					tileToMoveTo = tilesPlayersCanMoveTo.get(0); //playerView.selectTileFromList(tilesPlayersCanMoveTo);
+					for(Player player : playersToMove)
+						player.move(tileToMoveTo);
+					chosenPlayerWithHelicopterLift.didUseHelicopterLiftCard();
+				}
+			}
+		}
+	}
+	
+	protected Boolean moveFromSunkUT(ArrayList<TileEnum> tilesPlayerCanMoveTo) {
+		TileEnum chosenTile;
+		
+		if(tilesPlayerCanMoveTo.isEmpty()) {
+			//playerView.playerCantMove();
+			return false;
+		}
+		
+		chosenTile = tilesPlayerCanMoveTo.get(0); //playerView.tileToMoveFromSunk(tilesPlayerCanMoveTo);
+		player.move(chosenTile);
+		// playerView.playerHasMoved(); 
+		return true;
+	}
+	
+	public Boolean handlePlayerSunkUT() {
+		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
+		Board board = Board.getInstance();
+		
+		tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(player.getLocation(), false));
+		
+		return moveFromSunkUT(tilesPlayerCanMoveTo);
+	}
+	
+
 }
