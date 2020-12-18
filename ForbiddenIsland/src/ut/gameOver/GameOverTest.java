@@ -11,14 +11,15 @@ import org.junit.Test;
 import fi.board.TreasureTile;
 import fi.cards.Hand;
 import fi.cards.TreasureCard;
+import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
 import fi.game.GameOverObserver;
 import fi.treasures.TreasureManager;
 
 public class GameOverTest {
-	GameOverObserver gameOverObserver;
-	TreasureManager treasureManager;
+	private GameOverObserver gameOverObserver;
+	private TreasureManager treasureManager;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -86,6 +87,132 @@ public class GameOverTest {
 		windTreasureTile2.flood();
 		assertEquals("Sinking both treasure tiles associated with a given treasure that has been claimed caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
 	
+	}
+	
+	//=======================================================================
+    // Testing game over when treasure is unclaimed and treasure tiles sink
+    //=======================================================================
+	@Test
+	public void sunkenWindTreasureTilesWithoutClaimedTreasureTest() {
+		TreasureTile windTreasureTile1 = new TreasureTile(TileEnum.HOWLING_GARDEN);
+		TreasureTile windTreasureTile2 = new TreasureTile(TileEnum.WHISPERING_GARDEN);
+		treasureTileSinkWithoutClaimedTreasureFunction(windTreasureTile1, windTreasureTile2);
+	}
+	
+	@Test
+	public void sunkenFireTreasureTilesWithoutClaimedTreasureTest() {
+		TreasureTile windTreasureTile1 = new TreasureTile(TileEnum.CAVE_OF_EMBERS);
+		TreasureTile windTreasureTile2 = new TreasureTile(TileEnum.CAVE_OF_SHADOWS);
+		treasureTileSinkWithoutClaimedTreasureFunction(windTreasureTile1, windTreasureTile2);
+	}
+	
+	@Test
+	public void sunkenWaterTreasureTilesWithoutClaimedTreasureTest() {
+		TreasureTile windTreasureTile1 = new TreasureTile(TileEnum.CORAL_PALACE);
+		TreasureTile windTreasureTile2 = new TreasureTile(TileEnum.TIDAL_PALACE);
+		treasureTileSinkWithoutClaimedTreasureFunction(windTreasureTile1, windTreasureTile2);
+	}
+	
+	@Test
+	public void sunkenEarthTreasureTilesWithoutClaimedTreasureTest() {
+		TreasureTile windTreasureTile1 = new TreasureTile(TileEnum.TEMPLE_OF_THE_MOON);
+		TreasureTile windTreasureTile2 = new TreasureTile(TileEnum.TEMPLE_OF_THE_SUN);
+		treasureTileSinkWithoutClaimedTreasureFunction(windTreasureTile1, windTreasureTile2);
+	}
+	
+	//=======================================================================
+    // Testing game over when treasure is claimed and treasure tiles sink
+    //=======================================================================
+	@Test
+	public void sunkenWindTreasureTilesWithClaimedTreasureTest() {
+		TreasureTile windTreasureTile1 = new TreasureTile(TileEnum.HOWLING_GARDEN);
+		TreasureTile windTreasureTile2 = new TreasureTile(TileEnum.WHISPERING_GARDEN);
+		treasureTileSinkWithClaimedTreasureFunction(windTreasureTile1, windTreasureTile2);
+	}
+	
+	@Test
+	public void sunkenFireTreasureTilesWithClaimedTreasureTest() {
+		TreasureTile windTreasureTile1 = new TreasureTile(TileEnum.CAVE_OF_EMBERS);
+		TreasureTile windTreasureTile2 = new TreasureTile(TileEnum.CAVE_OF_SHADOWS);
+		treasureTileSinkWithClaimedTreasureFunction(windTreasureTile1, windTreasureTile2);
+	}
+	
+	@Test
+	public void sunkenWaterTreasureTilesWithClaimedTreasureTest() {
+		TreasureTile windTreasureTile1 = new TreasureTile(TileEnum.CORAL_PALACE);
+		TreasureTile windTreasureTile2 = new TreasureTile(TileEnum.TIDAL_PALACE);
+		treasureTileSinkWithClaimedTreasureFunction(windTreasureTile1, windTreasureTile2);
+	}
+	
+	@Test
+	public void sunkenEarthTreasureTilesWithClaimedTreasureTest() {
+		TreasureTile windTreasureTile1 = new TreasureTile(TileEnum.TEMPLE_OF_THE_MOON);
+		TreasureTile windTreasureTile2 = new TreasureTile(TileEnum.TEMPLE_OF_THE_SUN);
+		treasureTileSinkWithClaimedTreasureFunction(windTreasureTile1, windTreasureTile2);
+	}
+	
+	
+	//=======================================================================
+    // Helper functions
+    //=======================================================================
+	public void treasureTileSinkWithoutClaimedTreasureFunction(TreasureTile treasureTile1, TreasureTile treasureTile2) {
+		
+		assertEquals("Flood status should be Not Flooded", FloodStatusEnum.NOT_FLOODED, treasureTile1.getFloodStatus());
+		assertEquals("Expect 0 Tile to be Sunk for this treasure", 0, gameOverObserver.getNumSunkTreasures(treasureTile1.getTreasureType()));
+		
+		treasureTile1.flood();
+		assertEquals("Flood status should be Flooded", FloodStatusEnum.FLOODED, treasureTile1.getFloodStatus());
+		assertEquals("Expect 0 Tile to be Sunk for this treasure", 0, gameOverObserver.getNumSunkTreasures(treasureTile1.getTreasureType()));
+		assertEquals("Flooding a treasure tile should not cause the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
+		
+		treasureTile1.flood();
+		assertEquals("Flood status should be Sunken", FloodStatusEnum.SUNKEN, treasureTile1.getFloodStatus());
+		assertEquals("Expect 1 Tile to be Sunk for this treasure", 1, gameOverObserver.getNumSunkTreasures(treasureTile1.getTreasureType()));
+		assertEquals("Sinking a single treasure tile should not cause the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
+		
+		assertEquals("Flood status should be Not Flooded", FloodStatusEnum.NOT_FLOODED, treasureTile2.getFloodStatus());
+		assertEquals("Expect 1 Tile to be Sunk for this treasure", 1, gameOverObserver.getNumSunkTreasures(treasureTile2.getTreasureType()));
+		
+		treasureTile2.flood();
+		assertEquals("Flood status should be Flooded", FloodStatusEnum.FLOODED, treasureTile2.getFloodStatus());
+		assertEquals("Expect 1 Tile to be Sunk for this treasure", 1, gameOverObserver.getNumSunkTreasures(treasureTile2.getTreasureType()));
+		assertEquals("Flooding a treasure tile should not cause the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
+		
+		treasureTile2.flood();
+		assertEquals("Flood status should be Sunken", FloodStatusEnum.SUNKEN, treasureTile2.getFloodStatus());
+		assertEquals("Expect 2 Tile to be Sunk for this treasure", 2, gameOverObserver.getNumSunkTreasures(treasureTile2.getTreasureType()));
+		assertEquals("Sinking both treasure tiles associated with a given treasure that has not been claimed should end the game.", Boolean.TRUE, gameOverObserver.isGameOver());
+	}
+	
+	public void treasureTileSinkWithClaimedTreasureFunction(TreasureTile treasureTile1, TreasureTile treasureTile2) {
+		Hand hand = createHandWith(treasureTile1.getTreasureType(), 4);
+		treasureManager.claimTreasure(hand, treasureTile1.getTreasureType());
+		
+		assertEquals("Flood status should be Not Flooded", FloodStatusEnum.NOT_FLOODED, treasureTile1.getFloodStatus());
+		assertEquals("Expect 0 Tile to be Sunk for this treasure", 0, gameOverObserver.getNumSunkTreasures(treasureTile1.getTreasureType()));
+		
+		treasureTile1.flood();
+		assertEquals("Flood status should be Flooded", FloodStatusEnum.FLOODED, treasureTile1.getFloodStatus());
+		assertEquals("Expect 0 Tile to be Sunk for this treasure", 0, gameOverObserver.getNumSunkTreasures(treasureTile1.getTreasureType()));
+		assertEquals("Flooding a treasure tile should not cause the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
+		
+		treasureTile1.flood();
+		assertEquals("Flood status should be Sunken", FloodStatusEnum.SUNKEN, treasureTile1.getFloodStatus());
+		assertEquals("Expect 1 Tile to be Sunk for this treasure", 1, gameOverObserver.getNumSunkTreasures(treasureTile1.getTreasureType()));
+		assertEquals("Sinking a single treasure tile should not cause the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
+		
+		assertEquals("Flood status should be Not Flooded", FloodStatusEnum.NOT_FLOODED, treasureTile2.getFloodStatus());
+		assertEquals("Expect 1 Tile to be Sunk for this treasure", 1, gameOverObserver.getNumSunkTreasures(treasureTile2.getTreasureType()));
+		
+		treasureTile2.flood();
+		assertEquals("Flood status should be Flooded", FloodStatusEnum.FLOODED, treasureTile2.getFloodStatus());
+		assertEquals("Expect 1 Tile to be Sunk for this treasure", 1, gameOverObserver.getNumSunkTreasures(treasureTile2.getTreasureType()));
+		assertEquals("Flooding a treasure tile should not cause the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
+		
+		treasureTile2.flood();
+		assertEquals("Flood status should be Sunken", FloodStatusEnum.SUNKEN, treasureTile2.getFloodStatus());
+		assertEquals("Expect 2 Tile to be Sunk for this treasure", 2, gameOverObserver.getNumSunkTreasures(treasureTile2.getTreasureType()));
+		assertEquals("Sinking both treasure tiles associated with a given treasure that has been claimed should not end the game.", Boolean.FALSE, gameOverObserver.isGameOver());
 	}
 	
 	public Hand createHandWith(TreasureEnum treasureType, int numCards) {
