@@ -2,17 +2,23 @@ package ut.gameOver;
 
 import static org.junit.Assert.*;
 
+import java.util.Map;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import fi.board.Board;
 import fi.board.FoolsLandingTile;
 import fi.board.Tile;
 import fi.board.TreasureTile;
 import fi.cards.Hand;
+import fi.cards.HelicopterLiftCard;
 import fi.cards.TreasureCard;
 import fi.enums.AdventurerEnum;
 import fi.enums.FloodStatusEnum;
@@ -103,10 +109,35 @@ public class GameOverTest {
 	
 	
 	//=======================================================================
+    // Testing game over for win condition.
+    //=======================================================================
+	@Test
+	public void playersLeaveFoolsLandingTileWithAllClaimedTreasuresTest() {
+		Player player1 = new Player("player1", AdventurerEnum.NAVIGATOR);
+		Player player2 = new Player("player2", AdventurerEnum.MESSENGER);
+		HelicopterLiftCard helicopterLiftCard = new HelicopterLiftCard();
+		NavigatorController player1Controller = new NavigatorController(player1);
+		
+		makePlayerClaimAllTreasures(player1);
+		
+		player1.collectTreasureCard(helicopterLiftCard);
+		assertTrue("Player 1 should have a helicopter lift card.", player1.hasHelicopterLiftCard());
+		
+		player1.move(TileEnum.FOOLS_LANDING);
+		assertEquals("Player 1 should be on the fools landing tile.", TileEnum.FOOLS_LANDING, player1.getLocation());
+		player2.move(TileEnum.FOOLS_LANDING);
+		assertEquals("Player 2 should be on the fools landing tile.", TileEnum.FOOLS_LANDING, player2.getLocation());
+		
+		player1Controller.handleHelicopterLiftUT();
+		assertEquals("The players should have met all conditions rewuired to win/end game", Boolean.TRUE, gameOverObserver.isGameOver());
+	}
+	
+	
+	//=======================================================================
     // Testing game over when player cannot move from sunken tile
     //=======================================================================
 	@Test
-	public void handlePlayerSunkCanNotMoveTest() {
+	public void playerSunkCanNotMoveTest() {
 		Player player = new Player("player1", AdventurerEnum.NAVIGATOR);
 		NavigatorController playerController = new NavigatorController(player);
 		
@@ -284,6 +315,28 @@ public class GameOverTest {
 			 hand.addCard(new TreasureCard(treasureType));
 		 }
 		return hand;
+	}
+	
+	public void makePlayerClaimAllTreasures(Player player) {
+		int numberOfTreasureCardsRequiredToCollectTreasure = 4;
+		Map<TreasureEnum, TileEnum> treasureTileMap = new HashMap<TreasureEnum, TileEnum>();
+		treasureTileMap.put(TreasureEnum.THE_CRYSTAL_OF_FIRE, TileEnum.CAVE_OF_EMBERS);
+		treasureTileMap.put(TreasureEnum.THE_EARTH_STONE, TileEnum.TEMPLE_OF_THE_MOON);
+		treasureTileMap.put(TreasureEnum.THE_OCEANS_CHALICE, TileEnum.CORAL_PALACE);
+		treasureTileMap.put(TreasureEnum.THE_STATUE_OF_WIND, TileEnum.HOWLING_GARDEN);
+		
+		
+		for(TreasureEnum treasureType: treasureTileMap.keySet()) {
+		    for(int i = 0; i < numberOfTreasureCardsRequiredToCollectTreasure; i++) {
+		    	player.collectTreasureCard(new TreasureCard(treasureType));
+			}
+			player.move(treasureTileMap.get(treasureType));
+			assertEquals("The players location should have changed.", treasureTileMap.get(treasureType), player.getLocation());
+			player.collectTreasure();
+			assertTrue("The Treasure should be claimed.", treasureManager.didClaimTreasure(treasureType));
+		}
+		
+		assertTrue("All Treasures should be claimed.", treasureManager.didClaimAllTreasures());		
 	}
 
 }
