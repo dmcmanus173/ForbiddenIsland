@@ -676,12 +676,17 @@ public abstract class PlayerController {
 	}
 	
 	public Boolean handlePlayerSunkUT() {
+		boolean playerDidMove;
 		ArrayList<TileEnum> tilesPlayerCanMoveTo = new ArrayList<TileEnum>();
 		Board board = Board.getInstance();
 		
 		tilesPlayerCanMoveTo.addAll(board.getTilesAroundTile(player.getLocation(), false));
+		playerDidMove = moveFromSunkUT(tilesPlayerCanMoveTo);
 		
-		return moveFromSunkUT(tilesPlayerCanMoveTo);
+		if(!playerDidMove) {
+			GameOverObserver.getInstance().sunkenPlayerCanNotMove();
+		}
+		return playerDidMove;
 	}
 	
 

@@ -8,15 +8,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import fi.board.Board;
 import fi.board.FoolsLandingTile;
 import fi.board.Tile;
 import fi.board.TreasureTile;
 import fi.cards.Hand;
 import fi.cards.TreasureCard;
+import fi.enums.AdventurerEnum;
 import fi.enums.FloodStatusEnum;
 import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
 import fi.game.GameOverObserver;
+import fi.playerController.NavigatorController;
+import fi.players.Player;
 import fi.treasures.TreasureManager;
 import fi.watermeter.WaterMeter;
 
@@ -24,6 +28,7 @@ public class GameOverTest {
 	private GameOverObserver gameOverObserver;
 	private TreasureManager treasureManager;
 	private WaterMeter waterMeter;
+	private Board board;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -38,6 +43,7 @@ public class GameOverTest {
 		gameOverObserver = GameOverObserver.getInstance();
 		treasureManager = TreasureManager.getInstance();
 		waterMeter = WaterMeter.getInstance();
+		board = Board.getInstance();
 		System.out.println("SetUp");
 	}
 
@@ -45,6 +51,8 @@ public class GameOverTest {
 	public void tearDown() throws Exception {
 		gameOverObserver.destroy();
 		treasureManager.destroy();
+		waterMeter.destroy();
+		board.destroy();
 		System.out.println("Tear down");
 	}
 
@@ -91,6 +99,25 @@ public class GameOverTest {
 		windTreasureTile2.flood();
 		assertEquals("Sinking both treasure tiles associated with a given treasure that has been claimed caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
 	
+	}
+	
+	
+	//=======================================================================
+    // Testing game over when player cannot move from sunken tile
+    //=======================================================================
+	@Test
+	public void handlePlayerSunkCanNotMoveTest() {
+		Player player = new Player("player1", AdventurerEnum.NAVIGATOR);
+		NavigatorController playerController = new NavigatorController(player);
+		
+		for(TileEnum tileEnum : TileEnum.values()) {
+			board.floodTile(tileEnum);
+			board.floodTile(tileEnum);
+		}
+		
+		// TODO: MIGHT NEED TO MODIFY CODE TO REFLECT TESTING.
+		playerController.handlePlayerSunkUT();
+		assertEquals("The player having nowhere to move after sinking should make the game to be over.", Boolean.TRUE, gameOverObserver.isGameOver());
 	}
 	
 	//=======================================================================
