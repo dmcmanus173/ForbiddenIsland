@@ -18,10 +18,12 @@ import fi.enums.TileEnum;
 import fi.enums.TreasureEnum;
 import fi.game.GameOverObserver;
 import fi.treasures.TreasureManager;
+import fi.watermeter.WaterMeter;
 
 public class GameOverTest {
 	private GameOverObserver gameOverObserver;
 	private TreasureManager treasureManager;
+	private WaterMeter waterMeter;
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -35,8 +37,8 @@ public class GameOverTest {
 	public void setUp() throws Exception {
 		gameOverObserver = GameOverObserver.getInstance();
 		treasureManager = TreasureManager.getInstance();
+		waterMeter = WaterMeter.getInstance();
 		System.out.println("SetUp");
-
 	}
 
 	@After
@@ -89,6 +91,21 @@ public class GameOverTest {
 		windTreasureTile2.flood();
 		assertEquals("Sinking both treasure tiles associated with a given treasure that has been claimed caused the game to end.", Boolean.FALSE, gameOverObserver.isGameOver());
 	
+	}
+	
+	//=======================================================================
+    // Testing game over when WaterMeter reaches maximum level
+    //=======================================================================
+	@Test
+	public void waterMeterMaxTestTest() {
+		while(waterMeter.getCurrentLevel() < waterMeter.getGameOverLevel()) {
+			waterMeter.increaseWaterMeter();
+			if(waterMeter.getCurrentLevel() == waterMeter.getGameOverLevel()) {
+				assertEquals("The game should end if the water level has reached it's maximum", Boolean.TRUE, gameOverObserver.isGameOver());
+			} else {
+				assertEquals("The game should not end if the water level has not reached it's maximum", Boolean.FALSE, gameOverObserver.isGameOver());
+			}
+		}
 	}
 	
 	//=======================================================================
