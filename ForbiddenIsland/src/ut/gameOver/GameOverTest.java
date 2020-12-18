@@ -2,20 +2,17 @@ package ut.gameOver;
 
 import static org.junit.Assert.*;
 
-import java.util.Map;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.HashMap;
 
 import fi.board.Board;
 import fi.board.FoolsLandingTile;
-import fi.board.Tile;
 import fi.board.TreasureTile;
 import fi.cards.Hand;
 import fi.cards.HelicopterLiftCard;
