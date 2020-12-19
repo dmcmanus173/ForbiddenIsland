@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_XoRI0EIbEeuQo-mffxqC3Q" name="useCase">
+  <ownedComment xmi:type="uml:Comment" xmi:id="_F7PJkEIfEeuQo-mffxqC3Q">
+    <body>PlayerController</body>
+  </ownedComment>
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_XxMbUEIbEeuQo-mffxqC3Q">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_783jUEIbEeuQo-mffxqC3Q" name="Player"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_8jh6sEIbEeuQo-mffxqC3Q" name="Other Player"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_9YksUEIbEeuQo-mffxqC3Q" name="Board"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_FiUaoEIcEeuQo-mffxqC3Q" name="TreasureManager"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_F4rFIEIcEeuQo-mffxqC3Q" name="TreasureDeck"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_GTmtoEIcEeuQo-mffxqC3Q" name="FloodDeck"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_TSJAoEIcEeuQo-mffxqC3Q" name="PlayerView"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_Ts9UYEIcEeuQo-mffxqC3Q" name="GameView"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_dx-ckEIcEeuQo-mffxqC3Q" name="move to tile">
+    <include xmi:type="uml:Include" xmi:id="_q25ZgEIeEeuQo-mffxqC3Q" addition="_eeJwoEIdEeuQo-mffxqC3Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_gQBMUEIcEeuQo-mffxqC3Q" name="shore up tile"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_iiI_8EIcEeuQo-mffxqC3Q" name="give a treasure card"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_kjvrUEIcEeuQo-mffxqC3Q" name="capture a treasure"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_mMoUsEIcEeuQo-mffxqC3Q" name="use a helicopter lift card">
+    <include xmi:type="uml:Include" xmi:id="_tt74EEIeEeuQo-mffxqC3Q" addition="_eeJwoEIdEeuQo-mffxqC3Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_rMN0IEIcEeuQo-mffxqC3Q" name="show treasure cards"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_xhaboEIcEeuQo-mffxqC3Q" name="discard a treasure card"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_8j7G0EIcEeuQo-mffxqC3Q" name="use a sandbag card">
+    <include xmi:type="uml:Include" xmi:id="_r58K4EIeEeuQo-mffxqC3Q" addition="_eeJwoEIdEeuQo-mffxqC3Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_GS0OAEIdEeuQo-mffxqC3Q" name="show claimed treasures"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_JmFVkEIdEeuQo-mffxqC3Q" name="end go">
+    <include xmi:type="uml:Include" xmi:id="_g-JLsEIeEeuQo-mffxqC3Q" addition="_L8OGgEIdEeuQo-mffxqC3Q"/>
+    <include xmi:type="uml:Include" xmi:id="_jExhAEIeEeuQo-mffxqC3Q" addition="_OpchwEIdEeuQo-mffxqC3Q"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_L8OGgEIdEeuQo-mffxqC3Q" name="draw treasure cards"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_OpchwEIdEeuQo-mffxqC3Q" name="draw flood cards"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_eeJwoEIdEeuQo-mffxqC3Q" name="get tiles player can move to."/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_Gf_48EIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_H8BLAEIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_JeOkoEIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_L9O9sEIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_NVnF4EIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_QyQy8EIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_S4LWkEIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_UdtJ8EIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_WSb28EIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_YGWEkEIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_vVV6wEIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_xWAK8EIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_y_gfYEIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_0q7fYEIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_2Z14QEIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_4YIJ4EIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_6h-LQEIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_-1en0EIeEeuQo-mffxqC3Q"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_BCdcwEIfEeuQo-mffxqC3Q"/>
+</uml:Model>
