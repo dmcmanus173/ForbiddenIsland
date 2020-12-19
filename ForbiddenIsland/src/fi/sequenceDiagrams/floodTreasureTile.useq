@@ -1,57 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sequence-diagram version="1.2.4" icons="true" automaticImage="PNG" generate-combined-fragments="true">  
-  <object id="1" language="java" name="fi.board.TreasureTile" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/fi/board/TreasureTile.java" binary="false" label="treasureTile" type="class" 
-    autoSize="true">    
-    <position height="-1" width="-1" x="311" y="0"/>    
+  <object id="1" language="java" name="fi.board.Board" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/Board.java" binary="false" label="board" type="class" autoSize="true">    
+    <position height="-1" width="-1" x="287" y="0"/>    
     <execution id="2">      
-      <position height="407" width="106" x="5" y="111"/>    
-    </execution>    
-    <execution id="4">      
-      <position height="344" width="106" x="5" y="153"/>    
+      <position height="391" width="64" x="5" y="99"/>    
     </execution>  
   </object>  
-  <object id="9" language="java" name="fi.game.GameOverObserver" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/fi/game/GameOverObserver.java" binary="false" label="&lt;static&gt;" type="class" 
+  <object id="5" language="java" name="fi.board.TreasureTile" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/board/TreasureTile.java" binary="false" label="treasureTile" type="class" 
     autoSize="true">    
-    <position height="0" width="0" x="0" y="0"/>    
-    <execution id="6">      
-      <position height="21" width="0" x="0" y="215"/>    
+    <position height="-1" width="-1" x="315" y="0"/>    
+    <execution id="4">      
+      <position height="349" width="106" x="73" y="120"/>    
     </execution>  
   </object>  
   <object id="10" language="java" name="fi.game.GameOverObserver" project="ForbiddenIsland" 
-    file="/ForbiddenIsland/src/fi/game/GameOverObserver.java" binary="false" type="class" autoSize="true">    
+    file="/ForbiddenIsland/src/fi/game/GameOverObserver.java" binary="false" label="&lt;static&gt;" type="class" 
+    autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
-    <execution id="8">      
-      <position height="219" width="0" x="0" y="257"/>    
-    </execution>    
-    <execution id="12">      
-      <position height="21" width="0" x="0" y="299"/>    
-    </execution>    
-    <execution id="16">      
-      <position height="21" width="0" x="0" y="434"/>    
+    <execution id="7">      
+      <position height="21" width="0" x="0" y="187"/>    
     </execution>  
   </object>  
-  <object id="17" language="java" name="java.util.Map" project="ForbiddenIsland" 
+  <object id="11" language="java" name="fi.game.GameOverObserver" project="ForbiddenIsland" 
+    file="/ForbiddenIsland/src/fi/game/GameOverObserver.java" binary="false" type="class" autoSize="true">    
+    <position height="0" width="0" x="0" y="0"/>    
+    <execution id="9">      
+      <position height="219" width="0" x="0" y="229"/>    
+    </execution>    
+    <execution id="13">      
+      <position height="21" width="0" x="0" y="271"/>    
+    </execution>    
+    <execution id="17">      
+      <position height="21" width="0" x="0" y="406"/>    
+    </execution>  
+  </object>  
+  <object id="18" language="java" name="java.util.Map" project="ForbiddenIsland" 
     file="/Library/Java/JavaVirtualMachines/jdk-11.0.8.jdk/Contents/Home/lib/jrt-fs.jar" binary="true" 
     label="numSunkenTilesForTreasure" type="interface" autoSize="true">    
     <position height="0" width="0" x="0" y="0"/>    
-    <execution id="14">      
-      <position height="21" width="0" x="0" y="330"/>    
+    <execution id="15">      
+      <position height="21" width="0" x="0" y="302"/>    
     </execution>  
   </object>  
-  <combined-fragment id="18" interaction-operator="OPT">    
-    <interaction-operand id="19" constraint="super.flood() == FloodStatusEnum.SUNKEN">      
-      <fragment refId="11"/>      
-      <fragment refId="13"/>      
-      <fragment refId="20"/>      
-      <fragment refId="5"/>      
-      <fragment refId="7"/>    
+  <combined-fragment id="19" interaction-operator="OPT">    
+    <interaction-operand id="20" constraint="super.flood() == FloodStatusEnum.SUNKEN">      
+      <fragment refId="12"/>      
+      <fragment refId="6"/>      
+      <fragment refId="21"/>      
+      <fragment refId="14"/>      
+      <fragment refId="8"/>    
     </interaction-operand>    
-    <combined-fragment id="20" interaction-operator="OPT">      
-      <interaction-operand id="21" 
+    <combined-fragment id="21" interaction-operator="OPT">      
+      <interaction-operand id="22" 
         constraint="(numSunkenTreasureTilesForTreasure == MAX_NUM_OF_TREASURE_TILES_TO_SINK) &amp;&amp; (!TreasureManager.getInstance().didClaimTreasure(treasureType))">        
-        <fragment refId="15"/>      
+        <fragment refId="16"/>      
       </interaction-operand>    
     </combined-fragment>  
   </combined-fragment>  
@@ -59,25 +63,25 @@
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="4"/>  
   </message>  
-  <message id="5" operation="getInstance():fi.game.GameOverObserver" asynchronous="false">    
+  <message id="6" operation="getInstance():fi.game.GameOverObserver" asynchronous="false">    
     <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="6"/>  
+    <end type="TARGET" refId="7"/>  
   </message>  
-  <message id="7" operation="treasureTileDidSink(fi.enums.TreasureEnum):void" asynchronous="false">    
+  <message id="8" operation="treasureTileDidSink(fi.enums.TreasureEnum):void" asynchronous="false">    
     <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="8"/>  
+    <end type="TARGET" refId="9"/>  
   </message>  
-  <message id="11" operation="increaseNumberOfTreasureTilesSunkenForTreasure(fi.enums.TreasureEnum):void" 
+  <message id="12" operation="increaseNumberOfTreasureTilesSunkenForTreasure(fi.enums.TreasureEnum):void" 
     asynchronous="false">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="12"/>  
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="13"/>  
   </message>  
-  <message id="13" operation="get(java.lang.Object):V" asynchronous="false">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="14"/>  
+  <message id="14" operation="get(java.lang.Object):V" asynchronous="false">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="15"/>  
   </message>  
-  <message id="15" operation="setGameLose():void" asynchronous="false">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="16"/>  
+  <message id="16" operation="setGameLose():void" asynchronous="false">    
+    <end type="SOURCE" refId="9"/>    
+    <end type="TARGET" refId="17"/>  
   </message>
 </sequence-diagram>
