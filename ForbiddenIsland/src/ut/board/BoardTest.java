@@ -12,10 +12,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.Set;
-import java.util.HashMap;
-import java.util.HashSet;
 
 import fi.board.Board;
 import fi.board.Tile;
@@ -29,7 +25,6 @@ import fi.players.Player;
  *
  */
 public class BoardTest {
-	private static TileEnum tileName;
 	private Board board;
 
 	/**
@@ -81,9 +76,7 @@ public class BoardTest {
 	
 	@Test
 	public void getTilesAroundTest() {
-		
-		//TODO: TEST SUGGEST THAT WE MIGN NEED TO REFACTOR METHOD - split into diagonal and adjacent.
-		// This is based on the positional layout of the board as printed for clarity.
+
 		TileEnum nameOfTileWith2AdjacentAnd3DiagonalTiles = board.getIslandTiles().get(2).getTileName();
 		TileEnum nameOfTileWith4AdjacentAnd3DiagonalTiles = board.getIslandTiles().get(4).getTileName();
 		ArrayList<TileEnum> tilesAroundTile;
@@ -121,7 +114,6 @@ public class BoardTest {
 	public void getTilesToShoreUpAroundTest() {
 		TileEnum nameOfTileWithFourAdjacentTiles = board.getIslandTiles().get(9).getTileName();
 		ArrayList<TileEnum> tilesToShoreUp;
-		ArrayList<TileEnum> tilesAroundTile;
 		
 		tilesToShoreUp = board.getTilesToShoreUpAround(nameOfTileWithFourAdjacentTiles);
 		assertTrue("There should be no tiles to shore up once the board is created.", tilesToShoreUp.isEmpty());
@@ -159,7 +151,6 @@ public class BoardTest {
 	public void movingPlayerOnBoardTest() {		
 		Player player;
 		TileEnum nameOfPlayerStartingTile;
-		Tile tileWithPlayer;
 		
 		player = new Player("Demi", AdventurerEnum.DIVER);
 		nameOfPlayerStartingTile = AdventurerEnum.DIVER.getStartingTileName();
