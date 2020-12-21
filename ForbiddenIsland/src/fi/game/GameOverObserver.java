@@ -63,10 +63,19 @@ public class GameOverObserver {
   		}
     }
     
+    /**
+     * isGameOver method returns a boolean describing if the game is over.
+     * @return boolean describing if the game is over.
+     */
     public boolean isGameOver() {
     	return gameOver;
     }
     
+    /**
+     * treasureTileDidSink called to update the number of sunken treasure tiles
+     * for a given tile and sets gameOver equal to true if criteria is met.
+     * @param TreasureEnum describing the treasure associated to the sunken tile.
+     */
     public void treasureTileDidSink(TreasureEnum treasureType) {
 		increaseNumberOfTreasureTilesSunkenForTreasure(treasureType);
 		int numSunkenTreasureTilesForTreasure = numSunkenTilesForTreasure.get(treasureType);
@@ -76,42 +85,74 @@ public class GameOverObserver {
 		}
 	}
     
+    /**
+     * FoolsLandingTileDidSink method called to set 
+     * gameOver equal to true and save the reason as a loss.
+     */
     public void FoolsLandingTileDidSink() {
     	setGameLose();
     	gameOverReason += SUNKEN_FOOLS_LANDING_TILE;
 	}
     
+    /**
+     * sunkenPlayerCanNotMove method called to set 
+     * gameOver equal to true and save the reason as a loss.
+     */
     public void sunkenPlayerCanNotMove() {
     	setGameLose();
     	gameOverReason += SUNKEN_PLAYER;
     }
     
+    /**
+     * waterMeterIsFull method called to set 
+     * gameOver equal to true and save the reason as a loss.
+     */
     public void waterMeterIsFull() {
     	setGameLose();
     	gameOverReason += WATER_METER_MAX;
 	}
     
+    /**
+     * playersWonGame method called to set 
+     * gameOver equal to true and save the reason as a win.
+     */
     public void playersWonGame() {
     	setGameWin();
 	}
     
+    /**
+     * private setGameLose method called to set 
+     * gameOver equal to true for all loosing conditions.
+     */
     private void setGameLose() {
     	if (!gameOver)
     		gameOverReason += YOU_LOSE;
     	gameOver = true;
     }
     
+    /**
+     * private setGameWin method called to set 
+     * gameOver equal to true for wining condition.
+     */
     private void setGameWin() {
     	gameOverReason += YOU_WIN;
     	gameOverReason += PLAYERS_DID_ESCAPE_WITH_TREASURE;
     	gameOver = true;
     }
     
+    /**
+     * private increaseNumberOfTreasureTilesSunkenForTreasure method called 
+     * to update the number of sunken treasures for a given treasure type.
+     */
     private void increaseNumberOfTreasureTilesSunkenForTreasure(TreasureEnum treasureType) {
 		int currentNumberOfSunkenTreasureTilesForTreasure = numSunkenTilesForTreasure.get(treasureType);
 		numSunkenTilesForTreasure.replace(treasureType, currentNumberOfSunkenTreasureTilesForTreasure + 1);
 	}
     
+    /**
+     * toString method called returns the reason for game over.
+     * @param String describing the reason the game is over.
+     */
     @Override
     public String toString() {
     	return gameOverReason;
