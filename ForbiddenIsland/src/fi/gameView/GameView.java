@@ -82,7 +82,7 @@ public class GameView {
     // Tile stuff
     //===========================================================
 	public void noFloodedTiles() {
-		System.out.println("There are no flooded tiles on the board!");
+		System.out.println("There are no flooded tiles adjacent to player!");
 	}
 	
 	public void changeFloodStatus(TileEnum tileEnum) {
