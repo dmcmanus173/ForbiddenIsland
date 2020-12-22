@@ -50,3 +50,12 @@ Examples:
 "TM 2" - Temple of the Moon, Not Flooded.
 "IG 1" - Iron Gate, Flooded.
 "PR 0" - Phantom Rock, Sunken.
+
+
+To win the game:
+    -Collect all treasures and use the helicopter lift card to move all players from Fool's Landing.
+
+To lose the game:
+    - Fool's landing sinks.
+    - Two treasure tiles sink without the associated treasure being collected.
+    - A player has nowhere to move from a sunk island.
